@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 2 · What Do We Use Robots For? — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="2">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">02</div>
+        <div>
+          <p class="chead__eyebrow">Unit 1 · Robots in our world</p>
+          <h1 class="chead__title">What Do We Use Robots For?</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What you'll learn:</strong> what actually makes a machine a <em>robot</em>, the five parts every robotic system shares (and where each one lives on your EXP robot), how engineers describe a robot's reach and senses, and how to research one class of robot and teach it to the class.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>What counts as a robot?</h2>
+      <p>A washing machine spins, a toaster heats, a drone flies — but which of them are <em>robots</em>? The most useful test is a loop: a robot <strong>senses</strong> its surroundings, <strong>decides</strong> what to do using a program, and <strong>acts</strong> on the physical world — then senses the result and goes around again. A toaster acts but never senses; it runs its timer whether or not your toast is on fire. A robot vacuum, on the other hand, detects a wall, decides to turn, drives a new direction, and checks again. That sense → decide → act loop is the heart of every robot you'll study — and every robot you'll build in this course.</p>
+      <p>Closely related is <strong>automation</strong>: making a process run with little or no human help. Not everything automated is a robot (a lawn-sprinkler timer is automation with no sensing), and not every robot is fully automatic — many are <strong>teleoperated</strong>, meaning a human drives them from a distance, the way surgeons guide a surgical robot or you'll drive your EXP robot with a controller in the Driver Control chapter. Between "human drives everything" and "robot decides everything" is a whole spectrum, and most real robots live somewhere in the middle.</p>
+
+      <h2>The three Ds: dirty, dangerous, and dull</h2>
+      <p>Robots earned their place in the world by taking the jobs people <em>shouldn't</em> have to do. Engineers call them the <strong>three Ds</strong>:</p>
+      <ul>
+        <li><strong>Dirty</strong> — work in places too contaminated or unpleasant for people. Some of the first robotic manipulators were built in the 1940s so workers could handle radioactive materials from behind shielding.</li>
+        <li><strong>Dangerous</strong> — bomb disposal, deep-sea and volcano exploration, search through collapsed buildings, and other places where sending a machine risks no one's life.</li>
+        <li><strong>Dull</strong> — repetitive work like welding the same seam or moving the same part thousands of times a day. The first industrial robot, installed on an auto assembly line in the early 1960s, did exactly this: it picked up an object and set it down in a new location, over and over, perfectly.</li>
+      </ul>
+      <p>From those beginnings — and an explosion of robotic innovation in Japan in the 1970s — robots became permanent members of the industrial workforce: parts handling, welding, painting. Today the list is much longer: robots assist in surgery, vacuum floors and mow lawns, carry shelves around warehouses, deliver packages by air, and explore other planets where no human has yet stood. In this chapter your team picks <em>one</em> class of robot, digs into how it really works, and teaches the rest of the class about it.</p>
+
+      <h2>The five parts of a robotic system</h2>
+      <p>Underneath the huge variety — a welding arm, a Mars rover, a robot vacuum — every robotic system has the same five main parts:</p>
+      <ol>
+        <li><strong>Controller</strong> — the robot's brain: a computer that runs the show and tells every other part what to do.</li>
+        <li><strong>Program</strong> — the instructions the controller follows. Without a program, the controller is a brain with no thoughts.</li>
+        <li><strong>Manipulator</strong> — the parts that provide movement, often resembling a human arm or torso: the joints, links, and the drivetrain or base they ride on.</li>
+        <li><strong>End effector</strong> — the robot's "hand," mounted at the end of the manipulator: a gripper, a welding torch, a suction cup, a scalpel holder, a scoop.</li>
+        <li><strong>Power supply</strong> — the energy source. Electric batteries are the most common, but industrial robots may run on <em>hydraulic</em> (pressurized fluid) or <em>pneumatic</em> (compressed air) power for heavy lifting.</li>
+      </ol>
+      <p>Here's the payoff: <strong>the robot on your desk has all five.</strong> The <strong>EXP Brain</strong> is the controller; the <strong>C++ program</strong> you'll write in VS Code is the program; the chassis, motors, and arm you bolt together are the manipulator; the claw at the end is the end effector; and the <strong>EXP Battery</strong> that clicks into the Brain is the power supply. When you research a million-dollar industrial robot this week, you're looking at a scaled-up version of the machine you'll build this semester.</p>
+
+      <div class="card card--note">
+        <p><strong>Watch the word "controller" — it means two different things.</strong> In a <em>robotic system</em>, the controller is the robot's onboard brain. But in VEX, the <strong>EXP Controller</strong> is the handheld remote you drive with. On your robot, the robotic-system "controller" is the <strong>EXP Brain</strong>; the handheld Controller is just one way of sending it input. Keep the two straight and the vocabulary in this unit will never trip you.</p>
+      </div>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/15034994190228-Building-with-VEX-EXP" target="_blank" rel="noopener">Building with VEX EXP</a> — tour the EXP Brain, Battery, and Controller and see how they connect</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4414780904468-Wirelessly-Pairing-an-EXP-Controller-to-an-EXP-Brain" target="_blank" rel="noopener">Wirelessly Pairing an EXP Controller to an EXP Brain</a> — how the handheld Controller talks to the Brain</li>
+        </ul>
+      </div>
+
+      <h2>Reach: degrees of freedom and the work envelope</h2>
+      <p>Hold your arm out and count the ways it can move: your shoulder swings forward/back, side to side, and rotates; your elbow bends; your wrist tilts, waves, and twists. Each independent direction of movement is a <strong>degree of freedom</strong>, and your arm has seven — which is why you can reach the same doorknob from a dozen different angles.</p>
+      <p>Robot arms are described the same way. Each flexible joint adds a degree of freedom, and most industrial robot arms have at least six, enough to put their end effector in any position <em>and</em> any orientation within reach. More degrees of freedom means more flexibility — and a harder programming problem, since the program must coordinate every joint.</p>
+      <p>The space a robot's arm can actually reach is called its <strong>work envelope</strong> — an invisible bubble around the robot, with a size and shape set by the length of its links and its degrees of freedom. The work envelope matters for two big reasons: a part placed outside the envelope simply cannot be touched, and a <em>person</em> standing inside the envelope of a fast industrial arm is in danger, which is why factory robots often work inside cages or behind light curtains. When you research your robot, find its work envelope: where can it reach, and what's kept out of that space?</p>
+
+      <h2>Senses: how a robot knows what's around it</h2>
+      <p>Remember the loop — sense, decide, act. The "sense" step comes from <strong>sensors</strong>, devices that turn something physical (touch, distance, light, rotation) into a signal the controller can read. The kinds you'll meet over and over, in research and in your own kit:</p>
+      <ul>
+        <li><strong>Touch</strong> — a switch that closes on contact. Industrial robots use them as safety stops; your EXP kit's <strong>Bumper Switch</strong> is exactly this, telling your program the robot has hit something.</li>
+        <li><strong>Distance</strong> — measuring how far away an object is, with sound, laser light, or radar. Self-driving cars carry dozens of these; your kit's <strong>Distance Sensor</strong> uses a safe pulse of laser light, the same principle as the lidar on an autonomous vehicle.</li>
+        <li><strong>Light and color</strong> — cameras and color sensors that recognize objects. Your kit's <strong>Optical Sensor</strong> reports whether an object is near and what color it is.</li>
+        <li><strong>Motion and balance</strong> — accelerometers and gyroscopes that track turning and tilting, the way your inner ear keeps you balanced. Your kit's <strong>Inertial Sensor</strong> does this, and it's how a robot can turn <em>exactly</em> 90°.</li>
+      </ul>
+      <p>So when your research asks "what sensors does this robot use, and how?" — you're asking how the robot closes its sense → decide → act loop. A robot with rich sensing can work in a messy, changing world; a robot with none can only repeat motions blindly and hope the world hasn't moved.</p>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415784141716-Using-Bumper-Switch-with-VEX-EXP" target="_blank" rel="noopener">Using Bumper Switch with VEX EXP</a> — how a touch sensor completes a circuit, and where to mount one</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415763007380-Using-Distance-Sensor-with-VEX-EXP" target="_blank" rel="noopener">Using Distance Sensor with VEX EXP</a> — your kit's laser distance sensor</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4401967256596-Overview-of-the-VEX-V5-Sensors" target="_blank" rel="noopener">Overview of the VEX V5 Sensors</a> — <strong>Heads-up:</strong> this is the V5/competition page, with sensors beyond your EXP kit (GPS, Rotation, Vision). Great for seeing where the sensor family goes next — especially if you also build on the V5 competition team.</li>
+        </ul>
+      </div>
+
+      <h2>How is a robot taught its task?</h2>
+      <p>Your research will also ask <em>how the robot learns its job</em>. There are three main answers, and many robots combine them:</p>
+      <ul>
+        <li><strong>It's programmed.</strong> A person writes step-by-step instructions in code — exactly what you'll do in C++ later this course. Most robots, including yours, work this way.</li>
+        <li><strong>It's shown.</strong> A worker physically guides the arm through a motion, or steps it through positions with a handheld <strong>teach pendant</strong>, and the robot records and replays the path. Common on factory floors.</li>
+        <li><strong>It learns.</strong> Newer robots use machine learning: instead of being told every step, they're trained on examples or by trial and error — how a self-driving car gets better at recognizing pedestrians.</li>
+      </ul>
+
+      <h2>Robots and us: benefits, costs, and open questions</h2>
+      <p>Every robot in your research replaced, extended, or protected some human function — and that always cuts more than one way. The benefits are real: robots take over the three Ds, work without fatigue, achieve precision no hand can match, and reach places no person can survive. The costs are real too: a welding robot means fewer welders on that line; an autonomous vehicle raises the question of who's responsible when it fails; a robot in the home collects data about the people living there.</p>
+      <p>At the same time, robots <em>create</em> work that didn't exist before — somebody has to design, build, program, install, inspect, and repair every one of them. (This course is, quite literally, the first step toward those careers.) Whether automation helps or harms a particular community depends on which jobs it touches and what new ones people there can reach — which is why your research asks about your robot's <strong>societal impact</strong>, not just its specs. There isn't one right answer to "should we give up control to a machine?" — but there are stronger and weaker arguments, and the strong ones weigh both sides honestly. That's the standard for your presentation and for the conclusion questions.</p>
+
+      <h2>Your research project</h2>
+      <p>Your teacher will divide the class into teams and assign each team one robot category: <strong>industrial, medical, automated vehicles, household, military, toys, exploratory, rescue,</strong> or <strong>assistive</strong> robots. Your team picks one <em>specific</em> robot in that category and becomes the class experts on it. Your presentation must answer all nine questions:</p>
+      <ol>
+        <li>What task does the robot perform, and what human function does it simulate, replace, or extend?</li>
+        <li>Where is it used, and what is its work envelope — how many degrees of freedom or flexible joints does it have?</li>
+        <li>Is its end effector multi-functional? If so, what else can it do?</li>
+        <li>How is the robot taught to perform its task?</li>
+        <li>What sensors does it have, and how does it use them?</li>
+        <li>What are the advantages and disadvantages of using a robot for this task?</li>
+        <li>What impact has it had — or could it have — on the people it serves?</li>
+        <li>What jobs and careers does this robot create?</li>
+        <li>How might this robot be altered to do more, or different, tasks in the future?</li>
+      </ol>
+      <p>Include sketches, photos, or video of the robot in action. After the presentations, each student writes a paragraph summarizing what they learned across <em>all</em> the robots — so take notes while your classmates present.</p>
+
+      <div class="card card--tip">
+        <h3>🔍 Research tips: find sources worth trusting</h3>
+        <p>Start with the people closest to the robot: the <strong>manufacturer's own site</strong> for specs (degrees of freedom, payload, sensors), and <strong>NASA/JPL</strong> pages for exploratory robots — they publish real engineering details, not rumors. A short <strong>video of the robot working</strong> is worth a hundred words in your presentation; pick examples that are current (warehouse robots, surgical robots, delivery drones, vacuum and lawn robots, Mars rovers), not just famous. And keep a list of every source you use — your audience should be able to check anything you claim.</p>
+      </div>
+
+      <div class="card card--note">
+        <p><strong>How you'll be graded.</strong> The rubric scores four things: <strong>content</strong> (accurate, answers every research question), <strong>organization</strong> (a logical order where information is easy to find), <strong>delivery</strong> (on topic, audible, eye contact), and <strong>cooperation &amp; teamwork</strong> (everyone listens, contributes, and compromises). A beautiful presentation that skips three research questions loses to a plain one that nails all nine.</p>
+      </div>
+
+      <h2>What you'll need</h2>
+      <ul>
+        <li>Engineering notebook and pencil</li>
+        <li>Computer with internet access and presentation software</li>
+        <li>Reference books or articles on robotics</li>
+      </ul>
+
+      <h2>Do it</h2>
+      <ol>
+        <li><strong>Form teams and claim a category.</strong> Your teacher assigns each team a robot category from the list above.</li>
+        <li><strong>Choose a specific robot and research it</strong> against all nine questions. Split the questions among teammates, but review everything together — anyone on the team should be able to answer any question.</li>
+        <li><strong>Build a short presentation</strong> with sketches, photos, or video of the robot in action.</li>
+        <li><strong>Present, listen, and summarize.</strong> Present to the class; while others present, take notes; then write your paragraph summarizing what you learned across all the robots.</li>
+      </ol>
+
+      <h2>Check your understanding</h2>
+      <ol>
+        <li>Name the five main parts of a robotic system, and identify where each one is on your EXP robot.</li>
+        <li>In your own words, what is a work envelope, and why does it matter for safety around an industrial robot?</li>
+        <li>Which robot do you think will have the most significant impact on humans, and why?</li>
+        <li>What concerns do you have about the increasing use of robots in society?</li>
+        <li>What do you think about giving up control to a machine?</li>
+      </ol>
+
+      <h2>Key terms</h2>
+      <div class="terms">
+        <span class="term">robot</span><span class="term">automation</span><span class="term">teleoperation</span><span class="term">sense → decide → act</span><span class="term">the three Ds</span><span class="term">robotic system</span><span class="term">controller</span><span class="term">program</span><span class="term">manipulator</span><span class="term">end effector</span><span class="term">power supply</span><span class="term">degree of freedom</span><span class="term">work envelope</span><span class="term">sensor</span><span class="term">teach pendant</span><span class="term">societal impact</span>
+      </div>
+
+      <p class="sources"><strong>Sources (VEX Library, kb.vex.com):</strong> Building with VEX EXP; Wirelessly Pairing an EXP Controller to an EXP Brain; Using Bumper Switch with VEX EXP; Using Distance Sensor with VEX EXP; Overview of the VEX V5 Sensors.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>

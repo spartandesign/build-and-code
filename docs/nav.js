@@ -8,7 +8,7 @@
 const BOOK = [
   { unit: "Unit 1 · Robots & Structures", chapters: [
     { n: 1, title: "Structures & Building", file: "chapter-01.html" },
-    { n: 2, title: "What Do We Use Robots For?", file: "" },
+    { n: 2, title: "What Do We Use Robots For?", file: "chapter-02.html" },
   ]},
   { unit: "Unit 2 · Mechanisms & Design", chapters: [
     { n: 3, title: "Observing Mechanisms", file: "" },
