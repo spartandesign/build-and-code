@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 1 · Structures &amp; Building — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="1">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">01</div>
+        <div>
+          <p class="chead__eyebrow">Unit 1 · Building the body of a robot</p>
+          <h1 class="chead__title">Structures &amp; Building</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What you'll learn:</strong> the parts and tools of the VEX EXP building system, how parts actually join, why some shapes and joints stay rigid while others wobble, and how to build a structure that survives being pushed on.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>Why the body comes first</h2>
+      <p>Before a robot can move, sense, or run a program, it needs a frame to hold everything together — the <strong>chassis</strong>. The chassis carries the drivetrain that makes the robot mobile, and it's also what every arm, claw, lift, or intake bolts onto. Because it's the framework that supports the whole robot, the chassis has to be rigid.</p>
+      <p>If it flexes, everything mounted to it flexes too: wheels toe out of alignment and the robot pulls to one side, an arm sags and misses its target, a loose motor twists and grinds its gears. A solid structure is what makes the <em>interesting</em> parts work — which is why engineers say <strong>you can't program your way out of a bad build.</strong></p>
+
+      <h2>The VEX EXP building system</h2>
+      <p>EXP bolts together with screws and nuts — there are no snap-in pins. The structural metal:</p>
+      <ul>
+        <li><strong>C-channels</strong> — U-shaped metal, your strongest and main building piece. The folded U-shape resists bending far better than flat metal of the same length, the same reason construction uses steel channels and I-beams. This is what your frame and arms should be made of.</li>
+        <li><strong>Flat bars</strong> (also called <em>flat beams</em>) — one-hole-wide strips for lighter links and braces.</li>
+        <li><strong>Flat plates</strong> — wide hole-filled sheets. Important: plates are <em>not</em> meant to be the main structural members of a chassis — that's a job for C-channels. Plates shine at <em>connecting and stiffening</em> (more on that below).</li>
+        <li><strong>Gussets</strong> — angled brackets that lock a corner. Wherever two structural pieces meet but don't overlap, a gusset bridges and strengthens the joint. Flat gussets brace a joint in one plane; bent gussets wrap a 90° corner; they come in 30°, 45°, 60°, and 90°.</li>
+        <li><strong>Standoffs</strong> — threaded #8-32 posts (¼" to 6") that hold two parts apart with a rigid connection.</li>
+        <li><strong>Shafts, shaft collars, and bearings</strong> — square rods that spin to carry motion; collars stop them sliding; bearing flats let them turn smoothly through a hole. (Heavy use in the gears unit.)</li>
+      </ul>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/15034994190228-Building-with-VEX-EXP" target="_blank" rel="noopener">Building with VEX EXP</a> — a tour of the structural parts with photos</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4418696591124-Using-the-Printable-VEX-EXP-Parts-Ruler" target="_blank" rel="noopener">Using the Printable EXP Parts Ruler</a> — identify and measure parts during your inventory</li>
+        </ul>
+      </div>
+
+      <h2>Tools and fasteners</h2>
+      <p>The whole kit goes together with just two tools and basically one screw and one nut:</p>
+      <ul>
+        <li>The <strong>T15 Star Drive Key</strong> drives every screw in the kit — the <strong>#8-32 Star Drive Screw</strong>. EXP uses a <em>star</em> (Torx) socket instead of the older hex socket because star heads strip far less and let you tighten hard.</li>
+        <li>The <strong>Open-End Wrench</strong> holds a nut or standoff still while you drive the screw into it. Its small end fits the <strong>#8-32 Low Profile Nut</strong> — the only nut in the EXP system — and the #8-32 Standoff.</li>
+      </ul>
+      <p>So the motion you'll repeat a thousand times this semester: <strong>wrench holds the nut, star key turns the screw.</strong></p>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📺</span> Watch it — VEX Library</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/13076232754964-Understanding-and-Using-EXP-Tools" target="_blank" rel="noopener">Understanding and Using EXP Tools</a> — a short video of the T15 Star Drive Key and open-end wrench in use</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035952791-Using-V5-Fasteners" target="_blank" rel="noopener">Using V5 Fasteners</a> — the wider VEX fastener family (locking nuts, screw types, retainers), with videos. <strong>Heads-up:</strong> this is the V5/competition page, so it shows more parts than your EXP kit — your kit uses just the <strong>#8-32 Star Drive Screw</strong> and <strong>#8-32 Low Profile Nut</strong>. Great background, and especially useful if you also build on the V5 competition team.</li>
+        </ul>
+      </div>
+
+      <div class="card card--tip">
+        <h3>🔧 Shop tip: faster fastening with retainers</h3>
+        <p>The wrench-holds-the-nut method always works, but it needs two hands and a clear line to the back of the joint — awkward when you're reaching inside a frame. The kit's <strong>Standoff Retainers</strong> fix that: a retainer holds a nut or standoff captive so you can tighten a screw into it <em>without a wrench at all</em>. They come in <strong>1-post</strong> and <strong>4-post</strong> versions (and some with a built-in bearing flat for shafts).</p>
+        <p>One thing to know: there are two families of retainers in the VEX system, and your EXP kit uses the <strong>Standoff Retainer</strong> — sized for the #8-32 Low Profile Nut and standoffs. The larger Hex Nut Retainers are for Nylock and Hex nuts, which aren't in the EXP kit; a Low Profile Nut dropped into one is too small to be held. So if a retainer isn't gripping your nut, you've grabbed the wrong family. Reach for these on hard-to-wrench spots and to speed up repetitive joins.</p>
+        <p>📚 <em>Learn more:</em> <a class="ext" href="https://kb.vex.com/hc/en-us/articles/10715612722964-Understanding-Standoff-vs-Hex-Nut-Retainers" target="_blank" rel="noopener">Standoff vs. Hex Nut Retainers</a> — VEX's size chart showing which retainer fits which nut</p>
+      </div>
+
+      <h2>How parts actually join: one screw is a hinge</h2>
+      <p>Here's a rule that prevents the single most common rookie mistake. <strong>Never join two structural pieces with a single screw unless you <em>want</em> them to pivot.</strong> One screw is a pin the parts can rotate around — a hinge. Two or more screws through different holes lock the angle so it can't rotate.</p>
+      <p>The flip side is a real engineering tradeoff: the more stress a joint takes, the more screws it should have — but more screws also means more weight. Good builders use <em>enough</em> fasteners where forces are high and fewer where they aren't.</p>
+
+      <h2>The big idea: triangulation</h2>
+      <p>Now the most useful structural idea in the course. Build a square from four pieces and join each corner with a <em>single</em> screw, then push on one corner. It leans and collapses into a slanted parallelogram — the corners act like hinges and the shape <strong>racks</strong> (shears out of square). That's the one-screw-hinge problem at the scale of a whole structure. Now add one piece diagonally across it. Push again — it barely moves.</p>
+      <p>Why? The diagonal splits the square into two <strong>triangles</strong>, and a triangle can't change shape unless one of its sides changes <em>length</em>. Since the metal won't stretch, the triangle is locked. This is <strong>triangulation</strong>, and you'll see it in bridges, cranes, radio towers, and the roof trusses over your gym. On an EXP robot, when you can't fit a full diagonal piece, a <strong>45° gusset</strong> turns a wobbly corner into a braced triangle in two screws.</p>
+
+      <h2>Three ways VEX builders stiffen a structure</h2>
+      <p>Triangulation is the headline, but there are three more techniques worth knowing:</p>
+      <ol>
+        <li><strong>Box construction.</strong> Bolt a plate between two C-channels (or close a frame into a rectangle) to create a box. A closed box resists twisting far better than open metal — this is <em>the</em> trick for a stiff drivetrain.</li>
+        <li><strong>Standoffs as braces.</strong> A standoff placed between two structural pieces adds a connection point and keeps the metal from bending under load. They're not just spacers — they're stiffeners.</li>
+        <li><strong>More connection points at lonely junctions.</strong> A tower or anything attached at only one place needs as many fasteners as possible right at that junction, plus supports made from bar, gusset, or plate.</li>
+      </ol>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035590992-Stiffening-a-V5-Chassis" target="_blank" rel="noopener">Stiffening a V5 Chassis</a> — 3D build examples of box construction, gussets, and standoff braces. (It's shown on V5, but the techniques are identical on EXP.)</li>
+        </ul>
+      </div>
+
+      <h2>Where this matters most</h2>
+      <p>Spend your effort where flex hurts most. The <strong>drivetrain</strong> comes first — twist there and the wheels lose alignment, so this is where C-channels and box construction earn their weight. <strong>Arm and lift joints</strong> are next, because a little flex at the base becomes a big miss at the end of the arm. And every <strong>motor mount</strong> must be solid, or the motor shifts and chews its gears.</p>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035953131-Designing-a-V5-Chassis" target="_blank" rel="noopener">Designing a V5 Chassis</a> — how to plan a frame: its shape, laying out components before you build, and giving every spinning shaft <strong>two points of support</strong> so it doesn't bind. (V5/EDR page — it covers steel-vs-aluminum and parts beyond the EXP kit, but the design thinking carries straight over.)</li>
+        </ul>
+      </div>
+
+      <h2>How to load-test safely</h2>
+      <p>The goal of a load test in this lesson is <strong>not</strong> to find the breaking point. It's to <em>feel the difference a brace makes.</em> You can show that with tiny forces, long before anything deforms.</p>
+      <p>The reframe: <strong>you're testing for <em>flex</em> (wobble that springs back), not for <em>failure</em> (permanent bending).</strong> EXP metal is aluminum, so it <em>can</em> take a permanent set if someone leans on it. The moment a structure visibly gives and stays bent, the test has gone too far — and for this lesson, that was never the target.</p>
+      <p><strong>Three gentle methods, easiest first:</strong></p>
+      <ul>
+        <li><strong>Hand-wiggle test (no weights).</strong> Hold the base, push the top sideways with <em>one finger</em>, and watch how far it deflects before springing back. Add a brace, repeat the <em>same</em> push, and watch it barely move. This alone teaches the whole concept, and one finger can't bend anything.</li>
+        <li><strong>Known weights.</strong> Add identical units one at a time — a paperback, a full water bottle — and <em>measure the deflection</em>, not the destruction. Record results like "sagged 4 mm with two bottles before bracing, 1 mm after."</li>
+        <li><strong>Hanging load.</strong> For a bridge or arm, hang a small bucket from the middle and add marbles or washers in tiny increments. Easy to add slowly, easy to stop.</li>
+      </ul>
+      <div class="card card--safe">
+        <p class="card__title"><span class="ic">⚠️</span> Three rules that keep the metal safe</p>
+        <ol>
+          <li><strong>Set a hard load cap before you start</strong> and write it down ("maximum three water bottles," or "stop at 2 cm of deflection"). The test ends at the cap — reaching it is <em>not</em> failure.</li>
+          <li><strong>No pushing down by hand, no standing on it, no levering.</strong> A student's arm delivers far more force than any sane test load. Force comes only from the agreed weights or a single light finger-push.</li>
+          <li><strong>Measure deflection; define "pass" as springs-back.</strong> Success is <em>how little it moved</em>, so the reward goes to the stiffest design — not the one that survived a catastrophe.</li>
+        </ol>
+      </div>
+      <div class="card card--note">
+        <p><strong>If a structure <em>does</em> take a small bend, that's a lesson, not a loss.</strong> The bent spot is showing you exactly where the load concentrated and where a brace was missing. Straighten it by hand, add a gusset there, and re-test.</p>
+      </div>
+
+      <h2>What you'll need</h2>
+      <ul>
+        <li>VEX EXP kit (structural metal, standoffs, shafts, fasteners)</li>
+        <li>T15 Star Drive Key and open-end wrench</li>
+        <li>A standard load for testing (identical water bottles, books, or a bucket + marbles)</li>
+        <li>Engineering notebook</li>
+      </ul>
+
+      <h2>Build it</h2>
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📺</span> Watch it / Build it — VEX Library &amp; STEM Labs</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4432197062804-Building-Your-First-EXP-Robot" target="_blank" rel="noopener">Building Your First EXP Robot (BaseBot)</a> — new to building? This follow-along video shows how EXP parts go together</li>
+          <li><a class="ext" href="https://www.vexrobotics.com/exp/downloads/build-instructions" target="_blank" rel="noopener">EXP Build Instructions</a> — VEX's official 3D and PDF guides for example robots</li>
+        </ul>
+      </div>
+      <ol>
+        <li><strong>Inventory and sort</strong> the kit; set up the parts-management routine you'll keep all semester. Knowing a flat gusset from a bent one now saves you later.</li>
+        <li><strong>Practice the joins:</strong> bolt a C-channel to a plate with a star screw and Low Profile Nut (T15 key plus wrench), using <em>two</em> screws so the joint can't pivot. Mount a shaft so it spins freely but is locked against sliding by a collar.</li>
+        <li><strong>Build a freestanding tower or bridge of your own design</strong> (or one your teacher provides), then <strong>load-test</strong> it using the safe method above — note <em>where</em> it flexes most.</li>
+        <li><strong>Brace it.</strong> Add a diagonal, a gusset, a standoff, or close a box exactly where it wobbled. Test again with the <em>same</em> load and record the before/after in your notebook.</li>
+      </ol>
+
+      <h2>Check your understanding</h2>
+      <ol>
+        <li>Using triangulation, explain why a diagonal brace or a 45° gusset makes a structure stronger.</li>
+        <li>A C-channel and a flat bar are the same length. Which resists bending better, and what about its shape explains that?</li>
+        <li>You join two beams with one screw and they keep rotating. What's happening, and what's the fix?</li>
+        <li>Why does adding more screws to a joint make it stronger but isn't always the best choice?</li>
+        <li>Name one way to stiffen a drivetrain <em>other</em> than adding a diagonal brace.</li>
+        <li>In a load test, why do we measure how far the structure flexes instead of how much weight makes it break?</li>
+      </ol>
+
+      <h2>Key terms</h2>
+      <div class="terms">
+        <span class="term">chassis</span><span class="term">C-channel</span><span class="term">flat bar</span><span class="term">flat plate</span><span class="term">gusset</span><span class="term">standoff</span><span class="term">shaft</span><span class="term">shaft collar</span><span class="term">bearing</span><span class="term">T15 Star Drive Key</span><span class="term">open-end wrench</span><span class="term">#8-32 Star Drive Screw</span><span class="term">#8-32 Low Profile Nut</span><span class="term">Standoff Retainer</span><span class="term">pivot vs. fixed joint</span><span class="term">triangulation</span><span class="term">racking</span><span class="term">box construction</span><span class="term">flex vs. failure</span><span class="term">load-test</span>
+      </div>
+
+      <p class="sources"><strong>Sources (VEX Library, kb.vex.com):</strong> Building with VEX EXP; Understanding and Using EXP Tools; Using V5 Fasteners; Stiffening a V5 Chassis; Designing a V5 Chassis; Understanding Standoff vs. Hex Nut Retainers; Using the Printable VEX EXP Parts Ruler.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>

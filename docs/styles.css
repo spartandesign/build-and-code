@@ -1,0 +1,237 @@
+/* =========================================================
+   Automation & Robotics — VEX EXP Textbook
+   Shared stylesheet. Restyle the whole book from this one file.
+   Palette continues the course's printed-doc design system.
+   ========================================================= */
+
+:root{
+  --navy:#1F3864;
+  --navy-deep:#152844;
+  --blue:#2E75B6;
+  --blue-ink:#1F4D78;
+  --orange:#C55A11;
+  --soft:#F2F7FC;      /* learn/info callout bg */
+  --soft-line:#CFE0F2;
+  --green-bg:#E2EFDA;  /* positive callout bg */
+  --green-ink:#3F6B2A;
+  --amber-bg:#FBEFD6;  /* safety callout bg */
+  --amber-ink:#8A5400;
+  --amber-line:#E7C77E;
+  --ink:#1A1A1A;
+  --gray:#5B6470;
+  --paper:#FFFFFF;
+  --wash:#FAFBFD;
+  --rule:#E3E8EF;
+
+  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", Consolas, "SF Mono", Menlo, monospace;
+
+  --maxw: 1160px;
+  --rail: 268px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation:none!important;transition:none!important;} }
+
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--ink);
+  background:var(--wash);
+  line-height:1.62;
+  font-size:17px;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+a{color:var(--blue);text-underline-offset:2px;}
+a:hover{color:var(--navy);}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:3px;}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:30;
+  background:var(--navy);color:#fff;
+  border-bottom:3px solid var(--orange);
+}
+.topbar__in{
+  max-width:var(--maxw);margin:0 auto;padding:11px 22px;
+  display:flex;align-items:center;gap:14px;
+}
+.topbar__mark{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;color:#9DC3E6;font-weight:600;
+}
+.topbar__title{font-weight:800;letter-spacing:-.01em;font-size:16px;}
+.topbar__school{margin-left:auto;font-size:13px;color:#C9DBF0;}
+.menu-btn{display:none;}
+
+/* ---------- Shell ---------- */
+.book{
+  max-width:var(--maxw);margin:0 auto;
+  display:grid;grid-template-columns:var(--rail) 1fr;gap:0;
+  align-items:start;
+}
+
+/* ---------- Sidebar / TOC ---------- */
+.toc{
+  position:sticky;top:64px;align-self:start;
+  height:calc(100vh - 64px);overflow-y:auto;
+  padding:26px 18px 40px 22px;
+  border-right:1px solid var(--rule);
+  background:var(--wash);
+}
+.toc__head{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gray);margin:0 0 14px;
+}
+.toc__unit{margin:0 0 6px;}
+.toc__unit > .unit-label{
+  display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--orange);font-weight:700;
+  margin:16px 0 7px;
+}
+.toc a, .toc span.dim{
+  display:flex;gap:9px;align-items:baseline;
+  padding:5px 9px;border-radius:7px;
+  font-size:14.5px;text-decoration:none;color:var(--ink);
+}
+.toc a:hover{background:var(--soft);color:var(--navy);}
+.toc .num{
+  font-family:var(--font-mono);font-size:12px;color:var(--blue);
+  min-width:18px;font-weight:700;
+}
+.toc span.dim{color:#9AA3AF;cursor:default;}
+.toc span.dim .num{color:#C2C9D2;}
+.toc a[aria-current="page"]{
+  background:var(--navy);color:#fff;font-weight:700;
+}
+.toc a[aria-current="page"] .num{color:#9DC3E6;}
+
+/* ---------- Main column ---------- */
+.main{padding:0 0 80px;min-width:0;}
+.wrap{max-width:760px;margin:0 auto;padding:0 26px;}
+
+/* ---------- Chapter header band (signature) ---------- */
+.chead{
+  background:
+    radial-gradient(120% 140% at 100% 0%, #2A4A7A 0%, var(--navy) 46%, var(--navy-deep) 100%);
+  color:#fff;border-bottom:4px solid var(--orange);
+}
+.chead__in{
+  max-width:760px;margin:0 auto;padding:34px 26px 30px;
+  display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;
+}
+.chead__num{
+  font-family:var(--font-mono);font-weight:700;
+  font-size:64px;line-height:.9;color:#fff;
+  padding-right:22px;border-right:2px solid rgba(157,195,230,.4);
+}
+.chead__eyebrow{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;color:#9DC3E6;font-weight:600;margin:0 0 7px;
+}
+.chead__title{font-size:30px;line-height:1.12;font-weight:800;letter-spacing:-.015em;margin:0;}
+.lede{
+  max-width:760px;margin:0 auto;padding:22px 26px 4px;
+}
+.lede p{margin:0;font-size:18.5px;color:var(--blue-ink);font-weight:500;}
+
+/* ---------- Prose ---------- */
+.prose h2{
+  font-size:21px;font-weight:800;letter-spacing:-.01em;color:var(--blue);
+  margin:34px 0 8px;padding-bottom:7px;border-bottom:2px solid var(--soft-line);
+}
+.prose h3{font-size:17px;font-weight:800;color:var(--blue-ink);margin:22px 0 6px;}
+.prose p{margin:11px 0;}
+.prose ul,.prose ol{margin:11px 0;padding-left:24px;}
+.prose li{margin:7px 0;}
+.prose strong{color:var(--navy);font-weight:700;}
+.prose em{color:var(--ink);}
+.prose hr{display:none;}
+.prose ul li::marker{color:var(--blue);}
+.prose ol li::marker{color:var(--blue);font-weight:700;}
+
+/* ---------- Callout cards ---------- */
+.card{
+  margin:18px 0;border-radius:11px;padding:15px 17px 15px 18px;
+  border:1px solid var(--soft-line);background:var(--soft);
+  border-left:5px solid var(--blue);
+}
+.card__title{
+  display:flex;align-items:center;gap:8px;
+  font-weight:800;color:var(--navy);font-size:15px;margin:0 0 8px;
+}
+.card__title .ic{font-size:16px;}
+.card ul{margin:6px 0 0;padding-left:20px;}
+.card li{margin:6px 0;font-size:15.5px;}
+.card p{margin:8px 0;font-size:15.5px;}
+.card--tip{background:#FFF3EA;border-color:#F0C9A6;border-left-color:var(--orange);}
+.card--tip .card__title{color:var(--orange);}
+.card--tip h3{margin-top:0;}
+.card--note{background:var(--green-bg);border-color:#C5DDB4;border-left-color:var(--green-ink);}
+.card--note .card__title,.card--note strong{color:var(--green-ink);}
+.card--safe{background:var(--amber-bg);border-color:var(--amber-line);border-left-color:var(--amber-ink);}
+.card--safe .card__title{color:var(--amber-ink);}
+
+/* external link affordance */
+a.ext::after{content:"\2197";font-size:.78em;margin-left:2px;color:var(--blue);vertical-align:super;}
+
+/* ---------- Key terms chips ---------- */
+.terms{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px;}
+.terms .term{
+  font-family:var(--font-mono);font-size:12.5px;
+  background:#fff;border:1px solid var(--soft-line);color:var(--blue-ink);
+  padding:4px 9px;border-radius:999px;
+}
+
+/* ---------- Sources ---------- */
+.sources{
+  margin-top:30px;padding-top:14px;border-top:1px solid var(--rule);
+  font-size:13px;color:var(--gray);
+}
+
+/* ---------- Pager ---------- */
+.pager{
+  max-width:760px;margin:34px auto 0;padding:0 26px;
+  display:flex;gap:12px;justify-content:space-between;
+}
+.pager a{
+  flex:1;text-decoration:none;border:1px solid var(--rule);border-radius:11px;
+  padding:13px 16px;background:#fff;color:var(--ink);transition:border-color .15s,transform .15s;
+}
+.pager a:hover{border-color:var(--blue);transform:translateY(-1px);}
+.pager .dir{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);}
+.pager .name{display:block;font-weight:700;color:var(--navy);margin-top:3px;}
+.pager .next{text-align:right;}
+.pager .ph{flex:1;}
+
+/* ---------- Landing (index) ---------- */
+.hero{
+  background:radial-gradient(120% 140% at 100% 0%, #2A4A7A 0%, var(--navy) 50%, var(--navy-deep) 100%);
+  color:#fff;border-bottom:4px solid var(--orange);
+}
+.hero__in{max-width:760px;margin:0 auto;padding:54px 26px 44px;}
+.hero__eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#9DC3E6;font-weight:600;margin:0 0 12px;}
+.hero h1{font-size:40px;line-height:1.06;font-weight:800;letter-spacing:-.02em;margin:0 0 14px;max-width:18ch;}
+.hero p{font-size:18px;color:#D7E5F5;margin:0;max-width:54ch;}
+.toc-full{max-width:760px;margin:0 auto;padding:8px 26px 60px;}
+
+/* ---------- Mobile ---------- */
+@media (max-width:880px){
+  .book{grid-template-columns:1fr;}
+  .menu-btn{
+    display:inline-flex;margin-left:auto;background:rgba(255,255,255,.12);
+    color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:8px;
+    padding:6px 11px;font-size:13px;font-family:var(--font-mono);letter-spacing:.08em;cursor:pointer;
+  }
+  .topbar__school{display:none;}
+  .toc{
+    position:static;height:auto;border-right:none;border-bottom:1px solid var(--rule);
+    display:none;
+  }
+  .toc.open{display:block;}
+  .chead__num{font-size:46px;}
+  .chead__title{font-size:24px;}
+}

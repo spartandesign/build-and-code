@@ -1,0 +1,81 @@
+/* ============================================================
+   nav.js — one source of truth for the whole book's navigation.
+   Add a chapter here and every page's sidebar + pager updates.
+   Each page sets <body data-chapter="N"> (or data-chapter="index").
+   Pages with file:"" are placeholders (not yet written).
+   ============================================================ */
+
+const BOOK = [
+  { unit: "Unit 1 · Robots & Structures", chapters: [
+    { n: 1, title: "Structures & Building", file: "chapter-01.html" },
+    { n: 2, title: "What Do We Use Robots For?", file: "" },
+  ]},
+  { unit: "Unit 2 · Mechanisms & Design", chapters: [
+    { n: 3, title: "Observing Mechanisms", file: "" },
+    { n: 4, title: "Mechanical Gears", file: "" },
+    { n: 5, title: "Windmill Construction", file: "" },
+    { n: 6, title: "Pull Toy Construction", file: "" },
+    { n: 7, title: "Survival Challenge", file: "" },
+  ]},
+  { unit: "Unit 3 · Programming & Automation", chapters: [
+    { n: 8,  title: "Robots as Technological Systems", file: "" },
+    { n: 9,  title: "Behaviors & Pseudocode", file: "" },
+    { n: 10, title: "Using VEXcode EXP (C++)", file: "" },
+    { n: 11, title: "Automation Through Programming", file: "" },
+    { n: 12, title: "Simulated Factory Assembly Line", file: "" },
+  ]},
+  { unit: "Unit 4 · Control & Competition", chapters: [
+    { n: 13, title: "Remote Controls (Driver Control)", file: "" },
+    { n: 14, title: "Sumo Competition & Build Your Own", file: "" },
+  ]},
+];
+
+(function () {
+  const current = document.body.getAttribute("data-chapter");
+  const flat = BOOK.flatMap(u => u.chapters);
+
+  // ----- Sidebar -----
+  const toc = document.getElementById("toc");
+  if (toc) {
+    let html = `<p class="toc__head">Contents</p>`;
+    html += `<div class="toc__unit"><a href="index.html"${current === "index" ? ' aria-current="page"' : ""}><span class="num">▣</span><span>Cover &amp; overview</span></a></div>`;
+    for (const u of BOOK) {
+      html += `<div class="toc__unit"><span class="unit-label">${u.unit}</span>`;
+      for (const c of u.chapters) {
+        const isCur = String(c.n) === current;
+        const numTxt = String(c.n).padStart(2, "0");
+        if (c.file) {
+          html += `<a href="${c.file}"${isCur ? ' aria-current="page"' : ""}><span class="num">${numTxt}</span><span>${c.title}</span></a>`;
+        } else {
+          html += `<span class="dim"><span class="num">${numTxt}</span><span>${c.title}</span></span>`;
+        }
+      }
+      html += `</div>`;
+    }
+    toc.innerHTML = html;
+  }
+
+  // ----- Prev / next pager -----
+  const pager = document.getElementById("pager");
+  if (pager && current !== "index") {
+    const idx = flat.findIndex(c => String(c.n) === current);
+    const prev = idx > 0 ? flat[idx - 1] : null;
+    const next = idx >= 0 && idx < flat.length - 1 ? flat[idx + 1] : null;
+    let html = "";
+    if (prev && prev.file) {
+      html += `<a class="prev" href="${prev.file}"><span class="dir">← Previous</span><span class="name">${prev.n}. ${prev.title}</span></a>`;
+    } else { html += `<span class="ph"></span>`; }
+    if (next && next.file) {
+      html += `<a class="next" href="${next.file}"><span class="dir">Next →</span><span class="name">${next.n}. ${next.title}</span></a>`;
+    } else if (next) {
+      html += `<span class="ph"></span>`;
+    }
+    pager.innerHTML = html;
+  }
+
+  // ----- Mobile menu toggle -----
+  const btn = document.getElementById("menuBtn");
+  if (btn && toc) {
+    btn.addEventListener("click", () => toc.classList.toggle("open"));
+  }
+})();
