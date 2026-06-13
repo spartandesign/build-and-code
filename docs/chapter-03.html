@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 3 · Observing Mechanisms — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="3">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">03</div>
+        <div>
+          <p class="chead__eyebrow">Unit 2 · Mechanisms &amp; motion</p>
+          <h1 class="chead__title">Observing Mechanisms</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What you'll learn:</strong> what a mechanism is and the four types of motion it can produce, how to read any gear train in three steps, why a gear ratio always trades speed for torque (and vice versa), and what those trades feel like on your own EXP robot — whose motor speed is fixed, so gears are the <em>only</em> dial you have.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>Machines change motion</h2>
+      <p>A <strong>mechanism</strong> is a device that transmits movement so that the output movement is <em>different</em> from the input movement. It can change the <strong>direction</strong> of motion, its <strong>speed</strong>, its <strong>force or torque</strong>, or even its <strong>type</strong>. Look at a drill press: the spinning bit is <em>rotary</em> motion, but the handle that feeds the bit down through the wood produces <em>linear</em> motion — two kinds of motion in one machine, each created by a mechanism. And the drill's speed matters: spin the bit too fast and it burns the wood and dulls the bit, so the drill press uses pulleys or gears to set the right speed. Every machine you'll observe this week — and every robot you'll build this semester — is a chain of mechanisms doing exactly these jobs.</p>
+
+      <h2>The four types of motion</h2>
+      <ul>
+        <li><strong>Rotary</strong> — around in a circle: a wheel, a motor shaft, a doorknob.</li>
+        <li><strong>Linear</strong> — straight in one direction: a train on a track, a drawer sliding out (in practice "linear" includes straight-line travel you can reverse).</li>
+        <li><strong>Reciprocating</strong> — back and forth in a straight line: a saw blade, a piston, a sewing-machine needle.</li>
+        <li><strong>Oscillating</strong> — back and forth in an arc: a swing, a clock pendulum, windshield wipers.</li>
+      </ul>
+      <p>Mechanisms convert one type into another. A <strong>rack and pinion</strong> (a round gear on a flat, toothed bar — it's how a car's steering works) turns rotary into linear. A <strong>cam</strong> turns rotary into reciprocating — that's how an engine's spinning camshaft makes valves pump up and down. A <strong>crank and slider</strong> works the trick in reverse: the reciprocating pistons in a car engine drive a rotating crankshaft. When you observe a machine this week, your job is to name the input motion, the mechanism, and the output motion.</p>
+
+      <h2>The six simple machines</h2>
+      <p>Mechanisms are built from an old, short alphabet — the six <strong>simple machines</strong>: the <strong>lever</strong> (seesaw, crowbar, your wrench), the <strong>wheel and axle</strong> (doorknob, steering wheel), the <strong>pulley</strong> (flagpole, blinds), the <strong>inclined plane</strong> (ramp), the <strong>wedge</strong> (knife, axe), and the <strong>screw</strong> (an inclined plane wrapped around a shaft — every #8-32 fastener in your kit). Scissors are two levers sharing a pivot plus two wedges; an eggbeater is a wheel-and-axle driving gears. Spotting the simple machines inside a mechanism is how engineers see what a machine is really doing.</p>
+
+      <h2>Gear trains: rotary motion, transmitted</h2>
+      <p>The mechanism you'll use most this semester is the <strong>gear train</strong>: two or more gears <strong>meshed</strong> so their teeth interlock. Because the teeth physically lock together, gears transmit rotary motion and torque without slipping — and two facts follow immediately:</p>
+      <ul>
+        <li><strong>Meshed gears always turn in opposite directions.</strong> If the first spins clockwise, the second must spin counterclockwise — picture the teeth at the meshing point moving together.</li>
+        <li>The gear the motor (or crank) turns is the <strong>drive gear</strong> — the input. The gear it pushes is the <strong>driven gear</strong> — the output. Everything about a gear train starts with telling these two apart.</li>
+      </ul>
+
+      <figure class="fig">
+        <svg viewBox="0 0 640 286" role="img" aria-label="A 24-tooth drive gear meshing with a 60-tooth driven gear, with rotation arrows showing opposite directions">
+          <!-- ratio label -->
+          <text x="320" y="26" text-anchor="middle" font-family="Arial" font-size="17" font-weight="bold" fill="#1F4D78">Gear ratio 60:24 = 2.5:1 — the motor turns 2½ times for every one output turn</text>
+          <!-- mesh pointer -->
+          <text x="312" y="58" text-anchor="middle" font-family="Arial" font-size="13" fill="#5B6470">teeth mesh here</text>
+          <line x1="312" y1="64" x2="312" y2="118" stroke="#5B6470" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <!-- driven gear: 60T -->
+          <circle cx="420" cy="150" r="100" fill="none" stroke="#1F3864" stroke-width="16" stroke-dasharray="5.5 4.97"/>
+          <circle cx="420" cy="150" r="78" fill="#F2F7FC" stroke="#1F3864" stroke-width="2"/>
+          <rect x="413" y="143" width="14" height="14" fill="#fff" stroke="#1F3864" stroke-width="2"/>
+          <path d="M 420 46 A 104 104 0 0 1 512 102" fill="none" stroke="#1F4D78" stroke-width="5" stroke-linecap="round"/>
+          <polygon points="517,110 498,104 511,89" fill="#1F4D78"/>
+          <text x="420" y="122" text-anchor="middle" font-family="Arial" font-size="21" font-weight="bold" fill="#1F3864">DRIVEN · 60T</text>
+          <text x="420" y="198" text-anchor="middle" font-family="Arial" font-size="15" fill="#5B6470">slower · more torque</text>
+          <!-- drive gear: 24T -->
+          <circle cx="257" cy="150" r="48" fill="none" stroke="#C55A11" stroke-width="14" stroke-dasharray="5.5 7.07"/>
+          <circle cx="257" cy="150" r="29" fill="#FBEFD6" stroke="#C55A11" stroke-width="2"/>
+          <rect x="250" y="143" width="14" height="14" fill="#fff" stroke="#C55A11" stroke-width="2"/>
+          <path d="M 257 88 A 62 62 0 0 0 202 122" fill="none" stroke="#C55A11" stroke-width="5" stroke-linecap="round"/>
+          <polygon points="197,131 203,112 218,124" fill="#C55A11"/>
+          <text x="257" y="238" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="#C55A11">DRIVE · 24T</text>
+          <text x="257" y="259" text-anchor="middle" font-family="Arial" font-size="15" fill="#5B6470">motor turns this one</text>
+        </svg>
+        <figcaption>A 24T drive gear meshed with a 60T driven gear. The arrows turn in opposite directions, and the big gear turns slower — but pulls harder.</figcaption>
+      </figure>
+
+      <h2>The gear ratio: one number that tells you everything</h2>
+      <p>The <strong>gear ratio</strong> compares the driven gear to the drive gear. You don't need diameters or rulers — <strong>count teeth</strong>:</p>
+      <p class="formula">gear ratio&nbsp;=&nbsp;teeth on <strong>driven</strong> gear&nbsp;:&nbsp;teeth on <strong>drive</strong> gear</p>
+      <p>So a 24-tooth gear driving a 60-tooth gear is <strong>60:24, which simplifies to 2.5:1</strong>. Read that out loud the way engineers do: <em>"the drive gear turns two and a half times for every one turn of the driven gear."</em> A 5:1 ratio means five turns in for one turn out. That's the whole trick — the ratio is just <em>turns in per turn out</em>.</p>
+      <p>Why does the big gear turn slower? Because the teeth can't slip. At the meshing point, teeth go by at the same rate on both gears — every tooth of the 24 that passes pushes exactly one tooth of the 60. But the 60-tooth gear needs 60 tooth-passes for a full revolution while the small one needs only 24, so the small gear must spin 2.5 revolutions to take the big one around once. <strong>Slower output is built into the geometry.</strong></p>
+
+      <div class="card card--tip">
+        <h3>🔢 Read any gear train in three steps</h3>
+        <p><strong>1. Find the drive gear.</strong> It's the one the motor or crank turns — follow the power in. (This is the step most people skip, and it's where most wrong answers come from.)</p>
+        <p><strong>2. Count teeth</strong> on the drive gear and on the driven gear.</p>
+        <p><strong>3. Write driven : drive and simplify.</strong> If the number is <strong>bigger than 1</strong> (like 2.5:1), the output is <em>slower and stronger</em>. If it's <strong>less than 1</strong> (like 1:2.5), the output is <em>faster and weaker</em>. If it's 1:1, speed and torque pass straight through — only the direction flips.</p>
+      </div>
+
+      <h2>The trade: torque ⇄ speed</h2>
+      <p>Two words first. A <strong>force</strong> is a push or pull in a straight line. <strong>Torque</strong> is a push or pull in a circle — turning force. Motors make torque; wheels and arms spend it.</p>
+      <p>Here is the law that runs this whole unit: <strong>in a gear train, torque and speed trade off, one for the other.</strong> Gear for 2.5× the torque and you get the output at 2.5× slower. Gear for 2.5× the speed and the output is 2.5× weaker. You never get both — a gear train doesn't add power, it only <em>re-shapes</em> the power the motor gives it (and friction skims a little off the top).</p>
+      <p>Why does the big driven gear pull harder? Think of a wrench: the longer the handle, the more turning force the same push produces. A gear tooth is a tiny handle. On a 60-tooth gear the teeth sit far from the center — a long handle — so the same tooth-on-tooth push creates more torque at the shaft than it would on a small gear, where the teeth sit close to the center.</p>
+      <p>You already use this trade. <strong>Riding a bike up a steep hill, you shift to a low gear:</strong> your legs spin faster and the wheel turns more slowly, but each pedal stroke turns the wheel with far more torque — the same effort now climbs the hill. On flat ground you shift the other way, trading torque you don't need for speed you do. Cars downshift on hills for exactly the same reason. Engineers say it in four short rules:</p>
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">⚖️</span> The four gear rules</p>
+        <ul>
+          <li>As <strong>torque</strong> goes up, <strong>speed goes down</strong> — and vice versa. Always.</li>
+          <li>To get <strong>more speed</strong>: a <strong>bigger drive</strong> gear or a <strong>smaller driven</strong> gear.</li>
+          <li>To get <strong>more torque</strong>: a <strong>smaller drive</strong> gear or a <strong>bigger driven</strong> gear.</li>
+          <li>Memory hook: <strong>slow down to power up.</strong></li>
+        </ul>
+      </div>
+
+      <h2>How this shows up on <em>your</em> EXP robot</h2>
+      <p>Now make it concrete, because on EXP this isn't optional knowledge. Your kit's <strong>Smart Motor (5.5W)</strong> spins at a fixed <strong>200 RPM</strong> (revolutions per minute) and produces up to <strong>0.5 N·m of torque</strong> — and unlike the V5 competition motors, it has <strong>no swappable gear cartridges</strong>. The motor's output is the motor's output. <strong>The gears you bolt on are the only dial you have</strong>, and your kit gives you four High Strength spur gears to turn it with: <strong>24, 36, 48, and 60 teeth</strong>.</p>
+      <p>What the kit's pairings actually do to that 200 RPM:</p>
+      <table class="dtable">
+        <thead>
+          <tr><th>Drive gear</th><th>Driven gear</th><th>Ratio (driven:drive)</th><th>Output speed</th><th>Output torque</th><th>Use it for</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>motor direct</td><td>—</td><td>—</td><td>200 RPM</td><td>1× (0.5 N·m)</td><td>light, fast drivetrains</td></tr>
+          <tr><td>48T</td><td>48T</td><td>1:1</td><td>200 RPM</td><td>1×</td><td>moving power over, reversing direction</td></tr>
+          <tr><td>36T</td><td>60T</td><td>5:3 ≈ 1.7:1</td><td>120 RPM</td><td>≈1.7×</td><td>a heavier drivetrain that won't stall</td></tr>
+          <tr><td>24T</td><td>48T</td><td>2:1</td><td>100 RPM</td><td>2×</td><td>pushing matches, slow + strong drive</td></tr>
+          <tr><td>24T</td><td>60T</td><td>2.5:1</td><td>80 RPM</td><td>2.5× (≈1.25 N·m)</td><td><strong>arms and lifts</strong> — the classic choice</td></tr>
+          <tr><td>60T</td><td>24T</td><td>1:2.5</td><td>500 RPM</td><td>0.4×</td><td>spinners; almost never a drivetrain</td></tr>
+        </tbody>
+      </table>
+      <p class="tnote">Torque multipliers are ideal values — friction in every mesh and bearing takes a small cut.</p>
+      <p>Two situations you will personally meet:</p>
+      <ul>
+        <li><strong>The arm that won't lift.</strong> You build an arm, plug the motor straight into its shaft, and it whines, shudders, and quits — the motor is <strong>stalling</strong>: the load needs more torque than 0.5 N·m. (The Smart Motor protects itself by limiting current and watching its temperature, so it gives up rather than burns up.) The fix is not a bigger motor — it's a <strong>gear reduction</strong>: put the 24T on the motor, the 60T on the arm shaft, and the arm now lifts with 2.5× the torque. It moves slower. For an arm, slower is fine — that's the trade working <em>for</em> you.</li>
+        <li><strong>The "fast robot" trap.</strong> Gearing the drivetrain 1:2.5 for 500 RPM sounds amazing until the robot can barely push itself, stalls climbing onto a ramp, and is too twitchy to steer. Speed you can't control or sustain isn't speed — most successful classroom bots drive between 1:1 and 2:1.</li>
+      </ul>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035590932-Using-Gear-Ratios-with-the-V5-Motor" target="_blank" rel="noopener">Using Gear Ratios with the V5 Motor</a> — 3D builds of 1:1, 5:1, and 7:1 gear trains for drivetrains and arms. <strong>Heads-up:</strong> it's the V5/competition page — V5's bigger motor swaps internal gear cartridges (100/200/600 RPM) and uses 12T and 84T gears your kit doesn't have. Your EXP motor is fixed at 200 RPM, so where V5 builders pick a cartridge, you pick external gears. Great preview if you're also on the V5 competition team.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/10002101702932-Understanding-V5-Smart-Motor-5-5W-Performance" target="_blank" rel="noopener">Understanding V5 Smart Motor (5.5W) Performance</a> — the data sheet for <em>your</em> motor: 200 RPM, 0.5 N·m, and how it protects itself from stalls and overheating.</li>
+          <li><a class="ext" href="https://pd.vex.com/videos/general/engineering-101-gears-and-mechanical-advantage-with-iq-and-v5" target="_blank" rel="noopener">Engineering 101: Gears and Mechanical Advantage</a> — 📺 a VEX video demo of gearing up vs. gearing down with real gears in hand.</li>
+        </ul>
+      </div>
+
+      <div class="card card--note">
+        <p><strong>One ratio, two dialects.</strong> This course (and PLTW) writes ratios <strong>driven:drive</strong>, so 2.5:1 means slower-and-stronger. Some competition builders say the same gearing as "1:2.5" because they put the input first, or call it a "2.5:1 <em>reduction</em>." Nobody is wrong — but whenever you see a ratio, ask <em>which gear is driven</em> before you trust it. Saying "60:24, geared for torque" is never ambiguous.</p>
+      </div>
+
+      <h2>Reading mechanisms in the wild</h2>
+      <p>You now have the full observation method, the same one engineers use on an unfamiliar machine — and the same one a Rube Goldberg cartoon turns into comedy by chaining twenty mechanisms to do one silly job:</p>
+      <ol>
+        <li><strong>Find the input.</strong> Where does motion or force enter — a hand, a motor, a falling weight?</li>
+        <li><strong>Trace it through each mechanism.</strong> At every stage, ask: did the <em>direction</em>, <em>speed</em>, <em>torque</em>, or <em>type</em> of motion change? Which simple machines do you see?</li>
+        <li><strong>Name the output</strong> — the motion that finally does the job.</li>
+      </ol>
+      <p>Scissors: reciprocating squeeze in → two levers pivot → wedges shear paper. Eggbeater: rotary crank in → gear train speeds it up (a big drive gear turning small driven gears — trading torque for speed, since whipping eggs needs speed, not muscle) → fast rotary out. Can opener, pencil sharpener, bicycle: every one tells the same kind of story, and this week you'll write those stories in your notebook.</p>
+
+      <h2>What you'll need</h2>
+      <ul>
+        <li>VEX EXP parts: 24T/36T/48T/60T gears, shafts, bearing flats, shaft collars, C-channels or flat bars to mount on</li>
+        <li>Everyday objects with mechanisms (scissors, eggbeater, can opener, bicycle)</li>
+        <li>Engineering notebook</li>
+      </ul>
+
+      <h2>Do it</h2>
+      <ol>
+        <li><strong>See the four motions.</strong> Your teacher demonstrates rotary, linear, reciprocating, and oscillating motion with a simple example of each — copy the four into your notebook with one example of your own per type.</li>
+        <li><strong>Observation stations.</strong> At each station, record the <em>input motion → mechanism → output motion</em>, and note any change in direction, speed, or torque.</li>
+        <li><strong>Build and feel the trade.</strong> Mount a 24T gear meshed with a 60T gear on a flat bar (bearing flats behind each shaft, collars to hold them). Turn the 24T by hand while your partner gently resists the 60T shaft — feel how strong the slow shaft is. Now drive the 60T instead and feel the 24T side spin fast but give up easily. Write one sentence in your notebook about what you felt.</li>
+        <li><strong>Complete the gear-ratio practice table</strong> on your worksheet — drive gear, driven gear, ratio, and what happens to speed and torque.</li>
+        <li><strong>Class discussion:</strong> which simple machines appeared at each station, and where did motion change type?</li>
+      </ol>
+
+      <h2>Check your understanding</h2>
+      <ol>
+        <li>Give an example of a mechanism that converts rotary motion into linear motion.</li>
+        <li>Why do engineers care about the type of motion a mechanism produces?</li>
+        <li>A 24-tooth gear on the motor drives a 60-tooth gear on a wheel. What is the gear ratio, what is the output speed if the motor spins 200 RPM, and which shaft has more torque?</li>
+        <li>Fill in the blanks: As the torque of a gear train increases, the speed _______. To increase torque, you should _______ the size of the drive gear or _______ the size of the driven gear.</li>
+        <li>Pedaling a bike up a steep hill, you shift to a low gear. Which way are you trading speed and torque, and why does it help?</li>
+        <li>Your robot's arm motor whines and quits when lifting a full water bottle. Using this chapter — and without a bigger motor — what's the fix, and what will you give up?</li>
+      </ol>
+
+      <h2>Key terms</h2>
+      <div class="terms">
+        <span class="term">mechanism</span><span class="term">rotary</span><span class="term">linear</span><span class="term">reciprocating</span><span class="term">oscillating</span><span class="term">simple machines</span><span class="term">rack and pinion</span><span class="term">cam</span><span class="term">gear train</span><span class="term">meshed</span><span class="term">drive gear</span><span class="term">driven gear</span><span class="term">gear ratio</span><span class="term">force</span><span class="term">torque</span><span class="term">RPM</span><span class="term">gear reduction</span><span class="term">stall</span><span class="term">mechanical advantage</span>
+      </div>
+
+      <p class="sources"><strong>Sources (VEX Library, kb.vex.com / pd.vex.com):</strong> Using Gear Ratios with the V5 Motor; Understanding V5 Smart Motor (5.5W) Performance; Engineering 101: Gears and Mechanical Advantage (video); Building with VEX EXP. Kit gear and motor counts per the PLTW Gateway VEX EXP custom kit (270-8867) bill of materials.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>

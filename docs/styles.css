@@ -235,3 +235,31 @@ a.ext::after{content:"\2197";font-size:.78em;margin-left:2px;color:var(--blue);v
   .chead__num{font-size:46px;}
   .chead__title{font-size:24px;}
 }
+
+/* ---------- Figures, formulas & data tables (added Ch. 3) ---------- */
+.fig{margin:26px 0;}
+.fig svg{display:block;width:100%;max-width:640px;height:auto;margin:0 auto;}
+.fig figcaption{
+  font-size:13.5px;color:var(--gray);text-align:center;
+  max-width:54ch;margin:10px auto 0;line-height:1.45;
+}
+.formula{
+  font-family:var(--font-mono);font-size:16px;color:var(--blue-ink);
+  background:var(--soft);border-left:5px solid var(--blue);
+  border-radius:0 10px 10px 0;padding:12px 16px;margin:14px 0;
+}
+.dtable{
+  width:100%;border-collapse:collapse;margin:16px 0 6px;font-size:14.5px;
+}
+.dtable th{
+  background:var(--navy);color:#fff;font-weight:700;text-align:left;
+  padding:8px 10px;font-size:13.5px;
+}
+.dtable td{
+  padding:7px 10px;border-bottom:1px solid var(--rule);vertical-align:top;
+}
+.dtable tbody tr:nth-child(even){background:var(--soft);}
+.tnote{font-size:13px;color:var(--gray);margin:2px 0 18px;}
+@media (max-width:880px){
+  .dtable{display:block;overflow-x:auto;white-space:nowrap;}
+}

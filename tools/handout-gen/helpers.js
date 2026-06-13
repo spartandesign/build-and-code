@@ -78,6 +78,47 @@ const answerBox = (text) =>
     spacing: { line: 264 },
   })]);
 
+// --- data table: navy header row, hairline rows --------------------------
+// header: array of strings; rows: array of arrays (string or run-spec arrays)
+const dataTable = (header, rows, colWidths) => {
+  const widths = colWidths || header.map(() => Math.floor(PAGE_W / header.length));
+  const cellBorders = {
+    top: { style: BorderStyle.SINGLE, color: C.hairline, size: 4 },
+    bottom: { style: BorderStyle.SINGLE, color: C.hairline, size: 4 },
+    left: { style: BorderStyle.SINGLE, color: C.hairline, size: 4 },
+    right: { style: BorderStyle.SINGLE, color: C.hairline, size: 4 },
+  };
+  const headRow = new TableRow({
+    tableHeader: true,
+    children: header.map((h, i) => new TableCell({
+      width: { size: widths[i], type: WidthType.DXA },
+      shading: { type: ShadingType.CLEAR, fill: C.navy },
+      margins: { top: 60, left: 90, bottom: 60, right: 90 },
+      borders: cellBorders,
+      children: [new Paragraph({ children: [run({ t: h, b: true, color: "FFFFFF", sz: 19 })] })],
+    })),
+  });
+  const bodyRows = rows.map((r, ri) => new TableRow({
+    children: r.map((cell, i) => {
+      const isBlank = cell === "" || (Array.isArray(cell) && cell.length === 0);
+      return new TableCell({
+        width: { size: widths[i], type: WidthType.DXA },
+        shading: ri % 2 === 1 ? { type: ShadingType.CLEAR, fill: C.softBlue } : undefined,
+        margins: { top: 55, left: 90, bottom: 55, right: 90 },
+        borders: cellBorders,
+        children: [new Paragraph({
+          children: runs(isBlank ? " " : cell),
+          spacing: isBlank ? { before: 170, after: 170, line: 250 } : { line: 250 },
+        })],
+      });
+    }),
+  }));
+  return new Table({
+    width: { size: PAGE_W, type: WidthType.DXA },
+    rows: [headRow, ...bodyRows],
+  });
+};
+
 // --- header band: navy full-width table ---------------------------------
 const headerBand = (eyebrow, title, subtitle) =>
   new Table({
@@ -162,7 +203,7 @@ const decimalConfig = (ref) => ({
 
 module.exports = {
   C, PAGE_W, run, runs, body, sectionHeading, listItem,
-  infoBox, safeBox, greenBox, blueBox, answerBox,
+  infoBox, safeBox, greenBox, blueBox, answerBox, dataTable,
   headerBand, nameLine, footerBlock, makeDoc, bulletConfig, decimalConfig,
   Packer, Paragraph,
 };

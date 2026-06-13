@@ -11,7 +11,7 @@ const BOOK = [
     { n: 2, title: "What Do We Use Robots For?", file: "chapter-02.html" },
   ]},
   { unit: "Unit 2 · Mechanisms & Design", chapters: [
-    { n: 3, title: "Observing Mechanisms", file: "" },
+    { n: 3, title: "Observing Mechanisms", file: "chapter-03.html" },
     { n: 4, title: "Mechanical Gears", file: "" },
     { n: 5, title: "Windmill Construction", file: "" },
     { n: 6, title: "Pull Toy Construction", file: "" },
