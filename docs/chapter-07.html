@@ -33,7 +33,7 @@
     </div>
 
     <div class="lede">
-      <p><strong>What you'll learn:</strong> the Unit 2 <em>capstone</em>. You pick a survival-themed challenge — an <strong>all-terrain mover</strong>, a <strong>solar-dish aimer</strong>, a <strong>water-raiser</strong> — and design, build, and test a machine that solves it. There's no new part to learn here. Instead you pull together <em>everything</em> from Unit 2 — structures, gears and ratios, and the motion mechanisms — and this time <strong>you run the whole design process yourself</strong>. The deliverable is your engineering notebook: the thinking, not just the robot.</p>
+      <p><strong>What you'll learn:</strong> the Unit 2 <em>capstone</em>. You pick a survival-themed challenge — a rough-terrain vehicle, a solar-dish rotator, a heavy-equipment mover, or a one-input survival station — and design, build, and test a machine that solves it. There's no new part to learn here. Instead you pull together <em>everything</em> from Unit 2 — structures, gears and ratios, and the motion mechanisms — and this time <strong>you run the whole design process yourself</strong>. The deliverable is your engineering notebook: the thinking, not just the robot.</p>
     </div>
 
     <article class="prose wrap">
@@ -42,12 +42,12 @@
       <p>You've built a structure, geared for torque, turned a corner with a bevel gear, and converted rotary motion into a bob and a wave. The Survival Challenge is where all of that comes together on one open problem. A <strong>client</strong> has a survival situation and needs a machine to help — and the catch is that <em>how</em> you solve it is up to you. Two teams can pick completely different challenges, or the same challenge and solve it two different ways, and both can be excellent. What makes it the capstone is that nobody hands you the mechanism: you define the problem, choose your approach with a decision matrix, build it from your kit, and improve it from your own test results.</p>
 
       <h2>Pick your challenge</h2>
-      <p>Choose one of these survival-themed tasks — or propose your own to your teacher. Each one points you toward different Unit 2 ideas:</p>
+      <p>Choose one of these four survival tasks — or propose your own to your teacher. Each one is solved with a different reach into your Unit 2 toolkit:</p>
       <ul>
-        <li><strong>All-terrain mover.</strong> Cross rough or uneven ground to carry a small payload from one place to another. Leans on <em>wheels, a gear-down for torque, and a sturdy frame</em>.</li>
-        <li><strong>Solar-dish aimer.</strong> Tilt a "collector" so it points at a light or heat source. Leans on a <em>bevel gear to turn the aim 90°</em> and a way to <em>hold the angle</em>.</li>
-        <li><strong>Water-raiser.</strong> Lift water — or a weight that stands in for it — up out of a "well." Leans on a <em>winch or lift and a gear-down so it doesn't stall</em>.</li>
-        <li><strong>Rescue beacon.</strong> Raise a flag or arm up high and hold it there. Leans on <em>gearing for height and a mechanism that locks the position</em>.</li>
+        <li><strong>Task 1 · Rough-terrain vehicle.</strong> The survivors need a vehicle that crosses rough terrain to search for others and collect data. It has to <em>drive all its wheels</em> for traction — ideally switching between two-wheel and four-wheel drive. The way to power all four wheels is to link the axles with <em>chain and sprockets</em>, or a gear train with an <em>idler gear</em> so the wheels still turn the right way. <em>(The original challenge suggests a universal joint — but u-joints are fragile and competition teams design them out, so route the drive with chain or gears instead.)</em></li>
+        <li><strong>Task 2 · Solar-dish rotator.</strong> A solar collection dish has to be turned by a machine sitting <em>around a corner</em> from it, with a gear ratio of at least <em>1:5</em> (or 5:1), and it must follow the sun. "Around a corner" is the giveaway: a <em>bevel gear</em> turns the drive 90° to reach the dish, and the big reduction gives slow, controllable aiming.</li>
+        <li><strong>Task 3 · Heavy-equipment mover.</strong> Doctors need one machine to move heavy equipment between rooms — <em>horizontally and vertically</em> (some rooms are upstairs). It carries a lot of weight (slow is fine), so gear <em>down</em> hard for torque and add a lift: a <em>rack-and-pinion or leadscrew</em> raises a load in a straight line. The task also asks for a "cardioregulator" — a device with a steady, repeating beat, which is exactly what a <em>cam or crank</em> produces.</li>
+        <li><strong>Task 4 · Survival station.</strong> One machine that <em>pumps water, cuts wood, and grinds grain</em> — all three — driven by a <em>single input</em> (one motor or crank). This is the deep-end integration: one drive splitting into several mechanisms (gear trains plus cams or cranks) at once.</li>
       </ul>
 
       <div class="card card--note">
@@ -56,10 +56,10 @@
       </div>
 
       <h2>Decompose: break the challenge into jobs</h2>
-      <p>An open challenge feels big until you split it into <strong>jobs</strong> — the separate things your machine has to do. Then each job points to a tool you already own from Unit 2. Here's that move worked out for one example:</p>
+      <p>An open challenge feels big until you split it into <strong>jobs</strong> — the separate things your machine has to do. Then each job points to a tool you already own from Unit 2. Here's that move worked out for Task 1, the rough-terrain vehicle:</p>
 
       <figure class="fig">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 410" role="img" aria-label="A decomposition diagram for an all-terrain mover. The challenge on the left fans out to three jobs — get over rough ground, carry the load, and stay upright — and each job points to a Unit 2 tool: wheels with a gear-down for torque, a rigid braced frame, and a wide track with a low center of gravity.">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 410" role="img" aria-label="A decomposition diagram for a rough-terrain vehicle. The challenge on the left fans out to three jobs — get over rough ground, power all wheels, and stay upright — and each job points to a Unit 2 tool: wheels with a gear-down for torque, chain or an idler gear, and a wide track with a low center of gravity.">
           <defs>
             <marker id="da" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5B6470"/></marker>
           </defs>
@@ -71,8 +71,8 @@
           <!-- challenge box (left) -->
           <text x="105" y="158" text-anchor="middle" font-family="Arial" font-size="11.5" font-style="italic" fill="#5B6470">your pick</text>
           <rect x="30" y="170" width="150" height="70" rx="8" fill="#1F3864"/>
-          <text x="105" y="200" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#FFFFFF">All-terrain</text>
-          <text x="105" y="220" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#FFFFFF">mover</text>
+          <text x="105" y="200" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#FFFFFF">Rough-terrain</text>
+          <text x="105" y="220" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#FFFFFF">vehicle</text>
 
           <!-- fan arrows: challenge -> jobs -->
           <line x1="180" y1="205" x2="246" y2="100" stroke="#5B6470" stroke-width="2" marker-end="url(#da)"/>
@@ -86,7 +86,7 @@
             <text x="355" y="113" text-anchor="middle" font-family="Arial" font-size="13.5" fill="#1A1A1A">rough ground</text>
 
             <rect x="250" y="176" width="210" height="58" rx="10" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.6"/>
-            <text x="355" y="210" text-anchor="middle" font-family="Arial" font-size="13.5" fill="#1A1A1A">Carry the load</text>
+            <text x="355" y="210" text-anchor="middle" font-family="Arial" font-size="13.5" fill="#1A1A1A">Power all wheels</text>
 
             <rect x="250" y="281" width="210" height="58" rx="10" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.6"/>
             <text x="355" y="306" text-anchor="middle" font-family="Arial" font-size="13.5" fill="#1A1A1A">Stay upright</text>
@@ -105,7 +105,7 @@
             <text x="622" y="113" text-anchor="middle" font-family="Arial" font-size="13" fill="#1A1A1A">(more torque)</text>
 
             <rect x="515" y="176" width="215" height="58" rx="10" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.6"/>
-            <text x="622" y="210" text-anchor="middle" font-family="Arial" font-size="13" fill="#1A1A1A">Rigid, braced frame</text>
+            <text x="622" y="210" text-anchor="middle" font-family="Arial" font-size="13" fill="#1A1A1A">Chain or idler gear</text>
 
             <rect x="515" y="281" width="215" height="58" rx="10" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.6"/>
             <text x="622" y="310" text-anchor="middle" font-family="Arial" font-size="13" fill="#1A1A1A">Wide track, low CG</text>
@@ -121,6 +121,7 @@
           <li><strong>Structures (Ch 1):</strong> rigid, cross-braced frames that don't flex under load.</li>
           <li><strong>Gears &amp; ratios (Ch 3–4):</strong> gear <em>down</em> for torque (lifting, pushing, climbing), <em>up</em> for speed; compound trains for big reductions; a <strong>bevel gear</strong> to turn the axis 90°.</li>
           <li><strong>Motion mechanisms (Ch 5–6):</strong> a <strong>cam-and-follower</strong> (rotary → reciprocating) and a <strong>crank-and-rocker</strong> (rotary → oscillating) when the job needs a bob, a wave, or a repeating stroke.</li>
+          <li><strong>Advanced mechanisms (Advanced Gear Kit):</strong> an <strong>idler gear</strong> keeps two gears turning the same way (the trick for driving all four wheels); a <strong>worm &amp; wheel</strong> gives a big reduction and <em>holds its position</em> — it can't be back-driven, so it's perfect for an aimer or a lift that must stay put; a <strong>rack &amp; pinion</strong> or <strong>leadscrew</strong> turns rotation into straight-line motion for a lift; a <strong>differential</strong> lets two driven wheels turn at different speeds through a turn.</li>
         </ul>
       </div>
 
@@ -141,7 +142,7 @@
       </div>
 
       <h2>Choosing on purpose: the decision matrix</h2>
-      <p>You know the tool by now: list the <strong>criteria</strong>, weight each, score each concept, multiply, and total. Your criteria depend on your challenge — but the must-haves get the big weights. Here it is for three <em>all-terrain mover</em> concepts, scored 1 (poor) to 5 (great):</p>
+      <p>You know the tool by now: list the <strong>criteria</strong>, weight each, score each concept, multiply, and total. Your criteria depend on your challenge — but the must-haves get the big weights. Here it is for three <em>rough-terrain vehicle</em> concepts (Task 1), scored 1 (poor) to 5 (great):</p>
       <table class="dtable">
         <thead>
           <tr><th>Criterion</th><th>Weight</th><th>A · big-wheel<br>crawler (geared down)</th><th>B · wide<br>4-wheel pusher</th><th>C · fast<br>light runner</th></tr>
@@ -202,7 +203,7 @@
 
       <h2>What you'll need</h2>
       <ul>
-        <li>VEX EXP kit: <strong>structure</strong> (C-channels, plates, standoffs), spur gears (24/36/48/60T), and <strong>bevel gears</strong> (Advanced Gear Kit) as your challenge needs</li>
+        <li>VEX EXP kit: <strong>structure</strong> (C-channels, plates, standoffs), spur gears (24/36/48/60T), and the <strong>Advanced Gear Kit</strong> (bevel, worm, and rack gears) as your challenge needs</li>
         <li><strong>Standard wheels and axles</strong> (not the competition traction/omni-wheels) if your machine rolls; the <strong>Winch &amp; Pulley Kit</strong> if it lifts</li>
         <li>Shafts, bearing flats, shaft collars for rigid, low-friction mechanisms</li>
         <li>An EXP Smart Motor or a hand crank to drive it, as your design requires</li>

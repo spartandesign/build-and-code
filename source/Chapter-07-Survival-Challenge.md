@@ -2,7 +2,7 @@
 
 **Unit 2 · Mechanisms & motion · Capstone project**
 
-**What you'll learn:** the Unit 2 capstone. You pick a survival-themed challenge — an all-terrain mover, a solar-dish aimer, a water-raiser — and design, build, and test a machine that solves it. No new part to learn; instead you pull together everything from Unit 2 (structures, gears and ratios, the motion mechanisms) and this time **you run the whole design process yourself**. The deliverable is your engineering notebook.
+**What you'll learn:** the Unit 2 capstone. You pick a survival-themed challenge — a rough-terrain vehicle, a solar-dish rotator, a heavy-equipment mover, or a one-input survival station — and design, build, and test a machine that solves it. No new part to learn; instead you pull together everything from Unit 2 (structures, gears and ratios, the motion mechanisms) and this time **you run the whole design process yourself**. The deliverable is your engineering notebook.
 
 ## The capstone: put it all together
 
@@ -10,21 +10,21 @@ You've built a structure, geared for torque, turned a corner with a bevel gear, 
 
 ## Pick your challenge
 
-Choose one — or propose your own:
+Choose one of these four survival tasks — or propose your own:
 
-- **All-terrain mover** — cross rough or uneven ground to carry a small payload. Leans on wheels, a gear-down for torque, and a sturdy frame.
-- **Solar-dish aimer** — tilt a "collector" to point at a light/heat source. Leans on a bevel gear to turn the aim 90° and a way to hold the angle.
-- **Water-raiser** — lift water (or a stand-in weight) up out of a "well." Leans on a winch or lift and a gear-down so it doesn't stall.
-- **Rescue beacon** — raise a flag or arm high and hold it there. Leans on gearing for height and a mechanism that locks position.
+- **Task 1 · Rough-terrain vehicle** — crosses rough terrain to search for survivors and collect data. Drive all the wheels for traction (ideally switch 2WD↔4WD): link the axles with chain and sprockets, or a gear train with an idler gear so the wheels turn the right way. *(The original calls for a universal joint, but u-joints are fragile and competition teams design them out — use chain or gears instead.)*
+- **Task 2 · Solar-dish rotator** — turn a solar dish from a machine sitting around a corner, gear ratio at least 1:5, following the sun. Around a corner → a bevel gear turns the drive 90°; the big reduction gives slow, controllable aiming.
+- **Task 3 · Heavy-equipment mover** — move heavy equipment between rooms, horizontally and vertically. Gear down hard for torque and add a lift (rack-and-pinion or leadscrew). Also build a "cardioregulator" — a steady repeating beat → a cam or crank.
+- **Task 4 · Survival station** — one machine that pumps water, cuts wood, and grinds grain from a single input (one motor/crank). Deep-end integration: one drive splitting into several mechanisms.
 
 **What makes it the capstone:** you run the full design process on your own, and your solution must integrate Unit 2 — a rigid **structure**, a deliberate **gear choice**, and at least one **mechanism** doing real work — and it has to actually meet the **success criterion** you set.
 
 ## Decompose: break the challenge into jobs
 
-An open challenge feels big until you split it into **jobs** — the separate things your machine must do — and match each to a Unit 2 tool. Example, for an all-terrain mover:
+An open challenge feels big until you split it into **jobs** — the separate things your machine must do — and match each to a Unit 2 tool. Example, for Task 1 (rough-terrain vehicle):
 
 - Get over rough ground → wheels + gear-DOWN (more torque)
-- Carry the load → rigid, braced frame
+- Power all four wheels → chain or an idler gear
 - Stay upright (don't tip) → wide track, low center of gravity
 
 Do this for whatever task you pick.
@@ -33,6 +33,7 @@ Do this for whatever task you pick.
 
 - **Structures (Ch 1):** rigid, cross-braced frames that don't flex under load.
 - **Gears & ratios (Ch 3–4):** gear *down* for torque, *up* for speed; compound trains for big reductions; a **bevel gear** to turn the axis 90°.
+- **Advanced mechanisms (Advanced Gear Kit):** an **idler gear** keeps gears turning the same way (drives all four wheels); a **worm & wheel** gives a big reduction and holds its position (can't be back-driven); a **rack & pinion** or **leadscrew** turns rotation into straight-line motion for a lift; a **differential** lets driven wheels turn at different speeds.
 - **Motion mechanisms (Ch 5–6):** a **cam-and-follower** (rotary → reciprocating) and a **crank-and-rocker** (rotary → oscillating) for a bob, a wave, or a repeating stroke.
 
 ## The design process — on your own
@@ -47,7 +48,7 @@ Same loop as the windmill, but you drive it without a worksheet: **define → br
 - **Constraints:** classroom Gateway kit · fits the Kallax cubby (33 × 33 cm opening, ~38 cm deep) · standard wheels only if it rolls (newer traction/omni-wheels reserved for the competition team) · meets your success criterion.
 - **Deliverables:** a working machine, a completed decision matrix, a documented notebook.
 
-## Decision matrix (worked example — all-terrain mover)
+## Decision matrix (worked example — rough-terrain vehicle, Task 1)
 
 | Criterion | Weight | A · big-wheel crawler (geared down) | B · wide 4-wheel pusher | C · fast light runner |
 |---|---|---|---|---|
