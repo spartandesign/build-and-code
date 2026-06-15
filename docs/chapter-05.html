@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 5 · Windmill Construction — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="5">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">05</div>
+        <div>
+          <p class="chead__eyebrow">Unit 2 · Mechanisms &amp; motion · <strong>Project</strong></p>
+          <h1 class="chead__title">Windmill Construction</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What you'll learn:</strong> your first real engineering <em>project</em> — not a recipe to follow, but a problem to solve. You'll run the full <strong>engineering design process</strong>, pick a design with a <strong>decision matrix</strong>, and put Unit 2 to work: a bevel gear to turn the corner 90° and a gear ratio chosen for enough torque to lift a load — all documented in your engineering notebook.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>From worksheets to a real problem</h2>
+      <p>Until now, every build had an answer key. This one doesn't. A <strong>windmill</strong> captures rotary motion — historically from the wind, to grind grain or pump water — and turns it into useful work. Your job: build a geared windmill that <strong>lifts a small load</strong>, turning the rotor's spin into a steady pull on a string. There are many right answers, and your team will find <em>yours</em> the way engineers do — by running a process, making choices on purpose, testing, and improving. The mechanism you mastered in Chapters 3 and 4 is the heart of it: the windmill has to <strong>change the direction of motion 90°</strong> and <strong>gear for the torque</strong> to lift.</p>
+
+      <h2>The engineering design process</h2>
+      <p>Engineers don't start by building. They follow a <strong>process</strong> — a loop you'll use on every project this year. It keeps you from falling in love with your first idea and gives you a way forward when something fails (and something always fails the first time — that's normal, not a mistake).</p>
+
+      <figure class="fig">
+        <svg viewBox="0 0 680 360" role="img" aria-label="The engineering design process as a six-step loop: define, brainstorm, select, build, test, improve, cycling back; with documenting in the notebook at the center">
+          <defs>
+            <marker id="ar" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6 Z" fill="#2E75B6"/>
+            </marker>
+          </defs>
+          <!-- center -->
+          <circle cx="340" cy="180" r="62" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="2"/>
+          <text x="340" y="172" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#3F6B2A">Document</text>
+          <text x="340" y="192" text-anchor="middle" font-family="Arial" font-size="13" fill="#3F6B2A">in your</text>
+          <text x="340" y="208" text-anchor="middle" font-family="Arial" font-size="13" fill="#3F6B2A">notebook</text>
+          <!-- six nodes around a circle -->
+          <!-- helper positions (hexagon) -->
+          <!-- 1 Define (top) -->
+          <g>
+            <circle cx="340" cy="40" r="34" fill="#F2F7FC" stroke="#1F3864" stroke-width="2"/>
+            <text x="340" y="36" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">1 Define</text>
+            <text x="340" y="51" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#5B6470">the problem</text>
+          </g>
+          <!-- 2 Brainstorm (top-right) -->
+          <g>
+            <circle cx="560" cy="110" r="34" fill="#F2F7FC" stroke="#1F3864" stroke-width="2"/>
+            <text x="560" y="106" text-anchor="middle" font-family="Arial" font-size="12.5" font-weight="bold" fill="#1F3864">2 Brainstorm</text>
+            <text x="560" y="121" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#5B6470">≥3 sketches</text>
+          </g>
+          <!-- 3 Select (bottom-right) -->
+          <g>
+            <circle cx="560" cy="250" r="34" fill="#F2F7FC" stroke="#1F3864" stroke-width="2"/>
+            <text x="560" y="246" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">3 Select</text>
+            <text x="560" y="261" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#5B6470">decision matrix</text>
+          </g>
+          <!-- 4 Build (bottom) -->
+          <g>
+            <circle cx="340" cy="320" r="34" fill="#F2F7FC" stroke="#1F3864" stroke-width="2"/>
+            <text x="340" y="324" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">4 Build</text>
+          </g>
+          <!-- 5 Test (bottom-left) -->
+          <g>
+            <circle cx="120" cy="250" r="34" fill="#F2F7FC" stroke="#1F3864" stroke-width="2"/>
+            <text x="120" y="246" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">5 Test</text>
+            <text x="120" y="261" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#5B6470">lift the load</text>
+          </g>
+          <!-- 6 Improve (top-left) -->
+          <g>
+            <circle cx="120" cy="110" r="34" fill="#FBEFD6" stroke="#C55A11" stroke-width="2"/>
+            <text x="120" y="106" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#C55A11">6 Improve</text>
+            <text x="120" y="121" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#8A5400">then loop</text>
+          </g>
+          <!-- arrows around -->
+          <path d="M 372 52 A 250 250 0 0 1 528 96" fill="none" stroke="#2E75B6" stroke-width="2.5" marker-end="url(#ar)"/>
+          <path d="M 566 144 A 250 250 0 0 1 566 216" fill="none" stroke="#2E75B6" stroke-width="2.5" marker-end="url(#ar)"/>
+          <path d="M 528 264 A 250 250 0 0 1 372 308" fill="none" stroke="#2E75B6" stroke-width="2.5" marker-end="url(#ar)"/>
+          <path d="M 308 308 A 250 250 0 0 1 152 264" fill="none" stroke="#2E75B6" stroke-width="2.5" marker-end="url(#ar)"/>
+          <path d="M 114 216 A 250 250 0 0 1 114 144" fill="none" stroke="#2E75B6" stroke-width="2.5" marker-end="url(#ar)"/>
+          <!-- improve loops back to build/define: dashed orange -->
+          <path d="M 150 96 A 250 250 0 0 1 308 52" fill="none" stroke="#C55A11" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+        </svg>
+        <figcaption>The loop. You'll often cycle Test → Improve → Build several times before the windmill lifts the load reliably. Documenting in your notebook runs through every step.</figcaption>
+      </figure>
+
+      <p>Here's what each step means for the windmill:</p>
+      <ol>
+        <li><strong>Define the problem.</strong> Read the design brief (below). Restate, in your own words, exactly what the windmill must do and the limits it must obey.</li>
+        <li><strong>Brainstorm.</strong> As a team, generate <em>at least three</em> different concepts and sketch each one. No idea is rejected yet — quantity first.</li>
+        <li><strong>Select.</strong> Compare your concepts with a <strong>decision matrix</strong> and pick one on purpose, not by gut feeling.</li>
+        <li><strong>Build.</strong> Construct your chosen design from EXP parts. Make it rigid — a wobbly frame lets gears slip.</li>
+        <li><strong>Test.</strong> Try to lift the load. Measure: did it lift? How fast? Did it stall?</li>
+        <li><strong>Improve, then loop.</strong> Change the gearing or stiffen the structure, and test again. Repeat until it works reliably.</li>
+      </ol>
+
+      <h2>The design brief</h2>
+      <p>Engineers rarely choose their own problems — a <strong>client</strong> hands them a <strong>design brief</strong>: a short document stating what's needed and the rules of the job. Yours has five parts, and filling it in is the first thing you'll do:</p>
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">📋</span> Windmill design brief</p>
+        <ul>
+          <li><strong>Client:</strong> your teacher (standing in for someone who needs a load lifted).</li>
+          <li><strong>Problem statement:</strong> a load needs to be raised, and only rotary motion is available to do it.</li>
+          <li><strong>Design statement:</strong> design and build a geared windmill that converts rotary input into a lifting motion and raises the standard load.</li>
+          <li><strong>Constraints:</strong> build only from the EXP kit; the whole build fits one storage cubby (≈33 × 33 × 39 cm); it must change the direction of motion 90°; it must be stable and rigid.</li>
+          <li><strong>Deliverables:</strong> a working windmill, a completed decision matrix, and a documented engineering notebook.</li>
+        </ul>
+      </div>
+
+      <h2>Choosing on purpose: the decision matrix</h2>
+      <p>Once you have three sketches, how do you choose? Not by "I like this one." Engineers use a <strong>decision matrix</strong>: list the things that matter (the <strong>criteria</strong>), give each a <strong>weight</strong> for how important it is, then <strong>score</strong> each concept against each criterion. The math removes the guesswork.</p>
+      <p>Here's a worked example. Three windmill concepts, scored 1 (poor) to 5 (great). Each score is multiplied by the criterion's weight, and the weighted scores are added:</p>
+      <table class="dtable">
+        <thead>
+          <tr><th>Criterion</th><th>Weight</th><th>Concept A<br>(spur, 1:1)</th><th>Concept B<br>(spur, geared down)</th><th>Concept C<br>(bevel + geared down)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Lifting power (torque)</td><td>5</td><td>2 → 10</td><td>4 → 20</td><td>5 → 25</td></tr>
+          <tr><td>Turns the corner 90°</td><td>5</td><td>1 → 5</td><td>1 → 5</td><td>5 → 25</td></tr>
+          <tr><td>Stable &amp; rigid</td><td>3</td><td>4 → 12</td><td>3 → 9</td><td>4 → 12</td></tr>
+          <tr><td>Easy to build</td><td>2</td><td>5 → 10</td><td>4 → 8</td><td>3 → 6</td></tr>
+          <tr><td>Fits the cubby</td><td>2</td><td>5 → 10</td><td>4 → 8</td><td>4 → 8</td></tr>
+          <tr><td><strong>Total</strong></td><td></td><td><strong>47</strong></td><td><strong>50</strong></td><td><strong>76</strong></td></tr>
+        </tbody>
+      </table>
+      <p>Concept C wins — and notice <em>why</em>: the two things that matter most (lifting power and turning the corner) are weighted 5, and only the bevel-gear design does both. The matrix didn't just pick a winner; it showed which features were worth the trouble. <strong>Your</strong> criteria and weights may differ — that's the point. Decide what matters, then let the numbers guide you.</p>
+
+      <div class="card card--tip">
+        <h3>🧭 How to build a decision matrix</h3>
+        <p><strong>1.</strong> List 4–6 criteria — the things a good solution must have (include your hard constraints, like "turns 90°" and "fits the cubby").</p>
+        <p><strong>2.</strong> Weight each 1–5 by importance. The must-haves get the big weights.</p>
+        <p><strong>3.</strong> Score each concept 1–5 on each criterion. Be honest, not hopeful.</p>
+        <p><strong>4.</strong> Multiply score × weight, add up each column, and the highest total is your starting design. (You can still change your mind — but now you know the trade-offs.)</p>
+      </div>
+
+      <h2>The windmill's engineering: turn the corner, gear for lift</h2>
+      <p>This is where Unit 2 pays off. Two mechanical decisions make or break your windmill:</p>
+
+      <p><strong>Turning the corner — the bevel gear.</strong> Your windmill's rotor spins on one axis, but the drum that winds the lifting string may need to spin on an axis <em>90° away</em>. A <strong>bevel gear</strong> pair does exactly this — it transfers rotation "around the corner," changing the axis of motion by 90° (you met it in Chapter 4). This is the windmill's signature mechanism: rotary motion in one plane becomes rotary motion in another. The catch is <em>keeping the two bevel gears meshed</em> at the right angle and spacing — if they drift apart or sit crooked, the teeth skip under load. That's what a <strong>gearbox bracket</strong> is for: it holds a bevel pair at the correct spacing and angle so the mesh stays solid, which is exactly the "hold the gears in proper relationship" part of your design brief.</p>
+
+      <p><strong>Gearing for lift — the gear ratio.</strong> Lifting a load takes <em>torque</em>. If your windmill spins freely with nothing attached but stalls the moment it has to lift, the answer isn't more force — it's a <strong>gear reduction</strong> (Chapter 3): gear <em>down</em> so the drum turns slower but pulls harder. The trade is speed, and for lifting, slower-but-stronger is exactly what you want.</p>
+
+      <p>The original engineering challenge asks you to prove you understand the trade by building <em>three</em> versions of the gearing — a great test of everything in Unit 2:</p>
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">⚙️</span> Three gearings to model</p>
+        <ul>
+          <li><strong>A — equal:</strong> output speed and torque equal the input (a 1:1 gearing). What mechanism gives you this?</li>
+          <li><strong>B — geared down:</strong> output speed <em>less</em> than input, but output torque <em>greater</em> (the lifting setup).</li>
+          <li><strong>C — geared up:</strong> output speed <em>greater</em> than input, but output torque <em>less</em>.</li>
+        </ul>
+      </div>
+
+      <h2>The engineering notebook</h2>
+      <p>Engineers are only as good as their records. Your <strong>engineering notebook</strong> is where the whole project lives, and it's a graded deliverable. Document as you go — not at the end from memory:</p>
+      <ul>
+        <li>The restated problem and constraints (in your own words).</li>
+        <li>Your three concept sketches, with the input and output labeled.</li>
+        <li>Your completed decision matrix and the choice it pointed to.</li>
+        <li>Your gear ratio choice and <em>why</em> (which scenario, what you expected).</li>
+        <li>Test results — did it lift? how fast? what failed? — and every change you made in response.</li>
+      </ul>
+      <p>A good notebook lets someone else rebuild your windmill and understand every decision. That's the standard.</p>
+
+      <div class="card card--cad">
+        <p class="card__title"><span class="ic">📐</span> See it in CAD — and try it yourself</p>
+        <p>A rigid frame starts with knowing your parts' real dimensions. Here's a VEX beam drawn the engineering way, with the one number that runs the whole metal system: <strong>holes are 0.50″ apart, center-to-center</strong> (one "pitch"). Count the spaces and you know the length — which is exactly how you check that your windmill fits the cubby.</p>
+        <img class="cad-dwg" src="cad/c-channel-holes.svg" alt="Technical drawing of a VEX C-channel beam face showing holes spaced one half inch center to center, the standard VEX hole pitch">
+        <p class="cad-note">This course uses <strong>Onshape</strong> (free for schools) for 3D CAD and drawings. You've been <em>seeing</em> CAD since Chapter 3 — now's a good time to make your own. Browse VEX parts in the <a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035955292-Using-the-VEX-CAD-Files" target="_blank" rel="noopener">VEX CAD library</a>.</p>
+        <div class="cad-try">
+          <strong>Try it (optional):</strong> Before you build, take your chosen brainstorm sketch and <strong>add dimensions</strong> to it — label the key lengths in holes or inches, and mark where the bevel gear turns the corner. Want to go further? <strong>Model your windmill in Onshape</strong> first, then build from your own drawing. It's not required to finish the project — but engineers almost always draw before they build.
+        </div>
+      </div>
+
+      <div class="card card--constraint">
+        <p class="card__title"><span class="ic">📐</span> Your build constraints</p>
+        <p>Same two rules as every build this year:</p>
+        <p><strong>1 · Build from the EXP kit.</strong> Use the parts in your EXP bins — including the bevel gears from the Advanced Gear Kit. (Shared with V5, so they look the same; build from the EXP supply so the competition team's kits stay complete.)</p>
+        <p><strong>2 · It has to fit the cubby.</strong> The whole windmill must fit one storage cubby, about <strong>33 × 33 × 39 cm</strong> (13 × 13 × 15 in). Sketch with that envelope in mind — a tall windmill is impressive until it won't store. Break it down at the end of the project.</p>
+      </div>
+
+      <div class="card card--safe">
+        <p class="card__title"><span class="ic">⚠️</span> Safety</p>
+        <ul>
+          <li>Keep fingers, hair, and loose clothing clear of <strong>meshing gears and the spinning rotor</strong> — gear teeth pinch.</li>
+          <li>The lifted load can swing or drop. Keep it light, lift it over the table (not over hands or laps), and stand clear of the drop zone.</li>
+          <li>If you power the rotor with a motor, keep the gear train clear before it spins, and stop it before adjusting anything.</li>
+        </ul>
+      </div>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/15034994190228-Building-with-VEX-EXP" target="_blank" rel="noopener">Building with VEX EXP</a> — structure, shafts, bearings, and keeping a build rigid.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035590932-Using-Gear-Ratios-with-the-V5-Motor" target="_blank" rel="noopener">Using Gear Ratios with the V5 Motor</a> — building simple and compound gear trains and choosing a reduction. <strong>Heads-up:</strong> V5/competition page (12T/84T gears); build the same ideas with your 24/36/48/60T EXP gears.</li>
+          <li><a class="ext" href="https://www.vexrobotics.com/gears.html" target="_blank" rel="noopener">VEX Gears overview</a> — how bevel gears "transfer motion around corners" to change the axis of motion 90°.</li>
+          <li><a class="ext" href="https://www.vexrobotics.com/advanced-gearbox-brackets.html" target="_blank" rel="noopener">Advanced Gearbox Brackets</a> — the brackets that hold a bevel pair (or rack, worm, or differential) in proper mesh, so your 90° corner stays rigid under load.</li>
+        </ul>
+      </div>
+
+      <h2>What you'll need</h2>
+      <ul>
+        <li>VEX EXP kit, including <strong>bevel gears</strong> (Advanced Gear Kit) and spur gears (24/36/48/60T)</li>
+        <li>Shafts, bearing flats, shaft collars, C-channels/plates for a rigid frame</li>
+        <li>String and a small drum/spool, plus the standard load your teacher provides</li>
+        <li>Design brief and decision-matrix templates; engineering notebook</li>
+        <li>Optional: an EXP Smart Motor or a hand crank to drive the rotor; a fan for true "wind"</li>
+      </ul>
+
+      <h2>Do it</h2>
+      <ol>
+        <li><strong>Define.</strong> Read the design brief and restate the problem and constraints in your notebook.</li>
+        <li><strong>Brainstorm.</strong> Sketch at least three windmill concepts. Label the input (rotor) and output (lifting drum) on each, and note how each one turns the corner 90° and where its gearing goes.</li>
+        <li><strong>Select.</strong> Build a decision matrix (criteria, weights, scores), total the columns, and choose your design. Record it.</li>
+        <li><strong>Build.</strong> Construct your windmill from EXP parts. Keep the frame rigid so the gears stay meshed, and confirm it fits the cubby.</li>
+        <li><strong>Model the three gearings.</strong> Set up scenario A (1:1), then B (geared down for torque), then C (geared up for speed). Name the mechanism in each and record what happens to the lift.</li>
+        <li><strong>Test &amp; improve.</strong> Try to lift the load. If it stalls, gear down further or stiffen the structure; if it lifts but you want speed, adjust the other way. Loop until it lifts reliably, recording each change.</li>
+        <li><strong>Gallery walk.</strong> Compare your windmill with other teams', and give and collect peer feedback in your notebook.</li>
+      </ol>
+
+      <h2>Check your understanding</h2>
+      <ol>
+        <li>How did your gear ratio choice affect the windmill's ability to lift the load?</li>
+        <li>What would you change if you built it again, and why?</li>
+        <li>Which mechanisms from Unit 2 can <em>increase torque and decrease speed</em>? (List all that apply.)</li>
+        <li>Which mechanisms can <em>transmit rotary motion at a 90° angle</em>?</li>
+        <li>What is the purpose of an idler gear — and did your windmill use one?</li>
+        <li>How did the decision matrix change (or confirm) the design you would have picked by gut feeling?</li>
+      </ol>
+
+      <h2>Key terms</h2>
+      <div class="terms">
+        <span class="term">windmill</span><span class="term">engineering design process</span><span class="term">design brief</span><span class="term">client</span><span class="term">problem statement</span><span class="term">design statement</span><span class="term">constraint</span><span class="term">deliverable</span><span class="term">brainstorm</span><span class="term">decision matrix</span><span class="term">criteria</span><span class="term">weight</span><span class="term">prototype</span><span class="term">iterate</span><span class="term">bevel gear</span><span class="term">gear reduction</span><span class="term">torque</span><span class="term">engineering notebook</span>
+      </div>
+
+      <p class="sources"><strong>Sources (VEX Library, kb.vex.com / vexrobotics.com):</strong> Building with VEX EXP; Using Gear Ratios with the V5 Motor; VEX Gears overview (bevel gears change the axis of motion 90°); Advanced Gearbox Brackets (holding a bevel pair in mesh). Engineering design process, design brief, and decision-matrix structure adapted from the PLTW Gateway <em>Automation &amp; Robotics</em> curriculum. Bevel gears are included in the PLTW Gateway VEX EXP kit's Advanced Gear Kit.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>

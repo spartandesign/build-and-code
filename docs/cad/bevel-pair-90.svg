@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" role="img" aria-label="Technical drawing of two bevel gears meshing with their shaft axes at 90 degrees, one input axis horizontal and one output axis vertical">
+  <defs>
+    <marker id="bdim" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#1F3864"/></marker>
+    <marker id="blead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#5B6470"/></marker>
+  </defs>
+
+  <!-- corner where the two shafts meet -->
+  <!-- horizontal input shaft (centerline) -->
+  <line x1="70" y1="250" x2="300" y2="250" stroke="#5B6470" stroke-width="0.7" stroke-dasharray="9 3 2 3"/>
+  <!-- vertical output shaft (centerline) -->
+  <line x1="300" y1="250" x2="300" y2="60" stroke="#5B6470" stroke-width="0.7" stroke-dasharray="9 3 2 3"/>
+
+  <!-- input bevel gear: cone profile opening toward the corner -->
+  <polygon points="150,210 250,238 250,262 150,290" fill="#F2F7FC" stroke="#5B6470" stroke-width="1.3"/>
+  <line x1="150" y1="250" x2="250" y2="250" stroke="#2E75B6" stroke-width="1" stroke-dasharray="6 3"/>
+  <!-- teeth hints on input bevel face -->
+  <line x1="250" y1="238" x2="262" y2="236" stroke="#5B6470" stroke-width="1"/>
+  <line x1="250" y1="250" x2="263" y2="250" stroke="#5B6470" stroke-width="1"/>
+  <line x1="250" y1="262" x2="262" y2="264" stroke="#5B6470" stroke-width="1"/>
+
+  <!-- output bevel gear: cone profile opening downward toward the corner -->
+  <polygon points="262,150 290,250 314,250 338,150" fill="#F2F7FC" stroke="#5B6470" stroke-width="1.3"/>
+  <line x1="300" y1="150" x2="300" y2="250" stroke="#2E75B6" stroke-width="1" stroke-dasharray="6 3"/>
+  <line x1="288" y1="250" x2="286" y2="262" stroke="#5B6470" stroke-width="1"/>
+  <line x1="300" y1="250" x2="300" y2="263" stroke="#5B6470" stroke-width="1"/>
+  <line x1="312" y1="250" x2="314" y2="262" stroke="#5B6470" stroke-width="1"/>
+
+  <!-- 90 degree angle arc at the corner -->
+  <path d="M 250 250 A 50 50 0 0 1 300 200" fill="none" stroke="#1F3864" stroke-width="1" marker-end="url(#bdim)"/>
+  <text x="266" y="226" font-family="Arial" font-size="14" font-weight="bold" fill="#1F3864">90°</text>
+
+  <!-- axis labels -->
+  <text x="78" y="242" font-family="Arial" font-size="12.5" fill="#1A1A1A">INPUT axis</text>
+  <line x1="120" y1="250" x2="150" y2="250" stroke="#5B6470" stroke-width="0.7"/>
+  <text x="312" y="74" font-family="Arial" font-size="12.5" fill="#1A1A1A">OUTPUT axis (turned 90°)</text>
+
+  <!-- leader: bevel gears -->
+  <line x1="200" y1="225" x2="210" y2="120" stroke="#5B6470" stroke-width="0.7" marker-end="url(#blead)"/>
+  <text x="214" y="116" font-family="Arial" font-size="12.5" fill="#1A1A1A">bevel gears — teeth cut on a cone</text>
+
+  <!-- title block -->
+  <g font-family="Arial">
+    <rect x="474" y="250" width="228" height="104" fill="#fff" stroke="#1A1A1A" stroke-width="1"/>
+    <line x1="474" y1="278" x2="702" y2="278" stroke="#1A1A1A" stroke-width="0.7"/>
+    <line x1="474" y1="306" x2="702" y2="306" stroke="#1A1A1A" stroke-width="0.7"/>
+    <line x1="474" y1="330" x2="702" y2="330" stroke="#1A1A1A" stroke-width="0.7"/>
+    <line x1="592" y1="306" x2="592" y2="354" stroke="#1A1A1A" stroke-width="0.7"/>
+    <text x="484" y="270" font-size="12.5" font-weight="bold" fill="#1F3864">BEVEL GEAR PAIR — 90° DRIVE</text>
+    <text x="484" y="296" font-size="11.5" fill="#1A1A1A">FUNCTION: turn the axis of motion 90°</text>
+    <text x="484" y="322" font-size="11" fill="#5B6470">UNITS: inches</text>
+    <text x="600" y="322" font-size="11" fill="#5B6470">DRAWN BY:</text>
+    <text x="484" y="346" font-size="11" fill="#5B6470">SCALE: not to scale</text>
+    <text x="600" y="346" font-size="11" fill="#5B6470">DATE:</text>
+  </g>
+</svg>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 380" role="img" aria-label="Technical drawing of a 24-tooth and 60-tooth VEX spur gear meshing, dimensioned with pitch diameters of 1.00 and 2.50 inches and a center distance of 1.75 inches">
+          <defs>
+            <marker id="dim" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#1F3864"/></marker>
+            <marker id="dimL" markerWidth="10" markerHeight="10" refX="2" refY="3" orient="auto"><path d="M8,0 L0,3 L8,6 Z" fill="#1F3864"/></marker>
+            <marker id="lead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#5B6470"/></marker>
+          </defs>
+
+          <!-- 24T gear: center (170,165), OD r35, pitch r32 -->
+          <circle cx="170" cy="165" r="35" fill="none" stroke="#5B6470" stroke-width="1.3"/>
+          <circle cx="170" cy="165" r="32" fill="none" stroke="#2E75B6" stroke-width="1" stroke-dasharray="6 3"/>
+          <rect x="163" y="158" width="14" height="14" fill="#fff" stroke="#1A1A1A" stroke-width="1.1"/>
+          <line x1="120" y1="165" x2="220" y2="165" stroke="#5B6470" stroke-width="0.6" stroke-dasharray="8 3 2 3"/>
+          <line x1="170" y1="115" x2="170" y2="215" stroke="#5B6470" stroke-width="0.6" stroke-dasharray="8 3 2 3"/>
+
+          <!-- 60T gear: center (282,165), OD r83, pitch r80  (pitch circles tangent: 32+80=112 = center dist) -->
+          <circle cx="282" cy="165" r="83" fill="none" stroke="#5B6470" stroke-width="1.3"/>
+          <circle cx="282" cy="165" r="80" fill="none" stroke="#2E75B6" stroke-width="1" stroke-dasharray="6 3"/>
+          <rect x="275" y="158" width="14" height="14" fill="#fff" stroke="#1A1A1A" stroke-width="1.1"/>
+          <line x1="190" y1="165" x2="374" y2="165" stroke="#5B6470" stroke-width="0.6" stroke-dasharray="8 3 2 3"/>
+          <line x1="282" y1="73" x2="282" y2="257" stroke="#5B6470" stroke-width="0.6" stroke-dasharray="8 3 2 3"/>
+
+          <!-- center-distance dimension (between the two centers) -->
+          <line x1="170" y1="165" x2="170" y2="330" stroke="#1F3864" stroke-width="0.6"/>
+          <line x1="282" y1="165" x2="282" y2="330" stroke="#1F3864" stroke-width="0.6"/>
+          <line x1="170" y1="322" x2="282" y2="322" stroke="#1F3864" stroke-width="1" marker-start="url(#dimL)" marker-end="url(#dim)"/>
+          <rect x="196" y="312" width="60" height="16" fill="#ECF5F6"/>
+          <text x="226" y="324" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">C = 1.75″</text>
+
+          <!-- 24T pitch-dia leader -->
+          <line x1="170" y1="133" x2="150" y2="96" stroke="#5B6470" stroke-width="0.7" marker-end="url(#lead)"/>
+          <text x="146" y="90" text-anchor="end" font-family="Arial" font-size="12.5" fill="#1A1A1A">24T · pitch Ø 1.00″</text>
+
+          <!-- 60T pitch-dia leader -->
+          <line x1="282" y1="85" x2="470" y2="60" stroke="#5B6470" stroke-width="0.7" marker-end="url(#lead)"/>
+          <text x="474" y="56" text-anchor="start" font-family="Arial" font-size="12.5" fill="#1A1A1A">60T · pitch Ø 2.50″</text>
+
+          <!-- square-bore leader -->
+          <line x1="289" y1="172" x2="470" y2="210" stroke="#5B6470" stroke-width="0.7" marker-end="url(#lead)"/>
+          <text x="474" y="207" text-anchor="start" font-family="Arial" font-size="12" fill="#5B6470">square bore (VEX shaft)</text>
+
+          <!-- title block -->
+          <g font-family="Arial">
+            <rect x="474" y="250" width="228" height="104" fill="#fff" stroke="#1A1A1A" stroke-width="1"/>
+            <line x1="474" y1="278" x2="702" y2="278" stroke="#1A1A1A" stroke-width="0.7"/>
+            <line x1="474" y1="306" x2="702" y2="306" stroke="#1A1A1A" stroke-width="0.7"/>
+            <line x1="474" y1="330" x2="702" y2="330" stroke="#1A1A1A" stroke-width="0.7"/>
+            <line x1="592" y1="306" x2="592" y2="354" stroke="#1A1A1A" stroke-width="0.7"/>
+            <text x="484" y="270" font-size="12.5" font-weight="bold" fill="#1F3864">SPUR GEAR PAIR — 24T + 60T</text>
+            <text x="484" y="296" font-size="11.5" fill="#1A1A1A">RULE:  pitch Ø = teeth ÷ 24</text>
+            <text x="484" y="322" font-size="11" fill="#5B6470">UNITS: inches</text>
+            <text x="600" y="322" font-size="11" fill="#5B6470">DRAWN BY:</text>
+            <text x="484" y="346" font-size="11" fill="#5B6470">SCALE: not to scale</text>
+            <text x="600" y="346" font-size="11" fill="#5B6470">DATE:</text>
+          </g>
+        </svg>

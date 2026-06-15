@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 4 · Mechanical Gears — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="4">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">04</div>
+        <div>
+          <p class="chead__eyebrow">Unit 2 · Mechanisms &amp; motion</p>
+          <h1 class="chead__title">Mechanical Gears</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What you'll learn:</strong> the surprising truth about idler gears (they change nothing about the ratio), how compound gear trains multiply ratios to reach numbers a single pair can't, the five gear and sprocket types in your EXP kit and what each one is for, and how to verify a ratio by counting turns with your own hands.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>One chapter back, in one breath</h2>
+      <p>Chapter 3 gave you the engine of this whole unit: the <strong>gear ratio</strong> is <em>driven teeth : drive teeth</em>, a number bigger than 1 means <em>gear down</em> (slower, more torque), a number less than 1 means <em>gear up</em> (faster, less torque), and torque and speed always trade — you never get both. This chapter takes that one idea and pushes it three steps further: what happens with a gear <em>in the middle</em>, what happens when you <em>stack</em> gear trains, and which <em>type</em> of gear to reach for. If "driven over drive" doesn't feel automatic yet, flip back — everything here is built on it.</p>
+
+      <h2>The idler gear: it does nothing (to the ratio)</h2>
+      <p>Put a third gear <em>between</em> the drive and driven gears, in the same line, and something feels like it should change. It doesn't — at least not the ratio. A gear in the middle is called an <strong>idler gear</strong>, and here's the rule that surprises everyone:</p>
+      <div class="card card--note">
+        <p><strong>Only the first gear and the last gear set the ratio.</strong> Any gears between them — no matter their size, no matter how many — just pass the motion along. Their tooth counts cancel out completely. A 12T idler and a 60T idler in the same spot give the exact same output speed.</p>
+      </div>
+      <p>Watch it cancel. Say a 24T drive turns a 36T idler, which turns a 60T driven gear. Work it stage by stage: stage one is 36:24, stage two is 60:36. Multiply them — that's how you combine stages, which you'll use constantly in a moment — and the 36 is on top once and bottom once, so it cancels: <span class="inl">(36 × 60) / (24 × 36) = 60/24 = 2.5</span>. Same 2.5:1 you'd get if the idler weren't there at all.</p>
+      <p>So why use one? Two real reasons, and your kit's gears make both come up:</p>
+      <ul>
+        <li><strong>To bridge a gap.</strong> Your drive and driven shafts are too far apart for two gears to mesh. Drop an idler between them and they connect — without touching the ratio.</li>
+        <li><strong>To flip direction.</strong> Remember meshed gears turn opposite ways. Each gear in the line reverses the spin again, so an idler lets you make the output turn the <em>same</em> way as the input when your design needs it. (Counting tip: an <strong>odd</strong> number of gears in the line → input and output spin the <em>same</em> direction; an <strong>even</strong> number → <em>opposite</em>.)</li>
+      </ul>
+
+      <h2>Compound gear trains: multiplying the trade</h2>
+      <p>An idler can't change your ratio — so how do you get a <em>big</em> ratio? Your EXP kit tops out at 60T. The largest single-stage reduction you can build is 24T → 60T, which is only 2.5:1. For an arm lifting something heavy, you may want far more torque than that. The answer is <strong>compound gearing</strong>.</p>
+      <p>The trick is to break the "idler" — to make the middle gear actually <em>do</em> something. In a compound train, two gears <strong>share the same shaft</strong>, locked together so they spin as one. The big gear of stage one and the small gear of stage two ride that shared shaft. Now the middle tooth counts <em>don't</em> cancel, and the stages <strong>multiply</strong>:</p>
+      <p class="formula">total ratio = (stage 1 ratio) × (stage 2 ratio)</p>
+
+      <figure class="fig">
+        <svg viewBox="0 0 680 320" role="img" aria-label="A two-stage compound gear train: a 24-tooth drive meshes a 60-tooth gear sharing a shaft with a 24-tooth gear, which meshes a final 60-tooth driven gear, for an overall 6.25 to 1 ratio">
+          <!-- ratio label -->
+          <text x="340" y="24" text-anchor="middle" font-family="Arial" font-size="17" font-weight="bold" fill="#1F4D78">Two stages of 2.5:1 → 2.5 × 2.5 = 6.25:1 overall</text>
+
+          <!-- stage 1 drive: 24T (motor) -->
+          <circle cx="96" cy="132" r="44" fill="none" stroke="#1F3864" stroke-width="13" stroke-dasharray="5.1 6.4"/>
+          <circle cx="96" cy="132" r="27" fill="#F2F7FC" stroke="#1F3864" stroke-width="2"/>
+          <rect x="89" y="125" width="14" height="14" fill="#fff" stroke="#1F3864" stroke-width="2"/>
+          <text x="96" y="118" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">24T</text>
+          <text x="96" y="196" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">DRIVE · motor</text>
+
+          <!-- shared-shaft pair, centered at x=250 -->
+          <!-- 60T upper, meshes the 24T drive at left -->
+          <circle cx="250" cy="120" r="82" fill="none" stroke="#2E75B6" stroke-width="13" stroke-dasharray="5.2 4.3"/>
+          <circle cx="250" cy="120" r="60" fill="#F2F7FC" stroke="#2E75B6" stroke-width="2"/>
+          <text x="250" y="108" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#2E75B6">60T</text>
+          <text x="250" y="126" text-anchor="middle" font-family="Arial" font-size="11" fill="#5B6470">driven · stage 1</text>
+          <!-- 24T lower, drives stage 2 -->
+          <circle cx="250" cy="218" r="44" fill="none" stroke="#2E75B6" stroke-width="13" stroke-dasharray="5.1 6.4"/>
+          <circle cx="250" cy="218" r="27" fill="#DEEAF6" stroke="#2E75B6" stroke-width="2"/>
+          <text x="250" y="216" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#2E75B6">24T</text>
+          <text x="250" y="231" text-anchor="middle" font-family="Arial" font-size="9.5" fill="#5B6470">drive · stage 2</text>
+          <!-- shared shaft marker through both centers -->
+          <line x1="250" y1="120" x2="250" y2="218" stroke="#C55A11" stroke-width="3"/>
+          <rect x="243" y="113" width="14" height="14" fill="#FBEFD6" stroke="#C55A11" stroke-width="2.5"/>
+          <rect x="243" y="211" width="14" height="14" fill="#FBEFD6" stroke="#C55A11" stroke-width="2.5"/>
+
+          <!-- stage 2 driven: 60T, meshes the lower 24T -->
+          <circle cx="404" cy="230" r="82" fill="none" stroke="#1F3864" stroke-width="13" stroke-dasharray="5.2 4.3"/>
+          <circle cx="404" cy="230" r="60" fill="#F2F7FC" stroke="#1F3864" stroke-width="2"/>
+          <rect x="397" y="223" width="14" height="14" fill="#fff" stroke="#1F3864" stroke-width="2"/>
+          <text x="404" y="226" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#1F3864">60T</text>
+          <text x="404" y="244" text-anchor="middle" font-family="Arial" font-size="11" fill="#5B6470">final driven</text>
+
+          <!-- output callout -->
+          <text x="540" y="150" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#1F3864">OUTPUT · arm</text>
+          <text x="540" y="172" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#5B6470">slow · ~6¼× torque</text>
+          <line x1="486" y1="200" x2="520" y2="165" stroke="#5B6470" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+          <!-- shared-shaft caption -->
+          <text x="250" y="288" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#C55A11">shared shaft — these two locked together</text>
+          <text x="250" y="304" text-anchor="middle" font-family="Arial" font-size="12" fill="#5B6470">so the middle tooth counts DON'T cancel — the stages multiply</text>
+        </svg>
+        <figcaption>Two 2.5:1 stages stacked. Because the middle 60T and 24T share a locked shaft, the ratios multiply to 6.25:1 — the arm turns once for every 6¼ motor turns, with about 6¼× the torque.</figcaption>
+      </figure>
+
+      <p>So two stages of 24T → 60T give you <strong>2.5 × 2.5 = 6.25:1</strong> — two and a half times the reduction a single pair could reach, in a package that still fits on a baseplate. Add a third identical stage and you'd be at <span class="inl">2.5 × 2.5 × 2.5 ≈ 15.6:1</span>. That's the power of compounding: small stages, multiplied, reach huge ratios. The price is a little efficiency — every extra mesh adds friction — so you use the fewest stages that get the job done.</p>
+
+      <div class="card card--tip">
+        <h3>🧮 Worked example — read it twice</h3>
+        <p>Straight from your kit: a motor drives a <strong>24T</strong> gear meshed to a <strong>48T</strong> gear; on that same shaft, a <strong>24T</strong> gear meshes a final <strong>60T</strong> gear on the arm.</p>
+        <p>Stage 1 = 48:24 = <strong>2:1</strong>. Stage 2 = 60:24 = <strong>2.5:1</strong>. Total = 2 × 2.5 = <strong>5:1</strong> — the motor turns 5 times for one slow, powerful turn of the arm. Notice the two stages <em>don't have to match</em>: you multiply whatever each stage is. <em>That's</em> how a small motor lifts a heavy load — and every gear here is one you can pull from your own EXP kit.</p>
+      </div>
+
+      <h2>Not all gears are spur gears: the five types in your kit</h2>
+      <p>Until now "gear" has meant the flat, round <strong>spur gear</strong>. But your EXP kit holds several gear and sprocket types, each solving a problem spur gears can't. Know what each is <em>for</em>:</p>
+
+      <table class="dtable">
+        <thead>
+          <tr><th>Type</th><th>What it looks like</th><th>What it's for</th><th>The catch</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Spur gear</strong></td><td>Flat disc, straight teeth around the edge (your 24/36/48/60T)</td><td>The everyday choice — drivetrains, arms, any ratio on one flat plane. Most efficient and simplest.</td><td>Both gears must sit on the same plane, a fixed distance apart, perfectly lined up.</td></tr>
+          <tr><td><strong>Sprocket &amp; chain</strong></td><td>A toothed wheel gripping a chain of snap-together links (your kit's High Strength sprockets come in 6, 12, 18, 24, and 30 tooth)</td><td>Sending power <em>across a distance</em> — link two wheels on one side of a drivetrain. Shafts can be any distance apart.</td><td>Chain can slip or stretch under heavy load. Sprockets on the chain spin the <em>same</em> direction (unlike meshed gears).</td></tr>
+          <tr><td><strong>Bevel gear</strong></td><td>A cone with teeth — like a spur gear cut at an angle</td><td>Turning a corner: sending rotation around a <strong>90° bend</strong>, from a horizontal shaft to a vertical one.</td><td>Less efficient than spur gears; used on lighter mechanisms.</td></tr>
+          <tr><td><strong>Worm &amp; wheel</strong></td><td>A spiral-threaded screw (the worm) turning a spur-like wheel</td><td><strong>Huge reduction in one step</strong>, plus it <em>won't back-drive</em> — the load can't spin the motor backward. Perfect for a lift that must hold its height.</td><td>One-way only (you can't drive it from the wheel), and the sliding contact wastes energy as heat.</td></tr>
+          <tr><td><strong>Rack &amp; pinion</strong></td><td>A round gear (the pinion) on a flat, toothed bar (the rack)</td><td>Converting rotary motion into <strong>straight-line (linear) motion</strong> — the basis of a claw, a slider, or car steering.</td><td>Travel is limited by the length of the rack.</td></tr>
+        </tbody>
+      </table>
+
+      <p>Two of these deserve a closer look, because they do things that feel like magic until you see why.</p>
+
+      <p><strong>The worm gear's superpower.</strong> A VEX worm is <em>single-start</em> — one spiral thread. Each full turn of the worm advances the wheel by exactly one tooth. So a 24-tooth worm wheel needs <strong>24 turns of the worm for one turn of the wheel</strong> — a 24:1 reduction from a single pair, in a space where spur gears would need a tall compound stack. And because the spiral pushes the wheel easily but the wheel <em>can't</em> push the spiral back, a worm drive <strong>self-locks</strong>: cut power and the mechanism stays put. That's why a worm-driven arm holds its position with the motor off, while a spur-geared arm sags. The cost is efficiency — all that sliding rubs away energy as heat — so you trade efficiency for holding power and compactness.</p>
+
+      <p><strong>The rack and pinion changes the <em>kind</em> of motion.</strong> Every gear train so far gave rotary-in, rotary-out. The rack is a gear unrolled into a straight bar: as the round pinion spins, it walks itself (or the rack) along in a straight line — rotary becomes linear. This is the one mechanism in your kit built to <em>change the type of motion</em>, and it's how you'll make something open, close, or slide.</p>
+
+      <div class="card card--cad">
+        <p class="card__title"><span class="ic">📐</span> See it in CAD — turning the corner 90°</p>
+        <p>Here's a bevel pair drawn as an engineer would show it: two gears with teeth cut on a <strong>cone</strong>, their shafts meeting at a right angle. The whole point is in the dimension — the <strong>90° between the input and output axes</strong>. This is the drawing you'd hand someone so they mount the two shafts square to each other.</p>
+        <img class="cad-dwg" src="cad/bevel-pair-90.svg" alt="Technical drawing of two bevel gears meshing with their shaft axes at 90 degrees, one input axis horizontal and one output axis vertical">
+        <p class="cad-note">In <strong>Onshape</strong> (free for schools) you can drop in the VEX bevel gears and the gearbox bracket and watch the corner turn in 3D before you build it. You don't have to model it to finish the chapter — but seeing the assembly makes the mesh and spacing obvious. Browse parts in the <a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035955292-Using-the-VEX-CAD-Files" target="_blank" rel="noopener">VEX CAD library</a>.</p>
+      </div>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035590932-Using-Gear-Ratios-with-the-V5-Motor" target="_blank" rel="noopener">Using Gear Ratios with the V5 Motor</a> — 3D builds of simple, idler, and compound gear trains, plus the "idlers don't change the ratio" rule. <strong>Heads-up:</strong> it's the V5/competition page and uses 12T and 84T gears (see the V5 note above) — build the same <em>ideas</em> with your 24/36/48/60T EXP gears.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/6340151401620-Overview-of-EXP-Chains-and-Sprockets" target="_blank" rel="noopener">Overview of EXP Chains and Sprockets</a> — your kit's sprocket sizes and chain, and why sprockets on a chain spin the <em>same</em> direction (unlike meshed gears).</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/360039539291-Using-VEX-IQ-Plastic-Gears-Chain-Sprockets-and-Pulleys" target="_blank" rel="noopener">Using Gears, Chain &amp; Sprockets, and Pulleys</a> — why an idler reverses direction, why sprockets spin the same way, and how to pick gears vs. chain vs. belt for a job.</li>
+          <li><a class="ext" href="https://pd.vex.com/videos/general/engineering-101-gears-and-mechanical-advantage-with-iq-and-v5" target="_blank" rel="noopener">Engineering 101: Gears and Mechanical Advantage</a> — 📺 a hands-on video of gearing up vs. down with real gears.</li>
+        </ul>
+      </div>
+
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🏆</span> Also on the V5 competition team?</p>
+        <p>The V5 kit includes 12-tooth and 84-tooth spur gears that reach a 1:7 reduction in a <em>single</em> stage — something your EXP gears (24/36/48/60T) can't, which is exactly why you reach big ratios by <strong>compounding</strong>. The gear <em>math</em> is identical; only the available tooth counts differ. (Per <em>Your build constraints</em> below, build class projects from the EXP kit — but it's worth knowing both systems if you compete.) Explore the V5 parts in the <a class="ext" href="https://kb.vex.com/hc/en-us/categories/360002333191-V5" target="_blank" rel="noopener">V5 VEX Library</a>.</p>
+      </div>
+
+      <h2>The mechanism chart: every mechanism, on one page</h2>
+      <p>Engineers keep a mental table of what each mechanism <em>can</em> and <em>can't</em> do. As you build this week, you'll fill in your own — asking five questions of each mechanism. Here's the row you already know, as a model:</p>
+      <table class="dtable">
+        <thead>
+          <tr><th>Mechanism</th><th>Can increase speed?</th><th>Can increase torque?</th><th>Power reversible?</th><th>Changes motion type?</th><th>Real-life example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Simple gear train</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td><td>Drivetrains, clocks</td></tr>
+          <tr><td>Worm &amp; wheel</td><td>No</td><td>Yes</td><td><strong>No</strong> (self-locks)</td><td>No</td><td>Lifts that must hold</td></tr>
+          <tr><td>Rack &amp; pinion</td><td>—</td><td>—</td><td>Yes</td><td><strong>Yes</strong> (rotary→linear)</td><td>Car steering, claws</td></tr>
+        </tbody>
+      </table>
+      <p>Notice how the questions expose each mechanism's personality: a worm wheel trades away reversibility to gain holding power; a rack and pinion exists precisely to change motion type. Filling in the rest — bevel, chain, belt, crank-and-slider, cam — is your job on the worksheet.</p>
+
+      <div class="card card--constraint">
+        <p class="card__title"><span class="ic">📐</span> Your build constraints</p>
+        <p>Every engineer designs within limits — a budget, a deadline, a space the result has to fit into. This course has two, and they apply to <em>every</em> build, all year:</p>
+        <p><strong>1 · Build from the EXP kit.</strong> Design every build using the parts in your EXP kit's bins. Many parts — the metal beams, the Smart Motor, the High Strength gears, sprockets, and chain — are <em>shared with</em> the V5 competition system and are physically interchangeable, so "EXP vs. V5" isn't about whether a part fits. It's about which bin it comes from: build only from the EXP supply so the competition team's V5 kits stay complete.</p>
+        <p><strong>2 · It has to fit the cubby.</strong> Your whole build — robot plus its parts — must fit inside one storage cubby: about <strong>33 × 33 × 39 cm</strong> (roughly 13 × 13 × 15 in). Design compact, and at the end of each project you'll break the build down to store it. This is a normal engineering constraint — real robots have to fit a chassis, a shipping box, or a competition's size box.</p>
+      </div>
+
+      <h2>What you'll need</h2>
+      <ul>
+        <li>VEX EXP gears (24T, 36T, 48T, 60T), at least one worm and a worm wheel, bevel gears, a rack and pinion, sprockets and chain</li>
+        <li>Shafts, bearing flats, shaft collars, spacers, and a C-channel or flat-bar baseplate to mount on</li>
+        <li>A hand crank (or a free shaft to turn by hand)</li>
+        <li>Engineering notebook; optional: one EXP Smart Motor to drive a train</li>
+      </ul>
+
+      <h2>Do it</h2>
+      <ol>
+        <li><strong>Inventory your gears.</strong> Lay out the 24/36/48/60T spur gears and count the teeth on each to confirm the numbers — you'll trust them all week.</li>
+        <li><strong>Build a simple pair and verify it.</strong> Mount a small drive gear meshed with a larger driven gear. Mark a tooth on each with tape. Turn the drive exactly 5 full turns and count the driven turns. Does <em>turns&nbsp;in&nbsp;÷&nbsp;turns&nbsp;out</em> match the ratio you calculated from tooth counts?</li>
+        <li><strong>Add an idler — and watch it not matter.</strong> Insert a third gear between them. Predict the new ratio (trick question), then re-run the 5-turn test. Note which direction the output now spins.</li>
+        <li><strong>Compound it.</strong> Build a two-stage train with a shared middle shaft. <em>Predict</em> the overall ratio by multiplying the stages, then measure it by counting turns. Record predicted vs. measured.</li>
+        <li><strong>Meet the special gears.</strong> Build (or examine) a worm &amp; wheel and feel that you can't back-drive it; build a rack &amp; pinion and watch rotary become linear; build a bevel pair and watch power turn a 90° corner.</li>
+        <li><strong>Fill in the mechanism chart</strong> on your worksheet for every mechanism you built.</li>
+      </ol>
+
+      <h2>Check your understanding</h2>
+      <ol>
+        <li>A 12-tooth driver turns a 36-tooth driven gear. What is the gear ratio, and does this gear up or down?</li>
+        <li>You need a robot arm to lift a heavy load slowly and steadily. Gear up or gear down?</li>
+        <li>A 24T gear drives a 48T idler, which drives a 60T gear. What is the overall ratio — and what did the idler change?</li>
+        <li>Build a compound train from your kit's gears that reaches a reduction of at least 6:1. List the gears in each stage and show the multiplication.</li>
+        <li>Your robot's arm needs to <em>hold</em> its position when the motor is off, or it sags. Which gear type solves this, and why?</li>
+        <li>You want a claw that opens and closes in a straight line. Which mechanism converts the motor's rotary motion into that linear motion?</li>
+      </ol>
+
+      <h2>Key terms</h2>
+      <div class="terms">
+        <span class="term">gear ratio</span><span class="term">gear up</span><span class="term">gear down</span><span class="term">idler gear</span><span class="term">compound gear train</span><span class="term">stage</span><span class="term">shared shaft</span><span class="term">spur gear</span><span class="term">sprocket &amp; chain</span><span class="term">bevel gear</span><span class="term">worm &amp; wheel</span><span class="term">self-locking</span><span class="term">back-drive</span><span class="term">rack &amp; pinion</span><span class="term">pinion</span><span class="term">linear motion</span><span class="term">efficiency</span>
+      </div>
+
+      <p class="sources"><strong>Sources (VEX Library, kb.vex.com / pd.vex.com):</strong> Using Gear Ratios with the V5 Motor; Overview of EXP Chains and Sprockets; Engineering 101: Gears and Mechanical Advantage (video). Gear-type background adapted from G. Gillard, <em>Gears and Sprockets for Basic Robotics</em> (2016). Kit gear counts per the PLTW Gateway VEX EXP custom kit (270-8867) bill of materials.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>

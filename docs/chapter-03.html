@@ -100,6 +100,17 @@
         <p><strong>3. Write driven : drive and simplify.</strong> If the number is <strong>bigger than 1</strong> (like 2.5:1), the output is <em>slower and stronger</em>. If it's <strong>less than 1</strong> (like 1:2.5), the output is <em>faster and weaker</em>. If it's 1:1, speed and torque pass straight through — only the direction flips.</p>
       </div>
 
+      <div class="card card--cad">
+        <p class="card__title"><span class="ic">📐</span> See it in CAD — the same gears, as a technical drawing</p>
+        <p>Engineers don't just sketch a gear — they <strong>draw it with dimensions</strong> so anyone can build or mount it exactly. Here are the same 24T and 60T gears, drawn the way an engineer would. Notice the gear isn't drawn tooth-by-tooth: the <span style="color:#2E75B6">dashed blue circle</span> is the <strong>pitch circle</strong> (where the teeth effectively grip), and that's the circle that matters for meshing.</p>
+
+        <img class="cad-dwg" src="cad/gear-pair-24-60.svg" alt="Technical drawing of a 24-tooth and 60-tooth VEX spur gear meshing, dimensioned with pitch diameters of 1.00 and 2.50 inches and a center distance of 1.75 inches">
+
+        <p class="cad-note">Why this is useful: because <strong>pitch Ø = teeth ÷ 24</strong> for VEX gears, the center distance — how far apart to mount the two shafts — is just the average of the two pitch radii: (0.50″ + 1.25″) = <strong>1.75″</strong>. The drawing tells a builder <em>exactly</em> where to drill, before a single part is touched.</p>
+
+        <p class="cad-note">This course uses <strong>Onshape</strong> (free for schools) for 3D CAD and drawings like this. You'll see VEX parts and assemblies in CAD throughout the book — you don't have to make them to finish a chapter, but they're worth a look. Browse real parts in the <a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035955292-Using-the-VEX-CAD-Files" target="_blank" rel="noopener">VEX CAD library</a>.</p>
+      </div>
+
       <h2>The trade: torque ⇄ speed</h2>
       <p>Two words first. A <strong>force</strong> is a push or pull in a straight line. <strong>Torque</strong> is a push or pull in a circle — turning force. Motors make torque; wheels and arms spend it.</p>
       <p>Here is the law that runs this whole unit: <strong>in a gear train, torque and speed trade off, one for the other.</strong> Gear for 2.5× the torque and you get the output at 2.5× slower. Gear for 2.5× the speed and the output is 2.5× weaker. You never get both — a gear train doesn't add power, it only <em>re-shapes</em> the power the motor gives it (and friction skims a little off the top).</p>
@@ -138,10 +149,15 @@
         <li><strong>The "fast robot" trap.</strong> Gearing the drivetrain 1:2.5 for 500 RPM sounds amazing until the robot can barely push itself, stalls climbing onto a ramp, and is too twitchy to steer. Speed you can't control or sustain isn't speed — most successful classroom bots drive between 1:1 and 2:1.</li>
       </ul>
 
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🏆</span> Also on the V5 competition team?</p>
+        <p>The V5 system's motor swaps internal gear cartridges (100 / 200 / 600 RPM), so a V5 builder changes a <em>cartridge</em> where you change <em>external gears</em> — your EXP motor is fixed at 200 RPM. Building from the EXP kit is one of this course's two <strong>build constraints</strong> (the other: every build has to fit a storage cubby — Chapter 4 lays both out). The classroom keeps V5 parts for competition; the constraint keeps that stock complete. Explore the differences in the <a class="ext" href="https://kb.vex.com/hc/en-us/categories/360002333191-V5" target="_blank" rel="noopener">V5 VEX Library</a>.</p>
+      </div>
+
       <div class="card card--learn">
         <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library</p>
         <ul>
-          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035590932-Using-Gear-Ratios-with-the-V5-Motor" target="_blank" rel="noopener">Using Gear Ratios with the V5 Motor</a> — 3D builds of 1:1, 5:1, and 7:1 gear trains for drivetrains and arms. <strong>Heads-up:</strong> it's the V5/competition page — V5's bigger motor swaps internal gear cartridges (100/200/600 RPM) and uses 12T and 84T gears your kit doesn't have. Your EXP motor is fixed at 200 RPM, so where V5 builders pick a cartridge, you pick external gears. Great preview if you're also on the V5 competition team.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035590932-Using-Gear-Ratios-with-the-V5-Motor" target="_blank" rel="noopener">Using Gear Ratios with the V5 Motor</a> — 3D builds of 1:1, 5:1, and 7:1 gear trains for drivetrains and arms. <strong>Heads-up:</strong> it's the V5/competition page (12T and 84T gears, swappable cartridges — see the note above); your EXP motor is fixed at 200 RPM, so you pick external gears instead.</li>
           <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/10002101702932-Understanding-V5-Smart-Motor-5-5W-Performance" target="_blank" rel="noopener">Understanding V5 Smart Motor (5.5W) Performance</a> — the data sheet for <em>your</em> motor: 200 RPM, 0.5 N·m, and how it protects itself from stalls and overheating.</li>
           <li><a class="ext" href="https://pd.vex.com/videos/general/engineering-101-gears-and-mechanical-advantage-with-iq-and-v5" target="_blank" rel="noopener">Engineering 101: Gears and Mechanical Advantage</a> — 📺 a VEX video demo of gearing up vs. gearing down with real gears in hand.</li>
         </ul>

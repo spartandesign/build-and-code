@@ -263,3 +263,25 @@ a.ext::after{content:"\2197";font-size:.78em;margin-left:2px;color:var(--blue);v
 @media (max-width:880px){
   .dtable{display:block;overflow-x:auto;white-space:nowrap;}
 }
+
+/* inline mono for short math fragments (added Ch. 4) */
+.inl{
+  font-family:var(--font-mono);font-size:.92em;
+  background:#F4F4F4;padding:1px 5px;border-radius:4px;color:var(--blue-ink);
+}
+
+/* build-constraint callout (added Ch. 4) — navy "rules of the build" accent */
+.card--constraint{background:#F1F5FB;border-color:#CFE0F2;border-left-color:var(--navy);}
+.card--constraint .card__title{color:var(--navy);}
+
+/* ---------- CAD track: "see it" callouts for Onshape / technical drawings ---------- */
+.card--cad{background:#ECF5F6;border-color:#BBDDE0;border-left-color:#1E6470;}
+.card--cad .card__title{color:#1E6470;}
+.card--cad .cad-note{font-size:13.5px;color:var(--gray);margin:8px 0 0;}
+.card--cad .cad-try{
+  margin:12px 0 0;padding:10px 12px;background:#fff;border:1px dashed #9FC6CB;
+  border-radius:8px;font-size:14.5px;
+}
+.card--cad .cad-try strong{color:var(--orange);}
+/* simplified engineering-drawing figure */
+.cad-dwg{display:block;width:100%;max-width:620px;height:auto;margin:4px auto 0;}
