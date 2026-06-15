@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handouts — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="handouts">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num" style="font-size:34px;">⤓</div>
+        <div>
+          <p class="chead__eyebrow">Print &amp; PDF</p>
+          <h1 class="chead__title">Handouts</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p>Every chapter's worksheet in two formats: <strong>PDF</strong> to view in your browser or print, and <strong>Word (.docx)</strong> to fill in or edit.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <table class="dtable" id="handoutsTable">
+        <thead>
+          <tr>
+            <th>Chapter</th>
+            <th>Worksheet</th>
+          </tr>
+        </thead>
+        <tbody><!-- rows injected by script --></tbody>
+      </table>
+
+      <p class="tnote" id="emptyNote" style="display:none;">Handouts will appear here as chapters are published.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+<script>
+/* Map chapter number -> handout file basename (in docs/handouts/).
+   Add a line here when a chapter's handouts are ready; titles come from nav.js BOOK. */
+const HANDOUTS = {
+  1: "Ch01_Structures",
+  2: "Ch02_Robots",
+  3: "Ch03_Mechanisms",
+  4: "Ch04_Gears",
+};
+
+(function () {
+  const tbody = document.querySelector("#handoutsTable tbody");
+  if (!tbody || typeof BOOK === "undefined") return;
+  const flat = BOOK.flatMap(u => u.chapters);
+  const link = (base, who, fmt) => {
+    const file = `handouts/${base}_${who}.${fmt}`;
+    const isPdf = fmt === "pdf";
+    const attrs = isPdf ? ' target="_blank" rel="noopener"' : ' download';
+    return `<a href="${file}"${attrs}>${fmt.toUpperCase()}</a>`;
+  };
+  const cell = (base, who) =>
+    base ? `${link(base, who, "pdf")} &nbsp;·&nbsp; ${link(base, who, "docx")}`
+         : `<span class="dim">—</span>`;
+
+  let rows = "";
+  for (const c of flat) {
+    const base = HANDOUTS[c.n];
+    if (!base) continue; // only show chapters with ready handouts
+    const numTxt = String(c.n).padStart(2, "0");
+    rows += `<tr>
+      <td><strong>${numTxt}</strong> &nbsp;${c.title}</td>
+      <td>${cell(base, "STUDENT")}</td>
+    </tr>`;
+  }
+  if (rows) { tbody.innerHTML = rows; }
+  else { document.getElementById("emptyNote").style.display = "block"; }
+})();
+</script>
+</body>
+</html>
