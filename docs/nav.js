@@ -15,7 +15,7 @@ const BOOK = [
     { n: 4, title: "Mechanical Gears", file: "chapter-04.html" },
     { n: 5, title: "Windmill Construction", file: "chapter-05.html" },
     { n: 6, title: "Pull Toy Construction", file: "chapter-06.html" },
-    { n: 7, title: "Survival Challenge", file: "" },
+    { n: 7, title: "Survival Challenge", file: "chapter-07.html" },
   ]},
   { unit: "Unit 3 · Programming & Automation", chapters: [
     { n: 8,  title: "Robots as Technological Systems", file: "" },

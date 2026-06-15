@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-label="Technical front-view drawing of a stable robot drive base: two wheels on the ground with a wide track, a low deck carrying a low center of gravity, all sized to fit inside the 33 by 33 centimetre Kallax cubby envelope">
+  <defs>
+    <marker id="sdim" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1F3864"/></marker>
+    <marker id="sdimL" markerWidth="9" markerHeight="9" refX="2" refY="3" orient="auto"><path d="M7,0 L0,3 L7,6 Z" fill="#1F3864"/></marker>
+    <marker id="slead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#5B6470"/></marker>
+  </defs>
+
+  <!-- Kallax cubby envelope (dashed square, 33 x 33 cm) -->
+  <rect x="210" y="120" width="250" height="250" fill="none" stroke="#9DB6D6" stroke-width="1.6" stroke-dasharray="7 5"/>
+  <!-- cubby top dimension -->
+  <line x1="210" y1="120" x2="210" y2="96" stroke="#1F3864" stroke-width="0.6"/>
+  <line x1="460" y1="120" x2="460" y2="96" stroke="#1F3864" stroke-width="0.6"/>
+  <line x1="210" y1="104" x2="460" y2="104" stroke="#1F3864" stroke-width="1" marker-start="url(#sdimL)" marker-end="url(#sdim)"/>
+  <rect x="296" y="95" width="78" height="17" fill="#fff"/>
+  <text x="335" y="108" text-anchor="middle" font-family="Arial" font-size="12.5" font-weight="bold" fill="#1F3864">33 cm (13 in)</text>
+  <!-- cubby right-side dimension -->
+  <line x1="460" y1="120" x2="486" y2="120" stroke="#1F3864" stroke-width="0.6"/>
+  <line x1="460" y1="370" x2="486" y2="370" stroke="#1F3864" stroke-width="0.6"/>
+  <line x1="478" y1="120" x2="478" y2="370" stroke="#1F3864" stroke-width="1" marker-start="url(#sdimL)" marker-end="url(#sdim)"/>
+  <rect x="486" y="236" width="44" height="17" fill="#fff"/>
+  <text x="508" y="249" text-anchor="middle" font-family="Arial" font-size="12.5" font-weight="bold" fill="#1F3864">33 cm</text>
+  <text x="486" y="138" font-family="Arial" font-size="11.5" fill="#5B6470">Kallax cubby</text>
+
+  <!-- ground line + hatch -->
+  <line x1="120" y1="370" x2="610" y2="370" stroke="#5B6470" stroke-width="2"/>
+  <g stroke="#5B6470" stroke-width="1">
+    <line x1="150" y1="370" x2="138" y2="384"/><line x1="178" y1="370" x2="166" y2="384"/>
+    <line x1="206" y1="370" x2="194" y2="384"/><line x1="234" y1="370" x2="222" y2="384"/>
+    <line x1="262" y1="370" x2="250" y2="384"/><line x1="290" y1="370" x2="278" y2="384"/>
+    <line x1="318" y1="370" x2="306" y2="384"/><line x1="346" y1="370" x2="334" y2="384"/>
+    <line x1="374" y1="370" x2="362" y2="384"/><line x1="402" y1="370" x2="390" y2="384"/>
+    <line x1="430" y1="370" x2="418" y2="384"/><line x1="458" y1="370" x2="446" y2="384"/>
+    <line x1="486" y1="370" x2="474" y2="384"/><line x1="514" y1="370" x2="502" y2="384"/>
+  </g>
+
+  <!-- deck / chassis (low) -->
+  <rect x="255" y="302" width="160" height="22" rx="3" fill="#F2F7FC" stroke="#5B6470" stroke-width="1.6"/>
+  <!-- axle line between wheel centers -->
+  <line x1="262" y1="332" x2="408" y2="332" stroke="#5B6470" stroke-width="1.2"/>
+
+  <!-- wheels (front view) -->
+  <g>
+    <circle cx="262" cy="332" r="38" fill="#F2F7FC" stroke="#5B6470" stroke-width="2"/>
+    <circle cx="262" cy="332" r="29" fill="none" stroke="#9DB6D6" stroke-width="1.4"/>
+    <circle cx="262" cy="332" r="7" fill="#1F3864"/>
+    <circle cx="408" cy="332" r="38" fill="#F2F7FC" stroke="#5B6470" stroke-width="2"/>
+    <circle cx="408" cy="332" r="29" fill="none" stroke="#9DB6D6" stroke-width="1.4"/>
+    <circle cx="408" cy="332" r="7" fill="#1F3864"/>
+  </g>
+
+  <!-- center of gravity symbol (low) -->
+  <circle cx="335" cy="313" r="10" fill="#fff" stroke="#C55A11" stroke-width="1.6"/>
+  <line x1="335" y1="303" x2="335" y2="323" stroke="#C55A11" stroke-width="1.1"/>
+  <line x1="325" y1="313" x2="345" y2="313" stroke="#C55A11" stroke-width="1.1"/>
+  <!-- CG leader + label -->
+  <line x1="325" y1="307" x2="246" y2="158" stroke="#5B6470" stroke-width="0.8" marker-end="url(#slead)"/>
+  <text x="92" y="150" font-family="Arial" font-size="12" fill="#1A1A1A"><tspan font-weight="bold" fill="#C55A11">center of gravity</tspan></text>
+  <text x="92" y="166" font-family="Arial" font-size="12" fill="#5B6470">keep it low</text>
+
+  <!-- track-width dimension (below ground) -->
+  <line x1="262" y1="372" x2="262" y2="424" stroke="#1F3864" stroke-width="0.6"/>
+  <line x1="408" y1="372" x2="408" y2="424" stroke="#1F3864" stroke-width="0.6"/>
+  <line x1="262" y1="416" x2="408" y2="416" stroke="#1F3864" stroke-width="1" marker-start="url(#sdimL)" marker-end="url(#sdim)"/>
+  <rect x="298" y="407" width="74" height="16" fill="#fff"/>
+  <text x="335" y="419" text-anchor="middle" font-family="Arial" font-size="12.5" font-weight="bold" fill="#1F3864">wide track</text>
+
+  <!-- deck-height dimension (left) -->
+  <line x1="255" y1="370" x2="168" y2="370" stroke="#1F3864" stroke-width="0.6"/>
+  <line x1="255" y1="302" x2="168" y2="302" stroke="#1F3864" stroke-width="0.6"/>
+  <line x1="176" y1="302" x2="176" y2="370" stroke="#1F3864" stroke-width="1" marker-start="url(#sdimL)" marker-end="url(#sdim)"/>
+  <text x="92" y="332" font-family="Arial" font-size="11.5" fill="#5B6470">low deck</text>
+  <text x="92" y="347" font-family="Arial" font-size="11.5" fill="#5B6470">= low CG</text>
+
+  <!-- RULE note -->
+  <text x="80" y="452" font-family="Arial" font-size="12.5" fill="#1A1A1A"><tspan font-weight="bold" fill="#1F3864">RULE:</tspan>  Low + wide is hard to tip — keep the heavy parts low and the wheels far apart.</text>
+  <text x="80" y="470" font-family="Arial" font-size="12.5" fill="#1A1A1A">And the whole base still has to fit the 33 × 33 cm cubby.</text>
+</svg>

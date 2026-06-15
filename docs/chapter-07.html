@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 7 · Survival Challenge — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="7">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">07</div>
+        <div>
+          <p class="chead__eyebrow">Unit 2 · Mechanisms &amp; motion · <strong>Capstone</strong></p>
+          <h1 class="chead__title">Survival Challenge</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What you'll learn:</strong> the Unit 2 <em>capstone</em>. You pick a survival-themed challenge — an <strong>all-terrain mover</strong>, a <strong>solar-dish aimer</strong>, a <strong>water-raiser</strong> — and design, build, and test a machine that solves it. There's no new part to learn here. Instead you pull together <em>everything</em> from Unit 2 — structures, gears and ratios, and the motion mechanisms — and this time <strong>you run the whole design process yourself</strong>. The deliverable is your engineering notebook: the thinking, not just the robot.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>The capstone: put it all together</h2>
+      <p>You've built a structure, geared for torque, turned a corner with a bevel gear, and converted rotary motion into a bob and a wave. The Survival Challenge is where all of that comes together on one open problem. A <strong>client</strong> has a survival situation and needs a machine to help — and the catch is that <em>how</em> you solve it is up to you. Two teams can pick completely different challenges, or the same challenge and solve it two different ways, and both can be excellent. What makes it the capstone is that nobody hands you the mechanism: you define the problem, choose your approach with a decision matrix, build it from your kit, and improve it from your own test results.</p>
+
+      <h2>Pick your challenge</h2>
+      <p>Choose one of these survival-themed tasks — or propose your own to your teacher. Each one points you toward different Unit 2 ideas:</p>
+      <ul>
+        <li><strong>All-terrain mover.</strong> Cross rough or uneven ground to carry a small payload from one place to another. Leans on <em>wheels, a gear-down for torque, and a sturdy frame</em>.</li>
+        <li><strong>Solar-dish aimer.</strong> Tilt a "collector" so it points at a light or heat source. Leans on a <em>bevel gear to turn the aim 90°</em> and a way to <em>hold the angle</em>.</li>
+        <li><strong>Water-raiser.</strong> Lift water — or a weight that stands in for it — up out of a "well." Leans on a <em>winch or lift and a gear-down so it doesn't stall</em>.</li>
+        <li><strong>Rescue beacon.</strong> Raise a flag or arm up high and hold it there. Leans on <em>gearing for height and a mechanism that locks the position</em>.</li>
+      </ul>
+
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🎯</span> What makes it the capstone</p>
+        <p>You run the <strong>full design process on your own</strong>, and your solution must <strong>integrate Unit 2</strong>: a <strong>rigid structure</strong>, a <strong>deliberate gear choice</strong>, and at least one <strong>mechanism</strong> doing real work. Then it has to actually <strong>do the job</strong> — meet the success criterion you set for your challenge.</p>
+      </div>
+
+      <h2>Decompose: break the challenge into jobs</h2>
+      <p>An open challenge feels big until you split it into <strong>jobs</strong> — the separate things your machine has to do. Then each job points to a tool you already own from Unit 2. Here's that move worked out for one example:</p>
+
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 410" role="img" aria-label="A decomposition diagram for an all-terrain mover. The challenge on the left fans out to three jobs — get over rough ground, carry the load, and stay upright — and each job points to a Unit 2 tool: wheels with a gear-down for torque, a rigid braced frame, and a wide track with a low center of gravity.">
+          <defs>
+            <marker id="da" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5B6470"/></marker>
+          </defs>
+
+          <!-- column headers -->
+          <text x="355" y="34" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">THE JOBS</text>
+          <text x="622" y="34" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#3F6B2A">YOUR UNIT 2 TOOLKIT</text>
+
+          <!-- challenge box (left) -->
+          <text x="105" y="158" text-anchor="middle" font-family="Arial" font-size="11.5" font-style="italic" fill="#5B6470">your pick</text>
+          <rect x="30" y="170" width="150" height="70" rx="8" fill="#1F3864"/>
+          <text x="105" y="200" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#FFFFFF">All-terrain</text>
+          <text x="105" y="220" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#FFFFFF">mover</text>
+
+          <!-- fan arrows: challenge -> jobs -->
+          <line x1="180" y1="205" x2="246" y2="100" stroke="#5B6470" stroke-width="2" marker-end="url(#da)"/>
+          <line x1="180" y1="205" x2="246" y2="205" stroke="#5B6470" stroke-width="2" marker-end="url(#da)"/>
+          <line x1="180" y1="205" x2="246" y2="310" stroke="#5B6470" stroke-width="2" marker-end="url(#da)"/>
+
+          <!-- job pills (middle) -->
+          <g>
+            <rect x="250" y="71"  width="210" height="58" rx="10" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.6"/>
+            <text x="355" y="96"  text-anchor="middle" font-family="Arial" font-size="13.5" fill="#1A1A1A">Get over</text>
+            <text x="355" y="113" text-anchor="middle" font-family="Arial" font-size="13.5" fill="#1A1A1A">rough ground</text>
+
+            <rect x="250" y="176" width="210" height="58" rx="10" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.6"/>
+            <text x="355" y="210" text-anchor="middle" font-family="Arial" font-size="13.5" fill="#1A1A1A">Carry the load</text>
+
+            <rect x="250" y="281" width="210" height="58" rx="10" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.6"/>
+            <text x="355" y="306" text-anchor="middle" font-family="Arial" font-size="13.5" fill="#1A1A1A">Stay upright</text>
+            <text x="355" y="323" text-anchor="middle" font-family="Arial" font-size="13.5" fill="#1A1A1A">(don't tip)</text>
+          </g>
+
+          <!-- arrows: jobs -> tools -->
+          <line x1="460" y1="100" x2="513" y2="100" stroke="#5B6470" stroke-width="2.2" marker-end="url(#da)"/>
+          <line x1="460" y1="205" x2="513" y2="205" stroke="#5B6470" stroke-width="2.2" marker-end="url(#da)"/>
+          <line x1="460" y1="310" x2="513" y2="310" stroke="#5B6470" stroke-width="2.2" marker-end="url(#da)"/>
+
+          <!-- tool pills (right) -->
+          <g>
+            <rect x="515" y="71"  width="215" height="58" rx="10" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.6"/>
+            <text x="622" y="96"  text-anchor="middle" font-family="Arial" font-size="13" fill="#1A1A1A">Wheels + gear-DOWN</text>
+            <text x="622" y="113" text-anchor="middle" font-family="Arial" font-size="13" fill="#1A1A1A">(more torque)</text>
+
+            <rect x="515" y="176" width="215" height="58" rx="10" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.6"/>
+            <text x="622" y="210" text-anchor="middle" font-family="Arial" font-size="13" fill="#1A1A1A">Rigid, braced frame</text>
+
+            <rect x="515" y="281" width="215" height="58" rx="10" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.6"/>
+            <text x="622" y="310" text-anchor="middle" font-family="Arial" font-size="13" fill="#1A1A1A">Wide track, low CG</text>
+          </g>
+        </svg>
+        <figcaption>Decompose your challenge into its <strong>jobs</strong>, then reach into your <strong>Unit 2 toolkit</strong> — structures, gears, and mechanisms — for each one. Do this for whatever task you pick.</figcaption>
+      </figure>
+
+      <div class="card card--tip">
+        <h3>🧰 Your Unit 2 toolkit</h3>
+        <p>Everything you can reach for is something you've already built:</p>
+        <ul>
+          <li><strong>Structures (Ch 1):</strong> rigid, cross-braced frames that don't flex under load.</li>
+          <li><strong>Gears &amp; ratios (Ch 3–4):</strong> gear <em>down</em> for torque (lifting, pushing, climbing), <em>up</em> for speed; compound trains for big reductions; a <strong>bevel gear</strong> to turn the axis 90°.</li>
+          <li><strong>Motion mechanisms (Ch 5–6):</strong> a <strong>cam-and-follower</strong> (rotary → reciprocating) and a <strong>crank-and-rocker</strong> (rotary → oscillating) when the job needs a bob, a wave, or a repeating stroke.</li>
+        </ul>
+      </div>
+
+      <h2>The design process — this time on your own</h2>
+      <p>The loop is the same one you ran on the windmill, but now <em>you</em> drive it without a step-by-step worksheet: <strong>define → brainstorm (≥3 sketches) → select with a decision matrix → build → test → improve</strong>, looping until it works. Document each step in your <strong>engineering notebook</strong> — the notebook <em>is</em> the deliverable for this project, so the restated problem, your labeled sketches, the matrix, your gear choice, and your test-and-iterate entries all live there.</p>
+
+      <h2>The design brief</h2>
+      <p>Same as any job: restate it in your own words first — that's Define — right in your notebook.</p>
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">📋</span> Survival Challenge design brief</p>
+        <ul>
+          <li><strong>Client:</strong> someone in a survival situation who needs a machine to do a specific job (the task you choose).</li>
+          <li><strong>Problem statement:</strong> people facing this situation need a reliable, hand-built machine that accomplishes the task within the constraints — no off-the-shelf solution available.</li>
+          <li><strong>Design statement:</strong> design and build a machine that solves your chosen challenge, integrating a structure, a gear choice, and at least one mechanism from Unit 2.</li>
+          <li><strong>Constraints:</strong> build from your classroom Gateway kit; the whole machine fits one storage cubby (an IKEA Kallax compartment — a 33 × 33 cm / 13 × 13 in opening, about 38 cm / 15 in deep); standard wheels only if it rolls (the newer traction and omni-wheels are reserved for the competition team); it must meet the success criterion you set for your challenge.</li>
+          <li><strong>Deliverables:</strong> a working machine that does the job, a completed decision matrix, and a documented engineering notebook.</li>
+        </ul>
+      </div>
+
+      <h2>Choosing on purpose: the decision matrix</h2>
+      <p>You know the tool by now: list the <strong>criteria</strong>, weight each, score each concept, multiply, and total. Your criteria depend on your challenge — but the must-haves get the big weights. Here it is for three <em>all-terrain mover</em> concepts, scored 1 (poor) to 5 (great):</p>
+      <table class="dtable">
+        <thead>
+          <tr><th>Criterion</th><th>Weight</th><th>A · big-wheel<br>crawler (geared down)</th><th>B · wide<br>4-wheel pusher</th><th>C · fast<br>light runner</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Gets over obstacles</td><td>5</td><td>5 → 25</td><td>3 → 15</td><td>2 → 10</td></tr>
+          <tr><td>Travels straight &amp; far</td><td>4</td><td>4 → 16</td><td>4 → 16</td><td>5 → 20</td></tr>
+          <tr><td>Sturdy — survives the run</td><td>3</td><td>5 → 15</td><td>4 → 12</td><td>2 → 6</td></tr>
+          <tr><td>Easy to build in time</td><td>2</td><td>2 → 4</td><td>4 → 8</td><td>5 → 10</td></tr>
+          <tr><td>Fits the cubby</td><td>2</td><td>5 → 10</td><td>5 → 10</td><td>5 → 10</td></tr>
+          <tr><td><strong>Total</strong></td><td></td><td><strong>70</strong></td><td><strong>61</strong></td><td><strong>56</strong></td></tr>
+        </tbody>
+      </table>
+      <p>The <strong>geared-down crawler (A) wins</strong> even though it's the hardest to build and not the fastest — because it nails the two highest-weighted criteria: getting over obstacles and surviving the run. The fast runner (C) is easy and quick but loses badly, because speed isn't what this challenge rewards. That's the whole point of weighting: <strong>it forces the must-haves to win</strong>. Pick your own criteria and weights for your own challenge — and let the math, not the gut, choose your starting design.</p>
+
+      <div class="card card--tip">
+        <h3>🧭 Decision matrix, in four steps (recap)</h3>
+        <p><strong>1.</strong> List 4–6 criteria, including your hard constraints and the one thing the challenge most rewards. <strong>2.</strong> Weight each 1–5 — must-haves get the big numbers. <strong>3.</strong> Score each concept 1–5, honestly. <strong>4.</strong> Multiply score × weight, total each column; the highest total is your starting design.</p>
+      </div>
+
+      <div class="card card--cad">
+        <p class="card__title"><span class="ic">📐</span> See it in CAD — then draw your own</p>
+        <p>Almost every survival build needs a <strong>stable base</strong>, so here's one drawn the engineering way. Two rules do most of the work: keep the <strong>center of gravity low</strong> (heavy parts down near the wheels) and the <strong>track wide</strong> (wheels far apart). Low and wide is hard to tip — and the whole base still has to pass through the cubby.</p>
+        <img class="cad-dwg" src="cad/stable-base.svg" alt="Technical front-view drawing of a stable drive base showing a wide wheel track, a low deck carrying a low center of gravity, and the 33 by 33 centimetre Kallax cubby envelope it must fit inside">
+        <p class="cad-note">This course uses <strong>Onshape</strong> (free for schools) for 3D CAD and drawings. Browse VEX parts in the <a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035955292-Using-the-VEX-CAD-Files" target="_blank" rel="noopener">VEX CAD library</a>.</p>
+        <div class="cad-try">
+          <strong>Try it (the capstone twist):</strong> this time, <strong>you</strong> make the drawing. Sketch your solution's key mechanism or its base with real dimensions before you build — and if you want to go further, <strong>model it in Onshape</strong> and build from your own drawing. Not required to finish, but it's exactly what an engineer does before cutting metal.
+        </div>
+      </div>
+
+      <div class="card card--constraint">
+        <p class="card__title"><span class="ic">📐</span> Your build constraints</p>
+        <p>The same rules as every build this year, plus the one that defines the capstone:</p>
+        <p><strong>1 · Build from your classroom kit.</strong> Use the parts in your classroom <strong>Gateway kit</strong> — structure, wheels, gears, the bevel gears in the Advanced Gear Kit, and the Winch &amp; Pulley Kit if you lift. It's mostly EXP plus some V5 mechanism parts, all yours to use. Just don't pull from the <strong>separate competition team's V5 kit</strong>, so it stays complete.</p>
+        <p><strong>2 · It has to fit the cubby.</strong> The whole machine must fit one storage cubby — an <strong>IKEA Kallax</strong> compartment, a <strong>33 × 33 cm (13 × 13 in)</strong> square opening, about <strong>38 cm (15 in)</strong> deep. Design to that envelope and break the build down to store it.</p>
+        <p><strong>3 · Standard wheels only (if it rolls).</strong> If your solution drives, don't use the <strong>newer traction wheels</strong> or the <strong>omni-wheels</strong> — those are reserved for the V5 competition robots and are in short supply. Build on the standard wheels in your kit (and for an all-terrain mover, omni-wheels would slide sideways anyway — you want it to track straight).</p>
+        <p><strong>4 · Integrate Unit 2, and solve it for real.</strong> Your machine must use a <strong>rigid structure</strong>, a <strong>deliberate gear choice</strong>, and at least one <strong>mechanism</strong> — and it has to meet the <strong>success criterion</strong> you set. A pile of parts that doesn't do the job isn't done, no matter how clever.</p>
+      </div>
+
+      <div class="card card--safe">
+        <p class="card__title"><span class="ic">⚠️</span> Safety</p>
+        <ul>
+          <li>Keep fingers, hair, and loose clothing clear of <strong>meshing gears and moving mechanisms</strong> — they pinch where parts come together.</li>
+          <li>If your machine <strong>lifts or raises a load</strong>, keep it light, lift it over the table (not over hands or laps), and stand clear of the drop zone.</li>
+          <li>Test where the machine <strong>won't run off an edge</strong>, drive it at safe speeds, and keep small parts and decorations firmly attached.</li>
+        </ul>
+      </div>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/15034994190228-Building-with-VEX-EXP" target="_blank" rel="noopener">Building with VEX EXP</a> — structures, shafts, and bearings; keeping a frame rigid so gears stay meshed under load.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035590932-Using-Gear-Ratios-with-the-V5-Motor" target="_blank" rel="noopener">Using Gear Ratios with the V5 Motor</a> — choosing a ratio to trade speed for the torque a survival task usually needs. <strong>Heads-up:</strong> V5/competition page (12T/84T gears); build the same ideas with your 24/36/48/60T EXP gears.</li>
+          <li><a class="ext" href="https://www.vexrobotics.com/gears.html" target="_blank" rel="noopener">VEX Gears overview</a> — spur gears for speed/torque, and bevel gears for turning the axis of motion 90° (handy for an aimer).</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035955292-Using-the-VEX-CAD-Files" target="_blank" rel="noopener">Using the VEX CAD Files</a> — official part models to drop into Onshape when you draw your design.</li>
+        </ul>
+      </div>
+
+      <h2>What you'll need</h2>
+      <ul>
+        <li>VEX EXP kit: <strong>structure</strong> (C-channels, plates, standoffs), spur gears (24/36/48/60T), and <strong>bevel gears</strong> (Advanced Gear Kit) as your challenge needs</li>
+        <li><strong>Standard wheels and axles</strong> (not the competition traction/omni-wheels) if your machine rolls; the <strong>Winch &amp; Pulley Kit</strong> if it lifts</li>
+        <li>Shafts, bearing flats, shaft collars for rigid, low-friction mechanisms</li>
+        <li>An EXP Smart Motor or a hand crank to drive it, as your design requires</li>
+        <li>The success criterion / challenge setup your teacher provides; design brief and decision-matrix templates; engineering notebook</li>
+      </ul>
+
+      <h2>Do it</h2>
+      <ol>
+        <li><strong>Define.</strong> Pick your challenge. Restate the problem, the constraints, and your <strong>success criterion</strong> (how you'll know it worked) in your notebook, in your own words.</li>
+        <li><strong>Decompose &amp; brainstorm.</strong> Break the challenge into jobs. Sketch at least three concepts; on each, label which Unit 2 tool handles each job (structure, gear choice, mechanism).</li>
+        <li><strong>Select.</strong> Fill in your decision matrix (your own criteria and weights), total the columns, and choose your design. Record the choice.</li>
+        <li><strong>Build the structure first.</strong> Get a rigid, stable frame that fits the cubby — wide and low if it drives. Then add the mechanism, and gear it for the torque or speed the job needs.</li>
+        <li><strong>Test against the criterion.</strong> Run it on the real challenge. Does it do the job reliably?</li>
+        <li><strong>Improve.</strong> Fix what failed — gear down further, stiffen the frame, reduce friction, widen the base — and loop, recording each change.</li>
+        <li><strong>Showcase.</strong> Demonstrate against the challenge; give and collect peer feedback in your notebook, and submit your notebook.</li>
+      </ol>
+
+      <h2>Check your understanding</h2>
+      <ol>
+        <li>Which survival challenge did you choose, and what was the <strong>success criterion</strong> you designed for?</li>
+        <li>Which Unit 2 ideas did your solution rely on most — a structure, a gear ratio, or a motion mechanism? Give a specific example from your build.</li>
+        <li>Did your machine need more <strong>torque</strong> or more <strong>speed</strong>? Which way did you gear, and why?</li>
+        <li>Break your challenge into its jobs. Which job was the hardest to solve, and what mechanism did you use for it?</li>
+        <li>What failed during testing, and what single change did you make that helped the most? (Cite a specific iteration.)</li>
+        <li>If you had one more class period, what is the one change that would most improve your solution — and why that one?</li>
+      </ol>
+
+      <h2>Key terms</h2>
+      <div class="terms">
+        <span class="term">capstone</span><span class="term">design brief</span><span class="term">success criterion</span><span class="term">decompose</span><span class="term">function</span><span class="term">engineering design process</span><span class="term">decision matrix</span><span class="term">structure</span><span class="term">rigidity</span><span class="term">gear ratio</span><span class="term">gear down</span><span class="term">torque</span><span class="term">bevel gear</span><span class="term">mechanism</span><span class="term">center of gravity</span><span class="term">stability</span><span class="term">track width</span><span class="term">iteration</span><span class="term">engineering notebook</span>
+      </div>
+
+      <p class="sources"><strong>Sources (VEX Library, kb.vex.com / vexrobotics.com):</strong> Building with VEX EXP; Using Gear Ratios with the V5 Motor; VEX Gears overview (spur gears change speed/torque; bevel gears change the axis of motion 90°); Using the VEX CAD Files. The Survival Challenge as an open-ended Unit 2 capstone — integrating structures, gears, and mechanisms through the full engineering design process — is adapted from the PLTW Gateway <em>Automation &amp; Robotics</em> curriculum. Stability guidance (a lower center of gravity and wider track resist tipping) is standard mechanical-design practice.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>
