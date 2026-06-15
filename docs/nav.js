@@ -14,7 +14,7 @@ const BOOK = [
     { n: 3, title: "Observing Mechanisms", file: "chapter-03.html" },
     { n: 4, title: "Mechanical Gears", file: "chapter-04.html" },
     { n: 5, title: "Windmill Construction", file: "chapter-05.html" },
-    { n: 6, title: "Pull Toy Construction", file: "" },
+    { n: 6, title: "Pull Toy Construction", file: "chapter-06.html" },
     { n: 7, title: "Survival Challenge", file: "" },
   ]},
   { unit: "Unit 3 · Programming & Automation", chapters: [

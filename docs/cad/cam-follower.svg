@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-label="Technical drawing of an eccentric cam and a follower. The cam is a disc whose drive shaft sits off-center by a distance e; as the shaft rotates, the follower rides on top of the cam and rises and falls by a throw equal to two times e, converting rotary motion into reciprocating up-and-down motion.">
+  <defs>
+    <marker id="fdim" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1F3864"/></marker>
+    <marker id="fdimL" markerWidth="9" markerHeight="9" refX="2" refY="3" orient="auto"><path d="M7,0 L0,3 L7,6 Z" fill="#1F3864"/></marker>
+    <marker id="flead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#5B6470"/></marker>
+    <marker id="frot" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2E75B6"/></marker>
+  </defs>
+
+  <!-- vertical centerline through follower, cam centre & shaft (drafting convention) -->
+  <line x1="300" y1="28" x2="300" y2="372" stroke="#9AA3AF" stroke-width="0.7" stroke-dasharray="11 3 2 3"/>
+
+  <!-- cam disc (eccentric) -->
+  <circle cx="300" cy="250" r="92" fill="#EAF1FB" stroke="#1A1A1A" stroke-width="1.5"/>
+  <!-- cam geometric centre mark -->
+  <line x1="291" y1="250" x2="309" y2="250" stroke="#1F3864" stroke-width="1"/>
+  <line x1="300" y1="241" x2="300" y2="259" stroke="#1F3864" stroke-width="1"/>
+
+  <!-- guide (fixed to frame) — drawn before the rod so the rod reads as passing through -->
+  <g stroke="#1F3864">
+    <rect x="250" y="89" width="22" height="12" fill="#C9D6E8" stroke-width="1"/>
+    <rect x="328" y="89" width="22" height="12" fill="#C9D6E8" stroke-width="1"/>
+    <rect x="272" y="84" width="56" height="22" fill="#D7E3F2" stroke-width="1.3"/>
+  </g>
+  <!-- frame hatch on the fixed stubs -->
+  <g stroke="#7E93B4" stroke-width="0.7">
+    <line x1="252" y1="101" x2="258" y2="95"/><line x1="258" y1="101" x2="264" y2="95"/><line x1="264" y1="101" x2="270" y2="95"/>
+    <line x1="330" y1="101" x2="336" y2="95"/><line x1="336" y1="101" x2="342" y2="95"/><line x1="342" y1="101" x2="348" y2="95"/>
+  </g>
+
+  <!-- follower rod + foot (roller) at the HIGH position (cam lobe up) -->
+  <rect x="290" y="44" width="20" height="101" fill="#F2F7FC" stroke="#5B6470" stroke-width="1.3"/>
+  <circle cx="300" cy="145" r="13" fill="#fff" stroke="#1A1A1A" stroke-width="1.3"/>
+  <!-- the toy's moving part: a little pennant on top of the rod -->
+  <polygon points="300,44 344,53 300,62" fill="#C55A11"/>
+
+  <!-- phantom: the moving part at its LOW position (cam turned 180°) -->
+  <polygon points="300,116 344,125 300,134" fill="none" stroke="#9AA3AF" stroke-width="1.2" stroke-dasharray="5 3"/>
+
+  <!-- drive shaft (rotary input), off-centre by e -->
+  <circle cx="300" cy="286" r="10" fill="#fff" stroke="#1F3864" stroke-width="2"/>
+  <rect x="296" y="282" width="8" height="8" fill="#1F3864"/>
+
+  <!-- THROW dimension (top-left): the moving part rises & falls by 2e -->
+  <line x1="290" y1="44" x2="204" y2="44" stroke="#5B6470" stroke-width="0.7"/>
+  <line x1="300" y1="116" x2="204" y2="116" stroke="#5B6470" stroke-width="0.7"/>
+  <line x1="214" y1="44" x2="214" y2="116" stroke="#1F3864" stroke-width="1" marker-start="url(#fdimL)" marker-end="url(#fdim)"/>
+  <rect x="86" y="62" width="116" height="34" fill="#fff"/>
+  <text x="198" y="76" text-anchor="end" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">throw = 2 × e</text>
+  <text x="198" y="92" text-anchor="end" font-family="Arial" font-size="11.5" fill="#5B6470">(up &amp; down — reciprocating)</text>
+
+  <!-- ECCENTRICITY dimension (right): offset of shaft from cam centre = e -->
+  <line x1="392" y1="250" x2="452" y2="250" stroke="#5B6470" stroke-width="0.7"/>
+  <line x1="386" y1="286" x2="452" y2="286" stroke="#5B6470" stroke-width="0.7"/>
+  <line x1="444" y1="250" x2="444" y2="286" stroke="#1F3864" stroke-width="1" marker-start="url(#fdimL)" marker-end="url(#fdim)"/>
+  <rect x="450" y="259" width="92" height="18" fill="#fff"/>
+  <text x="452" y="272" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">e  (offset)</text>
+
+  <!-- rotation arrow: the cam disc spins -->
+  <path d="M 206,300 A 110 110 0 0 0 394,300" fill="none" stroke="#2E75B6" stroke-width="2.4" marker-end="url(#frot)"/>
+  <text x="300" y="378" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#2E75B6">rotary input — the cam disc spins</text>
+
+  <!-- leaders / part labels -->
+  <g stroke="#5B6470" stroke-width="0.7" fill="none">
+    <line x1="344" y1="53" x2="382" y2="53" marker-end="url(#flead)"/>
+    <line x1="350" y1="95" x2="382" y2="95" marker-end="url(#flead)"/>
+    <line x1="311" y1="128" x2="382" y2="128" marker-end="url(#flead)"/>
+    <line x1="356" y1="300" x2="404" y2="322" marker-end="url(#flead)"/>
+  </g>
+  <g font-family="Arial" font-size="12.5" fill="#1A1A1A">
+    <text x="386" y="57">the toy's moving part — bobs up &amp; down</text>
+    <text x="386" y="99">guide — fixed to the frame</text>
+    <text x="386" y="132">follower — rides on the cam</text>
+    <text x="408" y="326">cam — an off-centre (eccentric) disc</text>
+  </g>
+
+  <!-- rule -->
+  <text x="56" y="448" font-family="Arial" font-size="12.5" fill="#1A1A1A"><tspan font-weight="bold" fill="#1F3864">RULE:</tspan>  An off-centre (eccentric) cam turns rotation into up-and-down (reciprocating) motion.</text>
+  <text x="56" y="467" font-family="Arial" font-size="12.5" fill="#1A1A1A">The follower's throw (total travel) = 2 × the offset e.</text>
+</svg>

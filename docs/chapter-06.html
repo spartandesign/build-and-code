@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 6 · Pull Toy Construction — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="6">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">06</div>
+        <div>
+          <p class="chead__eyebrow">Unit 2 · Mechanisms &amp; motion · <strong>Project</strong></p>
+          <h1 class="chead__title">Pull Toy Construction</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What you'll learn:</strong> your second engineering <em>project</em> — a pull toy that comes alive when you pull it. You'll take the <strong>rotary motion</strong> of the rolling wheels and convert it into a <em>different</em> kind of motion — a head that bobs, an arm that waves — using a <strong>cam-and-follower</strong> or a <strong>crank-and-rocker linkage</strong>. Run the full <strong>engineering design process</strong> again, choose with a <strong>decision matrix</strong>, and tune the tempo with gears. No motor: your pull is the power.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>From lifting to moving: your second project</h2>
+      <p>Your windmill lifted a load. This project asks for something different — make something <strong>move in a lively way</strong>. A <strong>pull toy</strong> is one of the oldest toys there is: a little animal or character on wheels that you pull along by a string, and as it rolls, something on it comes alive — the head bobs, the tail wags, the wings flap. Pure mechanism, no batteries, no screen. Your job is to build a pull toy that <strong>rolls when pulled</strong> and turns that rolling into a <strong>second, different kind of motion</strong> to animate a character on top. The engineering question <em>is</em> the project: the wheels give you spinning (rotary) motion — how do you turn that into something that bobs or waves?</p>
+
+      <h2>Four kinds of motion</h2>
+      <p>Engineers describe motion in <strong>four basic kinds</strong>. Naming them gives you the exact words for what your toy does — and what it has to convert.</p>
+
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 430" role="img" aria-label="The four kinds of motion shown in four panels: rotary (a wheel spinning around an axis), linear (a block sliding straight one way), reciprocating (a block moving back and forth in a line), and oscillating (an arm swinging back and forth on a pivot)">
+          <defs>
+            <marker id="m1" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2E75B6"/></marker>
+            <marker id="m1s" markerWidth="9" markerHeight="9" refX="0" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#2E75B6"/></marker>
+            <marker id="mg" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#5B6470"/></marker>
+            <marker id="mgs" markerWidth="9" markerHeight="9" refX="0" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#5B6470"/></marker>
+          </defs>
+
+          <!-- panels -->
+          <rect x="18"  y="18"  width="312" height="188" rx="10" fill="#F2F7FC" stroke="#BFC7D2" stroke-width="1.5"/>
+          <rect x="350" y="18"  width="312" height="188" rx="10" fill="#F2F7FC" stroke="#BFC7D2" stroke-width="1.5"/>
+          <rect x="18"  y="224" width="312" height="188" rx="10" fill="#F2F7FC" stroke="#BFC7D2" stroke-width="1.5"/>
+          <rect x="350" y="224" width="312" height="188" rx="10" fill="#F2F7FC" stroke="#BFC7D2" stroke-width="1.5"/>
+
+          <!-- TL: ROTARY -->
+          <text x="42" y="50" font-family="Arial" font-size="16" font-weight="bold" fill="#1F3864">ROTARY</text>
+          <text x="42" y="70" font-family="Arial" font-size="12.5" fill="#5B6470">spins around an axis</text>
+          <circle cx="186" cy="133" r="33" fill="#FFFFFF" stroke="#2E75B6" stroke-width="2.6"/>
+          <line x1="153" y1="133" x2="219" y2="133" stroke="#2E75B6" stroke-width="1.6"/>
+          <line x1="186" y1="100" x2="186" y2="166" stroke="#2E75B6" stroke-width="1.6"/>
+          <circle cx="186" cy="133" r="3.6" fill="#1F3864"/>
+          <path d="M 209,93 A 46 46 0 1 1 146,110" fill="none" stroke="#2E75B6" stroke-width="2.6" marker-end="url(#m1)"/>
+          <text x="42" y="194" font-family="Arial" font-size="12" fill="#5B6470">a wheel · a spinning gear</text>
+
+          <!-- TR: LINEAR -->
+          <text x="374" y="50" font-family="Arial" font-size="16" font-weight="bold" fill="#1F3864">LINEAR</text>
+          <text x="374" y="70" font-family="Arial" font-size="12.5" fill="#5B6470">moves straight, one way</text>
+          <line x1="396" y1="156" x2="636" y2="156" stroke="#BFC7D2" stroke-width="1.6"/>
+          <rect x="408" y="118" width="56" height="30" rx="3" fill="#FFFFFF" stroke="#2E75B6" stroke-width="2.2"/>
+          <rect x="556" y="118" width="56" height="30" rx="3" fill="none" stroke="#BFC7D2" stroke-width="1.6" stroke-dasharray="4 3"/>
+          <path d="M 476,133 L 612,133" fill="none" stroke="#2E75B6" stroke-width="2.6" marker-end="url(#m1)"/>
+          <text x="374" y="194" font-family="Arial" font-size="12" fill="#5B6470">a drawer sliding open</text>
+
+          <!-- BL: RECIPROCATING -->
+          <text x="42" y="256" font-family="Arial" font-size="15" font-weight="bold" fill="#1F3864">RECIPROCATING</text>
+          <text x="42" y="276" font-family="Arial" font-size="12.5" fill="#5B6470">back &amp; forth in a line</text>
+          <line x1="150" y1="300" x2="150" y2="392" stroke="#BFC7D2" stroke-width="1.6"/>
+          <rect x="123" y="332" width="54" height="28" rx="3" fill="#FFFFFF" stroke="#2E75B6" stroke-width="2.2"/>
+          <path d="M 214,388 L 214,304" fill="none" stroke="#2E75B6" stroke-width="2.6" marker-start="url(#m1s)" marker-end="url(#m1)"/>
+          <text x="42" y="400" font-family="Arial" font-size="12" fill="#5B6470">a piston · a bobbing head</text>
+
+          <!-- BR: OSCILLATING -->
+          <text x="374" y="256" font-family="Arial" font-size="15" font-weight="bold" fill="#1F3864">OSCILLATING</text>
+          <text x="374" y="276" font-family="Arial" font-size="12.5" fill="#5B6470">swings on a pivot</text>
+          <line x1="505" y1="300" x2="540" y2="366" stroke="#9DB6D6" stroke-width="1.7"/>
+          <line x1="505" y1="300" x2="470" y2="366" stroke="#9DB6D6" stroke-width="1.7"/>
+          <line x1="505" y1="300" x2="505" y2="370" stroke="#2E75B6" stroke-width="2.8"/>
+          <circle cx="505" cy="376" r="6.5" fill="#C55A11"/>
+          <circle cx="505" cy="300" r="4.5" fill="#1F3864"/>
+          <path d="M 470,366 A 72 72 0 0 1 540,366" fill="none" stroke="#5B6470" stroke-width="2.2" stroke-dasharray="5 4" marker-start="url(#mgs)" marker-end="url(#mg)"/>
+          <text x="374" y="400" font-family="Arial" font-size="12" fill="#5B6470">a pendulum · a wagging tail</text>
+        </svg>
+        <figcaption>The four kinds of motion. A <strong>mechanism</strong>'s whole job is to convert one kind into another.</figcaption>
+      </figure>
+
+      <p>Your rolling wheels produce <strong>rotary</strong> motion. If you want the toy to <strong>bob</strong> (reciprocating) or <strong>wave</strong> (oscillating), you need a mechanism that <em>converts</em> rotary into that other kind. That converter is the heart of your pull toy — and it's the one thing the design brief insists on.</p>
+
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🎯</span> The one rule that makes it a pull toy</p>
+        <p>It has to <strong>convert rotary motion into a different kind of motion</strong>. A part that just spins <em>faster</em> — a geared propeller, say — is still rotary, so it doesn't count. The whole challenge is the conversion: spinning wheels in, a bob or a wave out.</p>
+      </div>
+
+      <h2>The pull toy's engineering: convert the motion</h2>
+      <p>Two mechanisms do this conversion beautifully, and <em>either one</em> will carry your project.</p>
+
+      <p><strong>Bob up and down — the cam-and-follower.</strong> A <strong>cam</strong> is a disc mounted <strong>off-center</strong> (engineers say <em>eccentric</em>) on a spinning shaft. A <strong>follower</strong> rests on its edge. As the shaft turns, the high side lifts the follower and the low side lets it drop — so steady spinning becomes <strong>up-and-down (reciprocating)</strong> motion. Mount a head or a figure on the follower and it bobs as the toy rolls. How far it rises and falls — the <strong>throw</strong> — is exactly <strong>twice the offset</strong> (how far off-center the shaft sits). The dimensioned drawing later in this chapter shows precisely how it's built.</p>
+
+      <p><strong>Wave back and forth — the crank-and-rocker linkage.</strong> Link four bars in a loop — a fixed frame (the <strong>ground</strong>), a short <strong>crank</strong>, a connecting <strong>coupler</strong>, and a <strong>rocker</strong> arm — and you have a <strong>four-bar linkage</strong>. Drive the short crank in full circles (from the wheels) and the rocker <em>can't</em> go all the way around; instead it <strong>swings back and forth (oscillating)</strong>. Put a waving arm or a tail on the rocker and it wags.</p>
+
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 40 680 380" role="img" aria-label="A crank-and-rocker four-bar linkage. A short crank pinned to a fixed ground pivot rotates in full circles; a coupler link connects it to a longer rocker arm pinned to a second ground pivot; because the crank is the shortest link it spins fully while the rocker only swings back and forth, carrying a waving figure at its top">
+          <defs>
+            <marker id="c1"  markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2E75B6"/></marker>
+            <marker id="c1s" markerWidth="9" markerHeight="9" refX="0" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#2E75B6"/></marker>
+            <marker id="cr"  markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#C55A11"/></marker>
+            <marker id="clead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#5B6470"/></marker>
+          </defs>
+
+          <!-- ground line + hatch -->
+          <line x1="150" y1="300" x2="540" y2="300" stroke="#5B6470" stroke-width="2"/>
+          <g stroke="#5B6470" stroke-width="1">
+            <line x1="170" y1="300" x2="158" y2="314"/><line x1="194" y1="300" x2="182" y2="314"/>
+            <line x1="218" y1="300" x2="206" y2="314"/><line x1="242" y1="300" x2="230" y2="314"/>
+            <line x1="266" y1="300" x2="254" y2="314"/><line x1="290" y1="300" x2="278" y2="314"/>
+            <line x1="314" y1="300" x2="302" y2="314"/><line x1="338" y1="300" x2="326" y2="314"/>
+            <line x1="362" y1="300" x2="350" y2="314"/><line x1="386" y1="300" x2="374" y2="314"/>
+            <line x1="410" y1="300" x2="398" y2="314"/><line x1="434" y1="300" x2="422" y2="314"/>
+            <line x1="458" y1="300" x2="446" y2="314"/><line x1="482" y1="300" x2="470" y2="314"/>
+            <line x1="506" y1="300" x2="494" y2="314"/><line x1="530" y1="300" x2="518" y2="314"/>
+          </g>
+
+          <!-- crank circular path (faint dashed) -->
+          <circle cx="235" cy="300" r="70" fill="none" stroke="#9DB6D6" stroke-width="1.4" stroke-dasharray="4 4"/>
+          <!-- rocker swing arc (dashed, double-headed via two arcs) -->
+          <path d="M 470,150 A 150 150 0 0 0 424,157" fill="none" stroke="#5B6470" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#c1)"/>
+          <path d="M 470,150 A 150 150 0 0 1 516,157" fill="none" stroke="#5B6470" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#c1)"/>
+
+          <!-- links: coupler, crank, rocker -->
+          <line x1="200" y1="240" x2="470" y2="152" stroke="#2E75B6" stroke-width="4"/>   <!-- coupler -->
+          <line x1="235" y1="300" x2="200" y2="240" stroke="#C55A11" stroke-width="5"/>   <!-- crank (shortest) -->
+          <line x1="470" y1="300" x2="470" y2="152" stroke="#1F3864" stroke-width="4.5"/> <!-- rocker -->
+
+          <!-- waving figure (pennant) on rocker top -->
+          <polygon points="470,152 514,150 484,131" fill="#C55A11"/>
+
+          <!-- crank rotation arrow (small, at crank tip, clockwise) -->
+          <path d="M 200,239 A 70 70 0 0 1 259,234" fill="none" stroke="#C55A11" stroke-width="2.4" marker-end="url(#cr)"/>
+
+          <!-- fixed-pivot supports -->
+          <polygon points="235,300 223,320 247,320" fill="#FFFFFF" stroke="#1F3864" stroke-width="1.6"/>
+          <polygon points="470,300 458,320 482,320" fill="#FFFFFF" stroke="#1F3864" stroke-width="1.6"/>
+          <line x1="218" y1="320" x2="252" y2="320" stroke="#1F3864" stroke-width="1.6"/>
+          <line x1="453" y1="320" x2="487" y2="320" stroke="#1F3864" stroke-width="1.6"/>
+
+          <!-- joints -->
+          <circle cx="235" cy="300" r="4.5" fill="#1F3864"/>
+          <circle cx="470" cy="300" r="4.5" fill="#1F3864"/>
+          <circle cx="200" cy="240" r="4.5" fill="#FFFFFF" stroke="#1F3864" stroke-width="2"/>
+          <circle cx="470" cy="152" r="4.5" fill="#FFFFFF" stroke="#1F3864" stroke-width="2"/>
+
+          <!-- leaders + labels -->
+          <g stroke="#5B6470" stroke-width="0.8" fill="none">
+            <line x1="150" y1="246" x2="206" y2="266" marker-end="url(#clead)"/>
+            <line x1="338" y1="150" x2="332" y2="194" marker-end="url(#clead)"/>
+            <line x1="534" y1="220" x2="476" y2="226" marker-end="url(#clead)"/>
+            <line x1="352" y1="340" x2="352" y2="303" marker-end="url(#clead)"/>
+          </g>
+          <g font-family="Arial" fill="#1A1A1A">
+            <text x="40"  y="236" font-size="13" font-weight="bold" fill="#C55A11">crank</text>
+            <text x="40"  y="253" font-size="11.5" fill="#5B6470">spun fully by the wheels</text>
+            <text x="300" y="128" font-size="13" font-weight="bold" fill="#2E75B6">coupler</text>
+            <text x="300" y="145" font-size="11.5" fill="#5B6470">the connecting link</text>
+            <text x="540" y="210" font-size="13" font-weight="bold" fill="#1F3864">rocker</text>
+            <text x="540" y="227" font-size="11.5" fill="#5B6470">the toy's arm —</text>
+            <text x="540" y="243" font-size="11.5" fill="#5B6470">swings back &amp; forth</text>
+            <text x="250" y="345" font-size="11.5" fill="#5B6470">ground — the fixed frame</text>
+          </g>
+        </svg>
+        <figcaption>The crank-and-rocker. The <strong>crank must be the shortest link</strong> — that's what lets it spin in full circles while the rocker only rocks. Rotary in, a swing out.</figcaption>
+      </figure>
+
+      <div class="card card--tip">
+        <h3>🛞 Where does the spin come from? The wheels.</h3>
+        <p>There's no motor — <strong>your pull is the power</strong>. Tie the string to the toy so pulling rolls it forward; the rolling <strong>axle</strong> turns with the wheels, and that turning is your rotary input. Run it straight to the cam shaft or crank, or through a gear pair first. So the chain is: <em>you walk</em> (linear) → <em>wheels roll</em> (rotary) → <em>mechanism converts it</em> → <em>the toy bobs or waves</em>. Rolling itself is the trick that turns your steady pull into spinning.</p>
+      </div>
+
+      <h2>Tune the tempo with gears</h2>
+      <p>How lively is the animation? That's a <strong>gear-ratio</strong> choice — the same torque-vs-speed trade from Chapters 3 and 4. The wheels turn at whatever pace the rolling sets; between the wheel axle and your cam/crank shaft you can gear up or down:</p>
+      <ul>
+        <li><strong>Gear up for a livelier toy.</strong> A big drive gear turning a small driven gear (say <strong>60T → 24T</strong>) makes the cam or crank spin <em>faster</em> than the wheels — more bobs or wags per step. The trade is force.</li>
+        <li><strong>Gear down for slow and strong.</strong> A small drive into a big driven (<strong>24T → 60T</strong>) <em>slows</em> the animation and adds force — handy if the mechanism binds, or you want a lazy, dramatic wag.</li>
+      </ul>
+      <p>The gear math from Unit 2 still holds: <strong>pitch diameter (in) = teeth ÷ 24</strong>, and a meshing pair sits at a center distance of <strong>(PD₁ + PD₂) ÷ 2</strong> — so a 24T and 60T pair needs <strong>1.75″</strong> between shafts (Ø1.00″ + Ø2.50″, halved). And if your animation needs to happen on an axis <strong>90° from the wheels</strong>, a <strong>bevel gear</strong> (Advanced Gear Kit) turns the corner, exactly as it did on the windmill.</p>
+
+      <h2>The design brief</h2>
+      <p>Same as any job: a <strong>client</strong> hands you a <strong>design brief</strong>. Restate it in your own words first — that's Define.</p>
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">📋</span> Pull toy design brief</p>
+        <ul>
+          <li><strong>Client:</strong> a toy company (or a children's museum) that wants a screen-free, battery-free toy.</li>
+          <li><strong>Problem statement:</strong> children want a fun pull-along toy that does something delightful as it moves — with no motor, batteries, or screen.</li>
+          <li><strong>Design statement:</strong> design and build a pull toy that rolls when pulled and converts the wheels' rotary motion into a different kind of motion to animate a character.</li>
+          <li><strong>Constraints:</strong> build from your classroom Gateway kit; the whole toy fits one storage cubby (an IKEA Kallax compartment — a 33 × 33 cm / 13 × 13 in opening, about 38 cm / 15 in deep); <strong>pull-powered — no motor</strong>; <strong>standard wheels only</strong> (the newer traction and omni-wheels are reserved for the competition team); it must use at least one mechanism that converts rotary motion into a different motion type; it must roll straight and look like a toy.</li>
+          <li><strong>Deliverables:</strong> a working pull toy that looks like a toy, a completed decision matrix, and a documented engineering notebook.</li>
+        </ul>
+      </div>
+
+      <h2>Choosing on purpose: the decision matrix</h2>
+      <p>You built one for the windmill, so you know the tool: list the <strong>criteria</strong>, give each a <strong>weight</strong>, score each concept, then multiply and total. Here it is for three pull-toy concepts, scored 1 (poor) to 5 (great):</p>
+      <table class="dtable">
+        <thead>
+          <tr><th>Criterion</th><th>Weight</th><th>A · cam bob<br>(reciprocating)</th><th>B · crank wave<br>(oscillating)</th><th>C · geared spinner<br>(still rotary)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Lively, eye-catching motion</td><td>5</td><td>5 → 25</td><td>5 → 25</td><td>4 → 20</td></tr>
+          <tr><td>Converts to a <em>different</em> motion type</td><td>5</td><td>5 → 25</td><td>5 → 25</td><td>1 → 5</td></tr>
+          <tr><td>Rolls straight</td><td>3</td><td>3 → 9</td><td>4 → 12</td><td>5 → 15</td></tr>
+          <tr><td>Easy to build</td><td>2</td><td>3 → 6</td><td>2 → 4</td><td>5 → 10</td></tr>
+          <tr><td>Fits the cubby</td><td>2</td><td>5 → 10</td><td>5 → 10</td><td>5 → 10</td></tr>
+          <tr><td><strong>Total</strong></td><td></td><td><strong>75</strong></td><td><strong>76</strong></td><td><strong>60</strong></td></tr>
+        </tbody>
+      </table>
+      <p>Two things to notice. First, <strong>A and B are nearly tied</strong> (75 vs 76) — when totals are that close, either is a defensible choice, and you'd pick on a tiebreak (which character do you want? which can your team build well?). Second, <strong>C loses badly</strong> even though it rolls great and is easy to build — because it scores a 1 on the criterion that matters most. The geared spinner only speeds up rotation; it never converts the motion, which is the one thing the brief requires. <strong>Your</strong> criteria and weights may differ — but the matrix keeps you honest about what actually counts.</p>
+
+      <div class="card card--tip">
+        <h3>🧭 Decision matrix, in four steps (recap)</h3>
+        <p><strong>1.</strong> List 4–6 criteria, including your hard constraints (here: "converts the motion" and "fits the cubby"). <strong>2.</strong> Weight each 1–5 — must-haves get the big numbers. <strong>3.</strong> Score each concept 1–5, honestly. <strong>4.</strong> Multiply score × weight, total each column; the highest total is your starting design.</p>
+      </div>
+
+      <div class="card card--cad">
+        <p class="card__title"><span class="ic">📐</span> See it in CAD — and try it yourself</p>
+        <p>Here's the cam-and-follower drawn the engineering way. One number runs the whole thing: the follower's <strong>throw = 2 × the offset (e)</strong>. Want the head to bob higher? Move the shaft farther off-center. Want a gentle nod? Keep it close to the middle.</p>
+        <img class="cad-dwg" src="cad/cam-follower.svg" alt="Technical drawing of an eccentric cam and follower, dimensioned to show that the follower's throw equals two times the shaft offset e, converting rotary motion into reciprocating up-and-down motion">
+        <p class="cad-note">This course uses <strong>Onshape</strong> (free for schools) for 3D CAD and drawings. Browse VEX parts in the <a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035955292-Using-the-VEX-CAD-Files" target="_blank" rel="noopener">VEX CAD library</a>.</p>
+        <div class="cad-try">
+          <strong>Try it (optional):</strong> Pick the bob height you want for your figure, then <strong>set the offset to half of it</strong> (since throw = 2e) and sketch the cam to that dimension. Want to go further? <strong>Model your cam in Onshape</strong>, mark the offset, and build from your own drawing. Not required to finish — but engineers almost always draw before they cut metal.
+        </div>
+      </div>
+
+      <div class="card card--constraint">
+        <p class="card__title"><span class="ic">📐</span> Your build constraints</p>
+        <p>The two rules from every build this year, plus two that are specific to a rolling toy:</p>
+        <p><strong>1 · Build from your classroom kit.</strong> Use the parts in your classroom <strong>Gateway kit</strong> — wheels, axles, gears (including the bevel gears in the Advanced Gear Kit). It's mostly EXP plus some V5 mechanism parts, all yours to use. Just don't pull from the <strong>separate competition team's V5 kit</strong>, so it stays complete for the team.</p>
+        <p><strong>2 · It has to fit the cubby.</strong> The whole toy must fit one storage cubby — an <strong>IKEA Kallax</strong> shelf compartment, a <strong>33 × 33 cm (13 × 13 in)</strong> square opening, about <strong>38 cm (15 in)</strong> deep. The 33 × 33 cm face is the real limit: your toy has to pass <em>through</em> it, so keep the character and its mechanism inside that envelope.</p>
+        <p><strong>3 · Pull-powered.</strong> No motor — the pull string is the only power source.</p>
+        <p><strong>4 · Standard wheels only — leave the competition wheels for the team, and roll straight.</strong> Don't use the <strong>newer traction wheels</strong> or the <strong>omni-wheels</strong>: those are set aside for the V5 competition robots and are in short supply, so build on the standard wheels in your kit. That's the right engineering call anyway — <strong>omni-wheels are designed to slide sideways</strong> (perfect for a competition drivetrain that spins and strafes, exactly wrong for a toy that should track straight). Square up your axles and keep the wheels parallel so it tracks straight when you pull.</p>
+      </div>
+
+      <div class="card card--safe">
+        <p class="card__title"><span class="ic">⚠️</span> Safety</p>
+        <ul>
+          <li>Keep fingers, hair, and loose clothing clear of <strong>meshing gears, the spinning cam, and the linkage pivots</strong> — they pinch where parts come together.</li>
+          <li><strong>Pull smoothly — don't yank.</strong> A hard jerk can snap a link, pop a gear out of mesh, or send a loose part flying.</li>
+          <li>Pull the toy on the floor or a table where it won't drop off an edge, and keep small parts and decorations firmly attached.</li>
+        </ul>
+      </div>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/15034994190228-Building-with-VEX-EXP" target="_blank" rel="noopener">Building with VEX EXP</a> — shafts, bearings, and keeping a rolling chassis rigid so gears stay meshed.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035590932-Using-Gear-Ratios-with-the-V5-Motor" target="_blank" rel="noopener">Using Gear Ratios with the V5 Motor</a> — building gear trains and choosing a ratio to speed up or slow down your mechanism. <strong>Heads-up:</strong> V5/competition page (12T/84T gears); build the same ideas with your 24/36/48/60T EXP gears.</li>
+          <li><a class="ext" href="https://www.vexrobotics.com/gears.html" target="_blank" rel="noopener">VEX Gears overview</a> — spur gears for changing speed, and bevel gears for turning the axis of motion 90°.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035955292-Using-the-VEX-CAD-Files" target="_blank" rel="noopener">Using the VEX CAD Files</a> — official part models to drop into Onshape when you draw your cam or linkage.</li>
+        </ul>
+      </div>
+
+      <h2>What you'll need</h2>
+      <ul>
+        <li>VEX EXP kit: <strong>standard wheels and axles</strong> (not the competition traction/omni-wheels), spur gears (24/36/48/60T), and <strong>bevel gears</strong> (Advanced Gear Kit) if you turn the corner</li>
+        <li>Shafts, bearing flats, shaft collars, C-channels/plates for a rigid rolling chassis</li>
+        <li>String for the pull handle</li>
+        <li>Materials to make it <em>look like a toy</em> — a character or decoration (within your kit and your teacher's rules)</li>
+        <li>Design brief and decision-matrix templates; engineering notebook</li>
+        <li><strong>No motor</strong> — this build is pull-powered</li>
+      </ul>
+
+      <h2>Do it</h2>
+      <ol>
+        <li><strong>Define.</strong> Read the design brief and restate the problem and constraints in your notebook, in your own words.</li>
+        <li><strong>Brainstorm.</strong> Sketch at least three pull-toy concepts. On each, label the <strong>input</strong> (rolling wheels = rotary) and the <strong>output</strong> (what moves, and which kind of motion — reciprocating? oscillating?), and name the mechanism that converts between them.</li>
+        <li><strong>Select.</strong> Fill in the decision matrix (criteria, weights, scores), total the columns, and choose your design. Record the choice.</li>
+        <li><strong>Build the rolling chassis.</strong> Wheels and axle on a rigid frame; tie on the pull string. Confirm it rolls <em>straight</em> and fits the cubby.</li>
+        <li><strong>Add the converting mechanism.</strong> Build your cam-and-follower or crank-and-rocker and connect it to the wheel axle — directly, or through a gear pair.</li>
+        <li><strong>Tune the tempo.</strong> Start at 1:1, then gear up for a livelier motion or down for slower/stronger, and record what changes.</li>
+        <li><strong>Test &amp; improve.</strong> Pull it. Does it roll straight and animate reliably? Fix binding, slipping, or dead spots; loop until it works, recording each change.</li>
+        <li><strong>Gallery walk.</strong> Pull your toy alongside other teams'; give and collect peer feedback in your notebook.</li>
+      </ol>
+
+      <h2>Check your understanding</h2>
+      <ol>
+        <li>Which kind of motion do the rolling wheels produce, and which kind does your toy's moving part produce? Name the mechanism that converts between them.</li>
+        <li>For a cam-and-follower, how does the offset (e) set how far the follower travels (its throw)?</li>
+        <li>In a crank-and-rocker linkage, why must the crank be the shortest link — and what does the rocker do?</li>
+        <li>You want your toy to animate more times per step (livelier). Which way do you gear — up or down — and what's the trade?</li>
+        <li>Why doesn't a part that simply spins faster (like a geared propeller) satisfy the design brief?</li>
+        <li>What would you change if you built it again, and why? (Tie it to something you saw during testing.)</li>
+      </ol>
+
+      <h2>Key terms</h2>
+      <div class="terms">
+        <span class="term">pull toy</span><span class="term">rotary motion</span><span class="term">linear motion</span><span class="term">reciprocating motion</span><span class="term">oscillating motion</span><span class="term">mechanism</span><span class="term">cam</span><span class="term">follower</span><span class="term">eccentric</span><span class="term">throw</span><span class="term">offset</span><span class="term">four-bar linkage</span><span class="term">crank</span><span class="term">rocker</span><span class="term">coupler</span><span class="term">gear ratio</span><span class="term">gear up</span><span class="term">gear down</span><span class="term">bevel gear</span><span class="term">engineering design process</span><span class="term">decision matrix</span><span class="term">engineering notebook</span>
+      </div>
+
+      <p class="sources"><strong>Sources (VEX Library, kb.vex.com / vexrobotics.com):</strong> Building with VEX EXP; Using Gear Ratios with the V5 Motor; VEX Gears overview (spur gears change speed; bevel gears change the axis of motion 90°); Using the VEX CAD Files. The four kinds of motion, the cam-and-follower and four-bar (crank-and-rocker) linkage, and the pull-toy design challenge are adapted from the PLTW Gateway <em>Automation &amp; Robotics</em> curriculum. Cam throw = 2 × the eccentric offset; VEX spur gears are 24/36/48/60T with pitch diameter (in) = tooth count ÷ 24, so a meshing pair's center distance = (PD₁ + PD₂) ÷ 2.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>
