@@ -60,8 +60,8 @@ Document as you go: restated problem + constraints; three labeled concept sketch
 
 ## Build constraints
 
-1. **Build from the EXP kit** — including bevel gears from the Advanced Gear Kit. (Shared with V5; build from the EXP supply so the competition kits stay complete.)
-2. **Fit the cubby** — the whole windmill fits ≈33 × 33 × 39 cm (13 × 13 × 15 in). Break it down at the end.
+1. **Build from your classroom Gateway kit** — including the bevel gears (Advanced Gear Kit) and, for the lift, the Winch & Pulley Kit. It's mostly EXP plus some V5 mechanism parts, all yours to use. Don't pull from the separate competition team's V5 kit, so it stays complete.
+2. **Fit the cubby** — the whole windmill fits one IKEA Kallax compartment: a 33 × 33 cm (13 × 13 in) opening, about 38 cm (15 in) deep. The 33 × 33 cm face is the real limit (it must pass through). Break it down at the end.
 
 ## Safety
 
