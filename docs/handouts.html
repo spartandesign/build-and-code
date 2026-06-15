@@ -69,6 +69,7 @@ const HANDOUTS = {
   5: "Ch05_Windmill",
   6: "Ch06_PullToy",
   7: "Ch07_Survival",
+  A: "Mechanisms_BenchCard",
 };
 
 (function () {
@@ -89,7 +90,7 @@ const HANDOUTS = {
   for (const c of flat) {
     const base = HANDOUTS[c.n];
     if (!base) continue; // only show chapters with ready handouts
-    const numTxt = String(c.n).padStart(2, "0");
+    const numTxt = typeof c.n === "number" ? String(c.n).padStart(2, "0") : c.n;
     rows += `<tr>
       <td><strong>${numTxt}</strong> &nbsp;${c.title}</td>
       <td>${cell(base, "STUDENT")}</td>
