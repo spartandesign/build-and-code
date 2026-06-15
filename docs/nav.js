@@ -28,6 +28,9 @@ const BOOK = [
     { n: 13, title: "Remote Controls (Driver Control)", file: "" },
     { n: 14, title: "Sumo Competition & Build Your Own", file: "" },
   ]},
+  { unit: "Reference", chapters: [
+    { n: "A", title: "Advanced Mechanisms", file: "appendix-a-mechanisms.html" },
+  ]},
 ];
 
 (function () {
@@ -43,7 +46,7 @@ const BOOK = [
       html += `<div class="toc__unit"><span class="unit-label">${u.unit}</span>`;
       for (const c of u.chapters) {
         const isCur = String(c.n) === current;
-        const numTxt = String(c.n).padStart(2, "0");
+        const numTxt = typeof c.n === "number" ? String(c.n).padStart(2, "0") : c.n;
         if (c.file) {
           html += `<a href="${c.file}"${isCur ? ' aria-current="page"' : ""}><span class="num">${numTxt}</span><span>${c.title}</span></a>`;
         } else {

@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Appendix A · Advanced Mechanisms — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="A">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">A</div>
+        <div>
+          <p class="chead__eyebrow">Reference · <strong>How the pieces work together</strong></p>
+          <h1 class="chead__title">Advanced Mechanisms</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What this is:</strong> a field guide to the parts beyond plain spur gears. Each mechanism takes the spin from a motor and does one specific thing with it — <em>send it somewhere</em>, <em>turn a corner</em>, <em>trade speed for force</em>, or <em>change it into a different kind of motion</em>. Use this page to pick the right mechanism for a job — especially during the <a href="chapter-07.html">Survival Challenge</a> — then flip back to the chapter that builds it.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <p><strong>On this page:</strong> <a href="#idler">idler gear</a> · <a href="#chain">chain &amp; sprocket</a> · <a href="#bevel">bevel gear</a> · <a href="#diff">differential</a> · <a href="#worm">worm &amp; wheel</a> · <a href="#rack">rack &amp; pinion</a> · <a href="#lead">leadscrew</a> · <a href="#cam">cam &amp; follower</a> · <a href="#crank">crank &amp; rocker</a>.</p>
+
+      <div class="card card--tip">
+        <p class="card__title"><span class="ic">🧭</span> How to read each entry</p>
+        <p>Every mechanism below tells you the same three things: <strong>how it works</strong> (the one idea that matters), <strong>what it's good for</strong> (when to reach for it), and a <strong>heads-up</strong> (the mistake to avoid). The little diagram shows the behavior, not an exact build — the real build is up to you and your kit.</p>
+      </div>
+
+      <h2>Send the drive somewhere — same direction</h2>
+      <p>Sometimes the motor is in one place and the work happens in another. These two move rotation across a gap <em>without</em> flipping its direction.</p>
+
+      <h3 id="idler">Idler gear</h3>
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 150" role="img" aria-label="Three meshed gears in a row. The left drive gear and the right driven gear both turn clockwise; the middle idler gear turns counter-clockwise between them.">
+          <defs>
+            <marker id="io" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker>
+            <marker id="ig" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5B6470"/></marker>
+          </defs>
+          <circle cx="72" cy="80" r="31" fill="#F2F7FC" stroke="#BFC7D2" stroke-width="1.5"/><circle cx="72" cy="80" r="31" fill="none" stroke="#2E75B6" stroke-width="6" stroke-dasharray="7 6"/><circle cx="72" cy="80" r="6" fill="#2E75B6"/>
+          <circle cx="134" cy="80" r="31" fill="#EEF2F6" stroke="#BFC7D2" stroke-width="1.5"/><circle cx="134" cy="80" r="31" fill="none" stroke="#8FA8C0" stroke-width="6" stroke-dasharray="7 6"/><circle cx="134" cy="80" r="6" fill="#8FA8C0"/>
+          <circle cx="196" cy="80" r="31" fill="#F2F7FC" stroke="#BFC7D2" stroke-width="1.5"/><circle cx="196" cy="80" r="31" fill="none" stroke="#2E75B6" stroke-width="6" stroke-dasharray="7 6"/><circle cx="196" cy="80" r="6" fill="#2E75B6"/>
+          <path d="M58 50 A18 18 0 0 1 86 50" fill="none" stroke="#C55A11" stroke-width="2.4" marker-end="url(#io)"/>
+          <path d="M148 50 A18 18 0 0 0 120 50" fill="none" stroke="#5B6470" stroke-width="2.4" marker-end="url(#ig)"/>
+          <path d="M182 50 A18 18 0 0 1 210 50" fill="none" stroke="#C55A11" stroke-width="2.4" marker-end="url(#io)"/>
+          <text x="72" y="130" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">drive</text>
+          <text x="134" y="130" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#5B6470">idler</text>
+          <text x="196" y="130" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">driven</text>
+        </svg>
+        <figcaption>The idler flips the direction twice, so the <strong>drive and driven turn the same way</strong>.</figcaption>
+      </figure>
+      <p><strong>How it works.</strong> Drop an extra gear between the drive and driven gears. It reverses the direction once, then again — so the two end gears turn the <em>same</em> way. The idler's own size doesn't change the gear ratio; it only bridges the gap and fixes the direction.</p>
+      <p><strong>Good for:</strong> spanning a distance between two shafts, and making all four wheels drive the same direction. &nbsp;<strong>Heads-up:</strong> it adds no torque and no speed change — it's a bridge, not a reduction.</p>
+
+      <h3 id="chain">Chain &amp; sprocket</h3>
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 150" role="img" aria-label="Two sprockets connected by a chain loop, both turning the same direction, linking two axles across a gap.">
+          <defs><marker id="co" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker></defs>
+          <line x1="80" y1="50" x2="240" y2="50" stroke="#5B6470" stroke-width="4" stroke-dasharray="9 5"/>
+          <line x1="80" y1="110" x2="240" y2="110" stroke="#5B6470" stroke-width="4" stroke-dasharray="9 5"/>
+          <circle cx="80" cy="80" r="30" fill="#F2F7FC" stroke="#BFC7D2" stroke-width="1.5"/><circle cx="80" cy="80" r="30" fill="none" stroke="#2E75B6" stroke-width="6" stroke-dasharray="7 6"/><circle cx="80" cy="80" r="6" fill="#2E75B6"/>
+          <circle cx="240" cy="80" r="30" fill="#F2F7FC" stroke="#BFC7D2" stroke-width="1.5"/><circle cx="240" cy="80" r="30" fill="none" stroke="#2E75B6" stroke-width="6" stroke-dasharray="7 6"/><circle cx="240" cy="80" r="6" fill="#2E75B6"/>
+          <path d="M66 50 A18 18 0 0 1 94 50" fill="none" stroke="#C55A11" stroke-width="2.4" marker-end="url(#co)"/>
+          <path d="M226 50 A18 18 0 0 1 254 50" fill="none" stroke="#C55A11" stroke-width="2.4" marker-end="url(#co)"/>
+          <text x="80" y="132" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">axle 1</text>
+          <text x="240" y="132" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">axle 2</text>
+        </svg>
+        <figcaption>A chain ties two axles together across a gap a gear train can't reach — turning the <strong>same direction</strong>.</figcaption>
+      </figure>
+      <p><strong>How it works.</strong> A chain wraps around two sprockets so they spin together, the same direction, even when they're far apart. The ratio comes from the sprocket teeth, exactly like gears (a small sprocket driving a big one gears down).</p>
+      <p><strong>Good for:</strong> linking the front and rear axles for four-wheel drive, or driving a shaft well away from the motor. &nbsp;<strong>Heads-up:</strong> keep the chain tensioned — too loose and it skips teeth or falls off.</p>
+
+      <h2>Turn the corner — 90°</h2>
+      <p>When the drive has to change direction in space — onto a new axis — you need a gear that meshes at an angle.</p>
+
+      <h3 id="bevel">Bevel gear</h3>
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 175" role="img" aria-label="A bevel gear pair: a horizontal input shaft meshes with a vertical output shaft, turning the drive through a 90 degree corner.">
+          <defs><marker id="bo" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker></defs>
+          <line x1="22" y1="128" x2="95" y2="128" stroke="#5B6470" stroke-width="3"/>
+          <line x1="150" y1="95" x2="150" y2="26" stroke="#5B6470" stroke-width="3"/>
+          <circle cx="95" cy="128" r="27" fill="#F2F7FC" stroke="#BFC7D2" stroke-width="1.5"/><circle cx="95" cy="128" r="27" fill="none" stroke="#2E75B6" stroke-width="6" stroke-dasharray="7 6"/><circle cx="95" cy="128" r="5" fill="#2E75B6"/>
+          <circle cx="150" cy="95" r="27" fill="#F2F7FC" stroke="#BFC7D2" stroke-width="1.5"/><circle cx="150" cy="95" r="27" fill="none" stroke="#2E75B6" stroke-width="6" stroke-dasharray="7 6"/><circle cx="150" cy="95" r="5" fill="#2E75B6"/>
+          <path d="M40 150 h22 v-22" fill="none" stroke="#C55A11" stroke-width="1.6"/>
+          <line x1="30" y1="128" x2="66" y2="128" stroke="#C55A11" stroke-width="2.6" marker-end="url(#bo)"/>
+          <line x1="150" y1="64" x2="150" y2="30" stroke="#C55A11" stroke-width="2.6" marker-end="url(#bo)"/>
+          <text x="58" y="166" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">drive in</text>
+          <text x="196" y="52" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">drive out</text>
+          <text x="186" y="120" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#C55A11">90°</text>
+        </svg>
+        <figcaption>Two bevel gears hand the drive around a <strong>right-angle corner</strong> onto a new shaft.</figcaption>
+      </figure>
+      <p><strong>How it works.</strong> Two angled gears mesh to turn the drive through 90°, sending the rotation onto a shaft that points a new way. Same number of teeth means 1:1 — a pure direction change; give the gears different teeth and you also change the speed and torque.</p>
+      <p><strong>Good for:</strong> reaching a dish, arm, or wheel that sits around a corner from the motor — any right-angle drive. &nbsp;<strong>Heads-up:</strong> bevel gears push apart under load, so brace both shafts firmly or they'll slip out of mesh.</p>
+
+      <h3 id="diff">Differential</h3>
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 150" role="img" aria-label="One drive input enters a differential and splits into two outputs; the outer-wheel output arrow is longer (faster) and the inner-wheel output arrow is shorter (slower).">
+          <defs><marker id="do" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker></defs>
+          <line x1="36" y1="75" x2="98" y2="75" stroke="#C55A11" stroke-width="2.6" marker-end="url(#do)"/>
+          <text x="60" y="62" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">drive in</text>
+          <rect x="104" y="46" width="108" height="58" rx="10" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.8"/>
+          <text x="158" y="80" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#1F3864">differential</text>
+          <line x1="214" y1="62" x2="306" y2="62" stroke="#C55A11" stroke-width="2.8" marker-end="url(#do)"/>
+          <line x1="214" y1="92" x2="266" y2="92" stroke="#C55A11" stroke-width="2.8" marker-end="url(#do)"/>
+          <text x="258" y="50" text-anchor="middle" font-family="Arial" font-size="11.5" fill="#1A1A1A">outer · faster</text>
+          <text x="238" y="110" text-anchor="middle" font-family="Arial" font-size="11.5" fill="#1A1A1A">inner · slower</text>
+        </svg>
+        <figcaption>One input, two driven wheels that can spin at <strong>different speeds</strong> — the outer wheel runs faster through a turn.</figcaption>
+      </figure>
+      <p><strong>How it works.</strong> A small cluster of bevel gears splits one input into two output axles that are free to turn at <em>different</em> speeds. On a powered vehicle, that lets the outer wheel run faster than the inner one through a curve instead of scrubbing or hopping.</p>
+      <p><strong>Good for:</strong> a driven vehicle that needs to turn smoothly with both wheels powered. &nbsp;<strong>Heads-up:</strong> it's the trickiest build on this page — only reach for it when your vehicle truly needs powered wheels at different speeds.</p>
+
+      <h2>Trade speed for force — and hold</h2>
+      <p>Gearing down for torque is the Chapter 4 move. The worm takes it to an extreme and adds a bonus: it stays put when the motor stops.</p>
+
+      <h3 id="worm">Worm &amp; wheel</h3>
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 175" role="img" aria-label="A worm — a threaded cylinder on a horizontal shaft — meshes with a gear wheel, driving it slowly with high torque; the wheel cannot drive the worm backward.">
+          <defs><marker id="wo" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker></defs>
+          <line x1="22" y1="70" x2="210" y2="70" stroke="#5B6470" stroke-width="3"/>
+          <rect x="50" y="55" width="140" height="30" rx="6" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.8"/>
+          <line x1="62" y1="55" x2="74" y2="85" stroke="#2E75B6" stroke-width="2"/><line x1="80" y1="55" x2="92" y2="85" stroke="#2E75B6" stroke-width="2"/><line x1="98" y1="55" x2="110" y2="85" stroke="#2E75B6" stroke-width="2"/><line x1="116" y1="55" x2="128" y2="85" stroke="#2E75B6" stroke-width="2"/><line x1="134" y1="55" x2="146" y2="85" stroke="#2E75B6" stroke-width="2"/><line x1="152" y1="55" x2="164" y2="85" stroke="#2E75B6" stroke-width="2"/><line x1="170" y1="55" x2="182" y2="85" stroke="#2E75B6" stroke-width="2"/>
+          <line x1="30" y1="70" x2="44" y2="70" stroke="#C55A11" stroke-width="2.6" marker-end="url(#wo)"/>
+          <circle cx="230" cy="118" r="34" fill="#F2F7FC" stroke="#BFC7D2" stroke-width="1.5"/><circle cx="230" cy="118" r="34" fill="none" stroke="#2E75B6" stroke-width="6" stroke-dasharray="7 6"/><circle cx="230" cy="118" r="6" fill="#2E75B6"/>
+          <path d="M214 96 A14 14 0 0 1 244 96" fill="none" stroke="#C55A11" stroke-width="2.2" marker-end="url(#wo)"/>
+          <text x="120" y="44" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">worm</text>
+          <text x="230" y="166" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">wheel</text>
+          <text x="92" y="120" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#3F6B2A">holds its position</text>
+        </svg>
+        <figcaption>A worm turns the wheel <strong>slowly with big torque</strong> — and the wheel can't turn the worm back (self-locking).</figcaption>
+      </figure>
+      <p><strong>How it works.</strong> A worm — a screw on the motor shaft — drives a gear wheel. One turn of the worm advances the wheel by a single tooth, so a tiny worm gives a huge reduction (often around 24:1): slow output, lots of torque. And it's <em>self-locking</em> — the wheel cannot drive the worm backward.</p>
+      <p><strong>Good for:</strong> a heavy lift or an aimer that must <em>stay put</em> with the motor off — no ratchet needed. &nbsp;<strong>Heads-up:</strong> lots of friction; it's great at reducing speed, poor at running fast, so don't use it where you need quick motion.</p>
+
+      <h2>Make straight-line motion</h2>
+      <p>Wheels and gears go in circles. These two turn that circle into a straight push or lift.</p>
+
+      <h3 id="rack">Rack &amp; pinion</h3>
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 150" role="img" aria-label="A round pinion gear meshes with a straight toothed rack; turning the pinion drives the rack in a straight line.">
+          <defs><marker id="ro" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker></defs>
+          <circle cx="170" cy="55" r="32" fill="#F2F7FC" stroke="#BFC7D2" stroke-width="1.5"/><circle cx="170" cy="55" r="32" fill="none" stroke="#2E75B6" stroke-width="6" stroke-dasharray="7 6"/><circle cx="170" cy="55" r="6" fill="#2E75B6"/>
+          <rect x="44" y="92" width="252" height="22" rx="3" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.6"/>
+          <line x1="58" y1="92" x2="58" y2="84" stroke="#2E75B6" stroke-width="2"/><line x1="86" y1="92" x2="86" y2="84" stroke="#2E75B6" stroke-width="2"/><line x1="114" y1="92" x2="114" y2="84" stroke="#2E75B6" stroke-width="2"/><line x1="142" y1="92" x2="142" y2="84" stroke="#2E75B6" stroke-width="2"/><line x1="170" y1="92" x2="170" y2="84" stroke="#2E75B6" stroke-width="2"/><line x1="198" y1="92" x2="198" y2="84" stroke="#2E75B6" stroke-width="2"/><line x1="226" y1="92" x2="226" y2="84" stroke="#2E75B6" stroke-width="2"/><line x1="254" y1="92" x2="254" y2="84" stroke="#2E75B6" stroke-width="2"/><line x1="282" y1="92" x2="282" y2="84" stroke="#2E75B6" stroke-width="2"/>
+          <path d="M156 28 A16 16 0 0 1 184 28" fill="none" stroke="#C55A11" stroke-width="2.4" marker-end="url(#ro)"/>
+          <line x1="120" y1="130" x2="250" y2="130" stroke="#C55A11" stroke-width="2.8" marker-end="url(#ro)"/>
+          <text x="220" y="62" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">pinion</text>
+          <text x="64" y="108" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1F3864">rack</text>
+        </svg>
+        <figcaption>The pinion rolls along the rack, turning <strong>spin into straight-line motion</strong>.</figcaption>
+      </figure>
+      <p><strong>How it works.</strong> A pinion (a round gear) meshes with a rack (a straight toothed bar). As the pinion spins, it rolls along the rack and shoves it in a straight line. A bigger pinion moves the rack farther per turn.</p>
+      <p><strong>Good for:</strong> a pusher, a gripper jaw, or a horizontal slide. &nbsp;<strong>Heads-up:</strong> support the rack along its whole travel so it stays meshed and doesn't bind.</p>
+
+      <h3 id="lead">Leadscrew</h3>
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 150" role="img" aria-label="A nut rides on a turning threaded screw; spinning the screw drives the nut along it in a straight line.">
+          <defs><marker id="lo" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker></defs>
+          <rect x="40" y="62" width="244" height="20" rx="5" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.6"/>
+          <line x1="56" y1="62" x2="66" y2="82" stroke="#2E75B6" stroke-width="1.8"/><line x1="76" y1="62" x2="86" y2="82" stroke="#2E75B6" stroke-width="1.8"/><line x1="96" y1="62" x2="106" y2="82" stroke="#2E75B6" stroke-width="1.8"/><line x1="116" y1="62" x2="126" y2="82" stroke="#2E75B6" stroke-width="1.8"/><line x1="136" y1="62" x2="146" y2="82" stroke="#2E75B6" stroke-width="1.8"/><line x1="156" y1="62" x2="166" y2="82" stroke="#2E75B6" stroke-width="1.8"/><line x1="176" y1="62" x2="186" y2="82" stroke="#2E75B6" stroke-width="1.8"/><line x1="196" y1="62" x2="206" y2="82" stroke="#2E75B6" stroke-width="1.8"/><line x1="216" y1="62" x2="226" y2="82" stroke="#2E75B6" stroke-width="1.8"/><line x1="236" y1="62" x2="246" y2="82" stroke="#2E75B6" stroke-width="1.8"/><line x1="256" y1="62" x2="266" y2="82" stroke="#2E75B6" stroke-width="1.8"/>
+          <rect x="150" y="48" width="40" height="48" rx="5" fill="#FBEFD6" stroke="#C55A11" stroke-width="2"/>
+          <path d="M22 72 A12 12 0 0 1 22 72" fill="none" stroke="#C55A11" stroke-width="2.4"/>
+          <path d="M14 58 A16 16 0 0 1 14 86" fill="none" stroke="#C55A11" stroke-width="2.4" marker-end="url(#lo)"/>
+          <line x1="194" y1="120" x2="262" y2="120" stroke="#C55A11" stroke-width="2.8" marker-end="url(#lo)"/>
+          <text x="170" y="40" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">nut</text>
+          <text x="120" y="108" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1F3864">screw turns</text>
+          <text x="228" y="112" text-anchor="middle" font-family="Arial" font-size="11.5" fill="#1A1A1A">nut slides</text>
+        </svg>
+        <figcaption>Spin the screw and the nut creeps along it — <strong>slow, strong, and it stays where you stop</strong>.</figcaption>
+      </figure>
+      <p><strong>How it works.</strong> A nut rides on a turning screw. Spin the screw and the nut walks along it in a straight line — and because the threads are shallow, it's slow, powerful, and holds its place when you stop, much like the worm.</p>
+      <p><strong>Good for:</strong> a precise vertical lift or a slow, powerful push. &nbsp;<strong>Heads-up:</strong> it's slow by design — gear it <em>up</em> first if you need the lift to move quickly.</p>
+
+      <h2>Make a repeating motion</h2>
+      <p>The motor only knows how to spin. To get a tap, a wave, or a steady beat, you reshape that spin with a profile or a linkage.</p>
+
+      <h3 id="cam">Cam &amp; follower</h3>
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 185" role="img" aria-label="A follower rod rests on an off-center cam; as the cam rotates about its offset pivot, the follower rises and falls.">
+          <defs><marker id="ao" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker></defs>
+          <line x1="55" y1="135" x2="235" y2="135" stroke="#BFC7D2" stroke-width="2" stroke-dasharray="4 4"/>
+          <circle cx="135" cy="120" r="44" fill="#F2F7FC" stroke="#2E75B6" stroke-width="2"/>
+          <circle cx="123" cy="120" r="6" fill="#1F3864"/>
+          <line x1="123" y1="120" x2="123" y2="170" stroke="#5B6470" stroke-width="2"/>
+          <rect x="118" y="40" width="11" height="48" fill="#FBEFD6" stroke="#C55A11" stroke-width="2"/>
+          <circle cx="123.5" cy="92" r="9" fill="#FFFFFF" stroke="#C55A11" stroke-width="2"/>
+          <line x1="160" y1="58" x2="160" y2="86" stroke="#C55A11" stroke-width="2.6" marker-end="url(#ao)"/>
+          <line x1="160" y1="100" x2="160" y2="72" stroke="#C55A11" stroke-width="2.6" marker-end="url(#ao)"/>
+          <text x="200" y="120" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">rises &amp;</text>
+          <text x="200" y="136" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">falls</text>
+          <text x="135" y="180" text-anchor="middle" font-family="Arial" font-size="12" fill="#5B6470">off-center pivot</text>
+        </svg>
+        <figcaption>As the cam spins about its <strong>off-center pivot</strong>, the follower rises and falls — the lift (the "throw") is <strong>twice the offset</strong>.</figcaption>
+      </figure>
+      <p><strong>How it works.</strong> A follower rides on a cam — a wheel turning about an off-center point. As it spins, the high side lifts the follower and the low side lets it drop. The total lift, the <em>throw</em>, is twice the cam's offset from center.</p>
+      <p><strong>Good for:</strong> a steady up-and-down beat — a tapping device, a bobbing head, a "cardioregulator." &nbsp;<strong>Heads-up:</strong> gravity or a light spring has to keep the follower pressed to the cam, or it bounces and loses contact.</p>
+
+      <h3 id="crank">Crank &amp; rocker</h3>
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 175" role="img" aria-label="A four-bar linkage: a short crank rotates fully about a fixed pivot and, through a coupler link, drives a rocker that swings back and forth about a second fixed pivot.">
+          <defs><marker id="ko" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker></defs>
+          <line x1="30" y1="150" x2="310" y2="150" stroke="#5B6470" stroke-width="2.5"/>
+          <line x1="40" y1="150" x2="50" y2="160" stroke="#5B6470" stroke-width="1.5"/><line x1="60" y1="150" x2="70" y2="160" stroke="#5B6470" stroke-width="1.5"/><line x1="80" y1="150" x2="90" y2="160" stroke="#5B6470" stroke-width="1.5"/><line x1="260" y1="150" x2="270" y2="160" stroke="#5B6470" stroke-width="1.5"/><line x1="280" y1="150" x2="290" y2="160" stroke="#5B6470" stroke-width="1.5"/>
+          <circle cx="70" cy="150" r="46" fill="none" stroke="#BFC7D2" stroke-width="1.5" stroke-dasharray="5 5"/>
+          <line x1="70" y1="150" x2="70" y2="106" stroke="#2E75B6" stroke-width="4"/>
+          <line x1="70" y1="106" x2="232" y2="96" stroke="#5B6470" stroke-width="3"/>
+          <line x1="270" y1="150" x2="232" y2="96" stroke="#C55A11" stroke-width="4"/>
+          <circle cx="70" cy="150" r="5" fill="#1F3864"/><circle cx="270" cy="150" r="5" fill="#1F3864"/>
+          <circle cx="70" cy="106" r="5" fill="#2E75B6"/><circle cx="232" cy="96" r="5" fill="#C55A11"/>
+          <path d="M58 124 A22 22 0 0 1 92 124" fill="none" stroke="#2E75B6" stroke-width="2.2" marker-end="url(#ko)"/>
+          <path d="M210 70 A40 40 0 0 1 258 96" fill="none" stroke="#C55A11" stroke-width="2.4" marker-end="url(#ko)"/>
+          <path d="M258 96 A40 40 0 0 1 224 132" fill="none" stroke="#C55A11" stroke-width="2.4" marker-end="url(#ko)"/>
+          <text x="46" y="100" text-anchor="middle" font-family="Arial" font-size="12" fill="#2E75B6">crank</text>
+          <text x="150" y="78" text-anchor="middle" font-family="Arial" font-size="12" fill="#5B6470">coupler</text>
+          <text x="296" y="120" text-anchor="middle" font-family="Arial" font-size="12" fill="#C55A11">rocker</text>
+        </svg>
+        <figcaption>A fully rotating <strong>crank</strong> drives a <strong>rocker</strong> that swings back and forth through an arc.</figcaption>
+      </figure>
+      <p><strong>How it works.</strong> It's a four-bar linkage: a short crank spins all the way around a fixed pivot and, through a connecting "coupler" link, pushes and pulls a rocker so it swings back and forth about a second pivot. Round-and-round in becomes back-and-forth out.</p>
+      <p><strong>Good for:</strong> a windshield-wiper sweep, a waving arm, an oscillating tool. &nbsp;<strong>Heads-up:</strong> the crank must be the <em>shortest</em> link, or it won't make it all the way around and the whole thing jams.</p>
+
+      <h2>Where each one lives in the course</h2>
+      <p>Most of these you meet inside a chapter; the rest live here and in the Advanced Gear Kit. Use this as a quick map back to the build:</p>
+      <table class="dtable">
+        <thead><tr><th>Mechanism</th><th>Where it's taught</th></tr></thead>
+        <tbody>
+          <tr><td>Spur gears, gear ratios, idler, compound trains</td><td>Chapter 4 · Mechanical Gears</td></tr>
+          <tr><td>Bevel gear (90° turn)</td><td>Chapter 5 · Windmill Construction</td></tr>
+          <tr><td>Cam &amp; follower, crank &amp; rocker</td><td>Chapters 5–6 · Windmill &amp; Pull Toy</td></tr>
+          <tr><td>Chain &amp; sprocket, worm &amp; wheel, rack &amp; pinion, leadscrew, differential</td><td>This reference + the Advanced Gear Kit, used in the Survival Challenge (Ch 7)</td></tr>
+        </tbody>
+      </table>
+
+      <div class="card card--constraint">
+        <p class="card__title"><span class="ic">🏆</span> Also on the V5 competition team?</p>
+        <p>These same mechanisms run on V5 — competition robots lean hard on <strong>chain &amp; sprocket</strong> drivetrains, <strong>gear</strong> reductions, and <strong>worm gears</strong> for arms that must hold a position. One they <em>avoid</em>: the <strong>universal joint</strong> — it's fragile and tends to fail under match loads, so good teams route drive with chain or gears instead. The deeper part library lives in the <a href="https://kb.vex.com/hc/en-us/articles/15034994190228" target="_blank" rel="noopener">VEX EXP build reference</a> and the V5 VEX Library.</p>
+      </div>
+
+      <h2>Sources</h2>
+      <p class="sources">Built from the VEX <em>Inventor's Guide</em> and the PLTW Gateway <em>2.2.2.A Mechanisms</em> materials, cross-checked against the VEX Library: <a href="https://kb.vex.com/hc/en-us/articles/15034994190228" target="_blank" rel="noopener">Building with VEX EXP</a> and the <a href="https://www.vexrobotics.com/gears.html" target="_blank" rel="noopener">VEX Gears overview</a>. Behaviors here describe the EXP kit; exact tooth counts and ratios depend on the gears you choose.</p>
+
+    </main>
+  </div>
+
+<script src="nav.js"></script>
+</body>
+</html>
