@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="358" viewBox="0 0 760 358" role="img" aria-label="From code to a running robot, shown as three steps left to right: STEP 1 WRITE — your C++ code in VS Code; STEP 2 DOWNLOAD — build it, then send it to the Brain over the USB-C cable; STEP 3 RUN — the robot does what you wrote. Forward arrows connect the steps. An orange test loop curves from RUN back to WRITE: test it, change one thing, download again — build a little at a time.">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5B6470"/></marker>
+    <marker id="fb" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker>
+  </defs>
+
+  <text x="380" y="28" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1F3864">FROM CODE TO A RUNNING ROBOT</text>
+  <text x="380" y="48" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#5B6470">write it in VS Code &#8594; download it over USB-C &#8594; run it on the robot</text>
+
+  <!-- WRITE -->
+  <rect x="40" y="78" width="180" height="110" rx="12" fill="#1F3864"/>
+  <text x="130" y="102" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#9DC3E6">STEP 1</text>
+  <text x="130" y="130" text-anchor="middle" font-family="Arial" font-size="17" font-weight="bold" fill="#FFFFFF">Write</text>
+  <text x="130" y="154" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#DEEAF6">your C++ code</text>
+  <text x="130" y="171" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#DEEAF6">in VS Code</text>
+
+  <!-- DOWNLOAD -->
+  <rect x="290" y="78" width="180" height="110" rx="12" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.8"/>
+  <text x="380" y="102" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#2E75B6">STEP 2</text>
+  <text x="380" y="130" text-anchor="middle" font-family="Arial" font-size="17" font-weight="bold" fill="#1A1A1A">Download</text>
+  <text x="380" y="154" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">build it, then send</text>
+  <text x="380" y="171" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">it to the Brain</text>
+
+  <!-- RUN -->
+  <rect x="540" y="78" width="180" height="110" rx="12" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.8"/>
+  <text x="630" y="102" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#3F6B2A">STEP 3</text>
+  <text x="630" y="130" text-anchor="middle" font-family="Arial" font-size="17" font-weight="bold" fill="#1A1A1A">Run</text>
+  <text x="630" y="154" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">the robot does</text>
+  <text x="630" y="171" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">what you wrote</text>
+
+  <!-- forward arrows -->
+  <line x1="222" y1="130" x2="286" y2="130" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+  <line x1="472" y1="130" x2="538" y2="130" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+
+  <!-- usb-c note under download -->
+  <text x="380" y="210" text-anchor="middle" font-family="Arial" font-size="11.5" font-style="italic" fill="#5B6470">&#8593; the Download button builds your code, then sends it down the USB-C cable</text>
+
+  <!-- test loop -->
+  <path d="M630,188 L630,280 Q630,296 614,296 L146,296 Q130,296 130,280 L130,192" fill="none" stroke="#C55A11" stroke-width="2.4" marker-end="url(#fb)"/>
+  <rect x="170" y="285" width="420" height="22" rx="4" fill="#FFFFFF"/>
+  <text x="380" y="300" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#C55A11">TEST, FIX, REPEAT — change one thing, then download again</text>
+
+  <text x="380" y="332" text-anchor="middle" font-family="Arial" font-size="11" font-style="italic" fill="#5B6470">A program built one tested piece at a time is far easier to fix than twenty lines written all at once.</text>
+</svg>

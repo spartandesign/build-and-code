@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 10 · Your First C++ Program — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="10">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">10</div>
+        <div>
+          <p class="chead__eyebrow">Unit 3 · Programming &amp; automation</p>
+          <h1 class="chead__title">Your First C++ Program</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What you'll learn:</strong> how to write real <strong>C++</strong>, send it to your robot, and watch it run. You'll set up the tool professionals use — <strong>Visual Studio Code</strong> with the <strong>VEX extension</strong> — and create your first <strong>EXP project</strong>. You'll learn the <strong>anatomy of a program</strong> (what every line is for), the handful of commands that make a motor <strong>spin, wait, and stop</strong>, and the <strong>download-and-run</strong> workflow that carries your code down the USB-C cable onto the Brain. Then you'll take the pseudocode you wrote in Chapter 9 and make it <em>real</em> — one tested piece at a time. This is the moment the robot starts listening to you.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>From a plan to a real program</h2>
+      <p>In Chapter 9 you wrote <strong>pseudocode</strong> — a plain-language plan for what the robot should do. A plan is not yet something the robot can run, though. This chapter closes that gap: you'll translate a plan into <strong>C++</strong>, the actual language your EXP robot speaks, type it into a real code editor, and send it to the Brain. The logic is the same logic you already planned; now you're just writing it in a form the robot can carry out.</p>
+
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 358" role="img" aria-label="From code to a running robot, shown as three steps left to right: STEP 1 WRITE — your C++ code in VS Code; STEP 2 DOWNLOAD — build it, then send it to the Brain over the USB-C cable; STEP 3 RUN — the robot does what you wrote. Forward arrows connect the steps. An orange test loop curves from RUN back to WRITE: test it, change one thing, download again — build a little at a time.">
+          <defs>
+            <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5B6470"/></marker>
+            <marker id="fb" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker>
+          </defs>
+          <text x="380" y="28" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1F3864">FROM CODE TO A RUNNING ROBOT</text>
+          <text x="380" y="48" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#5B6470">write it in VS Code &#8594; download it over USB-C &#8594; run it on the robot</text>
+          <rect x="40" y="78" width="180" height="110" rx="12" fill="#1F3864"/>
+          <text x="130" y="102" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#9DC3E6">STEP 1</text>
+          <text x="130" y="130" text-anchor="middle" font-family="Arial" font-size="17" font-weight="bold" fill="#FFFFFF">Write</text>
+          <text x="130" y="154" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#DEEAF6">your C++ code</text>
+          <text x="130" y="171" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#DEEAF6">in VS Code</text>
+          <rect x="290" y="78" width="180" height="110" rx="12" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.8"/>
+          <text x="380" y="102" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#2E75B6">STEP 2</text>
+          <text x="380" y="130" text-anchor="middle" font-family="Arial" font-size="17" font-weight="bold" fill="#1A1A1A">Download</text>
+          <text x="380" y="154" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">build it, then send</text>
+          <text x="380" y="171" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">it to the Brain</text>
+          <rect x="540" y="78" width="180" height="110" rx="12" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.8"/>
+          <text x="630" y="102" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#3F6B2A">STEP 3</text>
+          <text x="630" y="130" text-anchor="middle" font-family="Arial" font-size="17" font-weight="bold" fill="#1A1A1A">Run</text>
+          <text x="630" y="154" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">the robot does</text>
+          <text x="630" y="171" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1A1A1A">what you wrote</text>
+          <line x1="222" y1="130" x2="286" y2="130" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+          <line x1="472" y1="130" x2="538" y2="130" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+          <text x="380" y="210" text-anchor="middle" font-family="Arial" font-size="11.5" font-style="italic" fill="#5B6470">&#8593; the Download button builds your code, then sends it down the USB-C cable</text>
+          <path d="M630,188 L630,280 Q630,296 614,296 L146,296 Q130,296 130,280 L130,192" fill="none" stroke="#C55A11" stroke-width="2.4" marker-end="url(#fb)"/>
+          <rect x="170" y="285" width="420" height="22" rx="4" fill="#FFFFFF"/>
+          <text x="380" y="300" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#C55A11">TEST, FIX, REPEAT — change one thing, then download again</text>
+          <text x="380" y="332" text-anchor="middle" font-family="Arial" font-size="11" font-style="italic" fill="#5B6470">A program built one tested piece at a time is far easier to fix than twenty lines written all at once.</text>
+        </svg>
+        <figcaption>The whole loop of this chapter: <strong>write</strong> code in VS Code, <strong>download</strong> it to the Brain over USB-C, <strong>run</strong> it — then test, change one thing, and download again.</figcaption>
+      </figure>
+
+      <h2>The tool: VS Code and the VEX extension</h2>
+      <p>You'll write your code in <strong>Visual Studio Code</strong> (VS Code) — the same editor used by a huge share of professional software developers — with the free <strong>VEX Robotics extension</strong> added on. The extension teaches VS Code how to build VEX programs and send them to your Brain. Two things to know up front:</p>
+      <ul>
+        <li><strong>It runs on the computer in front of you, not in the cloud.</strong> Your finished program has to travel down a real USB-C cable into the Brain, so everything happens locally.</li>
+        <li><strong>You write in C++.</strong> It's stricter than the pseudocode you've been writing — every semicolon and curly brace matters — but the logic is the same logic you already know how to plan.</li>
+      </ul>
+      <p>Getting set up is a one-time job: install the VEX extension from the Extensions panel, then create a <strong>new EXP project</strong> and give it a name. (That name is what shows up on the Brain's screen after you download it.) Your code lives in the project's <span class="inl">src</span> folder.</p>
+
+      <h2>The anatomy of a program</h2>
+      <p>Here is a complete first program. It spins one motor at half speed for five seconds, then stops. Read it once before we take it apart — notice it's just a list of steps, top to bottom, exactly like your pseudocode:</p>
+
+      <p class="codetag"><span class="dot">●</span> Your first VEX C++ program</p>
+<pre class="code"><span class="kw">#include</span> "vex.h"            <span class="cmt">// brings in all the VEX commands</span>
+<span class="kw">using namespace</span> vex;
+
+motor leftMotor = motor(PORT1);   <span class="cmt">// name your motor + its Smart Port</span>
+
+<span class="kw">int</span> main() {
+    vexcodeInit();                <span class="cmt">// sets up the robot — don't delete this</span>
+
+    leftMotor.setVelocity(50, percent);   <span class="cmt">// half speed</span>
+    leftMotor.spin(forward);              <span class="cmt">// start spinning</span>
+    wait(5, seconds);                     <span class="cmt">// keep going for 5 seconds</span>
+    leftMotor.stop();                     <span class="cmt">// stop</span>
+}</pre>
+
+      <p>Every program has the same skeleton, and a new project hands you most of it already written:</p>
+      <ul>
+        <li><span class="inl">#include "vex.h"</span> and <span class="inl">using namespace vex;</span> — the <strong>setup lines</strong>. They bring in all the VEX commands so you can use them. These are already there when you open a new project; leave them alone.</li>
+        <li><span class="inl">motor leftMotor = motor(PORT1);</span> — your <strong>device list</strong>. This names a motor <span class="inl">leftMotor</span> and says it's plugged into Smart Port 1. Add one line like this for each motor or sensor you use. (Your EXP motor is the fixed-speed Smart Motor from Chapter 3 — there's no gear cartridge to choose, unlike the V5 motor.)</li>
+        <li><span class="inl">int main() { … }</span> — the <strong>main program</strong>. When you run the project, the robot starts reading here and runs each line in order, top to bottom, until it reaches the closing <span class="inl">}</span>. Those curly braces are the same blocks you marked in your pseudocode — they hold everything that belongs to <span class="inl">main</span>.</li>
+        <li><span class="inl">vexcodeInit();</span> — the <strong>first line inside <span class="inl">main</span></strong>. It gets the robot ready. It's written for you; never delete it.</li>
+        <li>Everything after that is <strong>your behavior</strong> — the commands you write. This is where your plan turns into action.</li>
+      </ul>
+      <p>Notice the <strong>semicolon</strong> at the end of each command. In C++, a semicolon means "this instruction is finished" — like a period at the end of a sentence. Forgetting one is the most common first mistake, and the editor will underline it in red to help you.</p>
+
+      <h2>Talking to a motor</h2>
+      <p>Almost everything you do to a motor is one of four commands. Each starts with the motor's name, a dot, and then what to do:</p>
+
+      <p class="codetag"><span class="dot">●</span> The four commands you'll use most</p>
+<pre class="code">leftMotor.setVelocity(50, percent);   <span class="cmt">// how fast: 0 to 100 percent</span>
+leftMotor.spin(forward);              <span class="cmt">// start spinning (forward or reverse)</span>
+wait(2, seconds);                     <span class="cmt">// pause the program here (also: msec)</span>
+leftMotor.stop();                     <span class="cmt">// stop the motor</span></pre>
+
+      <ul>
+        <li><strong>Speed is a percent, 0 to 100.</strong> <span class="inl">setVelocity(50, percent)</span> is half speed; <span class="inl">100</span> is full. (If you've seen older robots that used 0–127, this is the modern, friendlier scale.) A new motor starts at 50% until you say otherwise.</li>
+        <li><strong>Direction</strong> is <span class="inl">forward</span> or <span class="inl">reverse</span>. To make a motor that's mounted backwards count "forward" the right way, you can flag it once where you name it: <span class="inl">motor rightMotor = motor(PORT6, true);</span> — the <span class="inl">true</span> reverses it.</li>
+        <li><strong><span class="inl">wait</span> pauses the whole program</strong> for the time you give it — <span class="inl">seconds</span> or <span class="inl">msec</span> (milliseconds). While the program waits, whatever you started keeps doing its thing. That's why <span class="inl">spin</span>, then <span class="inl">wait(5, seconds)</span>, then <span class="inl">stop</span> runs the motor for five seconds.</li>
+        <li><strong><span class="inl">stop</span></strong> halts the motor. Leave it out and the motor keeps spinning — the classic first bug from Chapter 9.</li>
+      </ul>
+      <p>There's a shortcut, too: <span class="inl">leftMotor.spinFor(forward, 5, seconds);</span> does the start-wait-stop all in one line. Both are fine — start with the three separate steps, since they map cleanly onto your pseudocode.</p>
+
+      <h2>Getting it onto the robot</h2>
+      <p>Writing code doesn't move the robot — you have to <strong>download</strong> it. Here's the loop you'll repeat dozens of times:</p>
+      <ol>
+        <li><strong>Plug in.</strong> Connect the EXP Brain to the computer with a <strong>USB-C cable</strong> and turn the Brain on.</li>
+        <li><strong>Download.</strong> Click the <strong>Download</strong> button. The extension first <em>builds</em> your code (checks that the C++ is valid — if not, it tells you where), then sends it to the Brain. Your project name appears on the Brain's screen.</li>
+        <li><strong>Run.</strong> Press the <strong>Run</strong> button to start it while the robot sits still on the bench. For a program that <em>drives</em>, download it, unplug the cable, and start it from the Brain's screen so the robot can move freely.</li>
+      </ol>
+      <p>If the build fails, read the first error and check the obvious things: a missing semicolon, a missing <span class="inl">}</span>, or a motor name spelled differently than where you declared it.</p>
+
+      <div class="card card--tip">
+        <h3>🎯 Build a little, test a lot</h3>
+        <p>The orange loop in the diagram is the most important habit in this chapter. <strong>Don't type the whole program and hope.</strong> Write one command, download, and watch it run. Then add the next. When a program built one tested step at a time misbehaves, you already know the culprit — it's the line you just added. A wall of twenty untested lines, by contrast, can hide its bug anywhere.</p>
+      </div>
+
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🏆</span> Also on the V5 competition team?</p>
+        <p>You're already using the exact tool the competition team uses: <strong>VS Code with the VEX extension, writing C++</strong>. The commands are the same too — <span class="inl">spin</span>, <span class="inl">setVelocity</span>, <span class="inl">wait</span>, <span class="inl">stop</span>. Two differences: a V5 program names its motors with a <em>gear cartridge</em> (like <span class="inl">ratio18_1</span>) because V5 motors have swappable gears, while your EXP motor is fixed and needs no cartridge; and a V5 Brain has <strong>21 Smart Ports</strong> to your EXP Brain's <strong>10</strong>. Skills you build here transfer straight across — see the <a class="ext" href="https://api.vex.com/v5/home/cpp/index.html" target="_blank" rel="noopener">V5 C++ API</a>.</p>
+      </div>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library &amp; C++ API</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/20141411347604-Creating-VS-Code-Projects-for-EXP" target="_blank" rel="noopener">Creating VS Code Projects for EXP</a> — the New Project wizard, step by step.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/31167004242452-Downloading-and-Running-an-EXP-Project-in-VS-Code" target="_blank" rel="noopener">Downloading and Running an EXP Project in VS Code</a> — the Build, Download, and Run buttons and what each does.</li>
+          <li><a class="ext" href="https://api.vex.com/exp/home/cpp/Motors_and_MotorControllers/motor_and_motor_group.html" target="_blank" rel="noopener">Motor and Motor Group — VEX EXP C++ API</a> — the full list of motor commands, including <span class="inl">setVelocity</span>, <span class="inl">spin</span>, <span class="inl">spinFor</span>, and <span class="inl">stop</span>.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/21409418167444-Installing-the-VEX-Extension-C-C-Extension-and-Python-Extension-in-VS-Code" target="_blank" rel="noopener">Installing the VEX Extension in VS Code</a> — one-time setup, if your computer doesn't have it yet.</li>
+        </ul>
+      </div>
+
+      <div class="card card--safe">
+        <p class="card__title"><span class="ic">⚠️</span> Safety</p>
+        <ul>
+          <li>Before you run a program, make sure the robot <strong>can't drive off the bench</strong> — prop the wheels off the table, or be ready to grab it. A first program can lurch unexpectedly.</li>
+          <li>Keep fingers, hair, and loose clothing clear of the <strong>spinning motor shaft</strong> and any gear or wheel on it.</li>
+          <li>Run a <em>driving</em> program only after you've <strong>unplugged the USB-C cable</strong> — never let the robot drive while tethered to the computer.</li>
+          <li>Seat the USB-C cable gently, and power the Brain down with the <strong>X button</strong> when you're done.</li>
+        </ul>
+      </div>
+
+      <h2>What you'll need</h2>
+      <ul>
+        <li>A computer with <strong>VS Code</strong> and the <strong>VEX extension</strong> installed</li>
+        <li>A <strong>VEX EXP Brain</strong> and a <strong>charged EXP battery</strong></li>
+        <li>At least one <strong>EXP Smart Motor</strong> (or your robot from earlier chapters)</li>
+        <li>A <strong>USB-C cable</strong> to connect the Brain to the computer</li>
+        <li>Your <strong>pseudocode from Chapter 9</strong>, and your engineering notebook</li>
+      </ul>
+
+      <h2>Do it</h2>
+      <ol>
+        <li><strong>Create a project.</strong> In VS Code, make a new <strong>EXP project</strong> and name it (your name shows up on the Brain). Open the file in <span class="inl">src</span>.</li>
+        <li><strong>Name your motor.</strong> Add the device line for your motor — its name and the Smart Port it's plugged into — near the top, like <span class="inl">motor leftMotor = motor(PORT1);</span>.</li>
+        <li><strong>Type the first program.</strong> Inside <span class="inl">main</span>, after <span class="inl">vexcodeInit();</span>, write the four lines that set the speed, spin, wait five seconds, and stop.</li>
+        <li><strong>Download and run.</strong> Plug in the Brain over USB-C, click <strong>Download</strong>, then <strong>Run</strong>. Watch the motor spin for five seconds and stop. If the build complains, fix the first error and try again.</li>
+        <li><strong>Add a second motor (build a little, test a lot).</strong> Name a second motor on another port, mounted on the other side so set it reversed. Make <em>both</em> motors spin, run for a few seconds, and stop. Download and test — then try running one forward and one reverse.</li>
+        <li><strong>Make your plan real.</strong> Take one behavior from your Chapter 9 pseudocode and translate it into C++, one line at a time, downloading and testing as you go.</li>
+      </ol>
+
+      <h2>Check your understanding</h2>
+      <ol>
+        <li>Name the parts of a VEX C++ program: what do the setup lines, the device list, <span class="inl">int main()</span>, and <span class="inl">vexcodeInit()</span> each do?</li>
+        <li>What does a <strong>semicolon</strong> mean at the end of a C++ command, and what usually happens if you forget one?</li>
+        <li>Write the commands to spin a motor named <span class="inl">armMotor</span> at full speed for 3 seconds, then stop.</li>
+        <li>What does the <strong>Download</strong> button do — and why isn't writing code alone enough to move the robot?</li>
+        <li>You wrote <span class="inl">spin</span> and <span class="inl">wait(3, seconds)</span> but left out <span class="inl">stop</span>. What will the motor do, and why?</li>
+        <li>Why is it better to write and test one command at a time than to type the whole program first? Connect your answer to the test loop in the diagram.</li>
+      </ol>
+
+      <h2>Key terms</h2>
+      <div class="terms">
+        <span class="term">C++</span><span class="term">VS Code</span><span class="term">VEX extension</span><span class="term">project</span><span class="term">#include</span><span class="term">device list</span><span class="term">int main()</span><span class="term">vexcodeInit()</span><span class="term">command</span><span class="term">semicolon</span><span class="term">setVelocity</span><span class="term">spin</span><span class="term">wait</span><span class="term">stop</span><span class="term">percent</span><span class="term">forward / reverse</span><span class="term">build</span><span class="term">download</span><span class="term">run</span><span class="term">Smart Port</span></div>
+
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Activity 3.3 "Using ROBOTC" / VEX testbed programming; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the testbed programming progression (run a motor at a set speed for a set time, then add a second motor and reverse, then add sensors) is from the PLTW Gateway curriculum — modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The toolchain workflow (installing the VEX extension, creating an EXP project, and the Build / Download / Run steps over USB-C) is verified against the VEX Library (Creating VS Code Projects for EXP; Downloading and Running an EXP Project in VS Code; Installing the VEX Extension in VS Code). The C++ program structure (<span class="inl">#include "vex.h"</span>, <span class="inl">using namespace vex;</span>, <span class="inl">int main()</span> with <span class="inl">vexcodeInit()</span>) and the motor commands (<span class="inl">setVelocity</span> in percent, <span class="inl">spin</span>, <span class="inl">spinFor</span>, <span class="inl">wait</span>, <span class="inl">stop</span>, and the <span class="inl">motor(PORT1)</span> declaration whose gearing defaults automatically) are verified against the VEXcode EXP C++ API. The fixed-speed EXP Smart Motor carries over from Chapter 3.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>
