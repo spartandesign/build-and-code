@@ -21,7 +21,7 @@ const BOOK = [
     { n: 8,  title: "Robots as Technological Systems", file: "chapter-08.html" },
     { n: 9,  title: "Behaviors & Pseudocode", file: "chapter-09.html" },
     { n: 10, title: "Your First C++ Program", file: "chapter-10.html" },
-    { n: 11, title: "Automation Through Programming", file: "" },
+    { n: 11, title: "Automation Through Programming", file: "chapter-11.html" },
     { n: 12, title: "Simulated Factory Assembly Line", file: "" },
   ]},
   { unit: "Unit 4 · Control & Competition", chapters: [

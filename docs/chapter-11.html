@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 11 · Automation Through Programming — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="11">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">11</div>
+        <div>
+          <p class="chead__eyebrow">Unit 3 · Programming &amp; automation</p>
+          <h1 class="chead__title">Automation Through Programming</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What you'll learn:</strong> how to make a robot run <strong>on its own</strong>. So far your programs have followed a fixed list of commands — they couldn't react to anything. Now you'll add the two pieces that turn a machine into an <em>automatic</em> one: <strong>reading a sensor</strong> for input, and using <strong>if / else</strong> to make a decision from what it reads. Wrap that in a <strong>while loop</strong> and the robot senses, decides, and acts — over and over, with no one driving it. That's the <strong>sense → decide → act</strong> feedback loop from Chapter 8, finally written in code. Then you'll put it to work: <strong>design, build, and program a real automated device</strong> — a gate, a sign, an elevator — as a team.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>What makes a robot automatic</h2>
+      <p>Back in Chapter 8 you met two kinds of system. An <strong>open-loop</strong> machine runs blind — it does its fixed routine and never checks the result, like a microwave that keeps heating whether the food is hot or not. Your Chapter 10 programs were open-loop: a list of commands, run once, top to bottom. A <strong>closed-loop</strong> machine <em>senses</em> what's happening and <em>adjusts</em> — like a thermostat that reads the temperature and switches the heat on or off. That difference is the whole idea of <strong>automation</strong>: a machine that responds to the world on its own.</p>
+      <p>To make your robot closed-loop, you need three things working in a cycle: a way to <strong>sense</strong>, a way to <strong>decide</strong>, and a way to <strong>act</strong>. You already have "act" — those are the motor commands from Chapter 10. This chapter adds the other two.</p>
+
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 332" role="img" aria-label="The sense-decide-act loop. Three boxes left to right: SENSE — read a sensor (objectDistance, pressing); DECIDE — check a condition with if and else; ACT — drive a motor with spin or stop. Forward arrows connect them, and a blue loop arrow runs from ACT back to SENSE, labeled while (true) — repeat forever. A note says this is the feedback loop from Chapter 8, now written in code.">
+          <defs>
+            <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5B6470"/></marker>
+            <marker id="lp" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#2E75B6"/></marker>
+          </defs>
+          <text x="380" y="27" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1F3864">THE SENSE &#8211; DECIDE &#8211; ACT LOOP</text>
+          <text x="380" y="47" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#5B6470">a robot that senses and responds on its own = automation (a closed loop)</text>
+          <rect x="40" y="74" width="180" height="104" rx="12" fill="#1F3864"/>
+          <text x="130" y="98" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#9DC3E6">SENSE</text>
+          <text x="130" y="124" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#FFFFFF">Read a sensor</text>
+          <text x="130" y="150" text-anchor="middle" font-family="Consolas, monospace" font-size="11.5" fill="#DEEAF6">objectDistance()</text>
+          <text x="130" y="166" text-anchor="middle" font-family="Consolas, monospace" font-size="11.5" fill="#DEEAF6">pressing()</text>
+          <rect x="290" y="74" width="180" height="104" rx="12" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.8"/>
+          <text x="380" y="98" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#2E75B6">DECIDE</text>
+          <text x="380" y="124" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1A1A1A">Check a condition</text>
+          <text x="380" y="152" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#1A1A1A">if ( … ) … else …</text>
+          <rect x="540" y="74" width="180" height="104" rx="12" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.8"/>
+          <text x="630" y="98" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#3F6B2A">ACT</text>
+          <text x="630" y="124" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1A1A1A">Drive a motor</text>
+          <text x="630" y="152" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#1A1A1A">spin( ) / stop( )</text>
+          <line x1="222" y1="126" x2="286" y2="126" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+          <line x1="472" y1="126" x2="538" y2="126" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+          <path d="M630,178 L630,250 Q630,266 614,266 L146,266 Q130,266 130,250 L130,182" fill="none" stroke="#2E75B6" stroke-width="2.6" marker-end="url(#lp)"/>
+          <rect x="246" y="255" width="268" height="22" rx="4" fill="#FFFFFF"/>
+          <text x="380" y="270" text-anchor="middle" font-family="Arial" font-size="12.5" font-weight="bold" fill="#2E75B6">while (true) — repeat forever</text>
+          <text x="380" y="304" text-anchor="middle" font-family="Arial" font-size="11.5" font-style="italic" fill="#5B6470">This is the feedback loop from Chapter 8 — now written in code.</text>
+        </svg>
+        <figcaption>Automation is a cycle: <strong>read a sensor</strong>, <strong>decide</strong> with <span class="inl">if</span>/<span class="inl">else</span>, <strong>move a motor</strong> — and a <span class="inl">while</span> loop repeats it forever so the robot keeps responding.</figcaption>
+      </figure>
+
+      <h2>Reading a sensor</h2>
+      <p>A <strong>sensor</strong> is the robot's way of taking in information — its input. In Chapter 8 you watched a sensor's reading change on the Brain's Devices screen; now you'll read that same value <em>in your code</em> and act on it. You name a sensor in your device list, just like a motor, then ask it for its reading. Two you'll use most:</p>
+
+      <p class="codetag"><span class="dot">●</span> Naming two sensors in your device list</p>
+<pre class="code">motor driveMotor = motor(PORT1);
+distance frontEye  = distance(PORT2);                  <span class="cmt">// a Distance Sensor on Smart Port 2</span>
+bumper startButton = bumper(Brain.ThreeWirePort.A);   <span class="cmt">// a Bumper Switch on 3-Wire port A</span></pre>
+
+      <ul>
+        <li>The <strong>Distance Sensor</strong> reports how far away the nearest object is, in millimeters: <span class="inl">frontEye.objectDistance(mm)</span> gives a number like <span class="inl">340</span>. (Smart sensors plug into a numbered <strong>Smart Port</strong>.)</li>
+        <li>The <strong>Bumper Switch</strong> is a simple button: <span class="inl">startButton.pressing()</span> is <span class="inl">true</span> when it's pushed in and <span class="inl">false</span> when it isn't. (Switches plug into a lettered <strong>3-Wire port</strong>.)</li>
+      </ul>
+      <p>A sensor reading is just a <strong>value your program can check</strong> — a distance number, or a yes/no. The next step is deciding what to do with it.</p>
+
+      <h2>Making a decision: if / else</h2>
+      <p>An <span class="inl">if</span> statement asks a true-or-false question — a <strong>condition</strong> — and runs one block of code if the answer is true, and (optionally) a different block with <span class="inl">else</span> if it's false:</p>
+
+      <p class="codetag"><span class="dot">●</span> One decision</p>
+<pre class="code"><span class="kw">if</span> (frontEye.objectDistance(mm) &lt; 150) {   <span class="cmt">// is something closer than 150 mm?</span>
+    driveMotor.stop();                       <span class="cmt">// yes -> stop</span>
+} <span class="kw">else</span> {
+    driveMotor.spin(forward);                <span class="cmt">// no  -> keep driving</span>
+}</pre>
+
+      <p>The condition is the part in parentheses. It uses a comparison — <span class="inl">&lt;</span> (less than), <span class="inl">&gt;</span> (greater than), or <span class="inl">==</span> (equal to) — or a yes/no reading like <span class="inl">startButton.pressing()</span>. If you have more than two cases, chain them with <span class="inl">else if</span>: check the first condition, then the next, then the next, and finally a catch-all <span class="inl">else</span>. The curly braces <span class="inl">{ }</span> mark each block — exactly like the blocks you marked in your Chapter 9 pseudocode.</p>
+
+      <h2>Doing it forever: the while loop</h2>
+      <p>Here's the catch: an <span class="inl">if</span> checks its condition <strong>once</strong>. A real automatic device has to check <em>continuously</em> — a gate must watch for cars all day, not glance once and quit. The <span class="inl">while</span> loop does that. <span class="inl">while (true)</span> means "keep repeating the block inside, forever," so the robot senses, decides, and acts again and again:</p>
+
+      <p class="codetag"><span class="dot">●</span> A complete automatic behavior — stop before you hit something</p>
+<pre class="code"><span class="kw">int</span> main() {
+    vexcodeInit();
+    driveMotor.setVelocity(50, percent);
+
+    <span class="kw">while</span> (<span class="kw">true</span>) {                                <span class="cmt">// keep checking, forever</span>
+        <span class="kw">if</span> (frontEye.objectDistance(mm) &lt; 150) {  <span class="cmt">// something is close</span>
+            driveMotor.stop();                    <span class="cmt">//   -> stop</span>
+        } <span class="kw">else</span> {                                  <span class="cmt">// path is clear</span>
+            driveMotor.spin(forward);             <span class="cmt">//   -> keep driving</span>
+        }
+        wait(20, msec);                           <span class="cmt">// small pause, then check again</span>
+    }
+}</pre>
+
+      <p>Read it as the loop in the diagram: <strong>sense</strong> (read <span class="inl">frontEye</span>), <strong>decide</strong> (the <span class="inl">if</span>), <strong>act</strong> (<span class="inl">stop</span> or <span class="inl">spin</span>), then loop back and do it again. The little <span class="inl">wait(20, msec)</span> at the end gives the Brain a moment between checks — always include it in a <span class="inl">while (true)</span> loop. Swap in a different sensor and you get a different machine: use <span class="inl">if (startButton.pressing())</span> and you've built a sign that spins only while a button is held.</p>
+
+      <div class="card card--tip">
+        <h3>🎯 "true" forever, on purpose</h3>
+        <p><span class="inl">while (true)</span> looks strange the first time — a loop that never ends. But that's exactly what an automatic machine needs: it should keep sensing and responding the entire time it's powered on. The loop is the heart of automation. Just remember the <span class="inl">wait(20, msec)</span> at the bottom so the Brain isn't checking a million times a second, and make sure something <em>inside</em> the loop can change — otherwise the robot will do the same thing forever.</p>
+      </div>
+
+      <div class="card card--constraint">
+        <p class="card__title"><span class="ic">📐</span> Build constraints (still in force)</p>
+        <ul>
+          <li>Build your device from the <strong>classroom PLTW Gateway kit</strong> only. The kit's bundled motor and sensors are fair game; the separate competition team's V5 parts are off-limits.</li>
+          <li>The whole device must still fit one <strong>IKEA Kallax cubby</strong> — a 33 × 33 cm (13 × 13 in) opening, about 38 cm (15 in) deep. The 33 × 33 face is the limit, so plan your gate, sign, or elevator to pack into that square.</li>
+        </ul>
+      </div>
+
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🏆</span> Also on the V5 competition team?</p>
+        <p>This <em>is</em> competition programming. A V5 <strong>autonomous routine</strong> — the part of a match where the robot runs with no driver — is exactly this loop: read sensors, decide with <span class="inl">if</span>/<span class="inl">while</span>, drive motors. Same C++, same structure. A V5 robot just has more sensors to read (and a 21-port Brain to plug them into). Everything you build here is the same skill the autonomous coder uses; browse the sensors in the <a class="ext" href="https://api.vex.com/v5/home/cpp/index.html" target="_blank" rel="noopener">V5 C++ API</a>.</p>
+      </div>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library &amp; C++ API</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415763007380-Using-Distance-Sensor-with-VEX-EXP" target="_blank" rel="noopener">Using the Distance Sensor with VEX EXP</a> — the proximity reading (<span class="inl">objectDistance</span>) at the center of most automatic behaviors.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415784141716-Using-Bumper-Switch-with-VEX-EXP" target="_blank" rel="noopener">Using the Bumper Switch with VEX EXP</a> — the simple pressed/not-pressed switch, wired to a 3-Wire port.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415762989332-Using-Optical-Sensor-with-VEX-EXP" target="_blank" rel="noopener">Using the Optical Sensor with VEX EXP</a> — detect a color or a nearby object, another input option for your device.</li>
+          <li><a class="ext" href="https://api.vex.com/exp/home/cpp/Motors_and_MotorControllers/motor_and_motor_group.html" target="_blank" rel="noopener">Motor and Motor Group — VEX EXP C++ API</a> — the motor commands your <span class="inl">if</span> blocks will call.</li>
+        </ul>
+      </div>
+
+      <div class="card card--safe">
+        <p class="card__title"><span class="ic">⚠️</span> Safety</p>
+        <ul>
+          <li>An automatic robot moves <strong>on its own</strong>, sometimes when you don't expect it. Keep hands clear of gates, arms, and gears, and be ready to power down.</li>
+          <li>Secure the device so a moving part <strong>can't pinch fingers</strong> or knock things off the bench.</li>
+          <li>Run a program that drives only after you've <strong>unplugged the USB-C cable</strong>.</li>
+          <li>Power the Brain down with the <strong>X button</strong> when you're done, and store the device safely in its cubby.</li>
+        </ul>
+      </div>
+
+      <h2>The project: build something automatic</h2>
+      <p>Now you put it all together. Your team will <strong>design, build, and program a working automatic device</strong> — something that senses its world and responds, with no one controlling it. Pick a challenge (or propose your own):</p>
+      <ul>
+        <li><strong>Toll-booth or parking gate</strong> — the gate raises when a car pulls up (Distance Sensor) and lowers when it leaves.</li>
+        <li><strong>Automatic door</strong> — opens when someone approaches, closes when the way is clear.</li>
+        <li><strong>"Stay on course" vehicle</strong> — drives forward but stops itself before bumping a wall or obstacle.</li>
+        <li><strong>Spinning sign with a stop switch</strong> — spins while a button is held, stops when released (Bumper Switch).</li>
+        <li><strong>Freight elevator</strong> — rises to a floor and stops when it reaches a switch.</li>
+        <li><strong>No-touch switch</strong> — turns a mechanism on when you wave a hand in front of the sensor.</li>
+      </ul>
+      <p>Work as a small team with shared jobs — someone leading the <strong>build</strong>, someone the <strong>wiring</strong>, someone the <strong>code</strong> — and trade roles so everyone does each. And use the <strong>design process</strong> you've practiced all year: understand the problem and its constraints, sketch a couple of ideas, pick the best, build it, then test and improve.</p>
+
+      <h2>What you'll need</h2>
+      <ul>
+        <li>Your computer with <strong>VS Code + the VEX extension</strong>, and a <strong>USB-C cable</strong></li>
+        <li>The <strong>PLTW Gateway EXP kit</strong>: Brain, charged battery, at least one motor, and a sensor (Distance, Bumper, or Optical)</li>
+        <li>Your <strong>engineering notebook</strong> for sketches, pseudocode, and a daily journal</li>
+        <li>The <strong>project worksheet</strong> (design brief, decision matrix, and reflection)</li>
+      </ul>
+
+      <h2>Do it</h2>
+      <ol>
+        <li><strong>Define the problem.</strong> Read your task, then write a short design brief: what it must do, and every <strong>constraint</strong> (EXP kit only, fits the cubby, which sensor).</li>
+        <li><strong>Sketch and choose.</strong> Each teammate sketches a design. Compare them in a simple decision matrix against your criteria, and pick the best one to build.</li>
+        <li><strong>Build the mechanism.</strong> Construct your device from the kit so it fits the cubby. Mount the motor and the sensor where they need to be, and wire them to the Brain.</li>
+        <li><strong>Plan, then code.</strong> Write <strong>pseudocode</strong> for the sense → decide → act loop first. Then translate it into C++: name your devices, set up the <span class="inl">while (true)</span> loop, and fill in the <span class="inl">if</span>/<span class="inl">else</span>.</li>
+        <li><strong>Test and refine — a little at a time.</strong> Download, watch it run, and fix one thing at a time. Tune your distance threshold or speed until it behaves the way the task needs.</li>
+        <li><strong>Evaluate.</strong> In your notebook, judge how well it works — and answer: <em>which sensors did you use, and is your device an open or a closed loop?</em></li>
+      </ol>
+
+      <h2>Check your understanding</h2>
+      <ol>
+        <li>What is the difference between an <strong>open-loop</strong> and a <strong>closed-loop</strong> system? Which one is "automatic," and why?</li>
+        <li>What does a <strong>sensor</strong> give your program? Give the reading you'd get from a Distance Sensor and from a Bumper Switch.</li>
+        <li>What does an <span class="inl">if / else</span> statement do? What is the "condition," and where does it go?</li>
+        <li>Why does an automatic device need a <span class="inl">while (true)</span> loop instead of a single <span class="inl">if</span>?</li>
+        <li>Write the sense–decide–act idea in pseudocode for this device: <em>"a night-light motor turns a lamp on when the room is dark."</em> Name the sensor reading, the decision, and the action.</li>
+        <li>For <strong>your</strong> project: which sensor did you choose, and what condition (the question your <span class="inl">if</span> asks) makes it respond correctly?</li>
+      </ol>
+
+      <h2>Key terms</h2>
+      <div class="terms">
+        <span class="term">automation</span><span class="term">open loop</span><span class="term">closed loop</span><span class="term">sensor</span><span class="term">input</span><span class="term">Distance Sensor</span><span class="term">Bumper Switch</span><span class="term">objectDistance</span><span class="term">pressing()</span><span class="term">condition</span><span class="term">if</span><span class="term">else</span><span class="term">else if</span><span class="term">comparison</span><span class="term">while loop</span><span class="term">while (true)</span><span class="term">3-Wire port</span><span class="term">Smart Port</span><span class="term">design process</span><span class="term">decision matrix</span></div>
+
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 3.4 "Automation Through Programming"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the project (design, build, and program an automatic device — toll booth, traffic signal, elevator, spinning sign, and the like — as a team, using the engineering design process) and its conclusion questions (which sensors? open or closed loop?) are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The control structures (<span class="inl">if</span> / <span class="inl">else if</span> / <span class="inl">else</span> and <span class="inl">while (true)</span>) are standard C++; the sensor commands are verified against the VEX Library — the Distance Sensor's <span class="inl">objectDistance(mm)</span> and the Bumper Switch's <span class="inl">pressing()</span> (a 3-Wire device named on <span class="inl">Brain.ThreeWirePort</span>). The open-loop / closed-loop framing and the sense → decide → act loop carry over from Chapter 8; the motor commands from Chapter 10.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>

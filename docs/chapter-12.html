@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 12 · Simulated Factory Assembly Line — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="12">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">12</div>
+        <div>
+          <p class="chead__eyebrow">Unit 3 · Programming &amp; automation</p>
+          <h1 class="chead__title">Simulated Factory Assembly Line</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What you'll learn:</strong> how lots of automatic machines work <strong>together</strong> to build something — a real factory. This is the capstone of the unit, and it takes the whole class. Your team builds one <strong>workcell</strong>: a single automated station that performs one process on a part. You'll learn the <strong>cell cycle</strong> — wait for the part, run your process, get ready for the next — and how to keep your code tidy with a <strong>function</strong>. Then comes the hard, real-world part: your cell has to <strong>hand the part off</strong> to the teams before and after you, so the whole line runs as one system. Everything you've built this year comes together here.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>From one robot to a production line</h2>
+      <p>In Chapter 11 you built a single automatic device — one machine, sensing and responding on its own. A real factory is <strong>many</strong> of those, lined up and working in sequence. A raw part enters one end; each station does one job to it — stamp, drill, cut, sort — and passes it along; a finished product comes out the other end. No single robot makes the whole thing. The product is the result of <strong>cells cooperating</strong>.</p>
+      <p>That's this project. The <strong>class is the factory.</strong> Each team builds one <strong>workcell</strong> that performs one process, and then all the cells are joined into a single <strong>assembly line</strong>. Your cell is small and focused — but it has to fit into something much bigger than itself.</p>
+
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 288" role="img" aria-label="A simulated assembly line. A part enters at the left and flows right through three automated workcells — Workcell 1 stamps, Workcell 2 drills, Workcell 3 ejects — then exits as a finished part. Each cell senses the part, runs its process, and passes it on. Orange hand-off arrows between cells mark where teams must coordinate.">
+          <defs>
+            <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5B6470"/></marker>
+            <marker id="ho" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker>
+          </defs>
+          <text x="380" y="26" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1F3864">ONE PART, MANY CELLS — A SIMULATED ASSEMBLY LINE</text>
+          <text x="380" y="46" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#5B6470">each team builds one automated workcell; together the cells hand the part down the line</text>
+          <text x="14" y="120" font-family="Arial" font-size="10.5" font-weight="bold" letter-spacing="1" fill="#5B6470">PART</text>
+          <text x="14" y="133" font-family="Arial" font-size="10.5" font-weight="bold" letter-spacing="1" fill="#5B6470">IN</text>
+          <line x1="44" y1="126" x2="74" y2="126" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+          <rect x="80" y="80" width="160" height="96" rx="12" fill="#1F3864"/>
+          <text x="160" y="104" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#9DC3E6">WORKCELL 1</text>
+          <text x="160" y="130" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#FFFFFF">Stamp</text>
+          <text x="160" y="154" text-anchor="middle" font-family="Arial" font-size="11" fill="#DEEAF6">sense → run → pass</text>
+          <text x="270" y="100" text-anchor="middle" font-family="Arial" font-size="10.5" font-weight="bold" fill="#C55A11">hand-off</text>
+          <line x1="242" y1="128" x2="296" y2="128" stroke="#C55A11" stroke-width="2.6" marker-end="url(#ho)"/>
+          <rect x="300" y="80" width="160" height="96" rx="12" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.8"/>
+          <text x="380" y="104" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#2E75B6">WORKCELL 2</text>
+          <text x="380" y="130" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1A1A1A">Drill</text>
+          <text x="380" y="154" text-anchor="middle" font-family="Arial" font-size="11" fill="#1A1A1A">sense → run → pass</text>
+          <text x="490" y="100" text-anchor="middle" font-family="Arial" font-size="10.5" font-weight="bold" fill="#C55A11">hand-off</text>
+          <line x1="462" y1="128" x2="516" y2="128" stroke="#C55A11" stroke-width="2.6" marker-end="url(#ho)"/>
+          <rect x="520" y="80" width="160" height="96" rx="12" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.8"/>
+          <text x="600" y="104" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#3F6B2A">WORKCELL 3</text>
+          <text x="600" y="130" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1A1A1A">Eject</text>
+          <text x="600" y="154" text-anchor="middle" font-family="Arial" font-size="11" fill="#1A1A1A">sense → run → pass</text>
+          <line x1="682" y1="126" x2="712" y2="126" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+          <text x="718" y="120" font-family="Arial" font-size="10.5" font-weight="bold" letter-spacing="1" fill="#3F6B2A">DONE</text>
+          <text x="380" y="214" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#1F3864" font-weight="bold">Each cell is a Chapter 11 automatic behavior. The new challenge is making them work together.</text>
+          <text x="380" y="238" text-anchor="middle" font-family="Arial" font-size="11.5" font-style="italic" fill="#5B6470">The orange hand-offs are where teams must agree: where the part arrives, how it sits, and when to run.</text>
+        </svg>
+        <figcaption>A part flows through the line. Each <strong>workcell</strong> senses the part, runs its one process, and hands it on. The orange <strong>hand-offs</strong> are the coordination points — where your team and your neighbors have to agree.</figcaption>
+      </figure>
+
+      <h2>A workcell runs a cycle</h2>
+      <p>Each cell does the same thing over and over: <strong>wait</strong> for a part to arrive, <strong>run</strong> its process on it, then go back to waiting for the next one. That's a cycle — and you already know how to build it. It's the <span class="inl">while (true)</span> loop from Chapter 11, with the sensor used as a "has the part arrived yet?" trigger:</p>
+
+      <p class="codetag"><span class="dot">●</span> A complete workcell — it stamps each part that arrives</p>
+<pre class="code"><span class="kw">#include</span> "vex.h"
+<span class="kw">using namespace</span> vex;
+
+motor stampArm      = motor(PORT1);
+distance partSensor = distance(PORT2);
+
+<span class="kw">void</span> runProcess() {           <span class="cmt">// our cell's job: stamp the part</span>
+    stampArm.spin(forward);    <span class="cmt">// press the stamp down</span>
+    wait(1, seconds);
+    stampArm.spin(reverse);    <span class="cmt">// lift it back up</span>
+    wait(1, seconds);
+    stampArm.stop();
+}
+
+<span class="kw">int</span> main() {
+    vexcodeInit();
+    stampArm.setVelocity(40, percent);
+
+    <span class="kw">while</span> (<span class="kw">true</span>) {                                  <span class="cmt">// the workcell cycle</span>
+        <span class="kw">if</span> (partSensor.objectDistance(mm) &lt; 80) {    <span class="cmt">// a part has arrived</span>
+            runProcess();                            <span class="cmt">// do our job</span>
+            wait(1, seconds);                        <span class="cmt">// let it move to the next cell</span>
+        }
+        wait(20, msec);
+    }
+}</pre>
+
+      <p>The loop is the cell's heartbeat: check the sensor, and when a part is close, run the process. After it runs, a short <span class="inl">wait</span> gives the part time to move on before the cell looks for the next one. Swap in your own process and your own sensor, and you have <em>your</em> workcell.</p>
+
+      <h2>Name your process: functions</h2>
+      <p>Notice the line <span class="inl">runProcess();</span> in the loop. That's a <strong>function</strong> — a group of commands you've given a name. You <em>define</em> it once (here, the four lines that stamp the part) and then <em>call</em> it whenever you want all those steps to run, just by writing its name. Functions are how you keep a program readable: instead of cramming every stamping step inside the loop, you tuck them into <span class="inl">runProcess()</span> so the loop reads like plain English — "if a part arrived, run the process."</p>
+      <p>This is the same idea as <strong>decomposition</strong> from Chapter 9. Back then you broke a complex behavior into simple ones; a function is exactly that — a name for one simple behavior, made of smaller basic steps. Define your functions <em>above</em> <span class="inl">main</span>, give each a clear name (<span class="inl">lowerGate</span>, <span class="inl">sortPart</span>, <span class="inl">drillHole</span>), and your main loop becomes a short, clear list of what your cell does.</p>
+
+      <h2>The hard part: making cells work together</h2>
+      <p>Programming your own cell is the part you've practiced. The new challenge — the whole point of a factory — is <strong>coordination</strong>. Your cell doesn't live alone; it sits between the cell before it and the cell after it, and the part has to flow smoothly across those <strong>hand-offs</strong>. That only works if neighboring teams <strong>agree on the interface</strong>:</p>
+      <ul>
+        <li><strong>Where</strong> does the part arrive in your cell, and where does it leave? Those two spots have to line up with your neighbors' cells.</li>
+        <li><strong>How</strong> is the part sitting — which way does it face, how high is it? If you expect it flat and it arrives on its side, your process fails.</li>
+        <li><strong>When</strong> does each cell run? A part can't reach you until the cell before you has finished and released it. Timing has to chain down the line.</li>
+      </ul>
+      <p>This is <strong>systems integration</strong> — the same lesson as Chapter 8, one level up. There, a single robot was a system of parts (sensors, brain, motors). Here, the assembly line is a system of <em>cells</em>, and a system is only as good as how well its parts connect. One misaligned hand-off and the whole line stalls — so talk to your neighbors early, agree on the details, and test the seams.</p>
+
+      <div class="card card--tip">
+        <h3>🎯 Make it work alone, then make it fit</h3>
+        <p>Two stages, in order. <strong>First, get your own cell working by itself</strong> — build it, wire it, and program its cycle until it reliably does its one job, every time, on its own. <em>Then</em> bring it to the line and work on the hand-offs with your neighbors. Debugging a single cell is hard enough; debugging it <em>while</em> it's wired into a whole line is much harder. A cell that's solid on its own is a cell you can trust when the line gets complicated.</p>
+      </div>
+
+      <div class="card card--constraint">
+        <p class="card__title"><span class="ic">📐</span> Build constraints (still in force)</p>
+        <ul>
+          <li>Build your workcell from the <strong>classroom PLTW Gateway kit</strong> only — the competition team's V5 parts stay separate.</li>
+          <li>Your cell must fit one <strong>IKEA Kallax cubby</strong> — a 33 × 33 cm (13 × 13 in) opening, about 38 cm (15 in) deep — so it can be stored and so the cells are a consistent size when you line them up.</li>
+        </ul>
+      </div>
+
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🏆</span> Also on the V5 competition team?</p>
+        <p>This is exactly how a winning alliance works. In a competition, two robots share a field and have to coordinate — divide the scoring, stay out of each other's way, time their moves — just like cells handing off a part. And the bigger idea, <strong>automating a real manufacturing process</strong>, is one of the largest uses of robotics in the world. The systems thinking you practice here — small reliable parts, clean interfaces, the whole greater than its pieces — is the heart of both competition strategy and industrial automation.</p>
+      </div>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library &amp; C++ API</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415763007380-Using-Distance-Sensor-with-VEX-EXP" target="_blank" rel="noopener">Using the Distance Sensor with VEX EXP</a> — the "has the part arrived?" trigger for your cell's cycle.</li>
+          <li><a class="ext" href="https://api.vex.com/exp/home/cpp/Motors_and_MotorControllers/motor_and_motor_group.html" target="_blank" rel="noopener">Motor and Motor Group — VEX EXP C++ API</a> — <span class="inl">spin</span>, <span class="inl">spinFor</span>, and <span class="inl">stop</span> for the motors in your process.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415784141716-Using-Bumper-Switch-with-VEX-EXP" target="_blank" rel="noopener">Using the Bumper Switch with VEX EXP</a> — another way to detect a part, or to know your mechanism has reached the end of its travel.</li>
+        </ul>
+      </div>
+
+      <div class="card card--safe">
+        <p class="card__title"><span class="ic">⚠️</span> Safety</p>
+        <ul>
+          <li>A running line has <strong>many moving cells at once</strong>. Keep hands, hair, and sleeves clear of every mechanism, not just your own.</li>
+          <li>Agree on a way to <strong>stop the whole line</strong> fast if something jams, and make sure everyone knows it before the first run.</li>
+          <li>Secure each cell so a moving part <strong>can't pinch</strong> or fling pieces; run driving programs only after <strong>unplugging</strong> the USB-C cable.</li>
+          <li>Power Brains down with the <strong>X button</strong> and store each cell in its cubby when finished.</li>
+        </ul>
+      </div>
+
+      <h2>The project: build the assembly line</h2>
+      <p>As a class, you'll produce one part by running it through a line of workcells. Your team designs, builds, and programs <strong>one cell</strong> — one process — then joins it to the line. Possible processes (your teacher will assign or you'll choose, so the line makes sense end to end):</p>
+      <ul>
+        <li><strong>Feed / convey</strong> — move the part into or along the line.</li>
+        <li><strong>Stamp or mark</strong> — press a tool down onto the part, then lift.</li>
+        <li><strong>Drill or punch</strong> — lower a bit into the part and back out.</li>
+        <li><strong>Sort or inspect</strong> — use a sensor to send the part one way or another.</li>
+        <li><strong>Gate or lift</strong> — hold the part, then release or raise it to the next cell.</li>
+        <li><strong>Eject / package</strong> — push the finished part off the end of the line.</li>
+      </ul>
+      <p>Work in a team with the three engineering roles — <strong>mechanical</strong> (the build), <strong>electrical</strong> (the wiring), and <strong>computer</strong> (the code) — and rotate so everyone tries each. Use the full <strong>design process</strong>, and from the very start, coordinate with the teams on either side of you.</p>
+
+      <h2>What you'll need</h2>
+      <ul>
+        <li>Your computer with <strong>VS Code + the VEX extension</strong>, and a <strong>USB-C cable</strong></li>
+        <li>The <strong>PLTW Gateway EXP kit</strong>: Brain, charged battery, motor(s), and a sensor for your process</li>
+        <li>The shared <strong>part</strong> the class is "manufacturing," and a sense of the cells before and after yours</li>
+        <li>Your <strong>engineering notebook</strong> and the <strong>project worksheet</strong> (design brief, interface plan, daily journal, and reflection)</li>
+      </ul>
+
+      <h2>Do it</h2>
+      <ol>
+        <li><strong>Understand your cell — and its neighbors.</strong> Learn your process, then meet the teams before and after you. Agree on the hand-off: where the part arrives and leaves, and how it sits.</li>
+        <li><strong>Sketch and build.</strong> Sketch a couple of designs, pick one, and build your workcell from the kit so it fits the cubby. Mount and wire the motor(s) and the sensor.</li>
+        <li><strong>Plan, then code.</strong> Write pseudocode for your cell cycle — wait for the part, run the process, get ready. Then write it in C++: put your process steps in a <strong>function</strong>, and call it inside a <span class="inl">while (true)</span> loop.</li>
+        <li><strong>Test your cell alone.</strong> Download and run until your cell does its job reliably, every time, by itself. Tune your sensor trigger and motor timing.</li>
+        <li><strong>Integrate.</strong> Join your cell to your neighbors'. Run a part across the hand-offs and fix what doesn't line up — position, orientation, timing.</li>
+        <li><strong>Run the line, then evaluate.</strong> With the whole class, run a part from one end to the other. In your notebook, reflect: what would improve your cell, and what was your team's biggest challenge?</li>
+      </ol>
+
+      <h2>Check your understanding</h2>
+      <ol>
+        <li>What makes the assembly line a <strong>system</strong>? How is it like, and unlike, the single robot-as-a-system from Chapter 8?</li>
+        <li>Describe a <strong>workcell's cycle</strong> in three steps. Which Chapter 11 idea does it reuse?</li>
+        <li>What is a <strong>function</strong>, and why does putting your process in one make a program easier to read? Connect it to decomposition from Chapter 9.</li>
+        <li>Why do neighboring teams have to <strong>agree on the hand-off</strong>? Give two specific things they must agree on.</li>
+        <li>Why is it smart to get your cell working <strong>by itself</strong> before joining it to the line?</li>
+        <li>For <strong>your</strong> cell: what is its process, what sensor tells it a part has arrived, and what does it pass to the next cell?</li>
+      </ol>
+
+      <h2>Key terms</h2>
+      <div class="terms">
+        <span class="term">assembly line</span><span class="term">workcell</span><span class="term">process</span><span class="term">cell cycle</span><span class="term">automation</span><span class="term">sensor trigger</span><span class="term">function</span><span class="term">define / call</span><span class="term">decomposition</span><span class="term">hand-off</span><span class="term">interface</span><span class="term">coordination</span><span class="term">systems integration</span><span class="term">system</span><span class="term">subsystem</span><span class="term">while (true)</span><span class="term">design process</span><span class="term">mechanical / electrical / computer</span></div>
+
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 3.5 "Simulated Factory Assembly Line"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the class-wide project (each team builds one automated workcell that performs one process, then the cells are integrated into a working assembly line, coordinating hand-offs with neighboring teams, using the engineering design process and the three engineering roles) and its reflection questions are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The cell-cycle pattern (a <span class="inl">while (true)</span> loop triggered by a sensor) builds on Chapter 11; user-defined <span class="inl">void</span> functions are standard C++, matching the function examples in the VEXcode EXP C++ API. The systems-integration framing carries over from Chapter 8; sensors and motor commands from Chapters 10–11.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>
