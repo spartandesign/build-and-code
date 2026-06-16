@@ -18,7 +18,7 @@ const BOOK = [
     { n: 7, title: "Survival Challenge", file: "chapter-07.html" },
   ]},
   { unit: "Unit 3 · Programming & Automation", chapters: [
-    { n: 8,  title: "Robots as Technological Systems", file: "" },
+    { n: 8,  title: "Robots as Technological Systems", file: "chapter-08.html" },
     { n: 9,  title: "Behaviors & Pseudocode", file: "" },
     { n: 10, title: "Using VEXcode EXP (C++)", file: "" },
     { n: 11, title: "Automation Through Programming", file: "" },

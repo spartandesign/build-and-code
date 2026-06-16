@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="352" viewBox="0 0 760 352" role="img" aria-label="The basic system model shown as three boxes left to right: INPUT (the desired result, which on a robot is the sensors), PROCESS (the action part, which on a robot is the Brain), and OUTPUT (the actual result, which on a robot is the motors). Forward arrows run input to process to output. During the process the seven technological resources are used. A feedback loop curves from the output back to the input: sense the actual result, compare it to the goal, and adjust. Open-loop systems have no feedback and run blind; closed-loop systems have it.">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5B6470"/></marker>
+    <marker id="fb" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker>
+  </defs>
+
+  <!-- title -->
+  <text x="380" y="28" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1F3864">THE SYSTEM MODEL</text>
+  <text x="380" y="48" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#5B6470">input &#8594; process &#8594; output — and the same model on your robot</text>
+
+  <!-- INPUT box -->
+  <rect x="40" y="72" width="180" height="120" rx="12" fill="#1F3864"/>
+  <text x="130" y="99" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#9DC3E6">INPUT</text>
+  <text x="130" y="126" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#FFFFFF">The desired result</text>
+  <rect x="66" y="150" width="128" height="28" rx="14" fill="#DEEAF6"/>
+  <text x="130" y="169" text-anchor="middle" font-family="Arial" font-size="13.5" font-weight="bold" fill="#1F3864">Sensors</text>
+
+  <!-- PROCESS box -->
+  <rect x="290" y="72" width="180" height="120" rx="12" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.8"/>
+  <text x="380" y="99" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#2E75B6">PROCESS</text>
+  <text x="380" y="126" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#1A1A1A">The action part</text>
+  <rect x="316" y="150" width="128" height="28" rx="14" fill="#2E75B6"/>
+  <text x="380" y="169" text-anchor="middle" font-family="Arial" font-size="13.5" font-weight="bold" fill="#FFFFFF">The Brain</text>
+
+  <!-- OUTPUT box -->
+  <rect x="540" y="72" width="180" height="120" rx="12" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.8"/>
+  <text x="630" y="99" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#3F6B2A">OUTPUT</text>
+  <text x="630" y="126" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#1A1A1A">The actual result</text>
+  <rect x="566" y="150" width="128" height="28" rx="14" fill="#3F6B2A"/>
+  <text x="630" y="169" text-anchor="middle" font-family="Arial" font-size="13.5" font-weight="bold" fill="#FFFFFF">Motors</text>
+
+  <!-- forward arrows -->
+  <line x1="222" y1="132" x2="286" y2="132" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+  <line x1="472" y1="132" x2="538" y2="132" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+
+  <!-- resources note -->
+  <text x="380" y="212" text-anchor="middle" font-family="Arial" font-size="11.5" font-style="italic" fill="#5B6470">&#8593; during the process, the seven technological resources are used</text>
+
+  <!-- feedback loop -->
+  <path d="M630,192 L630,284 Q630,300 614,300 L146,300 Q130,300 130,284 L130,196" fill="none" stroke="#C55A11" stroke-width="2.4" marker-end="url(#fb)"/>
+  <rect x="150" y="289" width="460" height="22" rx="4" fill="#FFFFFF"/>
+  <text x="380" y="304" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#C55A11">FEEDBACK LOOP — sense the actual result, compare it to the goal, and adjust</text>
+
+  <!-- open vs closed note -->
+  <text x="380" y="330" text-anchor="middle" font-family="Arial" font-size="11" font-style="italic" fill="#5B6470">Open-loop systems have no feedback and run blind. Closed-loop systems sense the result and correct.</text>
+</svg>

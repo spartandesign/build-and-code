@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 8 · Robots as Technological Systems — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="8">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">08</div>
+        <div>
+          <p class="chead__eyebrow">Unit 3 · Programming &amp; automation</p>
+          <h1 class="chead__title">Robots as Technological Systems</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What you'll learn:</strong> how engineers think about <em>any</em> machine — as a <strong>system</strong> with an input, a process, and an output. You'll meet the basic <strong>system model</strong> (a desired result goes in, the machine acts, an actual result comes out), the <strong>seven technological resources</strong> every system uses, and the one idea that separates a machine that runs blind from one that corrects itself: <strong>feedback</strong>. Then you'll see your VEX robot as exactly this kind of system — <strong>sensors are its input, the Brain is its process, motors are its output</strong> — and prove it with your hands by wiring up a motor and a sensor and watching them come alive on the Brain's screen. <strong>No code yet</strong> — that starts next chapter. This is the mental model the whole rest of the course is built on.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>Everything around you is a system</h2>
+      <p>A <strong>system</strong> is a group of interrelated parts that work together to reach a goal. That's the whole definition — and once you start looking, systems are everywhere. A space shuttle is a system. So is the cell phone in your pocket. A microwave, a bicycle, a vending machine, your school's bell schedule — all systems. A <strong>technological system</strong> is simply one that uses technology to produce its result. The power of the idea is that every one of them, no matter how huge or how small, can be understood with the <em>same</em> three-part model.</p>
+
+      <h2>The basic system model: input → process → output</h2>
+      <p>Every system has three parts, and engineers draw them left to right:</p>
+      <ul>
+        <li><strong>Input — the <em>desired</em> result.</strong> What you <em>want</em> to happen; the goal you set. (You press "2:00" on the microwave; you decide you want to drive 30 mph.)</li>
+        <li><strong>Process — the action part.</strong> The system combines its resources and does the work to respond to the input.</li>
+        <li><strong>Output — the <em>actual</em> result.</strong> What actually happened when the process ran. (The food is warm; the car is moving.)</li>
+      </ul>
+      <p>So the model reads <strong>desired result → process → actual result</strong>. Hold onto that distinction between the <em>desired</em> result and the <em>actual</em> result — it's the hinge this whole chapter turns on, because those two are <strong>not always the same</strong>.</p>
+
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 352" role="img" aria-label="The basic system model shown as three boxes left to right: INPUT (the desired result, which on a robot is the sensors), PROCESS (the action part, which on a robot is the Brain), and OUTPUT (the actual result, which on a robot is the motors). Forward arrows run input to process to output. During the process the seven technological resources are used. A feedback loop curves from the output back to the input: sense the actual result, compare it to the goal, and adjust. Open-loop systems have no feedback and run blind; closed-loop systems have it.">
+          <defs>
+            <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5B6470"/></marker>
+            <marker id="fb" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker>
+          </defs>
+
+          <text x="380" y="28" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1F3864">THE SYSTEM MODEL</text>
+          <text x="380" y="48" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#5B6470">input &#8594; process &#8594; output — and the same model on your robot</text>
+
+          <!-- INPUT -->
+          <rect x="40" y="72" width="180" height="120" rx="12" fill="#1F3864"/>
+          <text x="130" y="99" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#9DC3E6">INPUT</text>
+          <text x="130" y="126" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#FFFFFF">The desired result</text>
+          <rect x="66" y="150" width="128" height="28" rx="14" fill="#DEEAF6"/>
+          <text x="130" y="169" text-anchor="middle" font-family="Arial" font-size="13.5" font-weight="bold" fill="#1F3864">Sensors</text>
+
+          <!-- PROCESS -->
+          <rect x="290" y="72" width="180" height="120" rx="12" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.8"/>
+          <text x="380" y="99" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#2E75B6">PROCESS</text>
+          <text x="380" y="126" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#1A1A1A">The action part</text>
+          <rect x="316" y="150" width="128" height="28" rx="14" fill="#2E75B6"/>
+          <text x="380" y="169" text-anchor="middle" font-family="Arial" font-size="13.5" font-weight="bold" fill="#FFFFFF">The Brain</text>
+
+          <!-- OUTPUT -->
+          <rect x="540" y="72" width="180" height="120" rx="12" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.8"/>
+          <text x="630" y="99" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#3F6B2A">OUTPUT</text>
+          <text x="630" y="126" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#1A1A1A">The actual result</text>
+          <rect x="566" y="150" width="128" height="28" rx="14" fill="#3F6B2A"/>
+          <text x="630" y="169" text-anchor="middle" font-family="Arial" font-size="13.5" font-weight="bold" fill="#FFFFFF">Motors</text>
+
+          <!-- forward arrows -->
+          <line x1="222" y1="132" x2="286" y2="132" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+          <line x1="472" y1="132" x2="538" y2="132" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+
+          <!-- resources note -->
+          <text x="380" y="212" text-anchor="middle" font-family="Arial" font-size="11.5" font-style="italic" fill="#5B6470">&#8593; during the process, the seven technological resources are used</text>
+
+          <!-- feedback loop -->
+          <path d="M630,192 L630,284 Q630,300 614,300 L146,300 Q130,300 130,284 L130,196" fill="none" stroke="#C55A11" stroke-width="2.4" marker-end="url(#fb)"/>
+          <rect x="150" y="289" width="460" height="22" rx="4" fill="#FFFFFF"/>
+          <text x="380" y="304" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#C55A11">FEEDBACK LOOP — sense the actual result, compare it to the goal, and adjust</text>
+
+          <!-- open vs closed -->
+          <text x="380" y="330" text-anchor="middle" font-family="Arial" font-size="11" font-style="italic" fill="#5B6470">Open-loop systems have no feedback and run blind. Closed-loop systems sense the result and correct.</text>
+        </svg>
+        <figcaption>The basic system model. The same three boxes describe a microwave, a car, and the robot on your table — and on the robot they are your <strong>sensors</strong>, the <strong>Brain</strong>, and the <strong>motors</strong>. The orange <strong>feedback loop</strong> is what a self-correcting system adds.</figcaption>
+      </figure>
+
+      <h2>The seven technological resources</h2>
+      <p>What happens <em>inside</em> the Process? The system draws on <strong>resources</strong> — and technology educators name <strong>seven</strong> of them. Every technological system, from a Big Mac to a Mars rover, runs on some mix of these (with one way each already shows up on your robot):</p>
+      <ul>
+        <li><strong>People</strong> — who design, build, run, and service the system. <em>(On your robot: you.)</em></li>
+        <li><strong>Information</strong> — knowledge, data, and instructions. <em>(On your robot: your plan now; your code and your sensor readings soon.)</em></li>
+        <li><strong>Materials</strong> — what the system is made of: <strong>raw</strong> (found in nature — ore, wood), <strong>processed</strong> (changed into a more useful form — lumber, leather), <strong>manufactured</strong> (so changed you can't tell where it came from — glass, paper, metal), and <strong>synthetic</strong> (made artificially — plastics). <em>(On your robot: the EXP structure, shafts, and gears.)</em></li>
+        <li><strong>Tools &amp; Machines</strong> — what does the work; a tool becomes a machine when you add a power source. <em>(On your robot: the Brain, the motors, your laptop.)</em></li>
+        <li><strong>Energy</strong> — the power that makes it go. <em>(On your robot: the EXP battery.)</em></li>
+        <li><strong>Capital</strong> — the money, credit, or property invested. <em>(On your robot: what the kit costs.)</em></li>
+        <li><strong>Time</strong> — everything takes time, and too much or too little can ruin the result. <em>(On your robot: your class periods, and how long a movement takes to run.)</em></li>
+      </ul>
+      <p>Naming the resources is a <em>habit</em>: when a system isn't working, an engineer asks <strong>which resource is short</strong> — not enough information, not enough energy, the wrong material, out of time.</p>
+
+      <h2>Does it watch the result? Open-loop vs. closed-loop</h2>
+      <p>Here's the question that splits every system into two camps: <strong>does it watch its own result?</strong></p>
+      <p>An <strong>open-loop system</strong> has no way to check or adjust itself. A microwave heats for the time you set — it has no idea whether your food actually got hot. Set two minutes and the food may come out scalding or still cold; the microwave <em>can't tell and can't correct</em>. A train grinding up a hill, a wood stove, a basic washer/dryer — same story. They run <strong>blind</strong>: input → process → output, and that's the end of it.</p>
+      <p>A <strong>closed-loop system</strong> senses its actual result, compares it to the desired result, and <strong>adjusts</strong> — over and over. A thermostat reads the room temperature and switches the furnace on or off to hold your setting. Cruise control reads your speed and feeds the engine more or less gas. A bike rider watches the road and tunes their pedaling and steering. The piece that makes the difference is the <strong>feedback loop</strong>: a <em>sensor</em> (the thermometer, the speedometer, your eyes) reports the actual result back to the start, so the system can correct itself.</p>
+
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🔁</span> Inside a feedback loop</p>
+        <p>Take cruise control set to 30 mph while you actually drift to 50 down a hill. Three jobs close the loop:</p>
+        <ul>
+          <li><strong>Monitor</strong> — a sensor measures the <em>actual</em> result (the speedometer reads 50 mph).</li>
+          <li><strong>Comparator</strong> — something compares actual to desired (50 is faster than the 30 you asked for).</li>
+          <li><strong>Controller</strong> — something makes the correction (ease off the gas, or tap the brake).</li>
+        </ul>
+        <p>Run that loop continuously and the system holds its target. That cycle — <strong>sense → compare → adjust</strong> — is the most important idea in this unit.</p>
+      </div>
+
+      <h2>Your robot is a technological system</h2>
+      <p>Now point all of this at the machine on your table. Your VEX EXP robot is a technological system, and it maps onto the model <em>exactly</em> — it's the second label inside every box of the diagram above:</p>
+      <ul>
+        <li><strong>Sensors are the input.</strong> A Distance Sensor, an Optical Sensor, a bumper switch — each one measures something about the world (or about the robot itself) and reports it to the Brain.</li>
+        <li><strong>The Brain is the process.</strong> It takes the sensor readings and the instructions you give it, decides what to do, and sends commands out.</li>
+        <li><strong>Motors are the output.</strong> They turn the Brain's decisions into motion in the real world.</li>
+      </ul>
+      <p>And <strong>feedback</strong> is what ties it into a closed loop. A robot with <em>no</em> sensors is open-loop — it drives for a set time and hopes, exactly like the microwave. Add a sensor and a few lines of code that say <em>"if the distance sensor reads under 200&nbsp;mm, stop,"</em> and the robot now senses its actual result and corrects itself — closed-loop. <strong>That's automation</strong>, and it's where this unit is headed.</p>
+      <p>You don't write that code yet. First you're going to prove the input → process → output chain is <em>real</em>, with your hands.</p>
+
+      <div class="card card--tip">
+        <h3>🎯 Why this is the opener for Unit 3</h3>
+        <p>Feedback is the reason the next chapters exist. Sensors give a robot its <strong>input</strong> — a way to perceive its actual result. Code is the <strong>process</strong> that compares and decides. Together they let a machine <em>correct itself</em> instead of running blind. Every behavior you program from here on is really you building a feedback loop: sense something, decide, act, repeat.</p>
+      </div>
+
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🏆</span> Also on the V5 competition team?</p>
+        <p>The systems thinking is <em>platform-independent</em>: a V5 competition robot is the same kind of system, with the same input → process → output and the same need for feedback. Only the hardware differs — your <strong>EXP Brain has 10 Smart Ports</strong> and runs on an EXP battery, while the <strong>V5 Brain has 21 Smart Ports</strong>, a larger touchscreen, and its own V5 battery. Different brains, ports, and batteries that don't mix — which is exactly what keeps the two programs in their own pools. The model is identical; explore the V5 control system in the <a class="ext" href="https://kb.vex.com/hc/en-us/categories/360002333191-V5" target="_blank" rel="noopener">V5 VEX Library</a>.</p>
+      </div>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415762893972-Using-the-Devices-Screen-on-the-EXP-Brain" target="_blank" rel="noopener">Using the Devices Screen on the EXP Brain</a> — view a connected sensor's <strong>live readings right on the Brain</strong>, no code. This is the screen you'll use in the hands-on.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415762945044-Connecting-Devices-to-Smart-Ports-on-the-EXP-Brain" target="_blank" rel="noopener">Connecting Devices to Smart Ports on the EXP Brain</a> — the <strong>10 Smart Ports</strong> (motors <em>and</em> sensors), and how to seat a Smart Cable until it clicks.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4414780552724-Navigating-the-EXP-Brain-Screen" target="_blank" rel="noopener">Navigating the EXP Brain Screen</a> — the <strong>Check</strong>, <strong>X</strong>, and arrow buttons that drive every on-screen menu.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415763007380-Using-Distance-Sensor-with-VEX-EXP" target="_blank" rel="noopener">Using the Distance Sensor with VEX EXP</a> — the laser sensor you'll watch on the Devices screen (range <strong>20–2000&nbsp;mm</strong>).</li>
+        </ul>
+      </div>
+
+      <div class="card card--constraint">
+        <p class="card__title"><span class="ic">📐</span> Lab setup &amp; ground rules</p>
+        <p>This is a wiring lab, not a build — but the same engineering-constraint spirit as every project this year applies:</p>
+        <p><strong>1 · Use your classroom kit's EXP electronics.</strong> The <strong>EXP Brain</strong>, an <strong>EXP Smart Motor</strong>, an <strong>EXP sensor</strong>, and <strong>EXP Smart Cables</strong> are all yours to use. Don't borrow the <strong>separate competition team's V5</strong> brain, battery, or sensors — they're a <em>different system</em> (different ports and battery) and won't even talk to your EXP gear, so keeping them apart keeps both kits complete.</p>
+        <p><strong>2 · Charged battery, gentle cables.</strong> Start with a <strong>charged EXP battery</strong> connected to the Brain. Seat each Smart Cable until you hear it <strong>click</strong>, and remove it by pressing the little <strong>release tab</strong> — never yank a cable out by the wire.</p>
+      </div>
+
+      <div class="card card--safe">
+        <p class="card__title"><span class="ic">⚠️</span> Safety</p>
+        <ul>
+          <li>Keep fingers, hair, and loose clothing clear of the motor's <strong>spinning shaft</strong> and anything you put on it — even at low speed it can pinch or catch.</li>
+          <li>Handle the Brain and battery gently, and keep cables clear of the table edge so nothing gets pulled to the floor.</li>
+          <li>Seat each Smart Cable until it <strong>clicks</strong>, remove it by pressing the <strong>release tab</strong> (not by pulling the wire), and power the Brain down by holding the <strong>X button</strong> when you're done.</li>
+        </ul>
+      </div>
+
+      <h2>What you'll need</h2>
+      <ul>
+        <li>A <strong>VEX EXP Brain</strong> and a <strong>charged EXP battery</strong></li>
+        <li>One <strong>EXP Smart Motor</strong></li>
+        <li>One <strong>EXP sensor</strong> — a <strong>Distance Sensor</strong> is ideal (move your hand and watch the number change); an Optical Sensor or a bumper switch also works</li>
+        <li>Two <strong>EXP Smart Cables</strong></li>
+        <li>Your <strong>engineering notebook</strong> — no laptop or code needed this time</li>
+      </ul>
+
+      <h2>Do it</h2>
+      <ol>
+        <li><strong>Power on the Brain.</strong> Press the <strong>Check</strong> button to turn it on.</li>
+        <li><strong>Wire the output.</strong> Connect the Smart Motor to <em>any</em> Smart Port with a Smart Cable — press until it <strong>clicks</strong>. This is your <strong>output</strong>.</li>
+        <li><strong>Wire the input.</strong> Connect the sensor to any <em>other</em> Smart Port the same way. This is your <strong>input</strong>.</li>
+        <li><strong>Open the Devices screen.</strong> Use the left/right buttons to highlight <strong>Devices</strong>, then press <strong>Check</strong>. Both devices appear, listed by the port they're plugged into — the Brain detected them automatically, with <em>no code</em>.</li>
+        <li><strong>Watch the input come alive.</strong> Highlight your sensor and press <strong>Check</strong>. Move your hand toward and away from the Distance Sensor (or trigger whatever sensor you used) and watch the reading change <strong>in real time</strong>. That's the input half of the system, live.</li>
+        <li><strong>Make the output report on itself.</strong> Go back, select the motor, and <strong>turn its shaft by hand</strong>. Watch its position/angle reading change. The motor has a built-in <strong>encoder</strong>, so it's an output that's also quietly <em>sensing</em> its own motion — a sneak preview of feedback.</li>
+        <li><strong>Write it up.</strong> In your notebook, sketch the <strong>input → process → output</strong> diagram for this exact setup and label which physical part is which. Add one sentence: <em>where would feedback come from</em> if you wanted this robot to correct itself?</li>
+        <li><strong>Power down.</strong> Hold the <strong>X</strong> button until the screen goes dark.</li>
+      </ol>
+
+      <h2>Check your understanding</h2>
+      <ol>
+        <li>In your own words, name the three parts of the <strong>basic system model</strong> and say what each one does.</li>
+        <li>Pick a technological system you use every day and give one example of each of the <strong>seven resources</strong> it uses.</li>
+        <li>What is the difference between an <strong>open-loop</strong> and a <strong>closed-loop</strong> system? Give one example of each.</li>
+        <li>On your VEX robot, which part is the <strong>input</strong>, which is the <strong>process</strong>, and which is the <strong>output</strong>?</li>
+        <li>Why does feedback require a <strong>sensor</strong>? Name one thing a robot could sense to close the loop, and what it would do with that information.</li>
+        <li>When you turned the motor by hand, the Devices screen showed its angle changing. Explain how that makes the motor a kind of <strong>sensor</strong>, not just an output.</li>
+      </ol>
+
+      <h2>Key terms</h2>
+      <div class="terms">
+        <span class="term">system</span><span class="term">technological system</span><span class="term">system model</span><span class="term">input</span><span class="term">process</span><span class="term">output</span><span class="term">desired result</span><span class="term">actual result</span><span class="term">technological resources</span><span class="term">open-loop system</span><span class="term">closed-loop system</span><span class="term">feedback</span><span class="term">feedback loop</span><span class="term">sensor</span><span class="term">Brain</span><span class="term">motor</span><span class="term">Smart Port</span><span class="term">encoder</span><span class="term">automation</span>
+      </div>
+
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Activity 3.1 "Technological Systems"; VEX Library, kb.vex.com):</strong> the basic system model (input/process/output as desired result → process → actual result), the seven technological resources, and open- vs. closed-loop systems with the monitor/comparator/controller feedback roles are from the PLTW Gateway curriculum. EXP Brain specifics — <strong>10 Smart Ports</strong> for motors and sensors, the on-board <strong>Devices screen</strong> for viewing live readings without code, seating Smart Cables until they click, and the Distance/Optical sensors — are verified against the VEX Library (Connecting Devices to Smart Ports on the EXP Brain; Using the Devices Screen on the EXP Brain; Navigating the EXP Brain Screen; Using the Distance Sensor with VEX EXP). The EXP Smart Motor's fixed 200 RPM / 0.5 N·m spec and built-in encoder carry over from Chapter 3.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>
