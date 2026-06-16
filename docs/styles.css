@@ -285,3 +285,21 @@ a.ext::after{content:"\2197";font-size:.78em;margin-left:2px;color:var(--blue);v
 .card--cad .cad-try strong{color:var(--orange);}
 /* simplified engineering-drawing figure */
 .cad-dwg{display:block;width:100%;max-width:620px;height:auto;margin:4px auto 0;}
+
+/* ---------- code & pseudocode blocks (added Ch. 9) ---------- */
+.codetag{
+  display:block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;font-weight:700;color:var(--gray);margin:18px 0 5px;
+}
+.codetag .dot{color:var(--blue);}
+.codetag.plan .dot{color:var(--orange);}
+.code{
+  font-family:var(--font-mono);font-size:13.5px;line-height:1.6;
+  background:#F4F4F4;border:1px solid #E4E4E4;border-left:3px solid var(--blue);
+  border-radius:8px;padding:13px 16px;margin:0 0 6px;color:#243240;
+  white-space:pre;overflow-x:auto;tab-size:2;
+}
+.code.plan{border-left-color:var(--orange);}
+.code .cmt{color:#6E7B89;font-style:italic;}
+.code .kw{color:var(--blue);font-weight:700;}
+.code .lit{color:#1E6470;}

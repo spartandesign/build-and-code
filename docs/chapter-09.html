@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 9 · Behaviors &amp; Pseudocode — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="9">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">09</div>
+        <div>
+          <p class="chead__eyebrow">Unit 3 · Programming &amp; automation</p>
+          <h1 class="chead__title">Behaviors &amp; Pseudocode</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What you'll learn:</strong> how to turn a goal into instructions a robot can follow. You'll meet <strong>behaviors</strong> — the things a robot does — and the single most useful skill in programming: <strong>breaking a big, complex behavior down</strong> into simple ones, and those into basic single commands. Then you'll write <strong>pseudocode</strong>: a plain-language plan for a program, written in order, before you worry about exact syntax. You'll see how a few lines of that plan become real <strong>VEX C++</strong> — including what those curly braces <span class="inl">{ }</span> are for — and how the "sense, decide, act" loop from Chapter 8 shows up the moment you write your first <span class="inl">if</span> or <span class="inl">while</span>. This is the planning half of programming; you write real code on the robot starting in Chapter 10.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>From building robots to telling them what to do</h2>
+      <p>For two units you built robot <em>bodies</em> — structures, gears, and mechanisms that turn motion into useful work. But a body that can't be told what to do is just a sculpture. Unit 3 is about the other half: making the robot <strong>act</strong>. And acting starts not at the keyboard, but with a plan.</p>
+      <p>Here's the split that runs through every robotics challenge. There's <strong>you, the programmer</strong>, and there's <strong>the robot</strong>. Your job is to work out exactly what the robot should do and write it down as instructions. The robot's job is simpler and stricter: it <strong>carries out your instructions — exactly, in order, with no common sense</strong> to fill in the gaps. If your plan is wrong, the robot does the wrong thing perfectly. So the thinking you do <em>before</em> you code is where challenges are really won or lost.</p>
+
+      <h2>Behaviors: anything your robot does</h2>
+      <p>A <strong>behavior</strong> is anything your robot does. Turning on one motor is a behavior. Driving forward is a behavior. Following a line is a behavior. Solving a whole maze is a behavior. It helps to sort them into three sizes:</p>
+      <ul>
+        <li><strong>Basic behaviors</strong> are single commands — the smallest things the robot understands directly. "Spin motor 1 forward." "Stop the motors." In code, each is about one line.</li>
+        <li><strong>Simple behaviors</strong> are small, useful tasks made of a few basic ones. "Drive forward for two seconds." "Turn right." These are the sweet spot — big enough to be useful, small enough to program easily.</li>
+        <li><strong>Complex behaviors</strong> are big jobs. "Drive through the entire maze." "Sort the parts by color." They look complicated — but they have one very helpful property.</li>
+      </ul>
+
+      <h2>The big idea: break it down</h2>
+      <p>That property is this: <strong>a complex behavior can always be broken down into simpler behaviors, and those into basic ones.</strong> Keep splitting a job into smaller pieces and eventually every piece is something you already know how to write. That single move — <strong>decomposition</strong> — is the most important skill in this unit.</p>
+
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 384" role="img" aria-label="A behavior-decomposition tree. At the top, one COMPLEX behavior: 'Solve the maze'. It breaks into three SIMPLE behaviors: 'Drive to the wall ahead', 'Turn toward the open path', and 'Repeat until you reach the exit'. The first simple behavior breaks into three BASIC behaviors (single commands): 'spin both motors forward', 'watch the distance sensor', and 'stop near the wall'. A note marks that, in this exact order, the basic steps are your pseudocode. Every simple behavior breaks down into basic steps the same way.">
+          <defs>
+            <marker id="dn" markerWidth="9" markerHeight="9" refX="4" refY="7" orient="auto"><path d="M1,1 L7,1 L4,7 Z" fill="#9AA4AE"/></marker>
+          </defs>
+          <text x="380" y="26" text-anchor="middle" font-family="Arial" font-size="15.5" font-weight="bold" fill="#1F3864">ONE BIG BEHAVIOR, BROKEN DOWN</text>
+          <text x="380" y="46" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#5B6470">complex &#8594; simple &#8594; basic: the programmer's job before any code</text>
+
+          <text x="14" y="96"  font-family="Arial" font-size="11" font-weight="bold" letter-spacing="1" fill="#1F3864">COMPLEX</text>
+          <text x="14" y="143" font-family="Arial" font-size="11" font-weight="bold" letter-spacing="1" fill="#2E75B6">SIMPLE</text>
+          <text x="14" y="178" font-family="Arial" font-size="11" font-weight="bold" letter-spacing="1" fill="#3F6B2A">BASIC</text>
+
+          <path d="M165,107 L165,321" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+          <path d="M165,139 L185,139" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+          <path d="M165,285 L185,285" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+          <path d="M165,321 L185,321" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+          <path d="M220,154 L220,242" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+          <path d="M220,174 L245,174" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+          <path d="M220,208 L245,208" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+          <path d="M220,242 L245,242" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+
+          <rect x="128" y="77" width="180" height="30" rx="15" fill="#1F3864"/>
+          <text x="218" y="97" text-anchor="middle" font-family="Arial" font-size="13.5" font-weight="bold" fill="#FFFFFF">Solve the maze</text>
+
+          <rect x="185" y="124" width="215" height="30" rx="15" fill="#DEEAF6" stroke="#2E75B6" stroke-width="1.3"/>
+          <text x="292" y="144" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">Drive to the wall ahead</text>
+          <rect x="185" y="270" width="225" height="30" rx="15" fill="#DEEAF6" stroke="#2E75B6" stroke-width="1.3"/>
+          <text x="297" y="290" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">Turn toward the open path</text>
+          <rect x="185" y="306" width="248" height="30" rx="15" fill="#DEEAF6" stroke="#2E75B6" stroke-width="1.3"/>
+          <text x="309" y="326" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">Repeat until you reach the exit</text>
+
+          <rect x="245" y="160" width="210" height="28" rx="14" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.2"/>
+          <text x="350" y="179" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#28401C">spin both motors forward</text>
+          <rect x="245" y="194" width="215" height="28" rx="14" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.2"/>
+          <text x="352" y="213" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#28401C">watch the distance sensor</text>
+          <rect x="245" y="228" width="165" height="28" rx="14" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.2"/>
+          <text x="327" y="247" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#28401C">stop near the wall</text>
+
+          <path d="M474,162 L480,162 L480,254 L474,254" fill="none" stroke="#C55A11" stroke-width="1.6"/>
+          <text x="490" y="196" font-family="Arial" font-size="12" fill="#5B6470">in this exact order,</text>
+          <text x="490" y="213" font-family="Arial" font-size="12" fill="#5B6470">these basic steps are</text>
+          <text x="490" y="230" font-family="Arial" font-size="12.5" font-weight="bold" fill="#C55A11">your pseudocode &#8594;</text>
+
+          <text x="380" y="364" text-anchor="middle" font-family="Arial" font-size="11.5" font-style="italic" fill="#5B6470">Every simple behavior breaks down into basic steps the same way — that whole bottom layer, in order, is your plan.</text>
+        </svg>
+        <figcaption>Read the tree from the top. <strong>"Solve the maze"</strong> is too big to code directly, so you split it into simple behaviors; one of those, <strong>"drive to the wall ahead,"</strong> splits again into basic single commands — and now every line is something the robot can do.</figcaption>
+      </figure>
+
+      <p>Read it from the top: "Solve the maze" is too big to code directly, so you split it into simple behaviors — drive to the wall, turn toward the opening, repeat. Still not code, so you split one of those again: "drive to the wall ahead" becomes <em>spin the motors forward, watch the distance sensor, stop when the wall is near</em> — and now every line is something the robot can do directly. Each of the other simple behaviors breaks down the same way.</p>
+      <p>You already do this with everyday tasks without thinking. "Brush my teeth" isn't one action — it's wet the brush, add toothpaste, scrub the top, scrub the bottom, rinse, put it away. Decomposition is just doing that <strong>on purpose</strong>, for a robot.</p>
+
+      <h2>You and the robot have different jobs</h2>
+      <p>Because the robot follows your plan <em>literally</em>, your plan has to be <strong>complete and in order</strong>. Leave out "stop the motors" and the robot drives into the wall and keeps pushing. Put two steps in the wrong order and it turns before it has moved. The robot won't notice and won't fix it — that isn't its job. Catching those gaps is yours, and the cheapest place to catch them is in a plan written in plain language, before any code exists.</p>
+
+      <h2>Pseudocode: the plan before the code</h2>
+      <p>That plan is called <strong>pseudocode</strong> — literally "fake code." It's a shorthand for a program that mixes a little programming structure with plain English. You write what each part should <em>do</em>, in the order it will run, without sweating exact spelling and punctuation. A few ground rules:</p>
+      <ul>
+        <li>Write the <strong>behavior or outcome</strong> of each step ("drive forward until the wall is close"), not perfect syntax.</li>
+        <li>List the steps in the <strong>same order</strong> they'll run in the real program.</li>
+        <li>Keep it <strong>reasonable</strong> — close enough that turning it into real code is mostly mechanical.</li>
+      </ul>
+      <p>Pseudocode earns the few minutes it takes. It lets you find a logic mistake <strong>on paper</strong> (cheap and fast) instead of on the robot (slow). And because it captures just the logic, the same plan could be turned into almost any programming language — it's portable thinking.</p>
+
+      <h2>From plan to C++</h2>
+      <p>Here's the "drive to the wall" behavior written as pseudocode. The curly braces <span class="inl">{ }</span> mark a <strong>block</strong> — a group of steps that belong together:</p>
+
+      <p class="codetag plan"><span class="dot">●</span> Pseudocode — the plan</p>
+<pre class="code plan">/*
+  behavior: drive to the wall ahead, then stop
+  {
+      spin both drive motors forward
+      while the distance sensor reads more than 200 mm
+      {
+          keep rolling (just wait a moment, then check again)
+      }
+      stop both drive motors
+  }
+*/</pre>
+
+      <p>And here is that same plan as real <strong>VEX C++</strong> — the language you'll write in VS Code. Notice it lines up almost line-for-line with the plan, and the curly braces <span class="inl">{ }</span> are still here, now doing their real job: in C++, braces group the statements that belong to a <span class="inl">while</span> loop (or an <span class="inl">if</span>, or the whole program):</p>
+
+      <p class="codetag"><span class="dot">●</span> VEX C++ — the real thing (Chapter 10)</p>
+<pre class="code"><span class="cmt">// behavior: drive to the wall ahead, then stop</span>
+leftMotor.spin(forward);
+rightMotor.spin(forward);
+
+<span class="kw">while</span> (distance.objectDistance(mm) &gt; 200) {
+    wait(20, msec);
+}
+
+leftMotor.stop();
+rightMotor.stop();</pre>
+
+      <p>You don't have to understand every symbol yet — that's Chapter 10. The point is that a good plan makes the code almost write itself, and that the <strong>structure you planned</strong> (do these steps; repeat while the wall is far; then stop) is <em>exactly</em> the structure of the code.</p>
+
+      <div class="card card--tip">
+        <h3>🎯 You've seen this loop before</h3>
+        <p>Look at the heart of that behavior: <strong>read</strong> the distance sensor, <strong>decide</strong> (is it more than 200&nbsp;mm?), <strong>act</strong> (keep rolling, or stop). That's the <strong>sense → compare → adjust</strong> feedback loop from Chapter 8 — now written as a plan you can code. Every behavior with an <span class="inl">if</span> or a <span class="inl">while</span> is really a feedback loop in disguise, which is why feedback was the big idea that opened this unit.</p>
+      </div>
+
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🏆</span> Also on the V5 competition team?</p>
+        <p>Planning is the most transferable skill there is. Behaviors and pseudocode work in <em>any</em> language and on <em>any</em> platform — and a V5 competition programmer writes the very same <strong>VEX C++ in VS Code</strong> that you will. The only difference is the hardware the finished code runs on (a 21-port V5 Brain instead of your 10-port EXP Brain). The plan you write for a behavior here would drive a V5 robot just as well; explore the V5 control system in the <a class="ext" href="https://kb.vex.com/hc/en-us/categories/360002333191-V5" target="_blank" rel="noopener">V5 VEX Library</a>.</p>
+      </div>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library &amp; C++ API</p>
+        <ul>
+          <li><a class="ext" href="https://api.vex.com/exp/home/cpp/Motors_and_MotorControllers/motor_and_motor_group.html" target="_blank" rel="noopener">Motor and Motor Group — VEX EXP C++ API</a> — the real <span class="inl">spin()</span> and <span class="inl">stop()</span> commands you previewed above; this is what Chapter 10 builds on.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415763007380-Using-Distance-Sensor-with-VEX-EXP" target="_blank" rel="noopener">Using the Distance Sensor with VEX EXP</a> — the sensor reading (distance to an object, in millimeters) at the heart of the example behavior.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415762893972-Using-the-Devices-Screen-on-the-EXP-Brain" target="_blank" rel="noopener">Using the Devices Screen on the EXP Brain</a> — before you code a behavior, confirm its motor and sensor are connected and reading (the no-code check from Chapter 8).</li>
+        </ul>
+      </div>
+
+      <h2>Putting it together</h2>
+      <p>One last habit, and it's the one that separates frustration from progress. Once you have your plan, <strong>don't type the whole thing and hope.</strong> Add one behavior, send it to the robot, and test it. Then add the next. A program that grew one tested piece at a time is far easier to fix than twenty lines written all at once — because when something breaks, you already know it was the piece you just added.</p>
+
+      <h2>What you'll need</h2>
+      <ul>
+        <li>Your <strong>engineering notebook</strong> and a pencil</li>
+        <li>The <strong>behavior-and-pseudocode worksheet</strong></li>
+        <li>(Optional) your robot from Chapter 8 on the table, to picture the behaviors</li>
+        <li>No computer or code yet — this chapter is <strong>planning</strong></li>
+      </ul>
+
+      <h2>Do it</h2>
+      <ol>
+        <li><strong>Break down the maze.</strong> Using the tree above as a model, take one complex behavior and break it into simple behaviors, then break one of <em>those</em> into basic single commands. Stop when every bottom item is something the robot could do directly.</li>
+        <li><strong>Decompose the challenge task.</strong> For this task — <em>"when a pushbutton is pressed, the robot drives as fast as possible for 20 feet (about 10 seconds), then stops"</em> — fill in a three-column chart: the complex behavior, its simple behaviors, and the basic behaviors.</li>
+        <li><strong>Write the pseudocode.</strong> Turn your basic behaviors into pseudocode, <em>in order</em>, using the <span class="inl">/* { } */</span> template. Mark the blocks that belong together with curly braces.</li>
+        <li><strong>Decompose an everyday behavior.</strong> List at least five smaller behaviors inside "brushing my teeth," and notice how some of those could break down even further.</li>
+        <li><strong>Test your plan on a human.</strong> Trade pseudocode with a partner and have them follow it <em>literally</em> — doing exactly what each line says and nothing more. If they end up somewhere you didn't intend, your plan has a gap. Fix it. (That gap is exactly what the robot would have tripped on.)</li>
+      </ol>
+
+      <h2>Check your understanding</h2>
+      <ol>
+        <li>List at least five smaller behaviors you could break the complex behavior "brushing my teeth" into.</li>
+        <li>Why is it useful to think of a program as a set of <strong>basic, simple, and complex</strong> behaviors?</li>
+        <li>What does a pair of <strong>curly braces</strong> <span class="inl">{ }</span> mark in a C++ program?</li>
+        <li>What is the <strong>role of a programmer</strong>, and how is it different from the robot's role?</li>
+        <li>Write this plan as pseudocode: <em>"drive forward until the distance sensor reads less than 150 mm, then stop."</em> Which part is the sensing, which is the deciding, and which is the acting?</li>
+      </ol>
+
+      <h2>Key terms</h2>
+      <div class="terms">
+        <span class="term">behavior</span><span class="term">basic behavior</span><span class="term">simple behavior</span><span class="term">complex behavior</span><span class="term">decomposition</span><span class="term">breaking down</span><span class="term">program</span><span class="term">programmer</span><span class="term">pseudocode</span><span class="term">syntax</span><span class="term">code block</span><span class="term">curly braces</span><span class="term">sequence</span><span class="term">VEX C++</span><span class="term">VEXcode</span><span class="term">if</span><span class="term">while</span>
+      </div>
+
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Activity 3.2 "Robot Behaviors and Writing Pseudocode"; VEXcode EXP C++ API, api.vex.com; VEX Library, kb.vex.com):</strong> the three behavior types (basic / simple / complex), behavior decomposition, the programmer-and-robot roles, and pseudocode as informal, in-order planning are from the PLTW Gateway curriculum — modernized here from ROBOTC to <strong>VEX C++ in VS Code</strong>. The C++ commands shown (<span class="inl">spin(forward)</span>, <span class="inl">stop()</span>, <span class="inl">wait</span>, and the distance sensor's <span class="inl">objectDistance</span> in millimeters) are verified against the VEXcode EXP C++ API and the VEX Library Distance Sensor article. The "sense → decide → act" loop carries over from Chapter 8.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="384" viewBox="0 0 760 384" role="img" aria-label="A behavior-decomposition tree. At the top, one COMPLEX behavior: 'Solve the maze'. It breaks into three SIMPLE behaviors: 'Drive to the wall ahead', 'Turn toward the open path', and 'Repeat until you reach the exit'. The first simple behavior breaks into three BASIC behaviors (single commands): 'spin both motors forward', 'watch the distance sensor', and 'stop near the wall'. A note marks that, in this exact order, the basic steps are your pseudocode. Every simple behavior breaks down into basic steps the same way.">
+          <defs>
+            <marker id="dn" markerWidth="9" markerHeight="9" refX="4" refY="7" orient="auto"><path d="M1,1 L7,1 L4,7 Z" fill="#9AA4AE"/></marker>
+          </defs>
+          <text x="380" y="26" text-anchor="middle" font-family="Arial" font-size="15.5" font-weight="bold" fill="#1F3864">ONE BIG BEHAVIOR, BROKEN DOWN</text>
+          <text x="380" y="46" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#5B6470">complex &#8594; simple &#8594; basic: the programmer's job before any code</text>
+
+          <text x="14" y="96"  font-family="Arial" font-size="11" font-weight="bold" letter-spacing="1" fill="#1F3864">COMPLEX</text>
+          <text x="14" y="143" font-family="Arial" font-size="11" font-weight="bold" letter-spacing="1" fill="#2E75B6">SIMPLE</text>
+          <text x="14" y="178" font-family="Arial" font-size="11" font-weight="bold" letter-spacing="1" fill="#3F6B2A">BASIC</text>
+
+          <path d="M165,107 L165,321" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+          <path d="M165,139 L185,139" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+          <path d="M165,285 L185,285" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+          <path d="M165,321 L185,321" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+          <path d="M220,154 L220,242" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+          <path d="M220,174 L245,174" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+          <path d="M220,208 L245,208" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+          <path d="M220,242 L245,242" fill="none" stroke="#9AA4AE" stroke-width="1.4"/>
+
+          <rect x="128" y="77" width="180" height="30" rx="15" fill="#1F3864"/>
+          <text x="218" y="97" text-anchor="middle" font-family="Arial" font-size="13.5" font-weight="bold" fill="#FFFFFF">Solve the maze</text>
+
+          <rect x="185" y="124" width="215" height="30" rx="15" fill="#DEEAF6" stroke="#2E75B6" stroke-width="1.3"/>
+          <text x="292" y="144" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">Drive to the wall ahead</text>
+          <rect x="185" y="270" width="225" height="30" rx="15" fill="#DEEAF6" stroke="#2E75B6" stroke-width="1.3"/>
+          <text x="297" y="290" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">Turn toward the open path</text>
+          <rect x="185" y="306" width="248" height="30" rx="15" fill="#DEEAF6" stroke="#2E75B6" stroke-width="1.3"/>
+          <text x="309" y="326" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">Repeat until you reach the exit</text>
+
+          <rect x="245" y="160" width="210" height="28" rx="14" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.2"/>
+          <text x="350" y="179" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#28401C">spin both motors forward</text>
+          <rect x="245" y="194" width="215" height="28" rx="14" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.2"/>
+          <text x="352" y="213" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#28401C">watch the distance sensor</text>
+          <rect x="245" y="228" width="165" height="28" rx="14" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.2"/>
+          <text x="327" y="247" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#28401C">stop near the wall</text>
+
+          <path d="M474,162 L480,162 L480,254 L474,254" fill="none" stroke="#C55A11" stroke-width="1.6"/>
+          <text x="490" y="196" font-family="Arial" font-size="12" fill="#5B6470">in this exact order,</text>
+          <text x="490" y="213" font-family="Arial" font-size="12" fill="#5B6470">these basic steps are</text>
+          <text x="490" y="230" font-family="Arial" font-size="12.5" font-weight="bold" fill="#C55A11">your pseudocode &#8594;</text>
+
+          <text x="380" y="364" text-anchor="middle" font-family="Arial" font-size="11.5" font-style="italic" fill="#5B6470">Every simple behavior breaks down into basic steps the same way — that whole bottom layer, in order, is your plan.</text>
+        </svg>
