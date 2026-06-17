@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getting Started with Code — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="GS">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">💻</div>
+        <div>
+          <p class="chead__eyebrow">Start here · Code</p>
+          <h1 class="chead__title">Getting Started with Code</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p>This year you'll build robots <em>and</em> write the code that makes them move. This page gets you going in a few minutes: you'll send your very first program to a robot and watch a motor spin. You don't need to understand every word yet — just follow along. Come back here any time you need the basics.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>The tool</h2>
+      <p>You write code in <strong>Visual Studio Code</strong> (VS Code) with the <strong>VEX extension</strong> added on — your teacher has it set up on your computer. It runs <strong>on the computer in front of you</strong>, and your finished program travels down a <strong>USB-C cable</strong> into the robot's Brain. That's the whole idea: write on the computer, send it to the robot, watch it go.</p>
+
+      <h2>Open the starter</h2>
+      <p>Open the project called <strong>AR-Starter</strong>. You'll see something like this:</p>
+
+<pre class="code"><span class="kw">#include</span> "vex.h"
+<span class="kw">using namespace</span> vex;
+
+<span class="cmt">// ---- Your devices (already set up for you) ----</span>
+<span class="cmt">// Plug your motor into Smart Port 1.</span>
+motor leftMotor = motor(PORT1);
+
+<span class="kw">int</span> main() {
+  vexcodeInit();   <span class="cmt">// gets the robot ready — leave this here</span>
+
+  <span class="mark">// ===== WRITE YOUR CODE BELOW THIS LINE =====</span>
+  leftMotor.spin(forward);
+  wait(2, seconds);
+  leftMotor.stop();
+  <span class="mark">// ===== WRITE YOUR CODE ABOVE THIS LINE =====</span>
+}</pre>
+
+      <p>Here's the only rule you need today: <strong>you write code only between the two purple lines.</strong> Everything else is already set up for you — leave it alone. (Curious what those other lines do? You'll find out in <strong>Chapter 10</strong>. For now, ignore them.) The three lines already in the region are your first program: spin the motor, wait 2 seconds, stop.</p>
+
+      <h2>Send it to the robot</h2>
+      <ol>
+        <li><strong>Plug in.</strong> Connect the Brain to the computer with a <strong>USB-C cable</strong> and turn the Brain on. Make sure your motor is in <strong>Smart Port 1</strong>.</li>
+        <li><strong>Download.</strong> Click the <strong>Download</strong> button. It checks your code and sends it to the Brain.</li>
+        <li><strong>Run.</strong> Click <strong>Run</strong>. Watch the motor spin for two seconds and stop. 🎉</li>
+      </ol>
+      <p>If something doesn't work, the most common reasons are a loose cable, the motor in the wrong port, or the Brain turned off — check those first.</p>
+
+      <h2>Make one change</h2>
+      <p>Now make it yours. Find this line:</p>
+<pre class="code">wait(2, seconds);</pre>
+      <p>Change the <span class="inl">2</span> to a <span class="inl">5</span>, then <strong>Download</strong> and <strong>Run</strong> again. The motor now spins for five seconds. That's it — <strong>you just changed a program.</strong> Write, download, run, change, repeat: that loop is the whole job.</p>
+
+      <div class="card card--code">
+        <p class="card__title"><span class="ic">💻</span> You're a programmer now</p>
+        <p>Seriously — you wrote a program and a machine did what you said. From here on, you'll do a little more each time: set a speed, add a second motor, read a sensor. You never have to deal with the setup lines around your code; just write between the two purple lines, Download, and Run.</p>
+        <p class="code-try"><strong>Remember:</strong> your code goes <em>only</em> between the <span class="inl">// WRITE YOUR CODE</span> lines.</p>
+      </div>
+
+      <div class="card card--safe">
+        <p class="card__title"><span class="ic">⚠️</span> Stay safe</p>
+        <ul>
+          <li>Before you Run, make sure the robot <strong>can't drive off the table</strong> — a program can make it move suddenly. Prop the wheels up or be ready to catch it.</li>
+          <li>Keep fingers, hair, and loose sleeves <strong>away from the spinning motor shaft</strong> and anything attached to it.</li>
+          <li>If your robot is meant to <strong>drive around</strong>, unplug the USB-C cable first — never let it drive while tethered.</li>
+          <li>Power the Brain down with the <strong>X button</strong> when you're done.</li>
+        </ul>
+      </div>
+
+      <h2>What's next</h2>
+      <p>From here on, many chapters have a <strong>💻 Code it</strong> box — just a few lines to type that bring your build to life: spin the gears you assembled, drive the toy you made, react to a sensor. You don't need to understand every part of the program to do them. Open the starter, write in the region, Download, and Run. When you're ready for the <em>whole</em> story of how a program works — what all those other lines mean — that's waiting for you in <strong>Chapter 10</strong>.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>

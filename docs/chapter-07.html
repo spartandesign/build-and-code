@@ -222,6 +222,29 @@
         <li><strong>Showcase.</strong> Demonstrate against the challenge; give and collect peer feedback in your notebook, and submit your notebook.</li>
       </ol>
 
+      <div class="card card--code">
+        <p class="card__title"><span class="ic">💻</span> Code it — a little routine</p>
+        <p>Real robots run a <em>sequence</em> — one move after another, top to bottom. Using both motors (add <span class="inl">rightMotor</span> in the devices area, like Chapter 6), drive forward, stop, back up, stop:</p>
+        <pre class="code">leftMotor.setVelocity(50, percent);
+rightMotor.setVelocity(50, percent);
+
+leftMotor.spin(forward);    <span class="cmt">// drive forward...</span>
+rightMotor.spin(forward);
+wait(2, seconds);
+
+leftMotor.stop();           <span class="cmt">// ...pause...</span>
+rightMotor.stop();
+wait(1, seconds);
+
+leftMotor.spin(reverse);    <span class="cmt">// ...back up...</span>
+rightMotor.spin(reverse);
+wait(2, seconds);
+
+leftMotor.stop();           <span class="cmt">// ...and stop.</span>
+rightMotor.stop();</pre>
+        <p class="code-try"><strong>Now try:</strong> add a <strong>turn</strong> — spin one motor <span class="inl">forward</span> and the other <span class="inl">reverse</span> for a second. Plan your routine on paper first, line by line, before you type it. (That plan has a name — <strong>pseudocode</strong> — and it's the heart of Chapter 9.)</p>
+      </div>
+
       <h2>Check your understanding</h2>
       <ol>
         <li>Which survival challenge did you choose, and what was the <strong>success criterion</strong> you designed for?</li>

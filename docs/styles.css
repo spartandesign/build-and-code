@@ -286,6 +286,17 @@ a.ext::after{content:"\2197";font-size:.78em;margin-left:2px;color:var(--blue);v
 /* simplified engineering-drawing figure */
 .cad-dwg{display:block;width:100%;max-width:620px;height:auto;margin:4px auto 0;}
 
+/* ---------- "Code it" enrichment card (code track) ---------- */
+.card--code{background:#F1F1FB;border-color:#D3D2F0;border-left-color:#4B4DA6;}
+.card--code .card__title{color:#4B4DA6;}
+.card--code .code{margin:11px 0 0;}
+.card--code .code-try{
+  margin:12px 0 0;padding:10px 12px;background:#fff;border:1px dashed #B6B5E2;
+  border-radius:8px;font-size:14.5px;
+}
+.card--code .code-try strong{color:var(--orange);}
+.code .mark{color:#4B4DA6;font-weight:700;}
+
 /* ---------- code & pseudocode blocks (added Ch. 9) ---------- */
 .codetag{
   display:block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;

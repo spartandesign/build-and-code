@@ -294,6 +294,22 @@
         <li><strong>Gallery walk.</strong> Pull your toy alongside other teams'; give and collect peer feedback in your notebook.</li>
       </ol>
 
+      <div class="card card--code">
+        <p class="card__title"><span class="ic">💻</span> Code it — make it drive</p>
+        <p>Anything that drives needs <strong>two</strong> motors — and the one on the right is mounted backwards, so you flag it with <span class="inl">true</span>. This time you'll also add <em>one</em> line up in the devices area (above <span class="inl">main</span>):</p>
+        <pre class="code"><span class="cmt">// up in the devices area, next to leftMotor:</span>
+motor rightMotor = motor(PORT6, true);</pre>
+        <p>Then, in the marked region:</p>
+        <pre class="code">leftMotor.setVelocity(50, percent);
+rightMotor.setVelocity(50, percent);
+leftMotor.spin(forward);
+rightMotor.spin(forward);
+wait(3, seconds);
+leftMotor.stop();
+rightMotor.stop();</pre>
+        <p class="code-try"><strong>Now try:</strong> if it curves instead of going straight, one side is faster or a wheel slips — even them out. Change both to <span class="inl">reverse</span> to back up. (Plug the second motor into Smart Port 6.)</p>
+      </div>
+
       <h2>Check your understanding</h2>
       <ol>
         <li>Which kind of motion do the rolling wheels produce, and which kind does your toy's moving part produce? Name the mechanism that converts between them.</li>
