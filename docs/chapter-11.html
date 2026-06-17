@@ -169,6 +169,74 @@ bumper startButton = bumper(Brain.ThreeWirePort.A);   <span class="cmt">// a Bum
       </ul>
       <p>Work as a small team with shared jobs — someone leading the <strong>build</strong>, someone the <strong>wiring</strong>, someone the <strong>code</strong> — and trade roles so everyone does each. And use the <strong>design process</strong> you've practiced all year: understand the problem and its constraints, sketch a couple of ideas, pick the best, build it, then test and improve.</p>
 
+      <h2>Find your project's pattern</h2>
+      <p>The "stop before you hit something" program above is <strong>one</strong> pattern — but the six projects need a few different ones. Here's the toolkit: find your project in the table at the end and start from its pattern. Two of them use commands you haven't met yet, both about making a motor <em>hold a position</em> instead of spinning freely like a wheel:</p>
+      <ul>
+        <li><span class="inl">gateMotor.setStopping(hold);</span> — when this motor stops, <strong>hold its position</strong> instead of coasting. Set it once before the loop; a gate or elevator needs it so it stays put.</li>
+        <li><span class="inl">gateMotor.spinToPosition(90, degrees);</span> — drive the motor to a <strong>specific angle</strong> and hold there. It counts from where it started, so begin with the gate closed at 0°.</li>
+      </ul>
+
+      <p class="codetag"><span class="dot">●</span> Pattern A · spin while a condition is true — <em>"stay on course" vehicle, spinning sign</em></p>
+<pre class="code"><span class="kw">while</span> (<span class="kw">true</span>) {
+    <span class="kw">if</span> (startButton.pressing()) {   <span class="cmt">// held    -> run</span>
+        signMotor.spin(forward);
+    } <span class="kw">else</span> {                        <span class="cmt">// released -> stop</span>
+        signMotor.stop();
+    }
+    wait(20, msec);
+}</pre>
+
+      <p class="codetag"><span class="dot">●</span> Pattern B · raise &amp; hold, then lower — <em>toll gate, automatic door</em></p>
+<pre class="code">gateMotor.setStopping(hold);                    <span class="cmt">// hold the gate where it stops</span>
+
+<span class="kw">while</span> (<span class="kw">true</span>) {
+    <span class="kw">if</span> (frontEye.objectDistance(mm) &lt; 200) {   <span class="cmt">// a car is here</span>
+        gateMotor.spinToPosition(90, degrees);  <span class="cmt">//   raise &amp; hold</span>
+    } <span class="kw">else</span> {                                <span class="cmt">// clear</span>
+        gateMotor.spinToPosition(0, degrees);   <span class="cmt">//   lower</span>
+    }
+    wait(20, msec);
+}</pre>
+
+      <p class="codetag"><span class="dot">●</span> Pattern C · do something until a switch, then stop — <em>freight elevator</em></p>
+<pre class="code">liftMotor.setStopping(hold);
+liftMotor.spin(forward);                  <span class="cmt">// start rising</span>
+<span class="kw">while</span> (!topSwitch.pressing()) {          <span class="cmt">// until the switch is pressed</span>
+    wait(20, msec);
+}
+liftMotor.stop();                         <span class="cmt">// reached the top -> hold</span></pre>
+
+      <p class="codetag"><span class="dot">●</span> Pattern D · remember a state (a latch) — <em>no-touch switch</em></p>
+<pre class="code"><span class="kw">bool</span> running = <span class="kw">false</span>;                  <span class="cmt">// off to start</span>
+
+<span class="kw">while</span> (<span class="kw">true</span>) {
+    <span class="kw">if</span> (frontEye.objectDistance(mm) &lt; 100) {  <span class="cmt">// a hand waved close</span>
+        running = <span class="kw">true</span>;                     <span class="cmt">//   remember: turn on</span>
+    }
+    <span class="kw">if</span> (running) {
+        mechMotor.spin(forward);
+    }
+    wait(20, msec);
+}</pre>
+      <p>Want it to turn off too? Add a second <span class="inl">if</span> that sets <span class="inl">running = false</span> on a different trigger — now it's a toggle. For "runs only while your hand is there," that's just Pattern A.</p>
+
+      <table class="dtable">
+        <thead><tr><th>Your project</th><th>Pattern</th><th>Sensor</th></tr></thead>
+        <tbody>
+          <tr><td>"Stay on course" vehicle</td><td>A — spin while clear, stop when close</td><td>Distance</td></tr>
+          <tr><td>Spinning sign</td><td>A — spin while the button is held</td><td>Bumper</td></tr>
+          <tr><td>Toll booth / parking gate</td><td>B — raise &amp; hold for a car, lower when clear</td><td>Distance</td></tr>
+          <tr><td>Automatic door</td><td>B — open &amp; hold on approach, close when clear</td><td>Distance</td></tr>
+          <tr><td>Freight elevator</td><td>C — rise until the switch, then stop &amp; hold</td><td>Bumper</td></tr>
+          <tr><td>No-touch switch</td><td>D — wave to latch on (or A for "on while hand present")</td><td>Distance</td></tr>
+        </tbody>
+      </table>
+
+      <div class="card card--tip">
+        <h3>🎯 Pick your threshold by reading the real value</h3>
+        <p>Don't guess the number in <span class="inl">&lt; 150</span>. On the Brain's <strong>Devices</strong> screen, open your Distance Sensor and watch its reading as you hold an object exactly where you want the robot to react — that number is your threshold. Fine-tune it after a test or two.</p>
+      </div>
+
       <h2>What you'll need</h2>
       <ul>
         <li>Your computer with <strong>VS Code + the VEX extension</strong>, and a <strong>USB-C cable</strong></li>
@@ -187,6 +255,16 @@ bumper startButton = bumper(Brain.ThreeWirePort.A);   <span class="cmt">// a Bum
         <li><strong>Evaluate.</strong> In your notebook, judge how well it works — and answer: <em>which sensors did you use, and is your device an open or a closed loop?</em></li>
       </ol>
 
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">✅</span> How you'll be assessed</p>
+        <ul>
+          <li>It works as an <strong>automatic, closed-loop</strong> device — it senses and responds with no one driving it.</li>
+          <li>Your code is a clear <strong>sense → decide → act</strong> loop: a sensor read, an <span class="inl">if</span>/<span class="inl">else</span>, a motor command, wrapped in <span class="inl">while (true)</span> with a <span class="inl">wait</span>.</li>
+          <li>Your <strong>design process is documented</strong> — design brief, decision matrix, pseudocode, and a daily journal.</li>
+          <li>You can <strong>point to the exact line</strong> that senses, the line that decides, and the line that acts in your own program.</li>
+        </ul>
+      </div>
+
       <h2>Check your understanding</h2>
       <ol>
         <li>What is the difference between an <strong>open-loop</strong> and a <strong>closed-loop</strong> system? Which one is "automatic," and why?</li>
@@ -199,7 +277,7 @@ bumper startButton = bumper(Brain.ThreeWirePort.A);   <span class="cmt">// a Bum
 
       <h2>Key terms</h2>
       <div class="terms">
-        <span class="term">automation</span><span class="term">open loop</span><span class="term">closed loop</span><span class="term">sensor</span><span class="term">input</span><span class="term">Distance Sensor</span><span class="term">Bumper Switch</span><span class="term">objectDistance</span><span class="term">pressing()</span><span class="term">condition</span><span class="term">if</span><span class="term">else</span><span class="term">else if</span><span class="term">comparison</span><span class="term">while loop</span><span class="term">while (true)</span><span class="term">3-Wire port</span><span class="term">Smart Port</span><span class="term">design process</span><span class="term">decision matrix</span></div>
+        <span class="term">automation</span><span class="term">open loop</span><span class="term">closed loop</span><span class="term">sensor</span><span class="term">input</span><span class="term">Distance Sensor</span><span class="term">Bumper Switch</span><span class="term">objectDistance</span><span class="term">pressing()</span><span class="term">condition</span><span class="term">if</span><span class="term">else</span><span class="term">else if</span><span class="term">comparison</span><span class="term">while loop</span><span class="term">while (true)</span><span class="term">setStopping(hold)</span><span class="term">spinToPosition</span><span class="term">latch</span><span class="term">state</span><span class="term">bool</span><span class="term">3-Wire port</span><span class="term">Smart Port</span><span class="term">design process</span><span class="term">decision matrix</span></div>
 
       <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 3.4 "Automation Through Programming"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the project (design, build, and program an automatic device — toll booth, traffic signal, elevator, spinning sign, and the like — as a team, using the engineering design process) and its conclusion questions (which sensors? open or closed loop?) are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The control structures (<span class="inl">if</span> / <span class="inl">else if</span> / <span class="inl">else</span> and <span class="inl">while (true)</span>) are standard C++; the sensor commands are verified against the VEX Library — the Distance Sensor's <span class="inl">objectDistance(mm)</span> and the Bumper Switch's <span class="inl">pressing()</span> (a 3-Wire device named on <span class="inl">Brain.ThreeWirePort</span>). The open-loop / closed-loop framing and the sense → decide → act loop carry over from Chapter 8; the motor commands from Chapter 10.</p>
 
