@@ -39,7 +39,7 @@
     <article class="prose wrap">
 
       <h2>The capstone: put it all together</h2>
-      <p>You've built a structure, geared for torque, turned a corner with a bevel gear, and converted rotary motion into a bob and a wave. The Survival Challenge is where all of that comes together on one open problem. A <strong>client</strong> has a survival situation and needs a machine to help — and the catch is that <em>how</em> you solve it is up to you. Two teams can pick completely different challenges, or the same challenge and solve it two different ways, and both can be excellent. What makes it the capstone is that nobody hands you the mechanism: you define the problem, choose your approach with a decision matrix, build it from your kit, and improve it from your own test results.</p>
+      <p>You've built a structure, geared for torque, and turned a corner with a bevel gear — and here you'll also turn a spinning motor into a bob or a wave whenever a job calls for it. The Survival Challenge is where all of that comes together on one open problem. A <strong>client</strong> has a survival situation and needs a machine to help — and the catch is that <em>how</em> you solve it is up to you. Two teams can pick completely different challenges, or the same challenge and solve it two different ways, and both can be excellent. What makes it the capstone is that nobody hands you the mechanism: you define the problem, choose your approach with a decision matrix, build it from your kit, and improve it from your own test results.</p>
 
       <h2>Pick your challenge</h2>
       <p>Choose one of these four survival tasks — or propose your own to your teacher. Each one is solved with a different reach into your Unit 2 toolkit:</p>
@@ -120,10 +120,20 @@
         <ul>
           <li><strong>Structures (Ch 1):</strong> rigid, cross-braced frames that don't flex under load.</li>
           <li><strong>Gears &amp; ratios (Ch 3–4):</strong> gear <em>down</em> for torque (lifting, pushing, climbing), <em>up</em> for speed; compound trains for big reductions; a <strong>bevel gear</strong> to turn the axis 90°.</li>
-          <li><strong>Motion mechanisms (Ch 5–6):</strong> a <strong>cam-and-follower</strong> (rotary → reciprocating) and a <strong>crank-and-rocker</strong> (rotary → oscillating) when the job needs a bob, a wave, or a repeating stroke.</li>
+          <li><strong>Motion mechanisms:</strong> a <strong>cam-and-follower</strong> (rotary → reciprocating) and a <strong>crank-and-rocker</strong> (rotary → oscillating) when the job needs a bob, a wave, or a repeating stroke — the next card shows how each one works.</li>
           <li><strong>Advanced mechanisms (Advanced Gear Kit):</strong> an <strong>idler gear</strong> keeps two gears turning the same way (the trick for driving all four wheels); a <strong>worm &amp; wheel</strong> gives a big reduction and <em>holds its position</em> — it can't be back-driven, so it's perfect for an aimer or a lift that must stay put; a <strong>rack &amp; pinion</strong> or <strong>leadscrew</strong> turns rotation into straight-line motion for a lift; a <strong>differential</strong> lets two driven wheels turn at different speeds through a turn.</li>
         </ul>
         <p>New to any of these? The <a href="appendix-a-mechanisms.html">Advanced Mechanisms reference</a> walks through how each one works, with a diagram for each.</p>
+      </div>
+
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">⚙️</span> Two motion mechanisms — turn spin into a bob or a wave</p>
+        <p>If your challenge needs a steady repeating beat or a swing (Tasks 3 and 4 do), one of these two mechanisms converts the motor's spinning into the motion you want:</p>
+        <ul>
+          <li><strong>Cam-and-follower — a bob (reciprocating).</strong> A <strong>cam</strong> is a disc mounted <em>off-center</em> (engineers say <em>eccentric</em>) on a spinning shaft, with a <strong>follower</strong> resting on its edge. As the shaft turns, the high side lifts the follower and the low side lets it drop, so steady spin becomes up-and-down motion. How far it rises and falls — the <strong>throw</strong> — is exactly <strong>twice the offset</strong> (how far off-center the shaft sits).</li>
+          <li><strong>Crank-and-rocker — a wave (oscillating).</strong> Link four bars in a loop — a fixed <strong>ground</strong>, a short <strong>crank</strong>, a <strong>coupler</strong>, and a <strong>rocker</strong> arm. Drive the short crank in full circles and the rocker <em>can't</em> go all the way around; it swings back and forth instead. The <strong>crank must be the shortest link</strong> — that's what lets it spin fully while the rocker only rocks.</li>
+        </ul>
+        <p>Full dimensioned diagrams for both are in the <a href="appendix-a-mechanisms.html">Advanced Mechanisms reference</a>. Want a dedicated hands-on build of one? The optional <a href="chapter-06.html">Pull Toy project (Chapter 6)</a> walks through animating a character with a cam or a crank.</p>
       </div>
 
       <h2>The design process — this time on your own</h2>
@@ -224,8 +234,11 @@
 
       <div class="card card--code">
         <p class="card__title"><span class="ic">💻</span> Code it — a little routine</p>
-        <p>Real robots run a <em>sequence</em> — one move after another, top to bottom. Using both motors (add <span class="inl">rightMotor</span> in the devices area, like Chapter 6), drive forward, stop, back up, stop:</p>
-        <pre class="code">leftMotor.setVelocity(50, percent);
+        <p>Real robots run a <em>sequence</em> — one move after another, top to bottom. Anything that drives needs <strong>two motors</strong>, and the one on the right faces backwards, so you flag it with <span class="inl">true</span>. Add it once in the devices area, then sequence both — drive forward, stop, back up, stop:</p>
+        <pre class="code"><span class="cmt">// up in the devices area, next to leftMotor:</span>
+motor rightMotor = motor(PORT6, true);
+
+leftMotor.setVelocity(50, percent);
 rightMotor.setVelocity(50, percent);
 
 leftMotor.spin(forward);    <span class="cmt">// drive forward...</span>
