@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 14 · Sumo Competition &amp; Build Your Own — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="14">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">14</div>
+        <div>
+          <p class="chead__eyebrow">Unit 4 · Control &amp; competition</p>
+          <h1 class="chead__title">Sumo Competition &amp; Build Your Own</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What you'll learn:</strong> this chapter is the finale — and it's a <em>build</em>, not a lecture. Everything you've put together this year comes down to two capstone challenges. First, a head-to-head <strong>robot sumo</strong> tournament: design a robot that shoves its opponent out of the ring. Then <strong>build your own</strong> — pick a real problem and design a robot to solve it, autonomous or driver-controlled, your call. There's no brand-new command to learn here. Instead you'll combine sturdy <strong>building</strong>, <strong>gears</strong> for pushing power, <strong>sensors</strong> and autonomous decisions, and <strong>driver control</strong>, and run the whole thing through the <strong>engineering design process</strong> you've used since day one.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>The finale: you're the engineer now</h2>
+      <p>Look back at how far you've come. You learned to build something <strong>sturdy</strong> that doesn't rattle apart (Units 1–2). You learned how <strong>gears</strong> trade speed for force, how a <strong>mechanism</strong> turns a spinning motor into useful motion, and how to think of a robot as a <strong>system</strong> of inputs, decisions, and outputs. You learned to plan in <strong>pseudocode</strong>, write your <strong>first C++ program</strong>, make a robot run <strong>itself</strong> with sensors (Chapter 11), and <strong>drive</strong> one by hand (Chapter 13). That's the whole toolkit of a roboticist.</p>
+      <p>Up to now, most chapters handed you a specific thing to build. These last two challenges do the opposite: you get a <strong>goal</strong>, and <em>you</em> figure out the robot. That's what real engineering is — nobody hands an engineer the answer. There are two challenges, and your teacher will tell you whether you're doing one or both:</p>
+      <ul>
+        <li><strong>Challenge 1 — Sumo:</strong> a structured competition. Everyone builds to the same rules and faces off in a tournament.</li>
+        <li><strong>Challenge 2 — Build Your Own:</strong> wide open. You pick the problem and decide what "success" even means.</li>
+      </ul>
+
+      <h2>Challenge 1: robot sumo (Honbasho)</h2>
+      <p>Sumo is a centuries-old sport from Japan: two wrestlers try to push each other out of a ring. <strong>Robot sumo</strong> — <em>Honbasho</em> — started in Japan too, and it's now the most popular robot competition in the world. The idea is simple: two robots, one ring, and one job — <strong>push the other robot out</strong>. It's king of the hill on wheels.</p>
+
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 470" role="img" aria-label="A top-down view of a robot sumo ring. A large circle with a thick black border is the ring; the light area inside is the playing surface and the floor outside the border is out of bounds. Two robots sit inside facing each other: YOUR robot (blue) on the left pushes the OPPONENT robot (gray) toward the right edge with a bold orange push arrow. Labels note that the black border still counts as inside the ring, and that any part of a robot touching the floor outside the border means that robot loses. The ring is 122 cm (48 inches) across.">
+          <rect x="0" y="0" width="720" height="470" fill="#FFFFFF"/>
+          <text x="360" y="30" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="#1F3864">THE SUMO RING</text>
+          <text x="360" y="50" text-anchor="middle" font-family="Arial" font-size="13" fill="#5B6470">&#216; 122 cm (48 in) circle &#183; push your opponent out to win</text>
+          <circle cx="345" cy="275" r="170" fill="#2B2B2B"/>
+          <circle cx="345" cy="275" r="151" fill="#F2F7FC" stroke="#9DC3E6" stroke-width="1.5"/>
+          <line x1="194" y1="275" x2="496" y2="275" stroke="#9DC3E6" stroke-width="1" stroke-dasharray="4 4"/>
+          <text x="345" y="269" text-anchor="middle" font-family="Arial" font-size="11.5" fill="#2E75B6">&#216; 122 cm (48 in)</text>
+          <g>
+            <rect x="392" y="300" width="14" height="54" rx="3" fill="#3A4655"/>
+            <rect x="448" y="300" width="14" height="54" rx="3" fill="#3A4655"/>
+            <rect x="398" y="306" width="58" height="42" rx="6" fill="#B7C4D6" stroke="#5B6470" stroke-width="2"/>
+            <text x="427" y="331" text-anchor="middle" font-family="Arial" font-size="9.5" font-weight="bold" fill="#3A4655">OPPONENT</text>
+          </g>
+          <g>
+            <rect x="250" y="300" width="14" height="54" rx="3" fill="#16314F"/>
+            <rect x="306" y="300" width="14" height="54" rx="3" fill="#16314F"/>
+            <rect x="256" y="306" width="58" height="42" rx="6" fill="#2E75B6" stroke="#16314F" stroke-width="2"/>
+            <polygon points="314,310 336,327 314,344" fill="#2E75B6" stroke="#16314F" stroke-width="2"/>
+            <text x="285" y="332" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#FFFFFF">YOU</text>
+          </g>
+          <line x1="343" y1="327" x2="384" y2="327" stroke="#C55A11" stroke-width="6" stroke-linecap="round"/>
+          <polygon points="384,318 402,327 384,336" fill="#C55A11"/>
+          <text x="360" y="372" text-anchor="middle" font-family="Arial" font-size="12.5" font-weight="bold" fill="#C55A11">PUSH</text>
+          <line x1="600" y1="150" x2="497" y2="208" stroke="#5B6470" stroke-width="1.4"/>
+          <circle cx="497" cy="208" r="3" fill="#5B6470"/>
+          <rect x="560" y="120" width="150" height="46" rx="6" fill="#FBEFD6" stroke="#C55A11" stroke-width="1.4"/>
+          <text x="635" y="139" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#9A4410">the floor = OUT</text>
+          <text x="635" y="156" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#9A4410">any part here, you lose</text>
+          <line x1="150" y1="408" x2="262" y2="360" stroke="#5B6470" stroke-width="1.4"/>
+          <circle cx="262" cy="360" r="3" fill="#5B6470"/>
+          <rect x="20" y="398" width="190" height="46" rx="6" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.4"/>
+          <text x="115" y="417" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#2F5320">the black border</text>
+          <text x="115" y="434" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#2F5320">still counts as INSIDE</text>
+        </svg>
+        <figcaption>Robot sumo on a 122 cm (48 in) ring. Push your opponent out — or get them to drive themselves out. Any part touching the floor outside the black border is out; the border itself still counts as in.</figcaption>
+      </figure>
+
+      <p>We use a simplified version of the official Japanese rules:</p>
+      <ul>
+        <li>A <strong>match is 2 minutes</strong>, and the tournament is <strong>double elimination</strong> — you're out after two losses, so one bad round doesn't end your day.</li>
+        <li>Before each match there's an <strong>inspection</strong>: the referee checks every robot against the rules and for safety. A robot that could hurt someone or damage the equipment doesn't compete.</li>
+        <li>When the referee says go, you may start. <strong>Jumping the start</strong> costs you a short freeze penalty.</li>
+        <li>Once a match begins, <strong>you can't touch your robot</strong> or reach into the ring.</li>
+        <li>A robot is <strong>out</strong> the moment any part of it touches the floor <em>outside</em> the ring — even a piece that's broken off. You <strong>win</strong> when you push your opponent out, or they drive themselves out.</li>
+        <li>If a robot <strong>stops moving for 15 seconds</strong>, it's counted as giving up and loses. If neither robot is out when time runs out, the judges decide on technical merit.</li>
+        <li><strong>No interference</strong> (no jamming the other robot's signal) and <strong>no deliberate damage</strong> — this is a pushing contest, not a demolition derby.</li>
+      </ul>
+
+      <h2>Strategy: where pushing power comes from</h2>
+      <p>Here's the fun part — winning at sumo is an <strong>engineering</strong> problem, and you already know the engineering. A sumo match is won by the robot that can <strong>push harder</strong> and <strong>stay planted</strong>. Three things decide that, and you met all three earlier in the course:</p>
+
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 430" role="img" aria-label="A side view of a sumo robot showing where pushing power comes from. The robot is low and wide with two large grippy wheels on the ground and a low center of gravity marked near its middle. A wedge at the front slips under an opponent's wheel and lifts it off the mat. Three labels explain the strategy: LOW AND WIDE makes the robot hard to tip or push over; TRACTION comes from weight on grippy wheels, because spinning wheels go nowhere; and GEARING DOWN trades speed for torque, which is pushing force, as covered in Chapter 4.">
+          <rect x="0" y="0" width="720" height="430" fill="#FFFFFF"/>
+          <text x="360" y="30" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="#1F3864">WHERE PUSHING POWER COMES FROM</text>
+          <text x="360" y="50" text-anchor="middle" font-family="Arial" font-size="13" fill="#5B6470">torque + traction + staying low &#8212; not speed</text>
+          <line x1="120" y1="343" x2="612" y2="343" stroke="#5B6470" stroke-width="2.5"/>
+          <line x1="135" y1="343" x2="123" y2="355" stroke="#9DC3E6" stroke-width="1.4"/>
+          <line x1="170" y1="343" x2="158" y2="355" stroke="#9DC3E6" stroke-width="1.4"/>
+          <line x1="205" y1="343" x2="193" y2="355" stroke="#9DC3E6" stroke-width="1.4"/>
+          <line x1="575" y1="343" x2="563" y2="355" stroke="#9DC3E6" stroke-width="1.4"/>
+          <line x1="610" y1="343" x2="598" y2="355" stroke="#9DC3E6" stroke-width="1.4"/>
+          <circle cx="556" cy="318" r="22" fill="#D7DEE8" stroke="#5B6470" stroke-width="2"/>
+          <circle cx="556" cy="318" r="7" fill="#B7C4D6" stroke="#5B6470" stroke-width="1.4"/>
+          <line x1="556" y1="288" x2="556" y2="272" stroke="#C55A11" stroke-width="2.5"/>
+          <polygon points="551,277 556,266 561,277" fill="#C55A11"/>
+          <text x="582" y="300" font-family="Arial" font-size="10.5" fill="#9A4410">opponent's wheel</text>
+          <text x="582" y="314" font-family="Arial" font-size="10.5" fill="#9A4410">lifted off the mat</text>
+          <rect x="225" y="246" width="240" height="58" rx="8" fill="#2E75B6" stroke="#16314F" stroke-width="2.5"/>
+          <polygon points="465,302 527,341 465,341" fill="#6E7B89" stroke="#16314F" stroke-width="2.5"/>
+          <text x="491" y="337" text-anchor="middle" font-family="Arial" font-size="9" font-weight="bold" fill="#FFFFFF">wedge</text>
+          <circle cx="278" cy="313" r="40" fill="#3A4655" stroke="#16314F" stroke-width="2.5"/>
+          <circle cx="278" cy="313" r="14" fill="#B7C4D6" stroke="#16314F" stroke-width="1.5"/>
+          <circle cx="412" cy="313" r="40" fill="#3A4655" stroke="#16314F" stroke-width="2.5"/>
+          <circle cx="412" cy="313" r="14" fill="#B7C4D6" stroke="#16314F" stroke-width="1.5"/>
+          <circle cx="345" cy="290" r="9" fill="#FFFFFF" stroke="#1F3864" stroke-width="2"/>
+          <path d="M345 283 v14 M338 290 h14" stroke="#1F3864" stroke-width="2"/>
+          <text x="345" y="336" text-anchor="middle" font-family="Arial" font-size="10.5" font-weight="bold" fill="#1F3864">low CG</text>
+          <line x1="250" y1="142" x2="300" y2="244" stroke="#5B6470" stroke-width="1.4"/>
+          <circle cx="300" cy="244" r="3" fill="#5B6470"/>
+          <rect x="40" y="112" width="222" height="52" rx="6" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.5"/>
+          <text x="151" y="132" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#1F3864">LOW &amp; WIDE</text>
+          <text x="151" y="150" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#2E75B6">hard to tip or shove over</text>
+          <line x1="560" y1="150" x2="430" y2="262" stroke="#5B6470" stroke-width="1.4"/>
+          <circle cx="430" cy="262" r="3" fill="#5B6470"/>
+          <rect x="468" y="108" width="242" height="62" rx="6" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.5"/>
+          <text x="589" y="128" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#2F5320">GEAR DOWN</text>
+          <text x="589" y="146" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#2F5320">trade speed for torque &#8212;</text>
+          <text x="589" y="160" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#2F5320">torque is pushing force (Ch 4)</text>
+          <line x1="160" y1="392" x2="262" y2="333" stroke="#5B6470" stroke-width="1.4"/>
+          <circle cx="262" cy="333" r="3" fill="#5B6470"/>
+          <rect x="36" y="378" width="252" height="44" rx="6" fill="#FBEFD6" stroke="#C55A11" stroke-width="1.5"/>
+          <text x="162" y="397" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#9A4410">TRACTION</text>
+          <text x="162" y="414" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#9A4410">weight on grippy wheels &#183; spin = nowhere</text>
+        </svg>
+        <figcaption>Pushing power is torque + traction + a low, wide stance — not top speed. A wedge that slides under the opponent lifts their wheels off the mat and steals their grip.</figcaption>
+      </figure>
+
+      <ul>
+        <li><strong>Torque, not speed (Chapters 3–4).</strong> Remember the gear tradeoff: drive a big gear with a small one and you <em>lose</em> speed but <em>gain</em> torque — turning force. In a shoving match, <strong>torque is pushing force</strong>. A robot geared down for torque will out-push a robot geared for a fast top speed every time. Speed doesn't win sumo; force does.</li>
+        <li><strong>Traction.</strong> All that torque is wasted if the wheels just spin. Traction comes from <strong>grippy wheels with weight pressing down on them</strong>. A heavier robot (still within the limit) with its mass over the drive wheels grips the mat and pushes; a light robot spins out.</li>
+        <li><strong>Low and wide (Chapter 7).</strong> A <strong>low center of gravity</strong> and a <strong>wide wheelbase</strong> make a robot hard to tip or shove sideways — the same stable-base idea you used to keep an arm from toppling. Build it low and planted.</li>
+      </ul>
+      <p>One more classic trick: a <strong>wedge</strong> — a thin ramp at the front. Slide it under your opponent and you lift their wheels off the mat, and a robot whose wheels aren't touching the ground can't push back at all.</p>
+
+      <h2>Drive it, or let it drive itself?</h2>
+      <p>Your robot can compete two ways, and this is exactly the Chapter 11 vs. Chapter 13 choice. Most sumo teams <strong>drive</strong> — you react faster than any simple program, aiming for the opponent's side and shoving. That's the tank drive you wrote in Chapter 13: two sticks, push toward your opponent.</p>
+      <p>But you <em>can</em> make a sumo robot <strong>autonomous</strong>. The simplest strategy uses the <strong>Distance Sensor</strong> from Chapter 11 to find the other robot and charge it:</p>
+
+      <p class="codetag"><span class="dot">●</span> A simple autonomous sumo — find the opponent, then charge</p>
+<pre class="code"><span class="kw">distance</span> frontEye  = distance(PORT2);   <span class="cmt">// looks for the opponent</span>
+<span class="kw">motor</span> leftMotor  = motor(PORT1);
+<span class="kw">motor</span> rightMotor = motor(PORT6, <span class="kw">true</span>);
+
+<span class="kw">int</span> main() {
+    vexcodeInit();
+    <span class="kw">while</span> (<span class="kw">true</span>) {
+        <span class="kw">if</span> (frontEye.objectDistance(mm) &lt; 400) {   <span class="cmt">// opponent close ahead?</span>
+            leftMotor.spin(forward);               <span class="cmt">// charge straight in</span>
+            rightMotor.spin(forward);
+        } <span class="kw">else</span> {                               <span class="cmt">// can't see one —</span>
+            leftMotor.spin(forward);               <span class="cmt">// spin in place to search</span>
+            rightMotor.spin(reverse);
+        }
+        wait(20, msec);
+    }
+}</pre>
+
+      <p>That's the whole shape of an autonomous strategy from Chapter 11 — a forever loop, a sensor reading, and an <span class="inl">if</span> that decides. It hunts: spin until the Distance Sensor sees something close, then drive forward to push. The hard part it <em>doesn't</em> solve is staying in the ring — for that a robot needs to sense the <strong>edge</strong>, usually with a downward-facing <strong>Optical Sensor</strong> that spots the black border and backs away. That's a great stretch goal, and it's exactly the kind of thing the "what sensors would you need?" question below is asking about.</p>
+
+      <h2>Challenge 2: build your own</h2>
+      <p>This one is wide open, and it's the closest thing in the course to being a real engineer. The brief is one sentence: <strong>find a problem, and build a robot to solve it.</strong> It can be autonomous or driver-controlled — your choice. The same constraints apply (kit only, fits the cubby), but everything else is up to your team, including deciding what counts as <strong>success</strong>.</p>
+      <p>The trick is choosing a problem that's <strong>real but small enough to actually build</strong>. Some starting points:</p>
+      <ul>
+        <li>A <strong>sorting or delivery bot</strong> that carries an object from one spot to another, or pushes objects into the right bin.</li>
+        <li>A <strong>cleanup bot</strong> that sweeps or plows scattered objects (think foam blocks) into a corner.</li>
+        <li>A <strong>maze or line follower</strong> that navigates a path using sensors.</li>
+        <li>A <strong>guard bot</strong> that watches a doorway and reacts (sound, motion, or a raised arm) when the Distance Sensor sees something approach.</li>
+        <li>A <strong>drawing or stamping bot</strong> that makes a pattern, or a <strong>fetch bot</strong> that grabs and returns an object.</li>
+      </ul>
+      <p>Whatever you pick, write down <em>what the robot must do</em> and <em>how you'll know it worked</em> before you build. That sentence is your design statement, and it's how you'll judge yourself at the end.</p>
+
+      <h2>Your toolkit: the design process &amp; the decision matrix</h2>
+      <p>Both challenges run on the same engine — the <strong>engineering design process</strong> you've used all year: <strong>define</strong> the problem and its constraints, <strong>research and sketch</strong> a few ideas, <strong>choose</strong> the best one, <strong>build</strong> it, <strong>test</strong>, and <strong>improve</strong>. It's a loop, not a straight line: testing always sends you back to change something.</p>
+      <p>For the <strong>choose</strong> step, engineers use a tool you'll use here too: a <strong>decision matrix</strong>. You list your <strong>criteria</strong> (what matters) down the side and your <strong>ideas</strong> across the top, score each idea against each criterion (1–4, where 4 is best), and add up the columns. The highest total is your best starting design — and now your choice is based on <em>reasons</em>, not just whoever argued loudest. Here's one for a sumo robot:</p>
+
+      <table class="dtable">
+        <thead>
+          <tr><th>Criteria (what matters)</th><th>Idea A: wedge bot</th><th>Idea B: fast pusher</th><th>Idea C: heavy box</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Pushing power (torque)</strong></td><td>4</td><td>2</td><td>3</td></tr>
+          <tr><td><strong>Stays in the ring (low &amp; wide)</strong></td><td>3</td><td>2</td><td>4</td></tr>
+          <tr><td><strong>Easy to build from the kit</strong></td><td>4</td><td>3</td><td>2</td></tr>
+          <tr><td><strong>Fits the cubby</strong></td><td>4</td><td>4</td><td>3</td></tr>
+          <tr><td><strong>Total</strong></td><td><strong>15</strong></td><td><strong>11</strong></td><td><strong>12</strong></td></tr>
+        </tbody>
+      </table>
+      <p class="tnote">Idea A wins — not because it's anyone's favorite, but because it scores best against the criteria the team agreed on. You make your own criteria from your design brief.</p>
+
+      <div class="card card--tip">
+        <h3>🔧 Sumo build tips</h3>
+        <ul>
+          <li><strong>Gear down for torque.</strong> If your robot is fast but gets pushed around, re-gear so a small gear drives a larger one on the wheels. You'll trade speed for the pushing force that actually wins.</li>
+          <li><strong>Go low and wide.</strong> Spread the wheels out and keep the whole robot as low as you can. Put the heavy parts (the Brain, the battery) down low and over the drive wheels for grip.</li>
+          <li><strong>Add a wedge.</strong> A thin ramp at the front that slips under the opponent is the single most effective add-on.</li>
+          <li><strong>Build a little, test a lot.</strong> Push against a wall (or a teammate's robot) early to feel whether you have real traction, then adjust.</li>
+        </ul>
+      </div>
+
+      <div class="card card--constraint">
+        <p class="card__title"><span class="ic">📐</span> Build constraints (still in force)</p>
+        <ul>
+          <li>Build from the <strong>classroom PLTW Gateway kit</strong> only. The kit's bundled motors, controller, and sensors are fair game; the separate competition team's V5 parts are off-limits.</li>
+          <li>The whole robot must fit one <strong>IKEA Kallax cubby</strong> — a 33 × 33 cm (13 × 13 in) opening, about 38 cm (15 in) deep.</li>
+          <li><strong>For sumo:</strong> the robot must fit within a <strong>30 cm (12 in) square footprint</strong> (which also keeps it inside your cubby), and it must be <strong>well under about 2.3 kg (5 lb)</strong> — easy with kit parts. No part may be built to damage the other robot or the ring, and no signal interference.</li>
+        </ul>
+      </div>
+
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🏆</span> Also on the V5 competition team?</p>
+        <p>This <em>is</em> competition robotics. Each season VEX runs the <strong>VEX Robotics Competition (VRC)</strong> on V5 — two alliances of robots scoring points in a head-to-head game, with a short <strong>autonomous</strong> period (Chapter 11) followed by a <strong>driver-control</strong> period (Chapter 13), exactly the two modes you just used. And the sumo strategy here is the same strategy that wins real matches: gear for <strong>torque</strong> when you need to push or lift, keep a <strong>low, wide, stable</strong> base, and design for <strong>traction</strong>. Read how teams approach it in <a class="ext" href="https://kb.vex.com/hc/en-us/articles/8780653442964-Get-Started-Engineering" target="_blank" rel="noopener">Get Started with Engineering — VEX Library</a>.</p>
+      </div>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — design, notebook &amp; sensors</p>
+        <ul>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/8780653442964-Get-Started-Engineering" target="_blank" rel="noopener">Get Started with Engineering — VEX Library</a> — the engineering design process, the loop behind both challenges.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/49010276056596" target="_blank" rel="noopener">Getting Started with Engineering Notebooks — VEX Library</a> — how to document your design, tests, and decisions like an engineer.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415763007380-Using-Distance-Sensor-with-VEX-EXP" target="_blank" rel="noopener">Using the Distance Sensor with VEX EXP</a> — the sensor your autonomous sumo uses to find the opponent.</li>
+          <li>Need the controls again? Revisit <a class="ext" href="chapter-11.html">Chapter 11 (Automation)</a> for sensors and <span class="inl">if</span>, and <a class="ext" href="chapter-13.html">Chapter 13 (Driver Control)</a> for tank drive and buttons.</li>
+        </ul>
+      </div>
+
+      <div class="card card--safe">
+        <p class="card__title"><span class="ic">⚠️</span> Competition safety</p>
+        <ul>
+          <li>Robots <strong>collide and move fast</strong> in a match. Keep hands, hair, faces, and cables well clear of the ring while robots are running — watch from outside.</li>
+          <li>The <strong>inspection</strong> is a safety check, not a formality. Nothing sharp, nothing that throws parts, nothing that could hurt a person or wreck the kit.</li>
+          <li>Only the <strong>driver</strong> stays near the field during a match; everyone else steps back.</li>
+          <li><strong>Unplug the USB-C cable</strong> before you compete, and power the Brain down with the <strong>X button</strong> and store your robot in its cubby when you're done.</li>
+        </ul>
+      </div>
+
+      <h2>The project: compete, then create</h2>
+      <p>Your team will work the <strong>full design process</strong> on one or both challenges — and at the end, you'll <strong>present</strong> your robot and your process to the class, just like an engineering team presenting to a client. Work in a group of two or three with shared jobs (build, wiring, code) and <strong>rotate</strong> so everyone does each. Document as you go: sketches, your decision matrix, pseudocode, and a daily journal. The story of <em>how</em> you solved it matters as much as the robot.</p>
+
+      <h2>What you'll need</h2>
+      <ul>
+        <li>Your computer with <strong>VS Code + the VEX extension</strong>, and a <strong>USB-C cable</strong></li>
+        <li>The <strong>PLTW Gateway EXP kit</strong>: Brain, charged battery, controller, motors, and any sensors your design uses</li>
+        <li>Your <strong>engineering notebook</strong> for sketches, the decision matrix, pseudocode, and a daily journal</li>
+        <li>The <strong>project worksheet</strong> (design brief, decision matrix, build &amp; code plan, journal, and reflection)</li>
+        <li>For Build Your Own: any <strong>extra materials</strong> your robot needs to do its job (your team brings these)</li>
+      </ul>
+
+      <h2>Do it</h2>
+      <ol>
+        <li><strong>Define the problem.</strong> Write a short design brief: what the robot must do and every <strong>constraint</strong>. For sumo the constraints are given; for Build Your Own, <em>you</em> write the problem and how you'll know it worked.</li>
+        <li><strong>Sketch and choose.</strong> Each teammate sketches a couple of ideas on their own. Then build a <strong>decision matrix</strong>, score the ideas against your criteria, and pick the winner — by reasons, not by argument.</li>
+        <li><strong>Build it.</strong> Construct the robot from the kit so it fits the cubby (and, for sumo, the footprint). Build it <strong>sturdy</strong>; mount and wire the motors and any sensors to the Brain.</li>
+        <li><strong>Plan, then code.</strong> Decide autonomous or driver control. Write <strong>pseudocode</strong> first, then translate to C++: a <span class="inl">while (true)</span> loop with either sensor-driven <span class="inl">if</span>s (Chapter 11) or stick-and-button driving (Chapter 13).</li>
+        <li><strong>Test and refine — a little at a time.</strong> Download, unplug, and try it. Fix one thing per round: more torque if it gets pushed, a wider stance if it tips, a flipped motor if a side runs backward.</li>
+        <li><strong>Evaluate and present.</strong> Keep your daily journal, judge how well your robot met its goal, and present your design and process to the class.</li>
+      </ol>
+
+      <h2>Check your understanding</h2>
+      <ol>
+        <li>In robot sumo, how do you <strong>win</strong> a match, and what makes a robot <strong>out</strong> of the ring?</li>
+        <li>A teammate says "we just need the <strong>fastest</strong> robot to win sumo." Why is that wrong? Explain where pushing power really comes from, using the word <strong>torque</strong>.</li>
+        <li>Name <strong>two</strong> things that make a robot hard to push out of the ring, and connect each to something you learned earlier in the course.</li>
+        <li>What is a <strong>decision matrix</strong>, and why is it a better way to choose a design than just picking the idea you like best?</li>
+        <li>If you ran your robot <strong>fully autonomously</strong> (no driver), what <strong>sensor(s)</strong> would it need and what would each one do? (Think about finding the opponent <em>and</em> staying in the ring.)</li>
+        <li>Suggest one idea for a <strong>future robotics competition</strong> your class could run. (Remember: no destroying robots allowed.)</li>
+      </ol>
+
+      <h2>Key terms</h2>
+      <div class="terms">
+        <span class="term">robot sumo</span><span class="term">Honbasho</span><span class="term">ring</span><span class="term">out of bounds</span><span class="term">double elimination</span><span class="term">inspection</span><span class="term">torque</span><span class="term">traction</span><span class="term">center of gravity</span><span class="term">wheelbase</span><span class="term">gear down</span><span class="term">wedge</span><span class="term">autonomous</span><span class="term">driver control</span><span class="term">Distance Sensor</span><span class="term">engineering design process</span><span class="term">criteria</span><span class="term">constraints</span><span class="term">decision matrix</span><span class="term">prototype</span><span class="term">iteration</span></div>
+
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 4.2 "Honbasho: Sumo Competition" and Project 4.3 "Build Your Own"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the two capstone projects — a rules-based robot-sumo tournament and an open-ended "design a robot to solve a problem you choose" build, each run through the full engineering design process with a design brief, decision matrix, prototype, journal, and conclusion questions — are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. Sumo rules are simplified from the official Japanese robot-sumo rules referenced by PLTW. Constraints are adapted to this course's kit-only and IKEA Kallax cubby framing; the 30 cm (12 in) footprint and ~2.3 kg (5 lb) limits follow PLTW's sumo requirements. The autonomous example reuses the verified EXP Distance Sensor API from Chapter 11 (<span class="inl">distance</span> device, <span class="inl">objectDistance(mm)</span>); tank drive and buttons are from Chapter 13; the torque/traction/stable-base ideas are from Chapters 3, 4, and 7.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>

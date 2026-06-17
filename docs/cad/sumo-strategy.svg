@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="430" viewBox="0 0 720 430" role="img" aria-label="A side view of a sumo robot showing where pushing power comes from. The robot is low and wide with two large grippy wheels on the ground and a low center of gravity marked near its middle. A wedge at the front slips under an opponent's wheel and lifts it off the mat. Three labels explain the strategy: LOW AND WIDE makes the robot hard to tip or push over; TRACTION comes from weight on grippy wheels, because spinning wheels go nowhere; and GEARING DOWN trades speed for torque, which is pushing force, as covered in Chapter 4.">
+  <rect x="0" y="0" width="720" height="430" fill="#FFFFFF"/>
+
+  <!-- title -->
+  <text x="360" y="30" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="#1F3864">WHERE PUSHING POWER COMES FROM</text>
+  <text x="360" y="50" text-anchor="middle" font-family="Arial" font-size="13" fill="#5B6470">torque + traction + staying low &#8212; not speed</text>
+
+  <!-- ground -->
+  <line x1="120" y1="343" x2="612" y2="343" stroke="#5B6470" stroke-width="2.5"/>
+  <line x1="135" y1="343" x2="123" y2="355" stroke="#9DC3E6" stroke-width="1.4"/>
+  <line x1="170" y1="343" x2="158" y2="355" stroke="#9DC3E6" stroke-width="1.4"/>
+  <line x1="205" y1="343" x2="193" y2="355" stroke="#9DC3E6" stroke-width="1.4"/>
+  <line x1="575" y1="343" x2="563" y2="355" stroke="#9DC3E6" stroke-width="1.4"/>
+  <line x1="610" y1="343" x2="598" y2="355" stroke="#9DC3E6" stroke-width="1.4"/>
+
+  <!-- opponent wheel, lifted by the wedge -->
+  <circle cx="556" cy="318" r="22" fill="#D7DEE8" stroke="#5B6470" stroke-width="2"/>
+  <circle cx="556" cy="318" r="7" fill="#B7C4D6" stroke="#5B6470" stroke-width="1.4"/>
+  <line x1="556" y1="288" x2="556" y2="272" stroke="#C55A11" stroke-width="2.5"/>
+  <polygon points="551,277 556,266 561,277" fill="#C55A11"/>
+  <text x="582" y="300" font-family="Arial" font-size="10.5" fill="#9A4410">opponent's wheel</text>
+  <text x="582" y="314" font-family="Arial" font-size="10.5" fill="#9A4410">lifted off the mat</text>
+
+  <!-- robot body (low + wide) -->
+  <rect x="225" y="246" width="240" height="58" rx="8" fill="#2E75B6" stroke="#16314F" stroke-width="2.5"/>
+  <!-- wedge front -->
+  <polygon points="465,302 527,341 465,341" fill="#6E7B89" stroke="#16314F" stroke-width="2.5"/>
+  <text x="491" y="337" text-anchor="middle" font-family="Arial" font-size="9" font-weight="bold" fill="#FFFFFF">wedge</text>
+
+  <!-- wheels -->
+  <circle cx="278" cy="313" r="40" fill="#3A4655" stroke="#16314F" stroke-width="2.5"/>
+  <circle cx="278" cy="313" r="14" fill="#B7C4D6" stroke="#16314F" stroke-width="1.5"/>
+  <circle cx="412" cy="313" r="40" fill="#3A4655" stroke="#16314F" stroke-width="2.5"/>
+  <circle cx="412" cy="313" r="14" fill="#B7C4D6" stroke="#16314F" stroke-width="1.5"/>
+
+  <!-- center of gravity marker -->
+  <circle cx="345" cy="290" r="9" fill="#FFFFFF" stroke="#1F3864" stroke-width="2"/>
+  <path d="M345 283 v14 M338 290 h14" stroke="#1F3864" stroke-width="2"/>
+  <text x="345" y="336" text-anchor="middle" font-family="Arial" font-size="10.5" font-weight="bold" fill="#1F3864">low CG</text>
+
+  <!-- callout: LOW & WIDE -->
+  <line x1="250" y1="142" x2="300" y2="244" stroke="#5B6470" stroke-width="1.4"/>
+  <circle cx="300" cy="244" r="3" fill="#5B6470"/>
+  <rect x="40" y="112" width="222" height="52" rx="6" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.5"/>
+  <text x="151" y="132" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#1F3864">LOW &amp; WIDE</text>
+  <text x="151" y="150" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#2E75B6">hard to tip or shove over</text>
+
+  <!-- callout: GEAR DOWN -->
+  <line x1="560" y1="150" x2="430" y2="262" stroke="#5B6470" stroke-width="1.4"/>
+  <circle cx="430" cy="262" r="3" fill="#5B6470"/>
+  <rect x="468" y="108" width="242" height="62" rx="6" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.5"/>
+  <text x="589" y="128" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#2F5320">GEAR DOWN</text>
+  <text x="589" y="146" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#2F5320">trade speed for torque &#8212;</text>
+  <text x="589" y="160" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#2F5320">torque is pushing force (Ch 4)</text>
+
+  <!-- callout: TRACTION -->
+  <line x1="160" y1="392" x2="262" y2="333" stroke="#5B6470" stroke-width="1.4"/>
+  <circle cx="262" cy="333" r="3" fill="#5B6470"/>
+  <rect x="36" y="378" width="252" height="44" rx="6" fill="#FBEFD6" stroke="#C55A11" stroke-width="1.5"/>
+  <text x="162" y="397" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#9A4410">TRACTION</text>
+  <text x="162" y="414" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#9A4410">weight on grippy wheels &#183; spin = nowhere</text>
+</svg>

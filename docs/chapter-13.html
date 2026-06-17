@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 13 · Remote Controls (Driver Control) — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="13">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">13</div>
+        <div>
+          <p class="chead__eyebrow">Unit 4 · Control &amp; competition</p>
+          <h1 class="chead__title">Remote Controls (Driver Control)</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What you'll learn:</strong> how to <strong>drive your robot by hand</strong> with the VEX controller. In Chapter 11 your robot ran <em>autonomously</em> — sensors decided everything, no driver. This is the other half: <strong>driver control</strong>, where a human is the decision-maker, moving the robot in real time with the controller's <strong>joysticks</strong> and <strong>buttons</strong>. You'll read a joystick as a number, send that number straight to your motors so one stick steers each side (<strong>tank drive</strong>), ignore the tiny wobble at the center with a <strong>dead zone</strong>, and trigger a mechanism — a lift, a claw — with a button. Then you'll build and drive a <strong>remote-controlled robot</strong> of your own.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>Driver control: now you're the loop</h2>
+      <p>Think about the two ways a competition robot moves. For part of a match it runs <strong>autonomously</strong> — the program you wrote in Chapter 11 reads sensors, decides with <span class="inl">if</span>, and drives the motors, all by itself. For the rest of the match a person picks up a controller and <strong>drives</strong> it. That second mode is <strong>driver control</strong> (also called <strong>teleoperation</strong>, or "teleop"): the robot does exactly what the human tells it to, moment to moment.</p>
+      <p>Here's the neat part — it's the <em>same loop</em> you already know. Chapter 11's robot ran a <span class="inl">while (true)</span> loop that went <strong>sense → decide → act</strong>. Driver control runs the very same loop, but <strong>you</strong> are the "decide." Instead of reading a distance sensor, the program reads the <strong>controller</strong>; instead of an <span class="inl">if</span> choosing the action, your thumbs choose it. Your eyes watch the robot and your hands react — so <em>you</em> close the feedback loop.</p>
+
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 332" role="img" aria-label="The driver-control loop. Three boxes left to right: YOU THE DRIVER — move the sticks and press buttons; READ — read the controller with Axis.position() and Button.pressing(); MOVE — drive the motors with setVelocity and spin. Forward arrows connect them, and an orange loop arrow runs from MOVE back to YOU, labeled while (true) — repeat forever. A note says that in driver control you close the loop — your eyes are the sensor.">
+          <defs>
+            <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5B6470"/></marker>
+            <marker id="lp" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker>
+          </defs>
+          <text x="380" y="27" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1F3864">THE DRIVER-CONTROL LOOP</text>
+          <text x="380" y="47" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#5B6470">a person drives the robot in real time = driver control (you close the loop)</text>
+          <rect x="40" y="74" width="180" height="104" rx="12" fill="#1F3864"/>
+          <text x="130" y="98" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#9DC3E6">YOU — THE DRIVER</text>
+          <text x="130" y="124" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#FFFFFF">Move the sticks</text>
+          <text x="130" y="150" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#DEEAF6">and press buttons</text>
+          <text x="130" y="167" text-anchor="middle" font-family="Arial" font-size="11.5" font-style="italic" fill="#9DC3E6">you are the &#8220;decide&#8221;</text>
+          <rect x="290" y="74" width="180" height="104" rx="12" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.8"/>
+          <text x="380" y="98" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#2E75B6">READ</text>
+          <text x="380" y="124" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1A1A1A">Read the controller</text>
+          <text x="380" y="150" text-anchor="middle" font-family="Consolas, monospace" font-size="11.5" fill="#1A1A1A">Axis.position()</text>
+          <text x="380" y="166" text-anchor="middle" font-family="Consolas, monospace" font-size="11.5" fill="#1A1A1A">Button.pressing()</text>
+          <rect x="540" y="74" width="180" height="104" rx="12" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.8"/>
+          <text x="630" y="98" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#3F6B2A">MOVE</text>
+          <text x="630" y="124" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1A1A1A">Drive the motors</text>
+          <text x="630" y="152" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#1A1A1A">setVelocity( ) / spin( )</text>
+          <line x1="222" y1="126" x2="286" y2="126" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+          <line x1="472" y1="126" x2="538" y2="126" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+          <path d="M630,178 L630,250 Q630,266 614,266 L146,266 Q130,266 130,250 L130,182" fill="none" stroke="#C55A11" stroke-width="2.6" marker-end="url(#lp)"/>
+          <rect x="250" y="255" width="260" height="22" rx="4" fill="#FFFFFF"/>
+          <text x="380" y="270" text-anchor="middle" font-family="Arial" font-size="12.5" font-weight="bold" fill="#C55A11">while (true) — repeat forever</text>
+          <text x="380" y="304" text-anchor="middle" font-family="Arial" font-size="11.5" font-style="italic" fill="#5B6470">In driver control YOU close the loop — your eyes are the sensor.</text>
+        </svg>
+        <figcaption>Driver control is the same <span class="inl">while (true)</span> loop as automation — but the driver is the "decide." Your program just <strong>reads the controller</strong> and <strong>drives the motors</strong>, over and over.</figcaption>
+      </figure>
+
+      <h2>Meet the controller</h2>
+      <p>The VEX controller is a gamepad with two <strong>joysticks</strong> and a set of <strong>buttons</strong>. In your code it's a device you name once, just like a motor:</p>
+
+      <p class="codetag"><span class="dot">●</span> Naming the controller and your motors</p>
+<pre class="code">controller Controller = controller();        <span class="cmt">// the EXP controller</span>
+motor leftMotor  = motor(PORT1);              <span class="cmt">// left side of the drive</span>
+motor rightMotor = motor(PORT6, true);        <span class="cmt">// right side (reversed — mirror-mounted)</span>
+motor armMotor   = motor(PORT3);              <span class="cmt">// the lift / claw mechanism</span></pre>
+
+      <p>Those two drive motors are the same <span class="inl">leftMotor</span> and <span class="inl">rightMotor</span> you set up back in Chapter 6 — one on each side, the right one reversed because it faces the opposite way. Now the controller tells them what to do.</p>
+      <p>Each <strong>joystick moves on two axes</strong> — up/down and left/right — and the controller reports each axis separately, numbered <span class="inl">Axis1</span> through <span class="inl">Axis4</span>. The buttons report whether they're being pressed. Here's the whole layout:</p>
+
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 430" role="img" aria-label="A labeled schematic of the VEX EXP controller. Two analog sticks: the left stick reads Axis 3 (up/down) and Axis 4 (left/right); the right stick reads Axis 2 (up/down) and Axis 1 (left/right). Front buttons: Up and Down on the left, A and B on the right. Shoulder buttons L1 and L2 on the top left, R1 and R2 on the top right. A note explains that tank drive uses the left stick (Axis 3) for the left wheels and the right stick (Axis 2) for the right wheels, and that the EXP controller has no Left/Right arrows and no X/Y buttons.">
+          <defs>
+            <marker id="up" markerWidth="9" markerHeight="9" refX="3" refY="1.5" orient="auto"><path d="M3,0 L6,5 L0,5 Z" fill="#5B6470"/></marker>
+          </defs>
+          <text x="360" y="30" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1F3864">THE EXP CONTROLLER</text>
+          <text x="360" y="50" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#5B6470">each stick moves on two axes &#183; buttons trigger your mechanisms</text>
+          <rect x="95" y="84" width="530" height="276" rx="30" fill="#F2F7FC" stroke="#1F3864" stroke-width="2.5"/>
+          <rect x="150" y="54" width="80" height="16" rx="7" fill="#EAF1FA" stroke="#9DC3E6" stroke-width="1.4"/>
+          <text x="190" y="66" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#2E75B6">L2</text>
+          <rect x="150" y="70" width="80" height="16" rx="7" fill="#DEEAF6" stroke="#2E75B6" stroke-width="1.5"/>
+          <text x="190" y="82" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#2E75B6">L1</text>
+          <rect x="490" y="54" width="80" height="16" rx="7" fill="#EAF1FA" stroke="#9DC3E6" stroke-width="1.4"/>
+          <text x="530" y="66" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#2E75B6">R2</text>
+          <rect x="490" y="70" width="80" height="16" rx="7" fill="#DEEAF6" stroke="#2E75B6" stroke-width="1.5"/>
+          <text x="530" y="82" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#2E75B6">R1</text>
+          <rect x="314" y="104" width="92" height="52" rx="5" fill="#1F3864"/>
+          <text x="360" y="135" text-anchor="middle" font-family="Arial" font-size="12.5" font-weight="bold" fill="#9DC3E6">EXP</text>
+          <text x="360" y="173" text-anchor="middle" font-family="Arial" font-size="10" font-style="italic" fill="#5B6470">screen</text>
+          <circle cx="205" cy="116" r="17" fill="#FFFFFF" stroke="#2E75B6" stroke-width="1.6"/>
+          <text x="205" y="122" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#2E75B6">&#9650;</text>
+          <circle cx="205" cy="158" r="17" fill="#FFFFFF" stroke="#2E75B6" stroke-width="1.6"/>
+          <text x="205" y="164" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#2E75B6">&#9660;</text>
+          <text x="205" y="192" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#5B6470">Up / Down</text>
+          <circle cx="515" cy="116" r="17" fill="#FFFFFF" stroke="#C55A11" stroke-width="1.6"/>
+          <text x="515" y="121" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#C55A11">A</text>
+          <circle cx="515" cy="158" r="17" fill="#FFFFFF" stroke="#C55A11" stroke-width="1.6"/>
+          <text x="515" y="163" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#C55A11">B</text>
+          <text x="515" y="192" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#5B6470">A / B</text>
+          <line x1="235" y1="226" x2="235" y2="300" stroke="#C9D6E6" stroke-width="1.4"/>
+          <line x1="195" y1="263" x2="275" y2="263" stroke="#C9D6E6" stroke-width="1.4"/>
+          <circle cx="235" cy="263" r="42" fill="#DEEAF6" stroke="#1F3864" stroke-width="2"/>
+          <circle cx="235" cy="263" r="19" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.6"/>
+          <rect x="198" y="210" width="74" height="20" rx="5" fill="#FBEFD6" stroke="#C55A11" stroke-width="1.2"/>
+          <text x="235" y="224" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#C55A11">Axis 3 &#8597;</text>
+          <rect x="198" y="314" width="74" height="20" rx="5" fill="#DEEAF6" stroke="#2E75B6" stroke-width="1.2"/>
+          <text x="235" y="328" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#2E75B6">Axis 4 &#8596;</text>
+          <text x="235" y="352" text-anchor="middle" font-family="Arial" font-size="10.5" font-weight="bold" fill="#1F3864">LEFT STICK</text>
+          <line x1="485" y1="226" x2="485" y2="300" stroke="#C9D6E6" stroke-width="1.4"/>
+          <line x1="445" y1="263" x2="525" y2="263" stroke="#C9D6E6" stroke-width="1.4"/>
+          <circle cx="485" cy="263" r="42" fill="#DEEAF6" stroke="#1F3864" stroke-width="2"/>
+          <circle cx="485" cy="263" r="19" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.6"/>
+          <rect x="448" y="210" width="74" height="20" rx="5" fill="#FBEFD6" stroke="#C55A11" stroke-width="1.2"/>
+          <text x="485" y="224" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#C55A11">Axis 2 &#8597;</text>
+          <rect x="448" y="314" width="74" height="20" rx="5" fill="#DEEAF6" stroke="#2E75B6" stroke-width="1.2"/>
+          <text x="485" y="328" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#2E75B6">Axis 1 &#8596;</text>
+          <text x="485" y="352" text-anchor="middle" font-family="Arial" font-size="10.5" font-weight="bold" fill="#1F3864">RIGHT STICK</text>
+          <text x="360" y="390" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#1F3864">Tank drive: left stick (Axis 3) runs the left wheels &#183; right stick (Axis 2) runs the right wheels</text>
+          <text x="360" y="410" text-anchor="middle" font-family="Arial" font-size="10.5" font-style="italic" fill="#5B6470">The EXP controller has no Left/Right arrows and no X/Y buttons &#8212; those are on the V5 controller.</text>
+        </svg>
+        <figcaption>The two sticks give you four axes; the front and shoulder buttons are simple pressed / not-pressed switches. For driving, the two you'll use most are <span class="inl">Axis3</span> (left stick, up/down) and <span class="inl">Axis2</span> (right stick, up/down).</figcaption>
+      </figure>
+
+      <h2>Driving: a stick for each side</h2>
+      <p>Ask an axis for its reading with <span class="inl">.position()</span>. It hands back a <strong>whole number from −100 to 100</strong>: push the stick all the way up and you get <span class="inl">100</span>, pull it all the way down and you get <span class="inl">−100</span>, leave it centered and you get <span class="inl">0</span>. That number is a percent — which is <em>exactly</em> what a motor's <span class="inl">setVelocity</span> wants. So you can feed a stick's reading straight to a motor's speed:</p>
+
+      <p class="codetag"><span class="dot">●</span> Tank drive — left stick runs the left side, right stick the right</p>
+<pre class="code"><span class="kw">int</span> main() {
+    vexcodeInit();
+
+    <span class="kw">while</span> (<span class="kw">true</span>) {      <span class="cmt">// the driver-control loop</span>
+        <span class="cmt">// each stick runs one side (Axis3 = left, Axis2 = right):</span>
+        leftMotor.setVelocity(Controller.Axis3.position(), percent);
+        rightMotor.setVelocity(Controller.Axis2.position(), percent);
+        leftMotor.spin(forward);
+        rightMotor.spin(forward);
+        wait(20, msec); <span class="cmt">// pause, then read again</span>
+    }
+}</pre>
+
+      <p>This is <strong>tank drive</strong>: each stick controls one side of the robot, like the levers on a tank or a bulldozer. Push both sticks up and the robot drives straight forward; pull both down and it backs up; push one and pull the other and it spins in place. You never told it to go in reverse — but watch what happens when you pull a stick down: <span class="inl">position()</span> returns a <em>negative</em> number, and a negative velocity with <span class="inl">spin(forward)</span> simply runs the motor backward. One stick gives you full speed in <strong>both</strong> directions.</p>
+
+      <div class="card card--tip">
+        <h3>🎯 Why the speed never "sticks" at one value</h3>
+        <p>Notice there's no single number for the motor speed — every trip around the loop it's read <em>fresh</em> from the stick. That's what makes driving feel live: the moment your thumb moves, the next loop reads the new position and the motor follows. That tiny <span class="inl">wait(20, msec)</span> at the bottom sets how often it re-reads — about 50 times a second, smooth enough that you can't feel the steps.</p>
+      </div>
+
+      <h3>The dead zone</h3>
+      <p>Real joysticks don't sit at a perfect <span class="inl">0</span> when you let go — they rest at <span class="inl">2</span>, or <span class="inl">−3</span>, some tiny number. Send that straight to the motors and your robot creeps and hums even when no one's touching it. The fix is a <strong>dead zone</strong>: ignore any reading close to the center, and only drive when the stick has really moved.</p>
+
+      <p class="codetag"><span class="dot">●</span> A dead zone for one motor</p>
+<pre class="code"><span class="kw">int</span> p = Controller.Axis3.position();        <span class="cmt">// read the left stick once</span>
+<span class="kw">if</span> (p &gt; 5 || p &lt; -5) {                       <span class="cmt">// outside the dead zone?</span>
+    leftMotor.setVelocity(p, percent);
+    leftMotor.spin(forward);
+} <span class="kw">else</span> {
+    leftMotor.stop();                        <span class="cmt">// tiny wobble -> hold still</span>
+}</pre>
+
+      <p>Read the stick into a variable <span class="inl">p</span> so you only ask once, then check it: if it's bigger than <span class="inl">5</span> or smaller than <span class="inl">−5</span> the driver means it, so drive; otherwise the motor holds still. Five is just a starting point — if your robot still twitches, widen the dead zone to <span class="inl">10</span>.</p>
+
+      <h2>Buttons: run a mechanism</h2>
+      <p>Sticks are great for driving, but a lift or a claw usually just needs to go <em>up</em> or <em>down</em> — that's a job for a <strong>button</strong>. A button is even simpler than an axis: ask it <span class="inl">.pressing()</span> and you get back <span class="inl">true</span> (held down) or <span class="inl">false</span> (not). Use two buttons to run a mechanism both ways:</p>
+
+      <p class="codetag"><span class="dot">●</span> R1 raises the arm, R2 lowers it</p>
+<pre class="code"><span class="kw">if</span> (Controller.ButtonR1.pressing()) {        <span class="cmt">// R1 held  -> raise</span>
+    armMotor.spin(forward);
+} <span class="kw">else if</span> (Controller.ButtonR2.pressing()) { <span class="cmt">// R2 held  -> lower</span>
+    armMotor.spin(reverse);
+} <span class="kw">else</span> {
+    armMotor.stop();                         <span class="cmt">// nothing held -> hold position</span>
+}</pre>
+
+      <p>It's the same <span class="inl">if</span> / <span class="inl">else if</span> / <span class="inl">else</span> you used for autonomous decisions in Chapter 11 — only now the "condition" is <em>is the driver pressing this button?</em> instead of <em>is something close?</em> The final <span class="inl">else</span> matters: without it, the arm would keep spinning after you let go.</p>
+
+      <h2>Put it together: the driver-control loop</h2>
+      <p>Everything lives inside one <span class="inl">while (true)</span> loop — read the sticks, drive the wheels, check the buttons, run the arm, then a short <span class="inl">wait</span> and around again. That single loop <em>is</em> your driver-control program:</p>
+
+      <p class="codetag"><span class="dot">●</span> A complete remote-controlled robot — tank drive + a button-controlled arm</p>
+<pre class="code"><span class="kw">int</span> main() {
+    vexcodeInit();
+
+    <span class="kw">while</span> (<span class="kw">true</span>) {
+        <span class="cmt">// --- drive: each stick runs one side ---</span>
+        leftMotor.setVelocity(Controller.Axis3.position(), percent);
+        rightMotor.setVelocity(Controller.Axis2.position(), percent);
+        leftMotor.spin(forward);
+        rightMotor.spin(forward);
+
+        <span class="cmt">// --- arm: R1 raises, R2 lowers ---</span>
+        <span class="kw">if</span> (Controller.ButtonR1.pressing()) {
+            armMotor.spin(forward);
+        } <span class="kw">else if</span> (Controller.ButtonR2.pressing()) {
+            armMotor.spin(reverse);
+        } <span class="kw">else</span> {
+            armMotor.stop();
+        }
+
+        wait(20, msec);
+    }
+}</pre>
+
+      <p>That's the whole shape of teleop: a forever loop that keeps reading the controller and keeps moving the robot to match. Add a dead zone to the drive lines, swap <span class="inl">ButtonR1</span> for another button, or point the arm code at a second motor, and you can drive anything you build.</p>
+
+      <div class="card card--constraint">
+        <p class="card__title"><span class="ic">📐</span> Build constraints (still in force)</p>
+        <ul>
+          <li>Build your robot from the <strong>classroom PLTW Gateway kit</strong> only. The kit's bundled motors and controller are fair game; the separate competition team's V5 parts are off-limits.</li>
+          <li>The whole robot must still fit one <strong>IKEA Kallax cubby</strong> — a 33 × 33 cm (13 × 13 in) opening, about 38 cm (15 in) deep. The 33 × 33 face is the limit, so design your drive base and lift to pack into that square.</li>
+        </ul>
+      </div>
+
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🏆</span> Also on the V5 competition team?</p>
+        <p>This is the <strong>driver-control period</strong> of a real match. On V5 you wrap this exact code in a <span class="inl">drivercontrol</span> function and register it with the <span class="inl">competition</span> object, so the field switches your robot between the autonomous routine (Chapter 11) and driver control automatically. The controller code is identical — same <span class="inl">Axis3.position()</span>, same <span class="inl">ButtonR1.pressing()</span>. The V5 controller adds a few buttons (Left/Right arrows, X and Y) the EXP doesn't have; browse them in the <a class="ext" href="https://api.vex.com/v5/home/cpp/Controller/index.html" target="_blank" rel="noopener">V5 Controller C++ API</a>.</p>
+      </div>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">📚</span> Learn more — VEX Library &amp; C++ API</p>
+        <ul>
+          <li><a class="ext" href="https://api.vex.com/exp/home/cpp/Controller/Controller.Axis.html" target="_blank" rel="noopener">Controller Axis — VEX EXP C++ API</a> — the four axes and <span class="inl">position()</span>, the joystick reading at the center of driving.</li>
+          <li><a class="ext" href="https://api.vex.com/exp/home/cpp/Controller/Controller.Button.html" target="_blank" rel="noopener">Controller Button — VEX EXP C++ API</a> — <span class="inl">pressing()</span> and the full button set on the EXP controller.</li>
+          <li><a class="ext" href="https://api.vex.com/exp/home/cpp/Motors_and_MotorControllers/motor_and_motor_group.html" target="_blank" rel="noopener">Motor and Motor Group — VEX EXP C++ API</a> — <span class="inl">setVelocity</span> and <span class="inl">spin</span>, the commands the controller feeds.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/8608126618516-Using-the-Controller-with-VEX-EXP" target="_blank" rel="noopener">Using the Controller with VEX EXP</a> — pairing, charging, and the controller screen.</li>
+        </ul>
+      </div>
+
+      <div class="card card--safe">
+        <p class="card__title"><span class="ic">⚠️</span> Safety</p>
+        <ul>
+          <li>A driven robot moves the instant you touch a stick. Give it <strong>room to move</strong> and keep hands, hair, and cables clear of wheels, arms, and gears.</li>
+          <li><strong>Unplug the USB-C cable</strong> before you drive, and drive on the floor or a clear table where the robot can't fall.</li>
+          <li>Drive at a speed you can <strong>control</strong> — start slow, and be ready to drop the sticks to stop.</li>
+          <li>Power the Brain down with the <strong>X button</strong> when you're done, and store the robot in its cubby.</li>
+        </ul>
+      </div>
+
+      <h2>The project: build a robot you can drive</h2>
+      <p>Now put it to work. Your team will <strong>design, build, and program a remote-controlled robot</strong> — a drive base you steer with the sticks, plus at least one mechanism you run with the buttons. A classic challenge is a <strong>forklift</strong>: tank-drive wheels to get around, and a button-raised fork to pick up and stack a load. Pick that, or propose your own:</p>
+      <ul>
+        <li><strong>Forklift</strong> — drive up to a block, raise the fork (R1) to lift it, drive it somewhere, lower it (R2) to stack.</li>
+        <li><strong>Claw bot</strong> — drive around and open/close a gripper with two buttons to grab and carry objects.</li>
+        <li><strong>Plow or pusher</strong> — a fast, sturdy drive base that shoves objects into a goal zone.</li>
+        <li><strong>Arm bot</strong> — a driveable base with a swinging arm that knocks down or sorts targets.</li>
+      </ul>
+      <p>Work as a small team with shared jobs — someone leading the <strong>build</strong>, someone the <strong>wiring</strong>, someone the <strong>code</strong> — and rotate so everyone does each. Use the <strong>design process</strong> you've practiced all year: understand the task and its constraints, sketch a couple of ideas, pick the best, build it, then test and improve. And remember the big question underneath this chapter: a driver makes the robot flexible, but a human has to be there — when would you rather it ran itself?</p>
+
+      <h2>What you'll need</h2>
+      <ul>
+        <li>Your computer with <strong>VS Code + the VEX extension</strong>, and a <strong>USB-C cable</strong></li>
+        <li>The <strong>PLTW Gateway EXP kit</strong>: Brain, charged battery, the <strong>controller</strong>, two drive motors, and a motor for your mechanism</li>
+        <li>Your <strong>engineering notebook</strong> for sketches, pseudocode, and a daily journal</li>
+        <li>The <strong>project worksheet</strong> (design brief, controls map, and reflection)</li>
+      </ul>
+
+      <h2>Do it</h2>
+      <ol>
+        <li><strong>Define the problem.</strong> Read your task, then write a short design brief: what the robot must do, and every <strong>constraint</strong> (EXP kit only, fits the cubby, which mechanism).</li>
+        <li><strong>Sketch and choose.</strong> Each teammate sketches a design. Compare them against your criteria and pick the best one to build.</li>
+        <li><strong>Build the robot.</strong> Construct a sturdy tank-drive base and your mechanism from the kit so the whole thing fits the cubby. Mount both drive motors and the mechanism motor, and wire them to the Brain.</li>
+        <li><strong>Map your controls, then code.</strong> Decide which stick drives which side and which button does what — write it down first. Then translate it to C++: name your devices, set up the <span class="inl">while (true)</span> loop, drive with the sticks, and add the button <span class="inl">if</span> / <span class="inl">else if</span> / <span class="inl">else</span>.</li>
+        <li><strong>Test and refine — a little at a time.</strong> Download, unplug, and drive. Fix one thing at a time: add a dead zone if it creeps, widen it if it still twitches, flip a motor if a side goes the wrong way.</li>
+        <li><strong>Evaluate.</strong> In your notebook, judge how well it drives — and answer: <em>which was harder, driving or automating, and which jobs would you hand back to the robot?</em></li>
+      </ol>
+
+      <h2>Check your understanding</h2>
+      <ol>
+        <li>What is <strong>driver control</strong> (teleoperation), and how is it different from the <strong>autonomous</strong> program you wrote in Chapter 11?</li>
+        <li>What does <span class="inl">Controller.Axis3.position()</span> give you? What number comes back when the stick is pushed fully up, fully down, and centered?</li>
+        <li>Explain <strong>tank drive</strong>. Which axis runs the left side, which runs the right, and how does the robot turn?</li>
+        <li>What is a <strong>dead zone</strong>, and why does a driver-control program need one?</li>
+        <li>What does <span class="inl">.pressing()</span> return? Write the <span class="inl">if</span> / <span class="inl">else if</span> / <span class="inl">else</span> that raises a fork while R1 is held, lowers it while R2 is held, and holds it still otherwise.</li>
+        <li>Driver control and autonomous each have strengths. Give one task you'd rather <strong>drive</strong> by hand and one you'd rather let the robot do <strong>automatically</strong>, and say why.</li>
+      </ol>
+
+      <h2>Key terms</h2>
+      <div class="terms">
+        <span class="term">driver control</span><span class="term">teleoperation</span><span class="term">autonomous</span><span class="term">controller</span><span class="term">joystick</span><span class="term">axis</span><span class="term">Axis1–Axis4</span><span class="term">position()</span><span class="term">tank drive</span><span class="term">arcade drive</span><span class="term">dead zone</span><span class="term">button</span><span class="term">pressing()</span><span class="term">ButtonR1</span><span class="term">setVelocity</span><span class="term">spin</span><span class="term">control loop</span><span class="term">while (true)</span><span class="term">human-in-the-loop</span></div>
+
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 4.1 "Remote Controls"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the project (build and program a remote-controlled robot — a forklift or similar — driven with joysticks and buttons) and its conclusion questions (driver control vs. autonomous; what would you automate?) are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The Controller API is verified against the VEX Library: the <span class="inl">controller</span> object, the four axes and <span class="inl">position()</span> (a whole number, −100 to 100), and the buttons' <span class="inl">pressing()</span> (a true/false reading) — a negative axis value with <span class="inl">spin(forward)</span> runs a motor in reverse. Tank drive maps the left stick (<span class="inl">Axis3</span>) to <span class="inl">leftMotor</span> and the right stick (<span class="inl">Axis2</span>) to <span class="inl">rightMotor</span>. The <span class="inl">if</span> / <span class="inl">else if</span> / <span class="inl">else</span> and <span class="inl">while (true)</span> loop are standard C++ carried from Chapter 11; the motor commands and the <span class="inl">leftMotor</span> / <span class="inl">rightMotor</span> setup from Chapter 6.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>

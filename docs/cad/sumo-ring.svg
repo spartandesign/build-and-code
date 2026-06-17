@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="470" viewBox="0 0 720 470" role="img" aria-label="A top-down view of a robot sumo ring. A large circle with a thick black border is the ring; the light area inside is the playing surface and the floor outside the border is out of bounds. Two robots sit inside facing each other: YOUR robot (blue) on the left pushes the OPPONENT robot (gray) toward the right edge with a bold orange push arrow. Labels note that the black border still counts as inside the ring, and that any part of a robot touching the floor outside the border means that robot loses. The ring is 122 cm (48 inches) across.">
+  <rect x="0" y="0" width="720" height="470" fill="#FFFFFF"/>
+
+  <!-- title -->
+  <text x="360" y="30" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="#1F3864">THE SUMO RING</text>
+  <text x="360" y="50" text-anchor="middle" font-family="Arial" font-size="13" fill="#5B6470">&#216; 122 cm (48 in) circle &#183; push your opponent out to win</text>
+
+  <!-- the ring: dark border band + light surface -->
+  <circle cx="345" cy="275" r="170" fill="#2B2B2B"/>
+  <circle cx="345" cy="275" r="151" fill="#F2F7FC" stroke="#9DC3E6" stroke-width="1.5"/>
+
+  <!-- diameter dimension across the ring -->
+  <line x1="194" y1="275" x2="496" y2="275" stroke="#9DC3E6" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="345" y="269" text-anchor="middle" font-family="Arial" font-size="11.5" fill="#2E75B6">&#216; 122 cm (48 in)</text>
+
+  <!-- OPPONENT robot (gray), near the right edge, being pushed out -->
+  <g>
+    <rect x="392" y="300" width="14" height="54" rx="3" fill="#3A4655"/>
+    <rect x="448" y="300" width="14" height="54" rx="3" fill="#3A4655"/>
+    <rect x="398" y="306" width="58" height="42" rx="6" fill="#B7C4D6" stroke="#5B6470" stroke-width="2"/>
+    <text x="427" y="331" text-anchor="middle" font-family="Arial" font-size="9.5" font-weight="bold" fill="#3A4655">OPPONENT</text>
+  </g>
+
+  <!-- YOUR robot (blue), center-left, with a wedge front pointing right -->
+  <g>
+    <rect x="250" y="300" width="14" height="54" rx="3" fill="#16314F"/>
+    <rect x="306" y="300" width="14" height="54" rx="3" fill="#16314F"/>
+    <rect x="256" y="306" width="58" height="42" rx="6" fill="#2E75B6" stroke="#16314F" stroke-width="2"/>
+    <polygon points="314,310 336,327 314,344" fill="#2E75B6" stroke="#16314F" stroke-width="2"/>
+    <text x="285" y="332" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#FFFFFF">YOU</text>
+  </g>
+
+  <!-- push arrow -->
+  <line x1="343" y1="327" x2="384" y2="327" stroke="#C55A11" stroke-width="6" stroke-linecap="round"/>
+  <polygon points="384,318 402,327 384,336" fill="#C55A11"/>
+  <text x="360" y="372" text-anchor="middle" font-family="Arial" font-size="12.5" font-weight="bold" fill="#C55A11">PUSH</text>
+
+  <!-- label: out of bounds -->
+  <line x1="600" y1="150" x2="497" y2="208" stroke="#5B6470" stroke-width="1.4"/>
+  <circle cx="497" cy="208" r="3" fill="#5B6470"/>
+  <rect x="560" y="120" width="150" height="46" rx="6" fill="#FBEFD6" stroke="#C55A11" stroke-width="1.4"/>
+  <text x="635" y="139" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#9A4410">the floor = OUT</text>
+  <text x="635" y="156" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#9A4410">any part here, you lose</text>
+
+  <!-- label: black border counts as in -->
+  <line x1="150" y1="408" x2="262" y2="360" stroke="#5B6470" stroke-width="1.4"/>
+  <circle cx="262" cy="360" r="3" fill="#5B6470"/>
+  <rect x="20" y="398" width="190" height="46" rx="6" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.4"/>
+  <text x="115" y="417" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#2F5320">the black border</text>
+  <text x="115" y="434" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#2F5320">still counts as INSIDE</text>
+</svg>

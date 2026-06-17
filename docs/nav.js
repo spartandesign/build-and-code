@@ -6,6 +6,9 @@
    ============================================================ */
 
 const BOOK = [
+  { unit: "Getting Started", chapters: [
+    { n: "GS", title: "Getting Started with Code", file: "getting-started-code.html" },
+  ]},
   { unit: "Unit 1 · Robots & Structures", chapters: [
     { n: 1, title: "Structures & Building", file: "chapter-01.html" },
     { n: 2, title: "What Do We Use Robots For?", file: "chapter-02.html" },
@@ -22,11 +25,11 @@ const BOOK = [
     { n: 9,  title: "Behaviors & Pseudocode", file: "chapter-09.html" },
     { n: 10, title: "Your First C++ Program", file: "chapter-10.html" },
     { n: 11, title: "Automation Through Programming", file: "chapter-11.html" },
-    { n: 12, title: "Simulated Factory Assembly Line", file: "" },
+    { n: 12, title: "Simulated Factory Assembly Line", file: "chapter-12.html" },
   ]},
   { unit: "Unit 4 · Control & Competition", chapters: [
-    { n: 13, title: "Remote Controls (Driver Control)", file: "" },
-    { n: 14, title: "Sumo Competition & Build Your Own", file: "" },
+    { n: 13, title: "Remote Controls (Driver Control)", file: "chapter-13.html" },
+    { n: 14, title: "Sumo Competition & Build Your Own", file: "chapter-14.html" },
   ]},
   { unit: "Reference", chapters: [
     { n: "A", title: "Advanced Mechanisms", file: "appendix-a-mechanisms.html" },

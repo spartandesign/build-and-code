@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="332" viewBox="0 0 760 332" role="img" aria-label="The driver-control loop. Three boxes left to right: YOU THE DRIVER — move the sticks and press buttons; READ — read the controller with Axis.position() and Button.pressing(); MOVE — drive the motors with setVelocity and spin. Forward arrows connect them, and an orange loop arrow runs from MOVE back to YOU, labeled while (true) — repeat forever. A note says that in driver control you close the loop — your eyes are the sensor.">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5B6470"/></marker>
+    <marker id="lp" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker>
+  </defs>
+
+  <text x="380" y="27" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1F3864">THE DRIVER-CONTROL LOOP</text>
+  <text x="380" y="47" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#5B6470">a person drives the robot in real time = driver control (you close the loop)</text>
+
+  <!-- YOU -->
+  <rect x="40" y="74" width="180" height="104" rx="12" fill="#1F3864"/>
+  <text x="130" y="98" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#9DC3E6">YOU — THE DRIVER</text>
+  <text x="130" y="124" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#FFFFFF">Move the sticks</text>
+  <text x="130" y="150" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#DEEAF6">and press buttons</text>
+  <text x="130" y="167" text-anchor="middle" font-family="Arial" font-size="11.5" font-style="italic" fill="#9DC3E6">you are the &#8220;decide&#8221;</text>
+
+  <!-- READ -->
+  <rect x="290" y="74" width="180" height="104" rx="12" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.8"/>
+  <text x="380" y="98" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#2E75B6">READ</text>
+  <text x="380" y="124" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1A1A1A">Read the controller</text>
+  <text x="380" y="150" text-anchor="middle" font-family="Consolas, monospace" font-size="11.5" fill="#1A1A1A">Axis.position()</text>
+  <text x="380" y="166" text-anchor="middle" font-family="Consolas, monospace" font-size="11.5" fill="#1A1A1A">Button.pressing()</text>
+
+  <!-- MOVE -->
+  <rect x="540" y="74" width="180" height="104" rx="12" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.8"/>
+  <text x="630" y="98" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#3F6B2A">MOVE</text>
+  <text x="630" y="124" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1A1A1A">Drive the motors</text>
+  <text x="630" y="152" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#1A1A1A">setVelocity( ) / spin( )</text>
+
+  <!-- forward arrows -->
+  <line x1="222" y1="126" x2="286" y2="126" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+  <line x1="472" y1="126" x2="538" y2="126" stroke="#5B6470" stroke-width="2.4" marker-end="url(#arr)"/>
+
+  <!-- loop back: MOVE -> YOU -->
+  <path d="M630,178 L630,250 Q630,266 614,266 L146,266 Q130,266 130,250 L130,182" fill="none" stroke="#C55A11" stroke-width="2.6" marker-end="url(#lp)"/>
+  <rect x="250" y="255" width="260" height="22" rx="4" fill="#FFFFFF"/>
+  <text x="380" y="270" text-anchor="middle" font-family="Arial" font-size="12.5" font-weight="bold" fill="#C55A11">while (true) — repeat forever</text>
+
+  <text x="380" y="304" text-anchor="middle" font-family="Arial" font-size="11.5" font-style="italic" fill="#5B6470">In driver control YOU close the loop — your eyes are the sensor.</text>
+</svg>

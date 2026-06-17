@@ -33,13 +33,13 @@
     </div>
 
     <div class="lede">
-      <p><strong>What you'll learn:</strong> how to write real <strong>C++</strong>, send it to your robot, and watch it run. You'll set up the tool professionals use — <strong>Visual Studio Code</strong> with the <strong>VEX extension</strong> — and create your first <strong>EXP project</strong>. You'll learn the <strong>anatomy of a program</strong> (what every line is for), the handful of commands that make a motor <strong>spin, wait, and stop</strong>, and the <strong>download-and-run</strong> workflow that carries your code down the USB-C cable onto the Brain. Then you'll take the pseudocode you wrote in Chapter 9 and make it <em>real</em> — one tested piece at a time. This is the moment the robot starts listening to you.</p>
+      <p><strong>What you'll learn:</strong> what every line of your program actually does. Since week 1 you've been writing code in the starter — typing between the two purple lines and leaving everything around them alone. This is the chapter where we open up those other lines and read the <em>whole</em> file: the <strong>setup lines</strong>, the <strong>device list</strong>, <span class="inl">int main()</span>, <span class="inl">vexcodeInit()</span>, and the curly braces. Once you can see what each part is for, you're not stuck inside the region anymore — you can write a complete program from scratch, and turn the <strong>pseudocode</strong> you planned in Chapter 9 into real, running code. It's the same write-download-run loop you already know, now with nothing hidden.</p>
     </div>
 
     <article class="prose wrap">
 
-      <h2>From a plan to a real program</h2>
-      <p>In Chapter 9 you wrote <strong>pseudocode</strong> — a plain-language plan for what the robot should do. A plan is not yet something the robot can run, though. This chapter closes that gap: you'll translate a plan into <strong>C++</strong>, the actual language your EXP robot speaks, type it into a real code editor, and send it to the Brain. The logic is the same logic you already planned; now you're just writing it in a form the robot can carry out.</p>
+      <h2>What's behind the purple lines</h2>
+      <p>Open your <strong>AR-Starter</strong> project and look at the <em>whole</em> file — not just the region you usually type in. Most of those lines have been there since day one, quietly doing their job while you ignored them. That was the deal: write between the purple lines, leave the rest alone. You've already stretched that deal a little — back in the Pull Toy chapter you added a second motor <em>above</em> the region — but you've never really had to know what the surrounding lines <em>mean</em>. This chapter changes that. We'll read the starter top to bottom and name every part, until those "leave it alone" lines become lines you understand and could write yourself. It's the same idea as your Chapter 9 <strong>pseudocode</strong> — plan it, then make it run — you're just seeing the full picture now.</p>
 
       <figure class="fig">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 358" role="img" aria-label="From code to a running robot, shown as three steps left to right: STEP 1 WRITE — your C++ code in VS Code; STEP 2 DOWNLOAD — build it, then send it to the Brain over the USB-C cable; STEP 3 RUN — the robot does what you wrote. Forward arrows connect the steps. An orange test loop curves from RUN back to WRITE: test it, change one thing, download again — build a little at a time.">
@@ -76,17 +76,17 @@
       </figure>
 
       <h2>The tool: VS Code and the VEX extension</h2>
-      <p>You'll write your code in <strong>Visual Studio Code</strong> (VS Code) — the same editor used by a huge share of professional software developers — with the free <strong>VEX Robotics extension</strong> added on. The extension teaches VS Code how to build VEX programs and send them to your Brain. Two things to know up front:</p>
+      <p>You already know this tool — it's where the AR-Starter lives. You write your code in <strong>Visual Studio Code</strong> (VS Code), the same editor used by a huge share of professional software developers, with the free <strong>VEX Robotics extension</strong> added on. The extension teaches VS Code how to build VEX programs and send them to your Brain. Two things are worth saying out loud now that you're reading the whole program:</p>
       <ul>
         <li><strong>It runs on the computer in front of you, not in the cloud.</strong> Your finished program has to travel down a real USB-C cable into the Brain, so everything happens locally.</li>
         <li><strong>You write in C++.</strong> It's stricter than the pseudocode you've been writing — every semicolon and curly brace matters — but the logic is the same logic you already know how to plan.</li>
       </ul>
-      <p>Getting set up is a one-time job: install the VEX extension from the Extensions panel, then create a <strong>new EXP project</strong> and give it a name. (That name is what shows up on the Brain's screen after you download it.) Your code lives in the project's <span class="inl">src</span> folder.</p>
+      <p>Your teacher installed the extension and set up the AR-Starter once, so you've been skipping this part. It's worth knowing how it works, though: a <strong>new EXP project</strong> is created from the VEX panel and given a name (that name is what shows up on the Brain's screen after you download it), and your code always lives in the project's <span class="inl">src</span> folder. If you ever start a project of your own, that's all there is to it.</p>
 
       <h2>The anatomy of a program</h2>
-      <p>Here is a complete first program. It spins one motor at half speed for five seconds, then stops. Read it once before we take it apart — notice it's just a list of steps, top to bottom, exactly like your pseudocode:</p>
+      <p>Here is a complete program — and you'll recognize most of it. It's the <strong>AR-Starter</strong> you've been using: the setup lines, your motor, <span class="inl">main</span>, and a few commands in the middle (this one sets a speed, then spins for five seconds and stops). The difference now is that we're going to read <em>every</em> line, including the ones you've been skipping:</p>
 
-      <p class="codetag"><span class="dot">●</span> Your first VEX C++ program</p>
+      <p class="codetag"><span class="dot">●</span> The whole program — nothing hidden this time</p>
 <pre class="code"><span class="kw">#include</span> "vex.h"            <span class="cmt">// brings in all the VEX commands</span>
 <span class="kw">using namespace</span> vex;
 
@@ -104,7 +104,7 @@ motor leftMotor = motor(PORT1);   <span class="cmt">// name your motor + its Sma
       <p>Every program has the same skeleton, and a new project hands you most of it already written:</p>
       <ul>
         <li><span class="inl">#include "vex.h"</span> and <span class="inl">using namespace vex;</span> — the <strong>setup lines</strong>. They bring in all the VEX commands so you can use them. These are already there when you open a new project; leave them alone.</li>
-        <li><span class="inl">motor leftMotor = motor(PORT1);</span> — your <strong>device list</strong>. This names a motor <span class="inl">leftMotor</span> and says it's plugged into Smart Port 1. Add one line like this for each motor or sensor you use. (Your EXP motor is the fixed-speed Smart Motor from Chapter 3 — there's no gear cartridge to choose, unlike the V5 motor.)</li>
+        <li><span class="inl">motor leftMotor = motor(PORT1);</span> — your <strong>device list</strong>. This names a motor <span class="inl">leftMotor</span> and says it's plugged into Smart Port 1. Add one line like this for each motor or sensor you use — which is exactly what you did in the Pull Toy chapter when you added <span class="inl">rightMotor</span> on Port 6. (Your EXP motor is the fixed-speed Smart Motor from Chapter 3 — there's no gear cartridge to choose, unlike the V5 motor.)</li>
         <li><span class="inl">int main() { … }</span> — the <strong>main program</strong>. When you run the project, the robot starts reading here and runs each line in order, top to bottom, until it reaches the closing <span class="inl">}</span>. Those curly braces are the same blocks you marked in your pseudocode — they hold everything that belongs to <span class="inl">main</span>.</li>
         <li><span class="inl">vexcodeInit();</span> — the <strong>first line inside <span class="inl">main</span></strong>. It gets the robot ready. It's written for you; never delete it.</li>
         <li>Everything after that is <strong>your behavior</strong> — the commands you write. This is where your plan turns into action.</li>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="430" viewBox="0 0 720 430" role="img" aria-label="A labeled schematic of the VEX EXP controller. Two analog sticks: the left stick reads Axis 3 (up/down) and Axis 4 (left/right); the right stick reads Axis 2 (up/down) and Axis 1 (left/right). Front buttons: Up and Down on the left, A and B on the right. Shoulder buttons L1 and L2 on the top left, R1 and R2 on the top right. A note explains that tank drive uses the left stick (Axis 3) for the left wheels and the right stick (Axis 2) for the right wheels, and that the EXP controller has no Left/Right arrows and no X/Y buttons.">
+  <defs>
+    <marker id="up" markerWidth="9" markerHeight="9" refX="3" refY="1.5" orient="auto"><path d="M3,0 L6,5 L0,5 Z" fill="#5B6470"/></marker>
+  </defs>
+
+  <text x="360" y="30" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1F3864">THE EXP CONTROLLER</text>
+  <text x="360" y="50" text-anchor="middle" font-family="Arial" font-size="12.5" fill="#5B6470">each stick moves on two axes &#183; buttons trigger your mechanisms</text>
+
+  <!-- body -->
+  <rect x="95" y="84" width="530" height="276" rx="30" fill="#F2F7FC" stroke="#1F3864" stroke-width="2.5"/>
+
+  <!-- shoulder buttons (drawn on top of the body's top edge so they stay visible) -->
+  <rect x="150" y="54" width="80" height="16" rx="7" fill="#EAF1FA" stroke="#9DC3E6" stroke-width="1.4"/>
+  <text x="190" y="66" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#2E75B6">L2</text>
+  <rect x="150" y="70" width="80" height="16" rx="7" fill="#DEEAF6" stroke="#2E75B6" stroke-width="1.5"/>
+  <text x="190" y="82" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#2E75B6">L1</text>
+  <rect x="490" y="54" width="80" height="16" rx="7" fill="#EAF1FA" stroke="#9DC3E6" stroke-width="1.4"/>
+  <text x="530" y="66" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#2E75B6">R2</text>
+  <rect x="490" y="70" width="80" height="16" rx="7" fill="#DEEAF6" stroke="#2E75B6" stroke-width="1.5"/>
+  <text x="530" y="82" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#2E75B6">R1</text>
+
+  <!-- screen -->
+  <rect x="314" y="104" width="92" height="52" rx="5" fill="#1F3864"/>
+  <text x="360" y="135" text-anchor="middle" font-family="Arial" font-size="12.5" font-weight="bold" fill="#9DC3E6">EXP</text>
+  <text x="360" y="173" text-anchor="middle" font-family="Arial" font-size="10" font-style="italic" fill="#5B6470">screen</text>
+
+  <!-- Up / Down buttons -->
+  <circle cx="205" cy="116" r="17" fill="#FFFFFF" stroke="#2E75B6" stroke-width="1.6"/>
+  <text x="205" y="122" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#2E75B6">&#9650;</text>
+  <circle cx="205" cy="158" r="17" fill="#FFFFFF" stroke="#2E75B6" stroke-width="1.6"/>
+  <text x="205" y="164" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#2E75B6">&#9660;</text>
+  <text x="205" y="192" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#5B6470">Up / Down</text>
+
+  <!-- A / B buttons -->
+  <circle cx="515" cy="116" r="17" fill="#FFFFFF" stroke="#C55A11" stroke-width="1.6"/>
+  <text x="515" y="121" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#C55A11">A</text>
+  <circle cx="515" cy="158" r="17" fill="#FFFFFF" stroke="#C55A11" stroke-width="1.6"/>
+  <text x="515" y="163" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#C55A11">B</text>
+  <text x="515" y="192" text-anchor="middle" font-family="Arial" font-size="10.5" fill="#5B6470">A / B</text>
+
+  <!-- LEFT STICK -->
+  <line x1="235" y1="226" x2="235" y2="300" stroke="#C9D6E6" stroke-width="1.4"/>
+  <line x1="195" y1="263" x2="275" y2="263" stroke="#C9D6E6" stroke-width="1.4"/>
+  <circle cx="235" cy="263" r="42" fill="#DEEAF6" stroke="#1F3864" stroke-width="2"/>
+  <circle cx="235" cy="263" r="19" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.6"/>
+  <rect x="198" y="210" width="74" height="20" rx="5" fill="#FBEFD6" stroke="#C55A11" stroke-width="1.2"/>
+  <text x="235" y="224" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#C55A11">Axis 3 &#8597;</text>
+  <rect x="198" y="314" width="74" height="20" rx="5" fill="#DEEAF6" stroke="#2E75B6" stroke-width="1.2"/>
+  <text x="235" y="328" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#2E75B6">Axis 4 &#8596;</text>
+  <text x="235" y="352" text-anchor="middle" font-family="Arial" font-size="10.5" font-weight="bold" fill="#1F3864">LEFT STICK</text>
+
+  <!-- RIGHT STICK -->
+  <line x1="485" y1="226" x2="485" y2="300" stroke="#C9D6E6" stroke-width="1.4"/>
+  <line x1="445" y1="263" x2="525" y2="263" stroke="#C9D6E6" stroke-width="1.4"/>
+  <circle cx="485" cy="263" r="42" fill="#DEEAF6" stroke="#1F3864" stroke-width="2"/>
+  <circle cx="485" cy="263" r="19" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.6"/>
+  <rect x="448" y="210" width="74" height="20" rx="5" fill="#FBEFD6" stroke="#C55A11" stroke-width="1.2"/>
+  <text x="485" y="224" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#C55A11">Axis 2 &#8597;</text>
+  <rect x="448" y="314" width="74" height="20" rx="5" fill="#DEEAF6" stroke="#2E75B6" stroke-width="1.2"/>
+  <text x="485" y="328" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#2E75B6">Axis 1 &#8596;</text>
+  <text x="485" y="352" text-anchor="middle" font-family="Arial" font-size="10.5" font-weight="bold" fill="#1F3864">RIGHT STICK</text>
+
+  <!-- captions -->
+  <text x="360" y="390" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#1F3864">Tank drive: left stick (Axis 3) runs the left wheels &#183; right stick (Axis 2) runs the right wheels</text>
+  <text x="360" y="410" text-anchor="middle" font-family="Arial" font-size="10.5" font-style="italic" fill="#5B6470">The EXP controller has no Left/Right arrows and no X/Y buttons &#8212; those are on the V5 controller.</text>
+</svg>
