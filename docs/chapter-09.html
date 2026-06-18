@@ -104,6 +104,16 @@
       <p>Read it from the top: "Solve the maze" is too big to code directly, so you split it into simple behaviors — drive to the wall, turn toward the opening, repeat. Still not code, so you split one of those again: "drive to the wall ahead" becomes <em>spin the motors forward, watch the distance sensor, stop when the wall is near</em> — and now every line is something the robot can do directly. Each of the other simple behaviors breaks down the same way.</p>
       <p>You already do this with everyday tasks without thinking. "Brush my teeth" isn't one action — it's wet the brush, add toothpaste, scrub the top, scrub the bottom, rinse, put it away. Decomposition is just doing that <strong>on purpose</strong>, for a robot.</p>
 
+      <h2>The other direction: building up</h2>
+      <p>Decomposition runs one way: take something big and break it into smaller pieces. There's a partner move that runs the <em>other</em> way — take a handful of small steps, give them <strong>one name</strong>, and from then on think and work with that single name instead of the steps inside it. That move is called <strong>abstraction</strong>, and you've been using it the whole time.</p>
+      <p>"Brush my teeth" is the proof. It stands for a dozen small steps — wet the brush, add toothpaste, scrub, rinse, put it away — but when you plan your morning you don't list all twelve; you just say "brush my teeth" and move on. The name <strong>hides the details</strong> so you can think in bigger steps. Decomposition pries that name open; abstraction is what let you use the name in the first place.</p>
+      <p>The two are partners. You break a big job <strong>down</strong> until every piece is something you can do, then you wrap the useful pieces back <strong>up</strong> under names so the big plan stays short and readable. You'll meet abstraction twice more, in code: a <strong>function</strong> is a name for a group of steps (Chapter 12), and an <strong>object</strong> — like the smart drivetrain you'll build in Chapter 13 — is a name for a bundle of parts <em>and</em> the things you can tell it to do. Same idea every time: bundle the small stuff under one name you can trust.</p>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">🧱</span> Two views of one staircase</p>
+        <p>Read the tree above from the top <strong>down</strong> and you're doing decomposition: "solve the maze" splits into smaller and smaller behaviors. Read it from the bottom <strong>up</strong> and you're doing abstraction: a few basic commands become one named behavior ("drive to the wall"), and a few of those become one bigger name ("solve the maze"). A programmer moves both directions — down to work out the steps, up to name them so the plan stays simple.</p>
+      </div>
+
       <h2>You and the robot have different jobs</h2>
       <p>Because the robot follows your plan <em>literally</em>, your plan has to be <strong>complete and in order</strong>. Leave out "stop the motors" and the robot drives into the wall and keeps pushing. Put two steps in the wrong order and it turns before it has moved. The robot won't notice and won't fix it — that isn't its job. Catching those gaps is yours, and the cheapest place to catch them is in a plan written in plain language, before any code exists.</p>
 
@@ -194,12 +204,12 @@ rightMotor.stop();</pre>
         <li>Why is it useful to think of a program as a set of <strong>basic, simple, and complex</strong> behaviors?</li>
         <li>What does a pair of <strong>curly braces</strong> <span class="inl">{ }</span> mark in a C++ program?</li>
         <li>What is the <strong>role of a programmer</strong>, and how is it different from the robot's role?</li>
-        <li>Write this plan as pseudocode: <em>"drive forward until the distance sensor reads less than 150 mm, then stop."</em> Which part is the sensing, which is the deciding, and which is the acting?</li>
+        <li>Decomposition breaks a behavior <strong>down</strong>. What is <strong>abstraction</strong>, and how is "brush my teeth" an example of it?</li>
       </ol>
 
       <h2>Key terms</h2>
       <div class="terms">
-        <span class="term">behavior</span><span class="term">basic behavior</span><span class="term">simple behavior</span><span class="term">complex behavior</span><span class="term">decomposition</span><span class="term">breaking down</span><span class="term">program</span><span class="term">programmer</span><span class="term">pseudocode</span><span class="term">syntax</span><span class="term">code block</span><span class="term">curly braces</span><span class="term">sequence</span><span class="term">VEX C++</span><span class="term">VEXcode</span><span class="term">if</span><span class="term">while</span>
+        <span class="term">behavior</span><span class="term">basic behavior</span><span class="term">simple behavior</span><span class="term">complex behavior</span><span class="term">decomposition</span><span class="term">abstraction</span><span class="term">building up</span><span class="term">breaking down</span><span class="term">program</span><span class="term">programmer</span><span class="term">pseudocode</span><span class="term">syntax</span><span class="term">code block</span><span class="term">curly braces</span><span class="term">sequence</span><span class="term">VEX C++</span><span class="term">VEXcode</span><span class="term">if</span><span class="term">while</span>
       </div>
 
       <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Activity 3.2 "Robot Behaviors and Writing Pseudocode"; VEXcode EXP C++ API, api.vex.com; VEX Library, kb.vex.com):</strong> the three behavior types (basic / simple / complex), behavior decomposition, the programmer-and-robot roles, and pseudocode as informal, in-order planning are from the PLTW Gateway curriculum — modernized here from ROBOTC to <strong>VEX C++ in VS Code</strong>. The C++ commands shown (<span class="inl">spin(forward)</span>, <span class="inl">stop()</span>, <span class="inl">wait</span>, and the distance sensor's <span class="inl">objectDistance</span> in millimeters) are verified against the VEXcode EXP C++ API and the VEX Library Distance Sensor article. The "sense → decide → act" loop carries over from Chapter 8.</p>

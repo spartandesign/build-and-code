@@ -26,6 +26,16 @@ That property: **a complex behavior can always be broken into simpler behaviors,
 
 Read it top-down: "solve the maze" → simple behaviors → split one ("drive to the wall ahead") into basic commands (spin motors forward, watch the distance sensor, stop near the wall) — now every line is directly doable. Each simple behavior breaks down the same way. You already do this with "brush my teeth" (wet brush, add toothpaste, scrub top, scrub bottom, rinse, put away). Decomposition is doing it **on purpose**, for a robot.
 
+## The other direction: building up
+
+Decomposition runs one way — big into smaller pieces. Its partner runs the *other* way: take a handful of small steps, give them **one name**, and from then on think and work with that single name instead of the steps inside it. That move is **abstraction**, and you've been using it all along.
+
+"Brush my teeth" is the proof. It stands for a dozen small steps, but when you plan your morning you don't list all twelve — you say "brush my teeth" and move on. The name **hides the details** so you can think in bigger steps. Decomposition pries the name open; abstraction is what let you use the name in the first place.
+
+The two are partners: break a job **down** until each piece is doable, then wrap the useful pieces back **up** under names so the big plan stays short. You'll meet abstraction twice more in code — a **function** is a name for a group of steps (Chapter 12), and an **object** like a smart drivetrain is a name for a bundle of parts *and* the things you can tell it to do (Chapter 13). Same idea every time: bundle the small stuff under one trustworthy name.
+
+Read the decomposition tree both ways: top-down is decomposition (split into smaller behaviors); bottom-up is abstraction (a few basic commands become one named behavior, and a few of those become one bigger name). A programmer moves both directions — down to work out the steps, up to name them so the plan stays simple.
+
 ## You and the robot have different jobs
 
 The robot follows your plan **literally**, so the plan must be **complete and in order**. Leave out "stop the motors" and it drives into the wall and keeps pushing; swap two steps and it turns before it moves. The robot won't fix it — that's your job, and the cheapest place to catch gaps is a plain-language plan before any code.
@@ -107,10 +117,11 @@ Don't type the whole plan and hope. Add one behavior, send it to the robot, test
 3. What does a pair of curly braces `{ }` mark in a C++ program?
 4. What is the role of a programmer, and how does it differ from the robot's role?
 5. Write this as pseudocode: "drive forward until the distance sensor reads less than 150 mm, then stop." Which part is the sensing, the deciding, and the acting?
+6. Decomposition breaks a behavior down. What is abstraction, and how is "brush my teeth" an example of it?
 
 ## Key terms
 
-behavior · basic behavior · simple behavior · complex behavior · decomposition · breaking down · program · programmer · pseudocode · syntax · code block · curly braces · sequence · VEX C++ · VEXcode · if · while
+behavior · basic behavior · simple behavior · complex behavior · decomposition · abstraction · building up · breaking down · program · programmer · pseudocode · syntax · code block · curly braces · sequence · VEX C++ · VEXcode · if · while
 
 ## Sources
 
