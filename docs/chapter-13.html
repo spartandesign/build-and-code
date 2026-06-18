@@ -220,6 +220,45 @@ motor armMotor   = motor(PORT3);              <span class="cmt">// the lift / cl
 
       <p>That's the whole shape of teleop: a forever loop that keeps reading the controller and keeps moving the robot to match. Add a dead zone to the drive lines, swap <span class="inl">ButtonR1</span> for another button, or point the arm code at a second motor, and you can drive anything you build.</p>
 
+      <h2>One more step: drive the whole base as one thing</h2>
+      <p>Tank-driving each side by hand is perfect for a <em>driver</em>. But for the precise, run-by-itself moves your Sumo robot will need next chapter — "drive forward exactly 24 inches," "turn to face 90°" — there's a cleaner tool: a <strong>smart drivetrain</strong>. Instead of feeding each motor a stick reading, you bundle the wheels into <em>one</em> object and give it <strong>distances</strong> and <strong>headings</strong>. And because the EXP Brain has a <strong>built-in inertial sensor</strong>, that drivetrain can turn to an <em>exact</em> angle by feel — not by guessing at a timer.</p>
+
+      <p>Three short steps build it: bundle each side into a <span class="inl">motor_group</span>, name the Brain's built-in <span class="inl">inertial</span>, then combine them into a <span class="inl">smartdrive</span>.</p>
+
+      <p class="codetag"><span class="dot">●</span> Setup — once, near the top with your other devices</p>
+<pre class="code"><span class="cmt">// bundle each side: one motor now, but a group is how you'd drive 2-3 later</span>
+motor_group leftSide  = motor_group(leftMotor);
+motor_group rightSide = motor_group(rightMotor);
+
+<span class="cmt">// the EXP Brain's built-in inertial -- the empty () means "the one inside the Brain"</span>
+inertial DriveIMU = inertial();
+
+<span class="cmt">// one object that drives the whole base and knows its heading</span>
+<span class="cmt">// (wheel travel, track width, wheel base -- set these for YOUR robot)</span>
+smartdrive Drivetrain = smartdrive(leftSide, rightSide, DriveIMU,
+                                   319.19, 250, 200, mm, 1);</pre>
+
+      <p>An inertial sensor has to find "level" before it can measure a turn, so <strong>calibrate it once at the very start</strong> of <span class="inl">main()</span> and wait for it to finish — like letting a compass settle before you trust it. (VEXcode adds this step for you behind the scenes; when you write the code yourself, you add it yourself.)</p>
+
+      <p class="codetag"><span class="dot">●</span> Calibrate first — at the top of main(), before you drive</p>
+<pre class="code"><span class="kw">int</span> main() {
+    vexcodeInit();
+
+    DriveIMU.calibrate();                              <span class="cmt">// find level -- hold still!</span>
+    <span class="kw">while</span> (DriveIMU.isCalibrating()) wait(50, msec);   <span class="cmt">// wait until it's ready</span>
+
+    <span class="cmt">// now the base drives by distance and turns by heading:</span>
+    Drivetrain.driveFor(forward, 24, inches);          <span class="cmt">// roll exactly 24 inches</span>
+    Drivetrain.turnToHeading(90, degrees);             <span class="cmt">// turn to face 90 degrees</span>
+}</pre>
+
+      <p>Two new commands do the work: <span class="inl">driveFor</span> rolls a measured distance, and <span class="inl">turnToHeading</span> turns until the inertial reads the heading you asked for. It's the same pair of skills from your Chapter 11 autonomous routine — only now the robot <em>measures the turn itself</em> instead of you timing it. You'll lean on both to build the Sumo auto-hunt in the next chapter.</p>
+
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🏆</span> This is the team's "drive" object, early</p>
+        <p>That one <span class="inl">Drivetrain</span> you command by distance and heading is <em>exactly</em> the idea behind the V5 team's SpartanDrive <span class="inl">drive</span> object. <span class="inl">driveFor(forward, 24, inches)</span> becomes <span class="inl">drive.drive_distance(24)</span>; <span class="inl">turnToHeading(90, degrees)</span> becomes <span class="inl">drive.turn_to_angle(90)</span> — turning to that <em>absolute</em> heading. Same move, new name; the full map is in <a href="appendix-b-exp-to-v5.html">Appendix B: EXP → V5 Team Bridge</a>.</p>
+      </div>
+
       <div class="card card--constraint">
         <p class="card__title"><span class="ic">📐</span> Build constraints (still in force)</p>
         <ul>
@@ -294,7 +333,7 @@ motor armMotor   = motor(PORT3);              <span class="cmt">// the lift / cl
 
       <h2>Key terms</h2>
       <div class="terms">
-        <span class="term">driver control</span><span class="term">teleoperation</span><span class="term">autonomous</span><span class="term">controller</span><span class="term">joystick</span><span class="term">axis</span><span class="term">Axis1–Axis4</span><span class="term">position()</span><span class="term">tank drive</span><span class="term">arcade drive</span><span class="term">dead zone</span><span class="term">button</span><span class="term">pressing()</span><span class="term">ButtonR1</span><span class="term">setVelocity</span><span class="term">spin</span><span class="term">control loop</span><span class="term">while (true)</span><span class="term">human-in-the-loop</span></div>
+        <span class="term">driver control</span><span class="term">teleoperation</span><span class="term">autonomous</span><span class="term">controller</span><span class="term">joystick</span><span class="term">axis</span><span class="term">Axis1–Axis4</span><span class="term">position()</span><span class="term">tank drive</span><span class="term">arcade drive</span><span class="term">dead zone</span><span class="term">button</span><span class="term">pressing()</span><span class="term">ButtonR1</span><span class="term">setVelocity</span><span class="term">spin</span><span class="term">smart drivetrain</span><span class="term">motor_group</span><span class="term">inertial sensor</span><span class="term">calibrate</span><span class="term">driveFor</span><span class="term">turnToHeading</span><span class="term">control loop</span><span class="term">while (true)</span><span class="term">human-in-the-loop</span></div>
 
       <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 4.1 "Remote Controls"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the project (build and program a remote-controlled robot — a forklift or similar — driven with joysticks and buttons) and its conclusion questions (driver control vs. autonomous; what would you automate?) are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The Controller API is verified against the VEX Library: the <span class="inl">controller</span> object, the four axes and <span class="inl">position()</span> (a whole number, −100 to 100), and the buttons' <span class="inl">pressing()</span> (a true/false reading) — a negative axis value with <span class="inl">spin(forward)</span> runs a motor in reverse. Tank drive maps the left stick (<span class="inl">Axis3</span>) to <span class="inl">leftMotor</span> and the right stick (<span class="inl">Axis2</span>) to <span class="inl">rightMotor</span>. The <span class="inl">if</span> / <span class="inl">else if</span> / <span class="inl">else</span> and <span class="inl">while (true)</span> loop are standard C++ carried from Chapter 11; the motor commands and the <span class="inl">leftMotor</span> / <span class="inl">rightMotor</span> setup from Chapter 7.</p>
 

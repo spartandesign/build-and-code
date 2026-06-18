@@ -181,6 +181,37 @@
 
       <p>That's the whole shape of an autonomous strategy from Chapter 11 — a forever loop, a sensor reading, and an <span class="inl">if</span> that decides. It hunts: spin until the Distance Sensor sees something close, then drive forward to push. The hard part it <em>doesn't</em> solve is staying in the ring — for that a robot needs to sense the <strong>edge</strong>, usually with a downward-facing <strong>Optical Sensor</strong> that spots the black border and backs away. That's a great stretch goal, and it's exactly the kind of thing the "what sensors would you need?" question below is asking about.</p>
 
+      <h2>A smarter hunt: reuse your Chapter 13 drivetrain</h2>
+      <p>That first version <em>spins blindly</em> to search and charges <em>open-loop</em> — it works, but it can't aim or measure. You already built something better in Chapter 13: the <strong>smart drivetrain</strong>. Reuse that same <span class="inl">Drivetrain</span> here and the robot can <strong>sweep by an exact angle</strong> to scan the ring and <strong>charge an exact distance</strong> — because the EXP Brain's built-in inertial measures every turn for you.</p>
+
+      <p class="codetag"><span class="dot">●</span> The same drivetrain from Chapter 13 — now hunting</p>
+<pre class="code"><span class="kw">distance</span> frontEye = distance(PORT2);   <span class="cmt">// looks for the opponent</span>
+
+<span class="cmt">// reuse the smart drivetrain you built in Chapter 13:</span>
+<span class="cmt">//   motor_group leftSide / rightSide, inertial DriveIMU = inertial(),</span>
+<span class="cmt">//   smartdrive Drivetrain = smartdrive(leftSide, rightSide, DriveIMU, ...);</span>
+
+<span class="kw">int</span> main() {
+    vexcodeInit();
+    DriveIMU.calibrate();                              <span class="cmt">// find level -- hold still!</span>
+    <span class="kw">while</span> (DriveIMU.isCalibrating()) wait(50, msec);   <span class="cmt">// wait until it's ready</span>
+
+    <span class="kw">while</span> (<span class="kw">true</span>) {
+        <span class="kw">if</span> (frontEye.objectDistance(mm) &lt; 400) {       <span class="cmt">// opponent close ahead?</span>
+            Drivetrain.driveFor(forward, 12, inches);  <span class="cmt">// charge an exact 12 inches</span>
+        } <span class="kw">else</span> {                                   <span class="cmt">// can't see one --</span>
+            Drivetrain.turnToHeading(DriveIMU.heading(degrees) + 30, degrees);  <span class="cmt">// sweep 30 deg, then look again</span>
+        }
+    }
+}</pre>
+
+      <p>It's the very same two commands from Chapter 13 — <span class="inl">turnToHeading</span> to point at an exact angle and <span class="inl">driveFor</span> to roll an exact distance — only now they're doing a job. Adding 30° to the current heading each pass turns that blind spin into a <strong>measured search sweep</strong>; add an <strong>Optical Sensor</strong> that watches for the black border and you'd have the start of a robot that stays in the ring, too.</p>
+
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🏆</span> The team writes this exact hunt</p>
+        <p>On the V5 team this is the SpartanDrive <span class="inl">drive</span> object running an autonomous routine: <span class="inl">Drivetrain.driveFor(forward, 12, inches)</span> becomes <span class="inl">drive.drive_distance(12)</span>, and <span class="inl">Drivetrain.turnToHeading(…)</span> becomes <span class="inl">drive.turn_to_angle(…)</span>. Same hunt, same logic — just the team's names. The full map is in <a href="appendix-b-exp-to-v5.html">Appendix B: EXP → V5 Team Bridge</a>.</p>
+      </div>
+
       <h2>Challenge 2: build your own</h2>
       <p>This one is wide open, and it's the closest thing in the course to being a real engineer. The brief is one sentence: <strong>find a problem, and build a robot to solve it.</strong> It can be autonomous or driver-controlled — your choice. The same constraints apply (kit only, fits the cubby), but everything else is up to your team, including deciding what counts as <strong>success</strong>.</p>
       <p>The trick is choosing a problem that's <strong>real but small enough to actually build</strong>. Some starting points:</p>
@@ -290,7 +321,7 @@
 
       <h2>Key terms</h2>
       <div class="terms">
-        <span class="term">robot sumo</span><span class="term">Honbasho</span><span class="term">ring</span><span class="term">out of bounds</span><span class="term">double elimination</span><span class="term">inspection</span><span class="term">torque</span><span class="term">traction</span><span class="term">center of gravity</span><span class="term">wheelbase</span><span class="term">gear down</span><span class="term">wedge</span><span class="term">autonomous</span><span class="term">driver control</span><span class="term">Distance Sensor</span><span class="term">engineering design process</span><span class="term">criteria</span><span class="term">constraints</span><span class="term">decision matrix</span><span class="term">prototype</span><span class="term">iteration</span></div>
+        <span class="term">robot sumo</span><span class="term">Honbasho</span><span class="term">ring</span><span class="term">out of bounds</span><span class="term">double elimination</span><span class="term">inspection</span><span class="term">torque</span><span class="term">traction</span><span class="term">center of gravity</span><span class="term">wheelbase</span><span class="term">gear down</span><span class="term">wedge</span><span class="term">autonomous</span><span class="term">driver control</span><span class="term">Distance Sensor</span><span class="term">smart drivetrain</span><span class="term">turnToHeading</span><span class="term">driveFor</span><span class="term">engineering design process</span><span class="term">criteria</span><span class="term">constraints</span><span class="term">decision matrix</span><span class="term">prototype</span><span class="term">iteration</span></div>
 
       <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 4.2 "Honbasho: Sumo Competition" and Project 4.3 "Build Your Own"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the two capstone projects — a rules-based robot-sumo tournament and an open-ended "design a robot to solve a problem you choose" build, each run through the full engineering design process with a design brief, decision matrix, prototype, journal, and conclusion questions — are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. Sumo rules are simplified from the official Japanese robot-sumo rules referenced by PLTW. Constraints are adapted to this course's kit-only and IKEA Kallax cubby framing; the 30 cm (12 in) footprint and ~2.3 kg (5 lb) limits follow PLTW's sumo requirements. The autonomous example reuses the verified EXP Distance Sensor API from Chapter 11 (<span class="inl">distance</span> device, <span class="inl">objectDistance(mm)</span>); tank drive and buttons are from Chapter 13; the torque/traction/stable-base ideas are from Chapters 3, 4, and 7.</p>
 

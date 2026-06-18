@@ -38,7 +38,7 @@
 
     <article class="prose wrap">
 
-      <p><strong>On this page:</strong> <a href="#match">a match has two parts</a> · <a href="#robot">the robot</a> · <a href="#drive">the drive</a> · <a href="#driving">driving it</a> · <a href="#where">knowing where it is</a> · <a href="#shape">the program's shape</a> · <a href="#changes">what actually changes</a>.</p>
+      <p><strong>On this page:</strong> <a href="#match">a match has two parts</a> · <a href="#robot">the robot</a> · <a href="#drive">the drive</a> · <a href="#driving">driving it</a> · <a href="#where">knowing where it is</a> · <a href="#shape">the program's shape</a> · <a href="#more">going further</a> · <a href="#changes">what actually changes</a>.</p>
 
       <div class="card card--learn">
         <p class="card__title"><span class="ic">🏁</span> First, what a competition actually feels like</p>
@@ -78,10 +78,14 @@
           <tr><td>Two-stick (tank) driving</td><td>left &amp; right <span class="inl">motor_group</span> from the joysticks</td><td><span class="inl">drive.tank(leftY, rightY)</span></td></tr>
           <tr><td>One-stick (arcade) driving</td><td><span class="inl">Drivetrain.arcade(power, turn)</span></td><td><span class="inl">drive.split_arcade(leftY, rightX)</span></td></tr>
           <tr><td>Drive a set distance</td><td><span class="inl">Drivetrain.driveFor(forward, 24, inches)</span></td><td><span class="inl">drive.drive_distance(24)</span></td></tr>
-          <tr><td>Turn by an angle</td><td><span class="inl">Drivetrain.turnFor(right, 90, degrees)</span></td><td><span class="inl">drive.turn_to_angle(90)</span></td></tr>
-          <tr><td>Turn to face a heading</td><td><span class="inl">Drivetrain.turnToHeading(90, degrees)</span></td><td><span class="inl">drive.turn_to_angle(90)</span></td></tr>
+          <tr><td>Turn to face a heading <em>(absolute)</em></td><td><span class="inl">Drivetrain.turnToHeading(90, degrees)</span></td><td><span class="inl">drive.turn_to_angle(90)</span></td></tr>
+          <tr><td>Turn a set amount from where you're pointing <em>(relative)</em></td><td><span class="inl">Drivetrain.turnFor(right, 90, degrees)</span></td><td><span class="inl">drive.turn_to_angle(drive.heading() + 90)</span></td></tr>
         </tbody>
       </table>
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🧭</span> Absolute vs. relative turns</p>
+        <p>SpartanDrive's <span class="inl">drive.turn_to_angle()</span> is <strong>absolute</strong> — it turns to face a heading, exactly like EXP's <span class="inl">turnToHeading()</span>. To turn a set amount <em>from where you're already pointing</em> (EXP's <span class="inl">turnFor()</span>), add it to your current heading: <span class="inl">drive.turn_to_angle(drive.heading() + 90)</span>.</p>
+      </div>
 
       <h2 id="where">Knowing where it is</h2>
       <p>This is where the built-in inertial sensor pays off — and where V5 reaches a little further.</p>
@@ -104,6 +108,24 @@
           <tr><td>The driver loop — <strong>one</strong> drive call each pass</td><td><span class="inl">while (true) { Drivetrain.arcade(...) }</span></td><td><span class="inl">opcontrol() { ... drive.tank(...) }</span></td></tr>
         </tbody>
       </table>
+
+      <h2 id="more">On the team — going further</h2>
+      <p>You won't reach for these on day one, but here's the rest of the SpartanDrive vocabulary so the map is complete. Each is something a qualifier-squad driver or programmer picks up once the basics feel easy.</p>
+      <table class="dtable">
+        <thead><tr><th>When you want to…</th><th>Team · SpartanDrive</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>Pivot on one side instead of spinning in place</td><td><span class="inl">drive.swing_turn(90, true)</span></td><td>One side drives while the other holds — a wide, sweeping turn.</td></tr>
+          <tr><td>Flow one move smoothly into the next</td><td><span class="inl">drive.drive_distance_chain(24, 3)</span><br><span class="inl">drive.turn_to_angle_chain(90, 5)</span></td><td>Exits the move a little early (still rolling) so an auton doesn't stop-and-go. Use the plain version for the <em>final</em> move.</td></tr>
+          <tr><td>Tell the robot where it starts on the field</td><td><span class="inl">drive.set_pose(...)</span> · <span class="inl">drive.reset_odom()</span></td><td>Sets or zeroes the (x, y) position that odometry tracks from.</td></tr>
+          <tr><td>Drop to raw motor control for a tricky moment</td><td><span class="inl">drive.drive_raw(left, right)</span></td><td>Sends power straight to each side — the escape hatch when a built-in move won't do.</td></tr>
+          <tr><td>Make drives and turns tighter</td><td><span class="inl">drive.set_drive_constants(...)</span><br><span class="inl">drive.set_turn_constants(...)</span></td><td>Tunes the PID gains that decide how hard the robot pushes toward a target.</td></tr>
+          <tr><td>Stop everything / check motor health</td><td><span class="inl">drive.stop()</span> · <span class="inl">drive.hottest_motor_temp()</span></td><td>Halt the drive, or read the hottest motor before it overheats mid-match.</td></tr>
+        </tbody>
+      </table>
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🔌</span> One more, under the hood</p>
+        <p>SpartanDrive can measure distance two ways — from a dedicated tracking wheel (<span class="inl">drive.use_pod_for_distance()</span>, most accurate, no wheel slip) or from the drive motors' own encoders (<span class="inl">drive.use_motor_encoders_for_distance()</span>). On EXP you have the second kind built in; the team usually adds the first.</p>
+      </div>
 
       <h2 id="changes">What actually changes</h2>
       <p>To be straight with you: two things really are different, and pretending otherwise wouldn't help.</p>
