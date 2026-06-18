@@ -76,7 +76,7 @@
         <thead><tr><th>What you want to do</th><th>A&amp;R · VEX EXP (VEXcode)</th><th>Team · SpartanDrive</th></tr></thead>
         <tbody>
           <tr><td>Two-stick (tank) driving</td><td>left &amp; right <span class="inl">motor_group</span> from the joysticks</td><td><span class="inl">drive.tank(leftY, rightY)</span></td></tr>
-          <tr><td>One-stick (arcade) driving</td><td><span class="inl">Drivetrain.arcade(power, turn)</span></td><td><span class="inl">drive.arcade(power, turn)</span></td></tr>
+          <tr><td>One-stick (arcade) driving</td><td><span class="inl">Drivetrain.arcade(power, turn)</span></td><td><span class="inl">drive.split_arcade(leftY, rightX)</span></td></tr>
           <tr><td>Drive a set distance</td><td><span class="inl">Drivetrain.driveFor(forward, 24, inches)</span></td><td><span class="inl">drive.drive_distance(24)</span></td></tr>
           <tr><td>Turn by an angle</td><td><span class="inl">Drivetrain.turnFor(right, 90, degrees)</span></td><td><span class="inl">drive.turn_to_angle(90)</span></td></tr>
           <tr><td>Turn to face a heading</td><td><span class="inl">Drivetrain.turnToHeading(90, degrees)</span></td><td><span class="inl">drive.turn_to_angle(90)</span></td></tr>

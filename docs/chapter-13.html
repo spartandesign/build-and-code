@@ -230,6 +230,7 @@ motor armMotor   = motor(PORT3);              <span class="cmt">// the lift / cl
 
       <div class="card card--note">
         <p class="card__title"><span class="ic">🏆</span> Also on the V5 competition team?</p>
+        <p>The full command-by-command map is in <a href="appendix-b-exp-to-v5.html">Appendix B: EXP → V5 Team Bridge</a>.</p>
         <p>This is the <strong>driver-control period</strong> of a real match. On V5 you wrap this exact code in a <span class="inl">drivercontrol</span> function and register it with the <span class="inl">competition</span> object, so the field switches your robot between the autonomous routine (Chapter 11) and driver control automatically. The controller code is identical — same <span class="inl">Axis3.position()</span>, same <span class="inl">ButtonR1.pressing()</span>. The V5 controller adds a few buttons (Left/Right arrows, X and Y) the EXP doesn't have; browse them in the <a class="ext" href="https://api.vex.com/v5/home/cpp/Controller/index.html" target="_blank" rel="noopener">V5 Controller C++ API</a>.</p>
       </div>
 
