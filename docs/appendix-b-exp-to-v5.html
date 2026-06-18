@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Appendix B · From EXP to the V5 Team — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="B">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">B</div>
+        <div>
+          <p class="chead__eyebrow">Reference · <strong>Your path to the competition team</strong></p>
+          <h1 class="chead__title">From EXP to the V5 Team</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What this is:</strong> a map between what you're building here on <strong>VEX EXP</strong> and what the competition teams run on <strong>VEX V5</strong> with our team's <strong>SpartanDrive</strong> library. This course is the on-ramp: the league squads start here, and the same skills carry into the qualifier squad's competition robots. Almost nothing you've learned has to be thrown away — a few commands get a new name and the place you type your code changes. This page shows the whole correspondence so that when you step onto the team, it already feels familiar.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <p><strong>On this page:</strong> <a href="#match">a match has two parts</a> · <a href="#robot">the robot</a> · <a href="#drive">the drive</a> · <a href="#driving">driving it</a> · <a href="#where">knowing where it is</a> · <a href="#shape">the program's shape</a> · <a href="#changes">what actually changes</a>.</p>
+
+      <div class="card card--learn">
+        <p class="card__title"><span class="ic">🏁</span> First, what a competition actually feels like</p>
+        <p id="match">A VEX match has <strong>two parts</strong>: an <strong>autonomous period</strong>, where the robot runs a routine entirely by itself, and then a <strong>driver-controlled period</strong>, where a driver takes over with the controller. Here's the thing — <em>you already do both of these.</em> Your Sumo robot's auto-hunt routine is autonomous; your tank driving is driver control. The qualifier squad does exactly the same two jobs, on a bigger field, with SpartanDrive. Everything below is just the vocabulary for those two jobs.</p>
+      </div>
+
+      <h2 id="robot">The robot</h2>
+      <p>The hardware is a close family. Same idea, sized up.</p>
+      <table class="dtable">
+        <thead><tr><th>What it is</th><th>A&amp;R · VEX EXP</th><th>Team · VEX V5</th></tr></thead>
+        <tbody>
+          <tr><td>The robot's computer</td><td>EXP Brain — with a <strong>built-in inertial sensor</strong></td><td>V5 Brain — with a built-in IMU</td></tr>
+          <tr><td>The motors</td><td>Smart Motor — fixed 200 RPM</td><td>Smart Motor — swappable speed cartridges</td></tr>
+          <tr><td>The driver's input</td><td>EXP Controller</td><td>V5 Controller</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="drive">The drive — the one big idea</h2>
+      <p>This is the heart of the bridge. On both platforms you stop thinking about one motor at a time and start commanding <em>the whole robot's drive as a single thing</em>.</p>
+      <table class="dtable">
+        <thead><tr><th>The idea</th><th>A&amp;R · VEX EXP</th><th>Team · SpartanDrive</th></tr></thead>
+        <tbody>
+          <tr><td>Bundle the motors on one side so they act as one</td><td><span class="inl">motor_group leftSide = motor_group(...)</span></td><td>the left/right groups SpartanDrive is built from</td></tr>
+          <tr><td>One object that drives the whole robot</td><td>a (smart) <span class="inl">drivetrain</span></td><td>the SpartanDrive <span class="inl">drive</span> object</td></tr>
+        </tbody>
+      </table>
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">🧩</span> Why a "group" of one motor?</p>
+        <p>On your EXP base there's one motor per side, so a motor group looks like overkill. It isn't — it's a <strong>habit for the future</strong>. Competition V5 robots put two or three motors on each side, and the group is how you drive them as one. Learn the habit now on one motor; it scales without changing how you think.</p>
+      </div>
+
+      <h2 id="driving">Driving it</h2>
+      <p>The commands line up almost one-to-one. The EXP name is on the left; the SpartanDrive name your team uses is on the right.</p>
+      <table class="dtable">
+        <thead><tr><th>What you want to do</th><th>A&amp;R · VEX EXP (VEXcode)</th><th>Team · SpartanDrive</th></tr></thead>
+        <tbody>
+          <tr><td>Two-stick (tank) driving</td><td>left &amp; right <span class="inl">motor_group</span> from the joysticks</td><td><span class="inl">drive.tank(leftY, rightY)</span></td></tr>
+          <tr><td>One-stick (arcade) driving</td><td><span class="inl">Drivetrain.arcade(power, turn)</span></td><td><span class="inl">drive.arcade(power, turn)</span></td></tr>
+          <tr><td>Drive a set distance</td><td><span class="inl">Drivetrain.driveFor(forward, 24, inches)</span></td><td><span class="inl">drive.drive_distance(24)</span></td></tr>
+          <tr><td>Turn by an angle</td><td><span class="inl">Drivetrain.turnFor(right, 90, degrees)</span></td><td><span class="inl">drive.turn_to_angle(90)</span></td></tr>
+          <tr><td>Turn to face a heading</td><td><span class="inl">Drivetrain.turnToHeading(90, degrees)</span></td><td><span class="inl">drive.turn_to_angle(90)</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="where">Knowing where it is</h2>
+      <p>This is where the built-in inertial sensor pays off — and where V5 reaches a little further.</p>
+      <table class="dtable">
+        <thead><tr><th>The idea</th><th>A&amp;R · VEX EXP</th><th>Team · SpartanDrive</th></tr></thead>
+        <tbody>
+          <tr><td>Which way am I facing?</td><td>Brain inertial → heading</td><td>V5 IMU → <span class="inl">drive.heading()</span></td></tr>
+          <tr><td>Where am I on the field? <em>(x, y position)</em></td><td>not tracked on EXP</td><td>odometry → <span class="inl">drive.get_pose()</span></td></tr>
+          <tr><td>Get the sensor ready before a match</td><td>inertial calibrates at Brain startup</td><td><span class="inl">drive.calibrate()</span></td></tr>
+        </tbody>
+      </table>
+      <p>The only genuinely new concept on the team is <strong>odometry</strong> — the robot tracking its own (x, y) spot on the field, not just its heading. Everything else you've already met.</p>
+
+      <h2 id="shape">The program's shape</h2>
+      <p>The structure of the program is identical — only the wrappers are named differently.</p>
+      <table class="dtable">
+        <thead><tr><th>The idea</th><th>A&amp;R · VEX EXP</th><th>Team · SpartanDrive</th></tr></thead>
+        <tbody>
+          <tr><td>The run-by-itself routine</td><td>your autonomous Sumo routine</td><td><span class="inl">autonomous()</span></td></tr>
+          <tr><td>The driver loop — <strong>one</strong> drive call each pass</td><td><span class="inl">while (true) { Drivetrain.arcade(...) }</span></td><td><span class="inl">opcontrol() { ... drive.tank(...) }</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="changes">What actually changes</h2>
+      <p>To be straight with you: two things really are different, and pretending otherwise wouldn't help.</p>
+      <table class="dtable">
+        <thead><tr><th></th><th>A&amp;R · VEX EXP</th><th>Team · VEX V5</th></tr></thead>
+        <tbody>
+          <tr><td>Where you write &amp; run code</td><td>VEXcode (VS Code extension) → Download &amp; Run</td><td>PROS — a different editor setup and project layout</td></tr>
+          <tr><td>The C++ language &amp; logic</td><td colspan="2" style="text-align:center"><em>identical — same thinking, same variables, loops, and if/else</em></td></tr>
+        </tbody>
+      </table>
+      <p>So the editor and the build steps are new when you join the team. The <em>way you think</em> — name a device, command the drive, run a loop, sense and decide — does not change at all.</p>
+
+      <div class="card card--constraint">
+        <p class="card__title"><span class="ic">🏆</span> The one line to remember</p>
+        <p><strong>Same C++ thinking, same robot concepts — a handful of methods get renamed and the editor changes when you reach the team.</strong> You're not starting over on V5. You're picking up where this course leaves off. Pull the one-page <a href="handouts/EXP-to-V5-CheatSheet_STUDENT.pdf">EXP → V5 cheat sheet</a> when you make the jump.</p>
+      </div>
+
+      <h2>Sources</h2>
+      <p class="sources">EXP commands verified against the VEXcode <em>VEX EXP C++ API</em> (Motor, Motor Group, Drivetrain, and Inertial Sensor references) and the <a href="https://kb.vex.com/hc/en-us/articles/5578042666260" target="_blank" rel="noopener">VEX EXP Brain inertial sensor</a> documentation. SpartanDrive names match our team's own <em>SpartanDrive reference</em>; method signatures are current as of this writing and may evolve with the library.</p>
+
+    </main>
+  </div>
+
+<script src="nav.js"></script>
+</body>
+</html>

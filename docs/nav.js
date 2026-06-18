@@ -33,6 +33,7 @@ const BOOK = [
   ]},
   { unit: "Reference", chapters: [
     { n: "A", title: "Advanced Mechanisms", file: "appendix-a-mechanisms.html" },
+    { n: "B", title: "EXP → V5 Team Bridge", file: "appendix-b-exp-to-v5.html" },
   ]},
 ];
 
