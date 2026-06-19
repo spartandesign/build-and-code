@@ -128,6 +128,23 @@ leftMotor.stop();                     <span class="cmt">// stop the motor</span>
       </ul>
       <p>There's a shortcut, too: <span class="inl">leftMotor.spinFor(forward, 5, seconds);</span> does the start-wait-stop all in one line. Both are fine — start with the three separate steps, since they map cleanly onto your pseudocode.</p>
 
+      <h2>Wiring the Brain: ports and power</h2>
+      <p>Your code names each device <em>and</em> the <strong>port</strong> it's plugged into — <span class="inl">motor leftMotor = motor(PORT1);</span>. For that to work, the motor really has to be in port 1. So before you download, let's wire the Brain and make the code match what's plugged in.</p>
+      <p>The EXP Brain has two kinds of port, plus one sensor built in:</p>
+      <ul>
+        <li><strong>10 Smart Ports</strong>, <strong>numbered</strong> 1–10 along the top and bottom edges. Smart devices — the <strong>Smart Motor</strong>, the <strong>Distance Sensor</strong>, the <strong>Optical Sensor</strong> — plug in here with a <strong>Smart Cable</strong>. In code they're named by number: <span class="inl">motor(PORT1)</span>, <span class="inl">distance(PORT2)</span>.</li>
+        <li><strong>8 3-Wire Ports</strong>, <strong>lettered</strong> A–H. Simpler devices — the <strong>Bumper Switch</strong>, the <strong>Potentiometer V2</strong> — plug in here. In code they're named by letter: <span class="inl">bumper(Brain.ThreeWirePort.A)</span>.</li>
+        <li>The <strong>Inertial Sensor</strong> is <strong>built into the Brain</strong> — there's no port to plug it into, and it's always available (you'll meet it in Chapter 13).</li>
+      </ul>
+      <img class="cad-dwg" src="cad/exp-brain-ports.svg" alt="A map of the VEX EXP Brain: ten numbered Smart Ports (1–10) along the top and bottom take Smart Cable devices (Smart Motor, Distance, Optical); eight lettered 3-Wire ports (A–H) down the right side take the Bumper Switch and Potentiometer V2; the Inertial Sensor is built in with no port. The rule reads: name each device in code to match the port it is plugged into.">
+      <p>Connecting is mechanical and quick:</p>
+      <ul>
+        <li><strong>Smart devices:</strong> push the Smart Cable firmly into the socket on <em>both</em> the device and the Brain until you hear it <strong>click</strong>. To remove it, press the small <strong>release tab</strong> and pull gently — never yank the wire.</li>
+        <li><strong>3-Wire devices:</strong> the connector is <strong>keyed</strong>, so it only goes in one way. Line it up and push.</li>
+      </ul>
+      <p><strong>Match the code to the ports.</strong> The single most common reason a brand-new program "does nothing" is that the code names one port while the device is plugged into another. Pick a port, plug the device in, and name <em>that exact port</em> in your device list — every time.</p>
+      <p><strong>Power.</strong> A charged <strong>battery</strong> slides into the back of the Brain. Press the <strong>Check (✓) button</strong> to turn the Brain on and the <strong>X button</strong> to turn it off. (The EXP battery and its charger are their own — they don't swap with the V5 team's kit.)</p>
+
       <h2>Getting it onto the robot</h2>
       <p>Writing code doesn't move the robot — you have to <strong>download</strong> it. Here's the loop you'll repeat dozens of times:</p>
       <ol>
@@ -136,6 +153,17 @@ leftMotor.stop();                     <span class="cmt">// stop the motor</span>
         <li><strong>Run.</strong> Press the <strong>Run</strong> button to start it while the robot sits still on the bench. For a program that <em>drives</em>, download it, unplug the cable, and start it from the Brain's screen so the robot can move freely.</li>
       </ol>
       <p>If the build fails, read the first error and check the obvious things: a missing semicolon, a missing <span class="inl">}</span>, or a motor name spelled differently than where you declared it.</p>
+
+      <div class="card card--tip">
+        <p class="card__title"><span class="ic">🔌</span> It downloaded, but nothing moves — check in this order</p>
+        <ol>
+          <li><strong>Cable seated?</strong> Re-push both ends until they click. A half-seated Smart Cable is the most common cause.</li>
+          <li><strong>Right port?</strong> Compare your device list to what's actually plugged in — does the code say <span class="inl">PORT1</span> while the motor sits in port 2? The Brain's <strong>Devices</strong> screen and the <strong>VEX DEVICE INFO</strong> panel in VS Code both list what the Brain currently sees; match them to your code.</li>
+          <li><strong>Powered and charged?</strong> Brain on (Check button), battery not flat.</li>
+          <li><strong>Named in code?</strong> Every device you use needs its line in the device list, spelled the same way you use it.</li>
+          <li><strong>Motor straining?</strong> If it whines but doesn't turn, the load is too heavy — that's a build problem, not a code one (Chapter 3's stall).</li>
+        </ol>
+      </div>
 
       <div class="card card--tip">
         <h3>🎯 Build a little, test a lot</h3>
@@ -193,15 +221,16 @@ leftMotor.stop();                     <span class="cmt">// stop the motor</span>
         <li>What does a <strong>semicolon</strong> mean at the end of a C++ command, and what usually happens if you forget one?</li>
         <li>Write the commands to spin a motor named <span class="inl">armMotor</span> at full speed for 3 seconds, then stop.</li>
         <li>What does the <strong>Download</strong> button do — and why isn't writing code alone enough to move the robot?</li>
+        <li>Your code says <span class="inl">motor(PORT1)</span> but the motor is plugged into port 3, and the program "does nothing" when you run it. What's wrong, and what two things could you check to see which port the Brain actually detects the motor in?</li>
         <li>You wrote <span class="inl">spin</span> and <span class="inl">wait(3, seconds)</span> but left out <span class="inl">stop</span>. What will the motor do, and why?</li>
         <li>Why is it better to write and test one command at a time than to type the whole program first? Connect your answer to the test loop in the diagram.</li>
       </ol>
 
       <h2>Key terms</h2>
       <div class="terms">
-        <span class="term">C++</span><span class="term">VS Code</span><span class="term">VEX extension</span><span class="term">project</span><span class="term">#include</span><span class="term">device list</span><span class="term">int main()</span><span class="term">vexcodeInit()</span><span class="term">command</span><span class="term">semicolon</span><span class="term">setVelocity</span><span class="term">spin</span><span class="term">wait</span><span class="term">stop</span><span class="term">percent</span><span class="term">forward / reverse</span><span class="term">build</span><span class="term">download</span><span class="term">run</span><span class="term">Smart Port</span></div>
+        <span class="term">C++</span><span class="term">VS Code</span><span class="term">VEX extension</span><span class="term">project</span><span class="term">#include</span><span class="term">device list</span><span class="term">int main()</span><span class="term">vexcodeInit()</span><span class="term">command</span><span class="term">semicolon</span><span class="term">setVelocity</span><span class="term">spin</span><span class="term">wait</span><span class="term">stop</span><span class="term">percent</span><span class="term">forward / reverse</span><span class="term">build</span><span class="term">download</span><span class="term">run</span><span class="term">Smart Port</span><span class="term">3-Wire port</span><span class="term">Smart Cable</span><span class="term">port</span><span class="term">Check button</span><span class="term">battery</span></div>
 
-      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Activity 3.3 "Using ROBOTC" / VEX testbed programming; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the testbed programming progression (run a motor at a set speed for a set time, then add a second motor and reverse, then add sensors) is from the PLTW Gateway curriculum — modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The toolchain workflow (installing the VEX extension, creating an EXP project, and the Build / Download / Run steps over USB-C) is verified against the VEX Library (Creating VS Code Projects for EXP; Downloading and Running an EXP Project in VS Code; Installing the VEX Extension in VS Code). The C++ program structure (<span class="inl">#include "vex.h"</span>, <span class="inl">using namespace vex;</span>, <span class="inl">int main()</span> with <span class="inl">vexcodeInit()</span>) and the motor commands (<span class="inl">setVelocity</span> in percent, <span class="inl">spin</span>, <span class="inl">spinFor</span>, <span class="inl">wait</span>, <span class="inl">stop</span>, and the <span class="inl">motor(PORT1)</span> declaration whose gearing defaults automatically) are verified against the VEXcode EXP C++ API. The fixed-speed EXP Smart Motor carries over from Chapter 3.</p>
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Activity 3.3 "Using ROBOTC" / VEX testbed programming; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the testbed programming progression (run a motor at a set speed for a set time, then add a second motor and reverse, then add sensors) is from the PLTW Gateway curriculum — modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The toolchain workflow (installing the VEX extension, creating an EXP project, and the Build / Download / Run steps over USB-C) is verified against the VEX Library (Creating VS Code Projects for EXP; Downloading and Running an EXP Project in VS Code; Installing the VEX Extension in VS Code). The C++ program structure (<span class="inl">#include "vex.h"</span>, <span class="inl">using namespace vex;</span>, <span class="inl">int main()</span> with <span class="inl">vexcodeInit()</span>) and the motor commands (<span class="inl">setVelocity</span> in percent, <span class="inl">spin</span>, <span class="inl">spinFor</span>, <span class="inl">wait</span>, <span class="inl">stop</span>, and the <span class="inl">motor(PORT1)</span> declaration whose gearing defaults automatically) are verified against the VEXcode EXP C++ API. The fixed-speed EXP Smart Motor carries over from Chapter 3. The Brain's port layout (10 numbered Smart Ports, 8 lettered 3-Wire ports A–H, and a built-in Inertial Sensor), how Smart Cables seat and release, and powering on/off with the Check and X buttons are verified against the VEX Library (Connecting Devices to Smart Ports on the EXP Brain; Powering the EXP Brain On and Off) and the EXP Brain product documentation; the "won't respond" checks draw on Troubleshooting VEX EXP Sensors and the VS Code DEVICE INFO panel.</p>
 
     </article>
 

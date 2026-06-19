@@ -75,7 +75,15 @@
       </figure>
 
       <h2>Meet the controller</h2>
-      <p>The VEX controller is a gamepad with two <strong>joysticks</strong> and a set of <strong>buttons</strong>. In your code it's a device you name once, just like a motor:</p>
+      <p>The VEX controller is a gamepad with two <strong>joysticks</strong> and a set of <strong>buttons</strong>. But before it can drive anything, two quick setup steps.</p>
+
+      <h3>First: charge it and pair it</h3>
+      <ul>
+        <li><strong>Charge it.</strong> The controller has its own battery; charge it through its USB port until the charge light reads full. Charge the <strong>Brain's</strong> battery too — a low battery is a common reason a robot turns sluggish or quits mid-run.</li>
+        <li><strong>Pair it to the Brain.</strong> The EXP controller talks to the Brain <strong>wirelessly</strong>. Turn on the Brain (Check button) and the controller (its Power button), then on the <strong>Brain's screen</strong> go to <strong>Settings → Link</strong> and follow the prompt. When they connect, the Brain's light and the controller's <strong>Power/Link</strong> light both blink <strong>green</strong> — and they stay paired after that, even through a power cycle, so you only do this once.</li>
+      </ul>
+
+      <p>Once it's paired, the controller is a device you name once in your code, just like a motor:</p>
 
       <p class="codetag"><span class="dot">●</span> Naming the controller and your motors</p>
 <pre class="code">controller Controller = controller();        <span class="cmt">// the EXP controller</span>
@@ -284,6 +292,11 @@ smartdrive Drivetrain = smartdrive(leftSide, rightSide, DriveIMU,
         </ul>
       </div>
 
+      <div class="card card--tip">
+        <h3>🧵 Keep your wiring tidy</h3>
+        <p>A driving robot with a moving arm is exactly where a loose cable gets snagged or yanked out mid-run. Three habits prevent it: <strong>seat every cable fully</strong> (feel the Smart Cable click); <strong>route wires along the structure and away from joints</strong>, gears, and wheels so nothing pinches or catches them; and <strong>secure the slack</strong> with a twist tie, leaving just enough give for parts that move. Tidy wiring isn't about looks — a popped cable looks exactly like a code bug, and you'll waste your time chasing the wrong thing.</p>
+      </div>
+
       <div class="card card--note">
         <p class="card__title"><span class="ic">🏆</span> Also on the V5 competition team?</p>
         <p>The full command-by-command map is in <a href="appendix-b-exp-to-v5.html">Appendix B: EXP → V5 Team Bridge</a>.</p>
@@ -346,13 +359,14 @@ smartdrive Drivetrain = smartdrive(leftSide, rightSide, DriveIMU,
         <li>What is a <strong>dead zone</strong>, and why does a driver-control program need one?</li>
         <li>What does <span class="inl">.pressing()</span> return? Write the <span class="inl">if</span> / <span class="inl">else if</span> / <span class="inl">else</span> that raises a fork while R1 is held, lowers it while R2 is held, and holds it still otherwise.</li>
         <li>Driver control and autonomous each have strengths. Give one task you'd rather <strong>drive</strong> by hand and one you'd rather let the robot do <strong>automatically</strong>, and say why.</li>
+        <li>Your controller won't drive the robot. Walk through how you'd get it working: how do you <strong>pair</strong> an EXP controller to the Brain, how can you tell they're connected, and what's one battery-related reason a robot goes sluggish mid-run?</li>
       </ol>
 
       <h2>Key terms</h2>
       <div class="terms">
-        <span class="term">driver control</span><span class="term">teleoperation</span><span class="term">autonomous</span><span class="term">controller</span><span class="term">joystick</span><span class="term">axis</span><span class="term">Axis1–Axis4</span><span class="term">position()</span><span class="term">tank drive</span><span class="term">arcade drive</span><span class="term">dead zone</span><span class="term">button</span><span class="term">pressing()</span><span class="term">ButtonR1</span><span class="term">setVelocity</span><span class="term">spin</span><span class="term">abstraction</span><span class="term">object</span><span class="term">smart drivetrain</span><span class="term">motor_group</span><span class="term">wheel travel</span><span class="term">track width</span><span class="term">wheel base</span><span class="term">inertial sensor</span><span class="term">calibrate</span><span class="term">driveFor</span><span class="term">turnToHeading</span><span class="term">control loop</span><span class="term">while (true)</span><span class="term">human-in-the-loop</span></div>
+        <span class="term">driver control</span><span class="term">teleoperation</span><span class="term">autonomous</span><span class="term">controller</span><span class="term">pair</span><span class="term">Link</span><span class="term">charge</span><span class="term">joystick</span><span class="term">axis</span><span class="term">Axis1–Axis4</span><span class="term">position()</span><span class="term">tank drive</span><span class="term">arcade drive</span><span class="term">dead zone</span><span class="term">button</span><span class="term">pressing()</span><span class="term">ButtonR1</span><span class="term">setVelocity</span><span class="term">spin</span><span class="term">abstraction</span><span class="term">object</span><span class="term">smart drivetrain</span><span class="term">motor_group</span><span class="term">wheel travel</span><span class="term">track width</span><span class="term">wheel base</span><span class="term">inertial sensor</span><span class="term">calibrate</span><span class="term">driveFor</span><span class="term">turnToHeading</span><span class="term">control loop</span><span class="term">while (true)</span><span class="term">human-in-the-loop</span></div>
 
-      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 4.1 "Remote Controls"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the project (build and program a remote-controlled robot — a forklift or similar — driven with joysticks and buttons) and its conclusion questions (driver control vs. autonomous; what would you automate?) are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The Controller API is verified against the VEX Library: the <span class="inl">controller</span> object, the four axes and <span class="inl">position()</span> (a whole number, −100 to 100), and the buttons' <span class="inl">pressing()</span> (a true/false reading) — a negative axis value with <span class="inl">spin(forward)</span> runs a motor in reverse. Tank drive maps the left stick (<span class="inl">Axis3</span>) to <span class="inl">leftMotor</span> and the right stick (<span class="inl">Axis2</span>) to <span class="inl">rightMotor</span>. The <span class="inl">if</span> / <span class="inl">else if</span> / <span class="inl">else</span> and <span class="inl">while (true)</span> loop are standard C++ carried from Chapter 11; the motor commands and the <span class="inl">leftMotor</span> / <span class="inl">rightMotor</span> setup from Chapter 7.</p>
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 4.1 "Remote Controls"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the project (build and program a remote-controlled robot — a forklift or similar — driven with joysticks and buttons) and its conclusion questions (driver control vs. autonomous; what would you automate?) are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The Controller API is verified against the VEX Library: the <span class="inl">controller</span> object, the four axes and <span class="inl">position()</span> (a whole number, −100 to 100), and the buttons' <span class="inl">pressing()</span> (a true/false reading) — a negative axis value with <span class="inl">spin(forward)</span> runs a motor in reverse. Tank drive maps the left stick (<span class="inl">Axis3</span>) to <span class="inl">leftMotor</span> and the right stick (<span class="inl">Axis2</span>) to <span class="inl">rightMotor</span>. The <span class="inl">if</span> / <span class="inl">else if</span> / <span class="inl">else</span> and <span class="inl">while (true)</span> loop are standard C++ carried from Chapter 11; the motor commands and the <span class="inl">leftMotor</span> / <span class="inl">rightMotor</span> setup from Chapter 7. Charging the controller and Brain battery and wirelessly pairing the controller to the Brain (Settings → Link, both lights blinking green, pairing retained across power cycles) are verified against the VEX Library (Using the Controller with VEX EXP; Wirelessly Pairing an EXP Controller to an EXP Brain; Charging the EXP Controller / Battery).</p>
 
     </article>
 

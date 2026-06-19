@@ -124,6 +124,75 @@ bumper startButton = bumper(Brain.ThreeWirePort.A);   <span class="cmt">// a Bum
         <p><span class="inl">while (true)</span> looks strange the first time — a loop that never ends. But that's exactly what an automatic machine needs: it should keep sensing and responding the entire time it's powered on. The loop is the heart of automation. Just remember the <span class="inl">wait(20, msec)</span> at the bottom so the Brain isn't checking a million times a second, and make sure something <em>inside</em> the loop can change — otherwise the robot will do the same thing forever.</p>
       </div>
 
+      <h2>Going further: a sensor that reports an angle</h2>
+      <p>The bumper gives a yes/no, and the Distance Sensor gives millimeters to an object. But what if you need to know <em>how far a shaft has turned</em> — the angle of a robot arm, a dial, or a steering column? That takes a different sensor and one new programming tool: a place to <strong>store a value</strong>.</p>
+
+      <h3>Storing a value: variables</h3>
+      <p>A <strong>variable</strong> is a named box that holds a value you can read, use in math, and change later. You make one by giving its <strong>type</strong> and a name:</p>
+      <p class="codetag"><span class="dot">●</span> Three variables</p>
+<pre class="code"><span class="kw">int</span> count = 0;          <span class="cmt">// a whole number</span>
+<span class="kw">double</span> home = 0;         <span class="cmt">// a number with decimals</span>
+<span class="kw">bool</span> running = <span class="kw">false</span>;    <span class="cmt">// true or false</span></pre>
+      <p>Once a variable exists you can update it — <span class="inl">count = count + 1;</span> adds one — or read it inside an <span class="inl">if</span>. Variables let you <strong>save a sensor reading and reuse it</strong>, keep a running total, or remember something from one loop pass to the next. (You've already met the idea: the <span class="inl">bool running</span> latch in Pattern D below is a variable.)</p>
+
+      <h3>A sensor that measures rotation: the Potentiometer</h3>
+      <p>The <strong>Potentiometer V2</strong> measures the angle of the shaft it's mounted on — anywhere from 0 to about <strong>330°</strong>. It plugs into a lettered <strong>3-Wire port</strong> like the bumper, and you read it as a decimal angle:</p>
+      <p class="codetag"><span class="dot">●</span> Name it in the device list, then read it</p>
+<pre class="code"><span class="cmt">// in the device list, above main:</span>
+potV2 armPot = potV2(Brain.ThreeWirePort.A);
+
+<span class="cmt">// later, read the angle into a double:</span>
+<span class="kw">double</span> raw = armPot.angle(degrees);  <span class="cmt">// 0 to ~330</span></pre>
+      <p>Unlike the bumper (pressed or not) or the Distance Sensor (millimeters to an object), the potentiometer reports a <strong>rotation</strong> — exactly what you want for an arm or a dial. It even keeps its reading after the Brain restarts, because the value follows the shaft's physical position.</p>
+
+      <h3>Where's zero? Calibration</h3>
+      <p>Here's the catch: the potentiometer's zero is wherever it happened to be <strong>mounted</strong> — the sensor even has slots that let you nudge it up to 90° by hand. So a raw reading of 145° doesn't mean "the arm is 145° above level"; it means "the shaft is 145° from the sensor's own internal zero," which is arbitrary.</p>
+      <p>To make the number mean something, you <strong>calibrate</strong>: at startup, hold the arm at a known <strong>home</strong> position, read the potentiometer, and store that reading in a variable — the <strong>baseline</strong>. From then on, <span class="inl">raw − baseline</span> is the arm's angle measured <em>from home</em>. It's the same idea as the inertial sensor's calibrate step in Chapter 13 — find your zero at startup — but here you do it yourself, with a variable. (And like the inertial, VEXcode's Device menu adds the sensor for you; in VS Code you write the constructor line yourself.)</p>
+      <img class="cad-dwg" src="cad/pot-calibration.svg" alt="An arm pivots on a Potentiometer V2. A dashed line marks the home position (the baseline). The solid arm is raised, and the angle between home and the arm is labeled angle from home. A rule states that you capture the raw reading once at home as the baseline, then the arm's angle from home equals the raw reading minus the baseline, because the sensor's own zero is wherever it was mounted.">
+
+      <h3>Repeat a set number of times: the for loop</h3>
+      <p>One analog reading can jitter by a degree or two, so for a steady baseline you take several readings and <strong>average</strong> them. That needs a loop that runs a <strong>fixed number of times</strong> — a <span class="inl">for</span> loop. It starts a counter, keeps going while the counter is below a limit, and steps the counter each pass:</p>
+      <p class="codetag"><span class="dot">●</span> Calibrate: average 20 readings at home</p>
+<pre class="code"><span class="kw">double</span> sum = 0;
+<span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; 20; i = i + 1) {
+    sum = sum + armPot.angle(degrees);
+    wait(5, msec);
+}
+<span class="kw">double</span> home = sum / 20;          <span class="cmt">// the baseline</span></pre>
+      <p>(<span class="inl">i = i + 1</span> just adds one to the counter each pass; you'll also see it written <span class="inl">i++</span>.) Now you know <strong>two kinds of loop</strong>: <span class="inl">while (true)</span> repeats <em>forever</em> — keep sensing and reacting — while a <span class="inl">for</span> loop repeats a <em>set number of times</em>, then moves on.</p>
+
+      <h3>Putting it together</h3>
+      <p>Calibrate once at the top of <span class="inl">main()</span>, then read the calibrated angle in your <span class="inl">while (true)</span> loop and act on it — for example, raise an arm until it passes 90° from home, then hold:</p>
+      <p class="codetag"><span class="dot">●</span> Raise the arm to 90° from home, then hold</p>
+<pre class="code"><span class="kw">int</span> main() {
+    vexcodeInit();
+
+    <span class="cmt">// calibrate: average 20 readings at home</span>
+    <span class="kw">double</span> sum = 0;
+    <span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; 20; i = i + 1) {
+        sum = sum + armPot.angle(degrees);
+        wait(5, msec);
+    }
+    <span class="kw">double</span> home = sum / 20;
+
+    armMotor.setStopping(hold);
+    <span class="kw">while</span> (<span class="kw">true</span>) {
+        <span class="kw">double</span> angle = armPot.angle(degrees) - home;
+        <span class="kw">if</span> (angle &lt; 90) {     <span class="cmt">// not high enough yet</span>
+            armMotor.spin(forward);
+        } <span class="kw">else</span> {
+            armMotor.stop();
+        }
+        wait(20, msec);
+    }
+}</pre>
+      <p>That's a real control system: it senses an angle, compares it to a calibrated target, and acts — the Chapter 8 loop again, now with a sensor that reports <em>how much</em>, not just <em>whether</em>. A classic challenge: make the arm stop and hold at three different heights, one per controller button.</p>
+
+      <div class="card card--tip">
+        <h3>🎯 Raw vs. calibrated</h3>
+        <p>Always subtract your baseline before you trust a potentiometer number. The raw angle answers "where is the shaft in the sensor's own terms"; <span class="inl">raw − home</span> answers "where is the arm, measured from where I started" — and that's the value your <span class="inl">if</span> conditions should use. Re-calibrate whenever you remount the sensor.</p>
+      </div>
+
       <div class="card card--constraint">
         <p class="card__title"><span class="ic">📐</span> Build constraints (still in force)</p>
         <ul>
@@ -144,6 +213,7 @@ bumper startButton = bumper(Brain.ThreeWirePort.A);   <span class="cmt">// a Bum
           <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415763007380-Using-Distance-Sensor-with-VEX-EXP" target="_blank" rel="noopener">Using the Distance Sensor with VEX EXP</a> — the proximity reading (<span class="inl">objectDistance</span>) at the center of most automatic behaviors.</li>
           <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415784141716-Using-Bumper-Switch-with-VEX-EXP" target="_blank" rel="noopener">Using the Bumper Switch with VEX EXP</a> — the simple pressed/not-pressed switch, wired to a 3-Wire port.</li>
           <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/4415762989332-Using-Optical-Sensor-with-VEX-EXP" target="_blank" rel="noopener">Using the Optical Sensor with VEX EXP</a> — detect a color or a nearby object, another input option for your device.</li>
+          <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/36994045337748-Using-the-Potentiometer-V2-with-VEX-EXP" target="_blank" rel="noopener">Using the Potentiometer V2 with VEX EXP</a> — the angle reading (<span class="inl">angle(degrees)</span>) for arms and dials, wired to a 3-Wire port.</li>
           <li><a class="ext" href="https://api.vex.com/exp/home/cpp/Motors_and_MotorControllers/motor_and_motor_group.html" target="_blank" rel="noopener">Motor and Motor Group — VEX EXP C++ API</a> — the motor commands your <span class="inl">if</span> blocks will call.</li>
         </ul>
       </div>
@@ -272,15 +342,17 @@ liftMotor.stop();                         <span class="cmt">// reached the top -
         <li>What does a <strong>sensor</strong> give your program? Give the reading you'd get from a Distance Sensor and from a Bumper Switch.</li>
         <li>What does an <span class="inl">if / else</span> statement do? What is the "condition," and where does it go?</li>
         <li>Why does an automatic device need a <span class="inl">while (true)</span> loop instead of a single <span class="inl">if</span>?</li>
+        <li>A Potentiometer V2 on a robot arm reads <span class="inl">160</span> when the arm is parked at its home position. Why can't you just say "the arm is at 160°," and what do you store in a <strong>variable</strong> to fix it? Once you have it, how do you get the arm's angle <em>from home</em>?</li>
+        <li>You know two kinds of loop now. When would you use a <span class="inl">for</span> loop instead of <span class="inl">while (true)</span>? Give one example from this chapter.</li>
         <li>Write the sense–decide–act idea in pseudocode for this device: <em>"a night-light motor turns a lamp on when the room is dark."</em> Name the sensor reading, the decision, and the action.</li>
         <li>For <strong>your</strong> project: which sensor did you choose, and what condition (the question your <span class="inl">if</span> asks) makes it respond correctly?</li>
       </ol>
 
       <h2>Key terms</h2>
       <div class="terms">
-        <span class="term">automation</span><span class="term">open loop</span><span class="term">closed loop</span><span class="term">sensor</span><span class="term">input</span><span class="term">Distance Sensor</span><span class="term">Bumper Switch</span><span class="term">objectDistance</span><span class="term">pressing()</span><span class="term">condition</span><span class="term">if</span><span class="term">else</span><span class="term">else if</span><span class="term">comparison</span><span class="term">while loop</span><span class="term">while (true)</span><span class="term">setStopping(hold)</span><span class="term">spinToPosition</span><span class="term">latch</span><span class="term">state</span><span class="term">bool</span><span class="term">3-Wire port</span><span class="term">Smart Port</span><span class="term">design process</span><span class="term">decision matrix</span></div>
+        <span class="term">automation</span><span class="term">open loop</span><span class="term">closed loop</span><span class="term">sensor</span><span class="term">input</span><span class="term">Distance Sensor</span><span class="term">Bumper Switch</span><span class="term">objectDistance</span><span class="term">pressing()</span><span class="term">condition</span><span class="term">if</span><span class="term">else</span><span class="term">else if</span><span class="term">comparison</span><span class="term">variable</span><span class="term">int</span><span class="term">double</span><span class="term">Potentiometer V2</span><span class="term">angle()</span><span class="term">calibration</span><span class="term">baseline</span><span class="term">for loop</span><span class="term">while loop</span><span class="term">while (true)</span><span class="term">setStopping(hold)</span><span class="term">spinToPosition</span><span class="term">latch</span><span class="term">state</span><span class="term">bool</span><span class="term">3-Wire port</span><span class="term">Smart Port</span><span class="term">design process</span><span class="term">decision matrix</span></div>
 
-      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 3.4 "Automation Through Programming"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the project (design, build, and program an automatic device — toll booth, traffic signal, elevator, spinning sign, and the like — as a team, using the engineering design process) and its conclusion questions (which sensors? open or closed loop?) are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The control structures (<span class="inl">if</span> / <span class="inl">else if</span> / <span class="inl">else</span> and <span class="inl">while (true)</span>) are standard C++; the sensor commands are verified against the VEX Library — the Distance Sensor's <span class="inl">objectDistance(mm)</span> and the Bumper Switch's <span class="inl">pressing()</span> (a 3-Wire device named on <span class="inl">Brain.ThreeWirePort</span>). The open-loop / closed-loop framing and the sense → decide → act loop carry over from Chapter 8; the motor commands from Chapter 10.</p>
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 3.4 "Automation Through Programming"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the project (design, build, and program an automatic device — toll booth, traffic signal, elevator, spinning sign, and the like — as a team, using the engineering design process) and its conclusion questions (which sensors? open or closed loop?) are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The control structures (<span class="inl">if</span> / <span class="inl">else if</span> / <span class="inl">else</span> and <span class="inl">while (true)</span>) are standard C++; the sensor commands are verified against the VEX Library — the Distance Sensor's <span class="inl">objectDistance(mm)</span> and the Bumper Switch's <span class="inl">pressing()</span> (a 3-Wire device named on <span class="inl">Brain.ThreeWirePort</span>). The open-loop / closed-loop framing and the sense → decide → act loop carry over from Chapter 8; the motor commands from Chapter 10. The Potentiometer V2 (<span class="inl">potV2</span>, read with <span class="inl">angle(degrees)</span> over a 3-Wire port, 0 to about 330°) is verified against the VEX Library and the VEXcode EXP C++ API; <span class="inl">int</span> / <span class="inl">double</span> variables and the <span class="inl">for</span> loop are standard C++. The calibrate-with-a-baseline pattern mirrors the inertial calibration in Chapter 13.</p>
 
     </article>
 

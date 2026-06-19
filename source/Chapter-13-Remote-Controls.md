@@ -12,7 +12,13 @@ A competition robot runs **autonomously** for part of a match (the Ch11 program 
 
 ## Meet the controller
 
-The VEX controller has two **joysticks** and a set of **buttons**. Name it once, like a motor:
+The VEX controller has two **joysticks** and a set of **buttons**. But before it can drive anything, two quick setup steps.
+
+**First: charge it and pair it.**
+- **Charge it.** The controller has its own battery; charge it through its USB port until the charge light reads full. Charge the **Brain's** battery too — a low battery is a common reason a robot turns sluggish or quits mid-run.
+- **Pair it to the Brain.** The EXP controller talks to the Brain **wirelessly**. Turn on the Brain (Check button) and the controller (its Power button), then on the **Brain's screen** go to **Settings → Link** and follow the prompt. When they connect, the Brain's light and the controller's **Power/Link** light both blink **green** — and they stay paired through a power cycle, so you only do this once.
+
+Once it's paired, name the controller once in your code, like a motor:
 
 ```cpp
 controller Controller = controller();        // the EXP controller
@@ -112,6 +118,8 @@ That's teleop: a forever loop that keeps reading the controller and moving the r
 - Build from the **PLTW Gateway kit** only (bundled motors/controller fair game; the competition team's V5 parts off-limits).
 - The robot must fit one **IKEA Kallax cubby** — a 33 × 33 cm (13 × 13 in) opening, ~38 cm (15 in) deep. The 33 × 33 face is the limit.
 
+**Keep your wiring tidy.** A driving robot with a moving arm is where a loose cable gets snagged or yanked out mid-run. Three habits: seat every cable fully (feel the Smart Cable click); route wires along the structure, away from joints, gears, and wheels; and secure the slack with a twist tie. A popped cable looks exactly like a code bug — tidy wiring saves you from chasing the wrong one.
+
 ## Also on the V5 competition team?
 
 This is the **driver-control period** of a match. On V5 you wrap this code in a `drivercontrol` function registered with the `competition` object, and the field switches the robot between autonomous (Ch11) and driver control. The controller code is identical — same `Axis3.position()`, same `ButtonR1.pressing()` — the V5 controller just adds a few buttons (Left/Right, X, Y) the EXP lacks (V5 Controller API: api.vex.com/v5).
@@ -158,10 +166,11 @@ Work as a team with shared, rotating jobs (build / wiring / code). Use the **des
 4. What is a dead zone, and why does driver control need one?
 5. What does `.pressing()` return? Write the `if`/`else if`/`else` that raises a fork while R1 is held, lowers it while R2 is held, and holds otherwise.
 6. Give one task you'd rather drive by hand and one you'd rather automate, and say why.
+7. Your controller won't drive the robot. How do you **pair** an EXP controller to the Brain, how can you tell they're connected, and what's one battery-related reason a robot goes sluggish mid-run?
 
 ## Key terms
 
-driver control · teleoperation · autonomous · controller · joystick · axis · Axis1–Axis4 · position() · tank drive · arcade drive · dead zone · button · pressing() · ButtonR1 · setVelocity · spin · control loop · while (true) · human-in-the-loop
+driver control · teleoperation · autonomous · controller · pair · Link · charge · joystick · axis · Axis1–Axis4 · position() · tank drive · arcade drive · dead zone · button · pressing() · ButtonR1 · setVelocity · spin · control loop · while (true) · human-in-the-loop
 
 ## Sources
 

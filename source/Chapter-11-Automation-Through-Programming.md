@@ -63,6 +63,78 @@ Read it as the diagram: sense (read frontEye), decide (the if), act (stop/spin),
 
 **"true" forever, on purpose:** an automatic machine should keep sensing and responding the whole time it's on. Keep the `wait(20, msec)`, and make sure something *inside* the loop can change.
 
+## Going further: a sensor that reports an angle
+
+The bumper gives a yes/no, and the Distance Sensor gives millimeters to an object. But to know *how far a shaft has turned* — a robot arm, a dial, a steering column — you need a different sensor and one new tool: a place to **store a value**.
+
+**Storing a value: variables.** A **variable** is a named box that holds a value you can read, use in math, and change later. Give it a **type** and a name:
+
+```cpp
+int count = 0;          // a whole number
+double home = 0;        // a number with decimals
+bool running = false;   // true or false
+```
+
+Update it (`count = count + 1;`) or read it inside an `if`. Variables let you **save a sensor reading and reuse it**, keep a running total, or remember something between loop passes. (The `bool running` latch in Pattern D is a variable.)
+
+**A sensor that measures rotation: the Potentiometer.** The **Potentiometer V2** measures the angle of the shaft it's mounted on, 0 to about **330°**. It plugs into a lettered **3-Wire port** like the bumper, and you read it as a decimal angle:
+
+```cpp
+// in the device list, above main:
+potV2 armPot = potV2(Brain.ThreeWirePort.A);
+
+// later, read the angle into a double:
+double raw = armPot.angle(degrees);  // 0 to ~330
+```
+
+Unlike the bumper (pressed or not) or the Distance Sensor (mm to an object), it reports a **rotation** — perfect for an arm or dial. It even keeps its reading after the Brain restarts, because the value follows the shaft's physical position.
+
+**Where's zero? Calibration.** The potentiometer's zero is wherever it was **mounted** — the sensor even has slots to nudge it up to 90° by hand. So a raw reading of 145° doesn't mean "the arm is 145° above level"; it means "145° from the sensor's own internal zero," which is arbitrary. To make it mean something, **calibrate**: at startup, hold the arm at a known **home** position, read the potentiometer, and store it in a variable — the **baseline**. Then `raw − baseline` is the arm's angle *from home*. Same idea as the inertial's calibrate step in Chapter 13 (find your zero at startup), but here you do it yourself, with a variable.
+
+*(Diagram: an arm pivoting on a potentiometer; dashed home line = baseline; the angle from home = raw − baseline.)*
+
+**Repeat a set number of times: the for loop.** One analog reading jitters, so for a steady baseline you **average** several. That needs a loop that runs a **fixed number of times** — a `for` loop. It starts a counter, runs while it's below a limit, and steps it each pass:
+
+```cpp
+double sum = 0;
+for (int i = 0; i < 20; i = i + 1) {
+    sum = sum + armPot.angle(degrees);
+    wait(5, msec);
+}
+double home = sum / 20;          // the baseline
+```
+
+(`i = i + 1` adds one each pass; also written `i++`.) Now you know **two kinds of loop**: `while (true)` repeats *forever* (keep reacting); a `for` loop repeats a *set number of times*, then moves on.
+
+**Putting it together.** Calibrate once at the top of `main()`, then read the calibrated angle in your `while (true)` loop and act:
+
+```cpp
+int main() {
+    vexcodeInit();
+
+    // calibrate: average 20 readings at home
+    double sum = 0;
+    for (int i = 0; i < 20; i = i + 1) {
+        sum = sum + armPot.angle(degrees);
+        wait(5, msec);
+    }
+    double home = sum / 20;
+
+    armMotor.setStopping(hold);
+    while (true) {
+        double angle = armPot.angle(degrees) - home;
+        if (angle < 90) {     // not high enough yet
+            armMotor.spin(forward);
+        } else {
+            armMotor.stop();
+        }
+        wait(20, msec);
+    }
+}
+```
+
+It senses an angle, compares it to a calibrated target, and acts — the Chapter 8 loop, now with a sensor that reports *how much*, not just *whether*. Classic challenge: hold the arm at three different heights, one per controller button. Always subtract your baseline before trusting a potentiometer number, and re-calibrate whenever you remount the sensor.
+
 ## Build constraints (still in force)
 
 - Build from the **PLTW Gateway kit** only (its bundled motor/sensors are fair game; the competition team's V5 parts are off-limits).
@@ -114,13 +186,15 @@ Work as a small team with shared jobs (build / wiring / code) and rotate. Use th
 2. What does a sensor give your program? Give the reading from a Distance Sensor and from a Bumper Switch.
 3. What does if / else do? What is the "condition," and where does it go?
 4. Why does an automatic device need a `while (true)` loop instead of a single `if`?
+5. A Potentiometer V2 on an arm reads 160 at the arm's home position. Why can't you just call that "160°," what do you store in a **variable** to fix it, and how do you then get the angle *from home*?
+6. When would you use a `for` loop instead of `while (true)`? Give one example from this chapter.
 5. Write the sense–decide–act idea as pseudocode for: "a night-light motor turns a lamp on when the room is dark." Name the sensor reading, the decision, the action.
 6. For your project: which sensor did you choose, and what condition makes it respond correctly?
 
 ## Key terms
 
-automation · open loop · closed loop · sensor · input · Distance Sensor · Bumper Switch · objectDistance · pressing() · condition · if · else · else if · comparison · while loop · while (true) · 3-Wire port · Smart Port · design process · decision matrix
+automation · open loop · closed loop · sensor · input · Distance Sensor · Bumper Switch · objectDistance · pressing() · condition · if · else · else if · comparison · variable · int · double · Potentiometer V2 · angle() · calibration · baseline · for loop · while loop · while (true) · 3-Wire port · Smart Port · design process · decision matrix
 
 ## Sources
 
-PLTW Gateway *Automation & Robotics*, Project 3.4 "Automation Through Programming": design, build, and program an automatic device (toll booth, traffic signal, elevator, spinning sign, etc.) as a team via the design process, with conclusion questions on sensors used and open vs. closed loop — modernized from legacy Cortex/ROBOTC to **VEX C++ in VS Code** on the EXP Brain. Control structures (`if`/`else if`/`else`, `while (true)`) are standard C++. Sensor commands verified against the VEX Library: the Distance Sensor's `objectDistance(mm)` and the Bumper Switch's `pressing()` (a 3-Wire device on `Brain.ThreeWirePort`). The open/closed-loop framing and sense → decide → act loop carry over from Chapter 8; the motor commands from Chapter 10.
+PLTW Gateway *Automation & Robotics*, Project 3.4 "Automation Through Programming": design, build, and program an automatic device (toll booth, traffic signal, elevator, spinning sign, etc.) as a team via the design process, with conclusion questions on sensors used and open vs. closed loop — modernized from legacy Cortex/ROBOTC to **VEX C++ in VS Code** on the EXP Brain. Control structures (`if`/`else if`/`else`, `while (true)`) are standard C++. Sensor commands verified against the VEX Library: the Distance Sensor's `objectDistance(mm)` and the Bumper Switch's `pressing()` (a 3-Wire device on `Brain.ThreeWirePort`). The open/closed-loop framing and sense → decide → act loop carry over from Chapter 8; the motor commands from Chapter 10. The Potentiometer V2 (`potV2`, read with `angle(degrees)` over a 3-Wire port, 0 to ~330°) is verified against the VEX Library and VEXcode EXP C++ API; `int`/`double` variables and the `for` loop are standard C++; the calibrate-with-a-baseline pattern mirrors the inertial calibration in Chapter 13.

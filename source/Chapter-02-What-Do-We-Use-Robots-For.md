@@ -63,12 +63,14 @@ Remember the loop — sense, decide, act. The "sense" step comes from **sensors*
 - **Distance** — measuring how far away an object is, with sound, laser light, or radar. Self-driving cars carry dozens of these; your kit's **Distance Sensor** uses a safe pulse of laser light, the same principle as the lidar on an autonomous vehicle.
 - **Light and color** — cameras and color sensors that recognize objects. Your kit's **Optical Sensor** reports whether an object is near and what color it is.
 - **Motion and balance** — accelerometers and gyroscopes that track turning and tilting, the way your inner ear keeps you balanced. Your kit's **Inertial Sensor** does this, and it's how a robot can turn *exactly* 90°.
+- **Rotation (angle)** — a sensor on a moving joint that reports how far it has turned. Your kit's **Potentiometer V2** measures the angle of an arm or dial (0 to ~330°) through a 3-Wire port; you'll use it, and calibrate it, in Chapter 11.
 
 So when your research asks "what sensors does this robot use, and how?" — you're asking how the robot closes its sense → decide → act loop. A robot with rich sensing can work in a messy, changing world; a robot with none can only repeat motions blindly and hope the world hasn't moved.
 
 > **📚 Learn more — VEX Library**
 > - [Using Bumper Switch with VEX EXP](https://kb.vex.com/hc/en-us/articles/4415784141716-Using-Bumper-Switch-with-VEX-EXP) — how a touch sensor completes a circuit, and where to mount one
 > - [Using Distance Sensor with VEX EXP](https://kb.vex.com/hc/en-us/articles/4415763007380-Using-Distance-Sensor-with-VEX-EXP) — your kit's laser distance sensor
+> - [Using the Potentiometer V2 with VEX EXP](https://kb.vex.com/hc/en-us/articles/36994045337748-Using-the-Potentiometer-V2-with-VEX-EXP) — the rotation/angle sensor for arms and dials
 > - [Overview of the VEX V5 Sensors](https://kb.vex.com/hc/en-us/articles/4401967256596-Overview-of-the-VEX-V5-Sensors) — **Heads-up:** this is the V5/competition page, with sensors beyond your EXP kit (GPS, Rotation, Vision). Great for seeing where the sensor family goes next — especially if you also build on the V5 competition team.
 
 ---
