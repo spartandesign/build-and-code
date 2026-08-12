@@ -8,6 +8,7 @@
 const BOOK = [
   { unit: "Getting Started", chapters: [
     { n: "GS", title: "Getting Started with Code", file: "getting-started-code.html" },
+    { n: "SET", title: "Set Up Your Tools", file: "setup-tools.html" },
   ]},
   { unit: "Unit 1 · Robots & Structures", chapters: [
     { n: 1, title: "Structures & Building", file: "chapter-01.html" },
