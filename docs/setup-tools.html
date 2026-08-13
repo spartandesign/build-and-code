@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Set Up Your Tools — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="SET">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">🧰</div>
+        <div>
+          <p class="chead__eyebrow">Start here · Setup</p>
+          <h1 class="chead__title">Set Up Your Tools</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p>Before you can send code to a robot, you need two free tools on your computer: <strong>Visual Studio Code</strong> and the <strong>VEX Robotics extension</strong>. You'll install them yourself — it takes about ten minutes, and you only do it <strong>once</strong>. Follow the steps in order; you don't need to understand everything yet.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <h2>1 · Install Visual Studio Code</h2>
+      <p>Your school installs approved apps through the <strong>Software Center</strong> — no admin password needed.</p>
+      <ol>
+        <li>Click the Windows <strong>Start</strong> button and type <strong>Software Center</strong>. Open it.</li>
+        <li>Find <strong>Visual Studio Code</strong> (search for it at the top if you don't see it).</li>
+        <li>Click it, then click <strong>Install</strong>. Give it a couple of minutes to finish.</li>
+        <li>Open <strong>Visual Studio Code</strong> from the Start menu. A mostly-blank window with a menu bar down the left side is exactly right.</li>
+      </ol>
+      <p>Don't see Software Center, or Visual Studio Code isn't listed? Raise your hand — your teacher will help.</p>
+
+      <h2>2 · Add the VEX Robotics extension</h2>
+      <p>The extension is what lets VS Code talk to your robot.</p>
+      <ol>
+        <li>On the far-left toolbar, click the <strong>Extensions</strong> icon — it looks like four little squares — or press <span class="inl">Ctrl + Shift + X</span>.</li>
+        <li>In the search box, type <strong>VEX Robotics</strong>.</li>
+        <li>Find the one named <strong>VEX Robotics</strong> (published by VEX Robotics) and click <strong>Install</strong>.</li>
+        <li>When it's done, a <strong>VEX robot icon</strong> appears in that left toolbar. That's how you know it worked.</li>
+      </ol>
+
+      <h2>3 · Create your AR-Starter project</h2>
+      <p>This is the project you'll open for the rest of the year.</p>
+      <ol>
+        <li>Click the <strong>VEX robot icon</strong> in the left toolbar.</li>
+        <li>Choose <strong>New Project</strong>.</li>
+        <li>For the platform pick <strong>EXP</strong>; for the language pick <strong>C++</strong>. Choose the plain/blank template if it offers a list.</li>
+        <li>Name the project exactly <strong>AR-Starter</strong> and save it somewhere you'll remember (your Documents folder is fine).</li>
+        <li>Click <strong>Create</strong>. On the left you'll see a <strong>src</strong> folder with a file called <strong>main.cpp</strong> inside it.</li>
+      </ol>
+
+      <h2>4 · Paste in the starter code</h2>
+      <p>Open <strong>src → main.cpp</strong>. Select everything in it (<span class="inl">Ctrl + A</span>), delete it, then paste in the code below and save (<span class="inl">Ctrl + S</span>):</p>
+
+<pre class="code"><span class="kw">#include</span> "vex.h"
+<span class="kw">using namespace</span> vex;
+
+<span class="cmt">// ---- Your devices (already set up for you) ----</span>
+<span class="cmt">// Plug your motor into Smart Port 1 on the Brain.</span>
+motor leftMotor = motor(PORT1);
+
+<span class="kw">int</span> main() {
+  vexcodeInit();   <span class="cmt">// gets the robot ready — leave this here</span>
+
+  <span class="mark">// ===== WRITE YOUR CODE BELOW THIS LINE =====</span>
+  leftMotor.spin(forward);
+  wait(2, seconds);
+  leftMotor.stop();
+  <span class="mark">// ===== WRITE YOUR CODE ABOVE THIS LINE =====</span>
+}</pre>
+
+      <p>Here's the only rule you need: <strong>you write your own code only between the two purple lines.</strong> Everything else is already set up for you — leave it alone. (Curious what those lines do? That's <strong>Chapter 10</strong>.)</p>
+
+      <h2>5 · Test it</h2>
+      <ol>
+        <li>Plug a <strong>motor into Smart Port 1</strong> on your EXP Brain.</li>
+        <li>Connect the Brain to your computer with the <strong>USB-C cable</strong> and turn the Brain on.</li>
+        <li>Click <strong>Download</strong> to send the program to the Brain, then <strong>Run</strong> it.</li>
+        <li>If the motor spins for two seconds and stops, your setup works. 🎉</li>
+      </ol>
+      <p>If it doesn't move, the usual reasons are a loose cable, the motor in the wrong port, or the Brain turned off — check those first.</p>
+
+      <div class="card card--code">
+        <p class="card__title"><span class="ic">🧰</span> You're set up</p>
+        <p>That's the whole one-time setup. From now on you just open your <strong>AR-Starter</strong> project, write your code between the two purple lines, then Download and Run. You never have to touch the setup steps again.</p>
+        <p class="code-try"><strong>Next:</strong> head to <strong>Getting Started with Code</strong> to send your first real program and make it your own.</p>
+      </div>
+
+      <div class="card card--safe">
+        <p class="card__title"><span class="ic">⚠️</span> Stay safe</p>
+        <ul>
+          <li>Before you Run, make sure the robot <strong>can't drive off the table</strong> — prop the wheels up or be ready to catch it.</li>
+          <li>Keep fingers, hair, and loose sleeves <strong>away from the spinning motor shaft</strong>.</li>
+          <li>Power the Brain down with the <strong>X button</strong> when you're done.</li>
+        </ul>
+      </div>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+</body>
+</html>
