@@ -33,6 +33,8 @@ const BOOK = [
     { n: 14, title: "Sumo Competition & Build Your Own", file: "chapter-14.html" },
   ]},
   { unit: "Reference", chapters: [
+    { n: "M", title: "Mechanisms in Motion (Ch 3)", file: "mechanisms-showcase.html" },
+    { n: "G", title: "Gears in Motion (Ch 4)", file: "gears-showcase.html" },
     { n: "A", title: "Advanced Mechanisms", file: "appendix-a-mechanisms.html" },
     { n: "B", title: "EXP → V5 Team Bridge", file: "appendix-b-exp-to-v5.html" },
   ]},
