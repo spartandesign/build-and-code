@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gears in Motion — Build & Code</title>
+<style>
+/* =========================================================
+   Automation & Robotics — VEX EXP Textbook
+   Shared stylesheet. Restyle the whole book from this one file.
+   Palette continues the course's printed-doc design system.
+   ========================================================= */
+
+:root{
+  --navy:#1F3864;
+  --navy-deep:#152844;
+  --blue:#2E75B6;
+  --blue-ink:#1F4D78;
+  --orange:#C55A11;
+  --soft:#F2F7FC;      /* learn/info callout bg */
+  --soft-line:#CFE0F2;
+  --green-bg:#E2EFDA;  /* positive callout bg */
+  --green-ink:#3F6B2A;
+  --amber-bg:#FBEFD6;  /* safety callout bg */
+  --amber-ink:#8A5400;
+  --amber-line:#E7C77E;
+  --ink:#1A1A1A;
+  --gray:#5B6470;
+  --paper:#FFFFFF;
+  --wash:#FAFBFD;
+  --rule:#E3E8EF;
+
+  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", Consolas, "SF Mono", Menlo, monospace;
+
+  --maxw: 1160px;
+  --rail: 268px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation:none!important;transition:none!important;} }
+
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--ink);
+  background:var(--wash);
+  line-height:1.62;
+  font-size:17px;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+a{color:var(--blue);text-underline-offset:2px;}
+a:hover{color:var(--navy);}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:3px;}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:30;
+  background:var(--navy);color:#fff;
+  border-bottom:3px solid var(--orange);
+}
+.topbar__in{
+  max-width:var(--maxw);margin:0 auto;padding:11px 22px;
+  display:flex;align-items:center;gap:14px;
+}
+.topbar__mark{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;color:#9DC3E6;font-weight:600;
+}
+.topbar__title{font-weight:800;letter-spacing:-.01em;font-size:16px;}
+.topbar__school{margin-left:auto;font-size:13px;color:#C9DBF0;}
+.menu-btn{display:none;}
+
+/* ---------- Shell ---------- */
+.book{
+  max-width:var(--maxw);margin:0 auto;
+  display:grid;grid-template-columns:var(--rail) 1fr;gap:0;
+  align-items:start;
+}
+
+/* ---------- Sidebar / TOC ---------- */
+.toc{
+  position:sticky;top:64px;align-self:start;
+  height:calc(100vh - 64px);overflow-y:auto;
+  padding:26px 18px 40px 22px;
+  border-right:1px solid var(--rule);
+  background:var(--wash);
+}
+.toc__head{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gray);margin:0 0 14px;
+}
+.toc__unit{margin:0 0 6px;}
+.toc__unit > .unit-label{
+  display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--orange);font-weight:700;
+  margin:16px 0 7px;
+}
+.toc a, .toc span.dim{
+  display:flex;gap:9px;align-items:baseline;
+  padding:5px 9px;border-radius:7px;
+  font-size:14.5px;text-decoration:none;color:var(--ink);
+}
+.toc a:hover{background:var(--soft);color:var(--navy);}
+.toc .num{
+  font-family:var(--font-mono);font-size:12px;color:var(--blue);
+  min-width:18px;font-weight:700;
+}
+.toc span.dim{color:#9AA3AF;cursor:default;}
+.toc span.dim .num{color:#C2C9D2;}
+.toc a[aria-current="page"]{
+  background:var(--navy);color:#fff;font-weight:700;
+}
+.toc a[aria-current="page"] .num{color:#9DC3E6;}
+
+/* ---------- Main column ---------- */
+.main{padding:0 0 80px;min-width:0;}
+.wrap{max-width:760px;margin:0 auto;padding:0 26px;}
+
+/* ---------- Chapter header band (signature) ---------- */
+.chead{
+  background:
+    radial-gradient(120% 140% at 100% 0%, #2A4A7A 0%, var(--navy) 46%, var(--navy-deep) 100%);
+  color:#fff;border-bottom:4px solid var(--orange);
+}
+.chead__in{
+  max-width:760px;margin:0 auto;padding:34px 26px 30px;
+  display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;
+}
+.chead__num{
+  font-family:var(--font-mono);font-weight:700;
+  font-size:64px;line-height:.9;color:#fff;
+  padding-right:22px;border-right:2px solid rgba(157,195,230,.4);
+}
+.chead__eyebrow{
+  font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;color:#9DC3E6;font-weight:600;margin:0 0 7px;
+}
+.chead__title{font-size:30px;line-height:1.12;font-weight:800;letter-spacing:-.015em;margin:0;}
+.lede{
+  max-width:760px;margin:0 auto;padding:22px 26px 4px;
+}
+.lede p{margin:0;font-size:18.5px;color:var(--blue-ink);font-weight:500;}
+
+/* ---------- Prose ---------- */
+.prose h2{
+  font-size:21px;font-weight:800;letter-spacing:-.01em;color:var(--blue);
+  margin:34px 0 8px;padding-bottom:7px;border-bottom:2px solid var(--soft-line);
+}
+.prose h3{font-size:17px;font-weight:800;color:var(--blue-ink);margin:22px 0 6px;}
+.prose p{margin:11px 0;}
+.prose ul,.prose ol{margin:11px 0;padding-left:24px;}
+.prose li{margin:7px 0;}
+.prose strong{color:var(--navy);font-weight:700;}
+.prose em{color:var(--ink);}
+.prose hr{display:none;}
+.prose ul li::marker{color:var(--blue);}
+.prose ol li::marker{color:var(--blue);font-weight:700;}
+
+/* ---------- Callout cards ---------- */
+.card{
+  margin:18px 0;border-radius:11px;padding:15px 17px 15px 18px;
+  border:1px solid var(--soft-line);background:var(--soft);
+  border-left:5px solid var(--blue);
+}
+.card__title{
+  display:flex;align-items:center;gap:8px;
+  font-weight:800;color:var(--navy);font-size:15px;margin:0 0 8px;
+}
+.card__title .ic{font-size:16px;}
+.card ul{margin:6px 0 0;padding-left:20px;}
+.card li{margin:6px 0;font-size:15.5px;}
+.card p{margin:8px 0;font-size:15.5px;}
+.card--tip{background:#FFF3EA;border-color:#F0C9A6;border-left-color:var(--orange);}
+.card--tip .card__title{color:var(--orange);}
+.card--tip h3{margin-top:0;}
+.card--note{background:var(--green-bg);border-color:#C5DDB4;border-left-color:var(--green-ink);}
+.card--note .card__title,.card--note strong{color:var(--green-ink);}
+.card--safe{background:var(--amber-bg);border-color:var(--amber-line);border-left-color:var(--amber-ink);}
+.card--safe .card__title{color:var(--amber-ink);}
+
+/* external link affordance */
+a.ext::after{content:"\2197";font-size:.78em;margin-left:2px;color:var(--blue);vertical-align:super;}
+
+/* ---------- Key terms chips ---------- */
+.terms{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px;}
+.terms .term{
+  font-family:var(--font-mono);font-size:12.5px;
+  background:#fff;border:1px solid var(--soft-line);color:var(--blue-ink);
+  padding:4px 9px;border-radius:999px;
+}
+
+/* ---------- Sources ---------- */
+.sources{
+  margin-top:30px;padding-top:14px;border-top:1px solid var(--rule);
+  font-size:13px;color:var(--gray);
+}
+
+/* ---------- Pager ---------- */
+.pager{
+  max-width:760px;margin:34px auto 0;padding:0 26px;
+  display:flex;gap:12px;justify-content:space-between;
+}
+.pager a{
+  flex:1;text-decoration:none;border:1px solid var(--rule);border-radius:11px;
+  padding:13px 16px;background:#fff;color:var(--ink);transition:border-color .15s,transform .15s;
+}
+.pager a:hover{border-color:var(--blue);transform:translateY(-1px);}
+.pager .dir{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);}
+.pager .name{display:block;font-weight:700;color:var(--navy);margin-top:3px;}
+.pager .next{text-align:right;}
+.pager .ph{flex:1;}
+
+/* ---------- Landing (index) ---------- */
+.hero{
+  background:radial-gradient(120% 140% at 100% 0%, #2A4A7A 0%, var(--navy) 50%, var(--navy-deep) 100%);
+  color:#fff;border-bottom:4px solid var(--orange);
+}
+.hero__in{max-width:760px;margin:0 auto;padding:54px 26px 44px;}
+.hero__eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#9DC3E6;font-weight:600;margin:0 0 12px;}
+.hero h1{font-size:40px;line-height:1.06;font-weight:800;letter-spacing:-.02em;margin:0 0 14px;max-width:18ch;}
+.hero p{font-size:18px;color:#D7E5F5;margin:0;max-width:54ch;}
+.toc-full{max-width:760px;margin:0 auto;padding:8px 26px 60px;}
+
+/* ---------- Mobile ---------- */
+@media (max-width:880px){
+  .book{grid-template-columns:1fr;}
+  .menu-btn{
+    display:inline-flex;margin-left:auto;background:rgba(255,255,255,.12);
+    color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:8px;
+    padding:6px 11px;font-size:13px;font-family:var(--font-mono);letter-spacing:.08em;cursor:pointer;
+  }
+  .topbar__school{display:none;}
+  .toc{
+    position:static;height:auto;border-right:none;border-bottom:1px solid var(--rule);
+    display:none;
+  }
+  .toc.open{display:block;}
+  .chead__num{font-size:46px;}
+  .chead__title{font-size:24px;}
+}
+
+/* ---------- Figures, formulas & data tables (added Ch. 3) ---------- */
+.fig{margin:26px 0;}
+.fig svg{display:block;width:100%;max-width:640px;height:auto;margin:0 auto;}
+.fig figcaption{
+  font-size:13.5px;color:var(--gray);text-align:center;
+  max-width:54ch;margin:10px auto 0;line-height:1.45;
+}
+.formula{
+  font-family:var(--font-mono);font-size:16px;color:var(--blue-ink);
+  background:var(--soft);border-left:5px solid var(--blue);
+  border-radius:0 10px 10px 0;padding:12px 16px;margin:14px 0;
+}
+.dtable{
+  width:100%;border-collapse:collapse;margin:16px 0 6px;font-size:14.5px;
+}
+.dtable th{
+  background:var(--navy);color:#fff;font-weight:700;text-align:left;
+  padding:8px 10px;font-size:13.5px;
+}
+.dtable td{
+  padding:7px 10px;border-bottom:1px solid var(--rule);vertical-align:top;
+}
+.dtable tbody tr:nth-child(even){background:var(--soft);}
+.tnote{font-size:13px;color:var(--gray);margin:2px 0 18px;}
+@media (max-width:880px){
+  .dtable{display:block;overflow-x:auto;white-space:nowrap;}
+}
+
+/* inline mono for short math fragments (added Ch. 4) */
+.inl{
+  font-family:var(--font-mono);font-size:.92em;
+  background:#F4F4F4;padding:1px 5px;border-radius:4px;color:var(--blue-ink);
+}
+
+/* build-constraint callout (added Ch. 4) — navy "rules of the build" accent */
+.card--constraint{background:#F1F5FB;border-color:#CFE0F2;border-left-color:var(--navy);}
+.card--constraint .card__title{color:var(--navy);}
+
+/* ---------- CAD track: "see it" callouts for Onshape / technical drawings ---------- */
+.card--cad{background:#ECF5F6;border-color:#BBDDE0;border-left-color:#1E6470;}
+.card--cad .card__title{color:#1E6470;}
+.card--cad .cad-note{font-size:13.5px;color:var(--gray);margin:8px 0 0;}
+.card--cad .cad-try{
+  margin:12px 0 0;padding:10px 12px;background:#fff;border:1px dashed #9FC6CB;
+  border-radius:8px;font-size:14.5px;
+}
+.card--cad .cad-try strong{color:var(--orange);}
+/* simplified engineering-drawing figure */
+.cad-dwg{display:block;width:100%;max-width:620px;height:auto;margin:4px auto 0;}
+
+/* ---------- "Code it" enrichment card (code track) ---------- */
+.card--code{background:#F1F1FB;border-color:#D3D2F0;border-left-color:#4B4DA6;}
+.card--code .card__title{color:#4B4DA6;}
+.card--code .code{margin:11px 0 0;}
+.card--code .code-try{
+  margin:12px 0 0;padding:10px 12px;background:#fff;border:1px dashed #B6B5E2;
+  border-radius:8px;font-size:14.5px;
+}
+.card--code .code-try strong{color:var(--orange);}
+.code .mark{color:#4B4DA6;font-weight:700;}
+
+/* ---------- code & pseudocode blocks (added Ch. 9) ---------- */
+.codetag{
+  display:block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;font-weight:700;color:var(--gray);margin:18px 0 5px;
+}
+.codetag .dot{color:var(--blue);}
+.codetag.plan .dot{color:var(--orange);}
+.code{
+  font-family:var(--font-mono);font-size:13.5px;line-height:1.6;
+  background:#F4F4F4;border:1px solid #E4E4E4;border-left:3px solid var(--blue);
+  border-radius:8px;padding:13px 16px;margin:0 0 6px;color:#243240;
+  white-space:pre;overflow-x:auto;tab-size:2;
+}
+.code.plan{border-left-color:var(--orange);}
+.code .cmt{color:#6E7B89;font-style:italic;}
+.code .kw{color:var(--blue);font-weight:700;}
+.code .lit{color:#1E6470;}
+
+</style>
+<style>
+  .sc-lede{background:var(--soft);border:1px solid var(--soft-line);border-radius:12px;padding:16px 20px;margin:20px 0 8px;}
+  .sc-lede p{margin:6px 0;font-size:16px;color:var(--blue-ink);}
+  .mech{margin:34px 0 10px;padding-top:22px;border-top:2px solid var(--rule);}
+  .mech:first-of-type{border-top:none;}
+  .mech h2{font-size:24px;font-weight:800;color:var(--orange);margin:0 0 2px;}
+  .mech .io{font-size:13.5px;color:var(--gray);font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin:0 0 12px;}
+  .sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:14px 0;}
+  .sc-grid figure{margin:0;background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:8px;}
+  .sc-grid img{display:block;width:100%;height:auto;border-radius:6px;}
+  .sc-grid figcaption{font-size:12.5px;color:var(--gray);margin-top:6px;text-align:center;}
+  .sc-cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start;}
+  @media(max-width:760px){.sc-cols{grid-template-columns:1fr;}}
+  .sc-cols h3{font-size:15px;font-weight:800;color:var(--blue-ink);margin:4px 0 8px;text-transform:uppercase;letter-spacing:.03em;}
+  .vid{position:relative;padding-bottom:56.25%;height:0;border-radius:10px;overflow:hidden;border:1px solid var(--rule);background:#000;margin:8px 0;}
+  .vid iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
+  .vidlink{font-size:14px;margin:6px 0;}
+  .vidlink .play{color:var(--orange);font-weight:800;}
+  .mblink{font-size:14px;margin:8px 0 2px;padding:8px 12px;background:#FFF3EA;border:1px solid #F0C9A6;border-left:4px solid var(--orange);border-radius:8px;}
+  .mblink .badge{font-weight:800;color:var(--orange);}
+  .qs{background:var(--wash);border:1px solid var(--rule);border-left:4px solid var(--blue);border-radius:10px;padding:12px 18px 12px 22px;margin:12px 0 4px;}
+  .qs p.qh{margin:0 0 6px;font-weight:800;color:var(--navy);font-size:14px;}
+  .qs ol{margin:6px 0;padding-left:20px;}
+  .qs li{margin:6px 0;font-size:14.5px;}
+  .anchornav{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px;}
+  .anchornav a{font-size:13px;background:var(--soft);border:1px solid var(--soft-line);border-radius:999px;padding:4px 12px;text-decoration:none;}
+  .mbhero{background:#FFF3EA;border:1px solid #F0C9A6;border-radius:12px;padding:16px 20px;margin:18px 0;}
+  .mbhero .mbh{font-weight:800;color:var(--orange);font-size:16px;margin:0 0 6px;}
+  .mbhero p{margin:6px 0;font-size:14.5px;}
+  .mbhero .vid{max-width:640px;}
+  /* MythBadger build+examine video pair */
+  .mbpair{margin:16px 0 6px;padding:14px 16px;background:#FFF7F0;border:1px solid #F0C9A6;border-radius:12px;}
+  .mbpair .mbpair-h{margin:0 0 10px;font-size:13px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.04em;}
+  .mbpair-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;}
+  @media(max-width:760px){.mbpair-grid{grid-template-columns:1fr;}}
+  .mbpair figure{margin:0;}
+  .mbpair .vlabel{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--gray);margin:0 0 2px;}
+  .mbpair .vtitle{font-size:14px;font-weight:700;color:var(--blue-ink);margin:2px 0 0;}
+  .mbpair .vtitle a{text-decoration:none;}
+  .mbpair .note{font-size:13.5px;color:var(--gray);margin:2px 0 0;}
+  .extra-banner{background:var(--soft);border:1px solid var(--soft-line);border-radius:12px;padding:14px 20px;margin:30px 0 6px;}
+  .extra-banner p{margin:4px 0;font-size:15px;color:var(--blue-ink);}
+  .extra-banner .eb-h{font-weight:800;color:var(--navy);font-size:16px;margin:0 0 4px;}
+</style>
+
+<style>
+/* preview-only: hide empty TOC rail + pager so content centers */
+.toc{display:none!important;}
+.book{grid-template-columns:1fr!important;}
+.pager{display:none!important;}
+</style>
+</head>
+<body data-chapter="G"><div style="background:#152844;color:#fff;padding:8px 22px;font:600 13px system-ui;text-align:center">PREVIEW — inlined styles, images loaded from the live site. Not yet published.</div>
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+  <main class="main">
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">4·</div>
+        <div>
+          <p class="chead__eyebrow">Activity 2.2 · Chapter 4 companion</p>
+          <h1 class="chead__title">Gears in Motion</h1>
+        </div>
+      </div>
+    </div>
+    <article class="prose wrap">
+      <div class="sc-lede">
+        <p><strong>Build the gear mechanisms, then verify them.</strong> These are the seven gear builds for Activity 2.2 — the same mechanisms as the chapter, with the real VEX build photos, animations, and a video of each one working. Use them at the bench.</p>
+        <p>Every mechanism now includes <strong>both</strong> the step-by-step <em>Building a…</em> and <em>Examining a…</em> videos from MythBadger, built with VEX EXP parts. Watch the build video before you assemble, then the examine video to see how the mechanism actually works.</p>
+        <p style="font-size:14px;color:var(--gray)">Build your assigned mechanism, watch it move (animation + ▶ video), then <strong>fill that mechanism's row in the Evidence Chart</strong> in your Google Doc deliverable, with a captioned photo of your build. The numbered Conclusion Questions are answered separately at the end of the deliverable. Five more mechanisms from the MythBadger series (belt drive, cam &amp; follower, crank &amp; slider, lead screw, universal joint) follow at the end for exploration — they are not part of the graded chart.</p>
+      </div>
+      <div class="mbhero"><p class="mbh">▶ MythBadger — VEX Gear Tutorials (VEX EXP, 24 videos)</p><p>Every mechanism below has a step-by-step <em>Building a…</em> and <em>Examining a…</em> video from MythBadger, built with VEX EXP parts and aligned to this course. Start with <a href="https://www.youtube.com/watch?v=suXuAk7fKH8" target="_blank" rel="noopener">Building the Platform</a>, or play the whole 24-video playlist:</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" title="MythBadger VEX Gear Tutorials playlist" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vidlink"><span class="play">▶</span> <a href="https://www.youtube.com/playlist?list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Open the full playlist on YouTube</a></p></div>
+      <div class="anchornav"><a href="#simple">Simple Gear Train</a><a href="#idler">Idler</a><a href="#compound">Compound</a><a href="#bevel">Bevel</a><a href="#worm">Worm &amp; Wheel</a><a href="#rack">Rack &amp; Pinion</a><a href="#chain">Chain Drive</a><a href="#belt">Belt Drive</a><a href="#cam">Cam &amp; Follower</a><a href="#crank">Crank &amp; Slider</a><a href="#leadscrew">Lead Screw</a><a href="#universal">Universal Joint</a></div>
+
+<section class="mech" id="simple"><h2>Simple Gear Train</h2><p class="io">Rotary in → rotary out · trades speed for torque</p><div class="sc-cols"><div><h3>Build it</h3><div class="sc-grid"><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image2.jpg" alt="Gear Train B — VEX build"><figcaption>Gear Train B — VEX build</figcaption></figure><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image18.jpg" alt="Gear Train A — two views"><figcaption>Gear Train A — two views</figcaption></figure></div></div><div><h3>See it in motion</h3><div class="sc-grid"><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image11.gif" alt="Driver → driven, opposite directions"><figcaption>Driver → driven, opposite directions</figcaption></figure><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image4.gif" alt="25T drive → 75T driven (3:1)"><figcaption>25T drive → 75T driven (3:1)</figcaption></figure></div><p class="vidlink"><span class="play">▶</span> <a href="https://www.wikihow.com/Determine-Gear-Ratio" target="_blank" rel="noopener">How to find a gear ratio (WikiHow)</a></p></div></div><div class="mbpair"><p class="mbpair-h">▶ MythBadger build &amp; examine videos</p><div class="mbpair-grid"><figure><p class="vlabel">Building</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/PvIwKlo6aYs" title="MythBadger: Building a Simple Gear" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=PvIwKlo6aYs&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Building a Simple Gear</a></p></figure><figure><p class="vlabel">Examining</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/NzRfIreZM-M" title="MythBadger: Examining a Simple Gear" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=NzRfIreZM-M&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Examining a Simple Gear</a></p></figure></div><p class="note">Also in the series: <a href="https://www.youtube.com/watch?v=rRIHOPgOfRk&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">▶ Gear Ratios</a> — how tooth counts set speed and torque.</p></div><div class="qs"><p class="qh">Fill this mechanism’s row in the Evidence Chart in your Google Doc deliverable — these are the columns to complete (Conclusion Questions are answered separately):</p><ol><li>Teeth: drive → driven</li><li>Predicted ratio (driven ÷ drive)</li><li>Measured ratio (turns in : out)</li><li>Speed ↑↓= and torque ↑↓=</li><li>Direction (same/opposite) and reversible?</li><li>Where it&#x27;s used (example)</li></ol></div></section>
+
+<section class="mech" id="idler"><h2>Simple Gear Train with Idler</h2><p class="io">Rotary in → rotary out · direction changes, ratio doesn&#x27;t</p><div class="sc-cols"><div><h3>Build it</h3><div class="sc-grid"><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image17.jpg" alt="Three-gear idler build"><figcaption>Three-gear idler build</figcaption></figure><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image12.jpg" alt="Idler render"><figcaption>Idler render</figcaption></figure></div></div><div><h3>See it in motion</h3><div class="sc-grid"><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image38.gif" alt="Green A drives purple C; red B is the idler"><figcaption>Green A drives purple C; red B is the idler</figcaption></figure></div><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/uRrCxSKorsE" title="Mechanism in motion" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vidlink"><span class="play">▶</span> <a href="https://www.youtube.com/watch?v=uRrCxSKorsE" target="_blank" rel="noopener">Idler gear in motion</a></p></div></div><div class="mbpair"><p class="mbpair-h">▶ MythBadger build &amp; examine videos</p><div class="mbpair-grid"><figure><p class="vlabel">Building</p><p class="note">The idler is assembled inside the Simple Gear build — <a href="https://www.youtube.com/watch?v=PvIwKlo6aYs&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">▶ Building a Simple Gear</a>. Add a third gear between the drive and driven gears to make the idler.</p></figure><figure><p class="vlabel">Examining</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/U-HjoSuk28s" title="MythBadger: Examining a Simple Gear w/Idler" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=U-HjoSuk28s&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Examining a Simple Gear w/Idler</a></p></figure></div></div><div class="qs"><p class="qh">Fill this mechanism’s row in the Evidence Chart in your Google Doc deliverable — these are the columns to complete (Conclusion Questions are answered separately):</p><ol><li>Predicted ratio (does the idler change it?)</li><li>Measured ratio (turns in : out)</li><li>Speed ↑↓= and torque ↑↓=</li><li>Direction between input and output</li><li>Predict: direction if the idler were removed</li><li>Where it&#x27;s used (example)</li></ol></div></section>
+
+<section class="mech" id="compound"><h2>Compound Gear Train</h2><p class="io">Rotary in → rotary out · stages MULTIPLY (new for 2.2)</p><div class="sc-cols"><div><h3>Build it</h3><div class="sc-grid"><figure><img src="https://spartandesign.github.io/build-and-code/showcase/compound_gear.png" alt="Two 2.5:1 stages sharing a shaft = 6.25:1 overall"><figcaption>Two 2.5:1 stages sharing a shaft = 6.25:1 overall</figcaption></figure></div></div><div><h3>See it in motion</h3></div></div><div class="mbpair"><p class="mbpair-h">▶ MythBadger video</p><div class="mbpair-grid"><figure><p class="vlabel">Building &amp; examining</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/fdo6vc_QogI" title="MythBadger: Compound Gears" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=fdo6vc_QogI&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Compound Gears</a></p></figure><figure><p class="note">MythBadger covers building <em>and</em> examining the compound train in one video — it builds two gear stages on a shared shaft and shows how the stage ratios multiply.</p></figure></div></div><div class="qs"><p class="qh">Fill this mechanism’s row in the Evidence Chart in your Google Doc deliverable — these are the columns to complete (Conclusion Questions are answered separately):</p><ol><li>Teeth in each stage (stage 1 → stage 2)</li><li>Predicted overall ratio = stage 1 × stage 2 (show the multiplication)</li><li>Measured ratio (turns in : out)</li><li>Did you reach at least 6:1?</li><li>Speed ↑↓= and torque ↑↓=</li><li>Why the shared-shaft gear doesn&#x27;t cancel like an idler</li></ol></div></section>
+
+<section class="mech" id="bevel"><h2>Bevel Gear Assembly</h2><p class="io">Rotary in → rotary out · turns a 90° corner</p><div class="sc-cols"><div><h3>Build it</h3><div class="sc-grid"><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image13.jpg" alt="Bevel build with crank"><figcaption>Bevel build with crank</figcaption></figure><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image7.jpg" alt="Bevel pair meshing at 90°"><figcaption>Bevel pair meshing at 90°</figcaption></figure></div></div><div><h3>See it in motion</h3><div class="sc-grid"><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image19.jpg" alt="Turning the crank drives the output at 90°"><figcaption>Turning the crank drives the output at 90°</figcaption></figure></div><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/sIY3WIQhIu0" title="Mechanism in motion" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vidlink"><span class="play">▶</span> <a href="http://www.technologystudent.com/gears1/bevel1.htm" target="_blank" rel="noopener">Bevel gear reference (Technology Student)</a></p></div></div><div class="mbpair"><p class="mbpair-h">▶ MythBadger build &amp; examine videos</p><div class="mbpair-grid"><figure><p class="vlabel">Building</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/m1to9EnXi7Q" title="MythBadger: Building a Bevel Gear" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=m1to9EnXi7Q&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Building a Bevel Gear</a></p></figure><figure><p class="vlabel">Examining</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/d-IFsBna0nk" title="MythBadger: Examining a Bevel Gear" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=d-IFsBna0nk&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Examining a Bevel Gear</a></p></figure></div></div><div class="qs"><p class="qh">Fill this mechanism’s row in the Evidence Chart in your Google Doc deliverable — these are the columns to complete (Conclusion Questions are answered separately):</p><ol><li>Angle of input shaft to output shaft</li><li>Predicted / measured ratio</li><li>Speed ↑↓= and torque ↑↓=</li><li>If the input gear were smaller, effect on speed/torque?</li><li>Reversible?</li><li>Where it&#x27;s used (example)</li></ol></div></section>
+
+<section class="mech" id="worm"><h2>Worm and Wheel</h2><p class="io">Rotary in → rotary out · huge reduction, self-locking</p><div class="sc-cols"><div><h3>Build it</h3><div class="sc-grid"><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image20.jpg" alt="Worm &amp; wheel build"><figcaption>Worm &amp; wheel build</figcaption></figure><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image9.jpg" alt="Turning the worm by hand"><figcaption>Turning the worm by hand</figcaption></figure></div></div><div><h3>See it in motion</h3><div class="sc-grid"><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image23.gif" alt="Worm turns the wheel"><figcaption>Worm turns the wheel</figcaption></figure><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image41.gif" alt="Worm drive on a mechanism"><figcaption>Worm drive on a mechanism</figcaption></figure></div></div></div><div class="mbpair"><p class="mbpair-h">▶ MythBadger build &amp; examine videos</p><div class="mbpair-grid"><figure><p class="vlabel">Building</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/o9tWu-gDYSA" title="MythBadger: Building a Worm &amp; Wheel Gear" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=o9tWu-gDYSA&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Building a Worm &amp; Wheel Gear</a></p></figure><figure><p class="vlabel">Examining</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/lpWmx3gpD7o" title="MythBadger: Examining the Worm &amp; Wheel" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=lpWmx3gpD7o&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Examining the Worm &amp; Wheel</a></p></figure></div></div><div class="qs"><p class="qh">Fill this mechanism’s row in the Evidence Chart in your Google Doc deliverable — these are the columns to complete (Conclusion Questions are answered separately):</p><ol><li>Angle of input shaft to output shaft</li><li>Predicted / measured ratio</li><li>Speed ↑↓= and torque ↑↓=</li><li>Reversible? (try to back-drive it by turning the wheel)</li><li>Direction of travel reversible?</li><li>Where it&#x27;s used (example)</li></ol></div></section>
+
+<section class="mech" id="rack"><h2>Rack and Pinion</h2><p class="io">Rotary in → linear out</p><div class="sc-cols"><div><h3>Build it</h3><div class="sc-grid"><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image39.jpg" alt="Rack &amp; pinion — front / top / side"><figcaption>Rack &amp; pinion — front / top / side</figcaption></figure><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image16.jpg" alt="Rack &amp; pinion build"><figcaption>Rack &amp; pinion build</figcaption></figure></div></div><div><h3>See it in motion</h3><div class="sc-grid"><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image22.png" alt="Pinion rotation slides the rack in a straight line"><figcaption>Pinion rotation slides the rack in a straight line</figcaption></figure></div></div></div><div class="mbpair"><p class="mbpair-h">▶ MythBadger build &amp; examine videos</p><div class="mbpair-grid"><figure><p class="vlabel">Building</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/tDXu5LX9C5o" title="MythBadger: Building a Rack &amp; Pinion" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=tDXu5LX9C5o&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Building a Rack &amp; Pinion</a></p></figure><figure><p class="vlabel">Examining</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/VsVB6Dp8hLM" title="MythBadger: Examining a Rack and Pinion Gear" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=VsVB6Dp8hLM&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Examining a Rack and Pinion Gear</a></p></figure></div></div><div class="qs"><p class="qh">Fill this mechanism’s row in the Evidence Chart in your Google Doc deliverable — these are the columns to complete (Conclusion Questions are answered separately):</p><ol><li>Motion in → motion out</li><li>Distance the rack moves per turn (ratio, if any)</li><li>If the pinion were larger, shorter or longer travel?</li><li>Reversible? (slide the rack to turn the pinion?)</li><li>Direction reversible?</li><li>Where it&#x27;s used (example)</li></ol></div></section>
+
+<section class="mech" id="chain"><h2>Chain Drive</h2><p class="io">Rotary in → rotary out · sends power across a distance, same direction</p><div class="sc-cols"><div><h3>Build it</h3><div class="sc-grid"><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image37.jpg" alt="Chain drive — two sprockets, two views"><figcaption>Chain drive — two sprockets, two views</figcaption></figure></div></div><div><h3>See it in motion</h3><div class="sc-grid"><figure><img src="https://spartandesign.github.io/build-and-code/showcase/image24.jpg" alt="Chain carries motion between sprockets"><figcaption>Chain carries motion between sprockets</figcaption></figure></div></div></div><div class="mbpair"><p class="mbpair-h">▶ MythBadger build &amp; examine videos</p><div class="mbpair-grid"><figure><p class="vlabel">Building</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/azyro0GhRlM" title="MythBadger: Building a Chain Drive" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=azyro0GhRlM&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Building a Chain Drive</a></p></figure><figure><p class="vlabel">Examining</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/JnpW9AUHxjM" title="MythBadger: Examining a Chain Drive" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=JnpW9AUHxjM&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Examining a Chain Drive</a></p></figure></div></div><div class="qs"><p class="qh">Fill this mechanism’s row in the Evidence Chart in your Google Doc deliverable — these are the columns to complete (Conclusion Questions are answered separately):</p><ol><li>Drive vs. driven sprocket; angle of input to output</li><li>Predicted / measured ratio (train A)</li><li>Speed ↑↓= and torque ↑↓=</li><li>Effect if the small sprocket drives (image B)</li><li>Same or opposite direction?</li><li>Where it&#x27;s used + advantage over spur gears</li></ol></div></section>
+
+<div class="extra-banner"><p class="eb-h">More mechanisms from the MythBadger series</p><p>These five aren&#x27;t part of the seven Activity 2.2 builds or the graded Evidence Chart, but they&#x27;re in the same VEX EXP video series. Watch them to see how motion gets converted in other ways — several show up again in later chapters.</p></div>
+
+<section class="mech" id="belt"><h2>Belt Drive</h2><p class="io">Rotary in → rotary out · carries power across a gap, can slip</p><div class="mbpair"><p class="mbpair-h">▶ MythBadger build &amp; examine videos</p><div class="mbpair-grid"><figure><p class="vlabel">Building</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/DqsPvErI8e8" title="MythBadger: Building a Belt Drive" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=DqsPvErI8e8&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Building a Belt Drive</a></p></figure><figure><p class="vlabel">Examining</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/OM7Bi45ZC4U" title="MythBadger: Examining a Belt Drive" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=OM7Bi45ZC4U&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Examining a Belt Drive</a></p></figure></div></div><div class="qs"><p class="qh">Watch both videos, then note (exploration — not graded):</p><ol><li>How a belt drive is like a chain drive — and how it differs</li><li>What happens when the belt slips, and when that&#x27;s useful</li><li>Same or opposite direction between the two pulleys?</li><li>Where you&#x27;ve seen a belt drive in a real machine</li></ol></div></section>
+
+<section class="mech" id="cam"><h2>Cam &amp; Follower</h2><p class="io">Rotary in → reciprocating (up-and-down) out</p><div class="mbpair"><p class="mbpair-h">▶ MythBadger build &amp; examine videos</p><div class="mbpair-grid"><figure><p class="vlabel">Building</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/1MFii8mWzXY" title="MythBadger: Building a Cam &amp; Follower" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=1MFii8mWzXY&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Building a Cam &amp; Follower</a></p></figure><figure><p class="vlabel">Examining</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/uQvrQQnfrzM" title="MythBadger: Examining a Cam &amp; Follower" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=uQvrQQnfrzM&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Examining a Cam &amp; Follower</a></p></figure></div></div><div class="qs"><p class="qh">Watch both videos, then note (exploration — not graded):</p><ol><li>What kind of motion goes in, and what kind comes out</li><li>How the shape of the cam changes the follower&#x27;s movement</li><li>Whether the follower can drive the cam backward</li><li>Where a cam &amp; follower is used (engines, toys, machines)</li></ol></div></section>
+
+<section class="mech" id="crank"><h2>Crank &amp; Slider</h2><p class="io">Rotary in → straight-line back-and-forth out</p><div class="mbpair"><p class="mbpair-h">▶ MythBadger build &amp; examine videos</p><div class="mbpair-grid"><figure><p class="vlabel">Building</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/WTV3KzFVuvw" title="MythBadger: Building a Crank &amp; Slider" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=WTV3KzFVuvw&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Building a Crank &amp; Slider</a></p></figure><figure><p class="vlabel">Examining</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/rPD1jYX5yfI" title="MythBadger: Examining a Crank &amp; Slider" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=rPD1jYX5yfI&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Examining a Crank &amp; Slider</a></p></figure></div></div><div class="qs"><p class="qh">Watch both videos, then note (exploration — not graded):</p><ol><li>Rotary motion becomes what kind of motion?</li><li>How this differs from a rack &amp; pinion (also rotary → linear)</li><li>Whether the slider can push the crank around (reversible?)</li><li>Where a crank &amp; slider appears (piston engines, pumps)</li></ol></div></section>
+
+<section class="mech" id="leadscrew"><h2>Lead Screw</h2><p class="io">Rotary in → linear out · high force, self-locking</p><div class="mbpair"><p class="mbpair-h">▶ MythBadger build &amp; examine videos</p><div class="mbpair-grid"><figure><p class="vlabel">Building</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/MjdMsmI6qsU" title="MythBadger: Building a Lead Screw" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=MjdMsmI6qsU&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Building a Lead Screw</a></p></figure><figure><p class="vlabel">Examining</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/-i1hVBhBAzA" title="MythBadger: Examining a Lead Screw" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=-i1hVBhBAzA&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Examining a Lead Screw</a></p></figure></div></div><div class="qs"><p class="qh">Watch both videos, then note (exploration — not graded):</p><ol><li>How turning the screw moves the nut/carriage</li><li>Why a lead screw produces so much force (like the worm &amp; wheel)</li><li>Whether pushing the carriage can spin the screw (self-locking?)</li><li>Where a lead screw is used (clamps, vises, 3D printers, CNC)</li></ol></div></section>
+
+<section class="mech" id="universal"><h2>Universal Joint</h2><p class="io">Rotary in → rotary out · transmits spin through an angle</p><div class="mbpair"><p class="mbpair-h">▶ MythBadger build &amp; examine videos</p><div class="mbpair-grid"><figure><p class="vlabel">Building</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/7kmeD_IfGuI" title="MythBadger: Building a Universal Joint" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=7kmeD_IfGuI&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Building a Universal Joint</a></p></figure><figure><p class="vlabel">Examining</p><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/hTSStpENIZ4" title="MythBadger: Examining a Universal Joint" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="vtitle"><a href="https://www.youtube.com/watch?v=hTSStpENIZ4&list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">Examining a Universal Joint</a></p></figure></div></div><div class="qs"><p class="qh">Watch both videos, then note (exploration — not graded):</p><ol><li>What problem the universal joint solves (compared to a straight shaft)</li><li>How the output speed varies as the joint spins through an angle</li><li>What happens as the angle between the shafts gets larger</li><li>Where a universal joint is used (drive shafts, socket wrenches)</li></ol></div></section>
+
+      <p class="sources"><strong>Build photos &amp; motion clips</strong> from the Stauffer MS Mechanical Gears / Mechanisms procedures deck (VEX EXP). Step-by-step build &amp; examine videos from <a href="https://www.youtube.com/c/mythbadgervideos" target="_blank" rel="noopener">Mythbadger Videos</a> — <a href="https://www.youtube.com/playlist?list=PLsyPvV45CWyfje8C4uXhIYi-SfMjjDlVq" target="_blank" rel="noopener">VEX Gear Tutorials</a> playlist (24 videos). Animated diagrams by V. Ryan / technologystudent.com. Videos are external (YouTube); links open in a new tab.</p>
+    </article>
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+  </main>
+</div>
+
+</body>
+</html>
