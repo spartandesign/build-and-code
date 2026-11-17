@@ -381,3 +381,16 @@ a.ext::after{content:"\2197";font-size:.78em;margin-left:2px;color:var(--blue);v
 .calib span.now{background:#FFE3CC;color:var(--orange);font-weight:700;}
 .calib__out{display:flex;flex-wrap:wrap;gap:8px 18px;margin:10px 0 0;font-family:var(--font-mono);font-size:14px;}
 .calib__out b{color:var(--navy);}
+
+/* virtual controller (added Ch. 13) */
+.pad{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:10px 0 4px;padding:10px 18px;background:#1F3864;border-radius:40px;color:#fff;}
+.pad__stick{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:150px;}
+.pad__lab{font-size:12px;color:#C9DBF0;}
+.pad__lab b{color:#fff;}
+.pad__v{writing-mode:vertical-lr;direction:rtl;height:130px;width:30px;accent-color:var(--orange);cursor:grab;}
+.pad__v.h{writing-mode:horizontal-tb;direction:ltr;height:30px;width:150px;}
+.pad .inl{background:rgba(255,255,255,.15);color:#fff;}
+.pad__btns{display:flex;flex-direction:column;gap:8px;}
+.pad__btns .sim__btn{min-width:84px;touch-action:none;user-select:none;}
+@media (max-width:560px){ .pad{border-radius:18px;padding:10px;} .pad__stick{min-width:0;} .pad__v.h{width:110px;} }
+.code .newi{background:#E6F0FA;box-shadow:inset 0 -2px 0 var(--blue);border-radius:3px;}
