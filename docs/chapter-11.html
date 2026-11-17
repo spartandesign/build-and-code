@@ -33,7 +33,7 @@
     </div>
 
     <div class="lede">
-      <p><strong>What you'll learn:</strong> how to make a robot run <strong>on its own</strong>. So far your programs have followed a fixed list of commands — they couldn't react to anything. Now you'll add the two pieces that turn a machine into an <em>automatic</em> one: <strong>reading a sensor</strong> for input, and using <strong>if / else</strong> to make a decision from what it reads. Wrap that in a <strong>while loop</strong> and the robot senses, decides, and acts — over and over, with no one driving it. That's the <strong>sense → decide → act</strong> feedback loop from Chapter 8, finally written in code. Then you'll put it to work: <strong>design, build, and program a real automated device</strong> — a gate, a sign, an elevator — as a team.</p>
+      <p><strong>What you'll learn:</strong> how to make a robot run <strong>on its own</strong>. So far your programs have followed a fixed list of commands — they couldn't react to anything. Now you'll add the two pieces that turn a machine into an <em>automatic</em> one: <strong>reading a sensor</strong> for input, and using <strong>if / else</strong> to make a decision from what it reads. Wrap that in a <strong>while loop</strong> and the robot senses, decides, and acts — over and over, with no one driving it. That's the <strong>sense → decide → act</strong> feedback loop from Chapter 8, finally written in code. Then you'll put it to work: <strong>design, build, and program a real automated device</strong> — a gate, a sign, an elevator — as a team. Along the way you'll <strong>poke a live closed loop</strong> to see each line run, and build your device's code in a <strong>step-by-step tutorial</strong>.</p>
     </div>
 
     <article class="prose wrap">
@@ -73,6 +73,16 @@
         <figcaption>Automation is a cycle: <strong>read a sensor</strong>, <strong>decide</strong> with <span class="inl">if</span>/<span class="inl">else</span>, <strong>move a motor</strong> — and a <span class="inl">while</span> loop repeats it forever so the robot keeps responding.</figcaption>
       </figure>
 
+      <h2>Watch first: sense, decide, act</h2>
+      <p>This two-minute video shows the whole idea before you read the details — open vs. closed loops, sensor readings, <span class="inl">if</span> / <span class="inl">else</span>, why the decision has to live inside <span class="inl">while (true)</span>, <span class="inl">else if</span> zones, and calibrating a potentiometer with a <span class="inl">for</span> loop.</p>
+      <figure class="video">
+        <video controls preload="metadata" playsinline poster="media/ch11-automation-walkthrough-poster.jpg" aria-label="Narrated walkthrough of sensors, if/else, and loops, with captions on screen">
+          <source src="media/ch11-automation-walkthrough.mp4" type="video/mp4">
+          Your browser can't play this video. <a href="media/ch11-automation-walkthrough.mp4">Download it here</a>.
+        </video>
+        <figcaption>Narrated code walkthrough (about 2 minutes). Captions are built into the video.</figcaption>
+      </figure>
+
       <h2>Reading a sensor</h2>
       <p>A <strong>sensor</strong> is the robot's way of taking in information — its input. In Chapter 8 you watched a sensor's reading change on the Brain's Devices screen; now you'll read that same value <em>in your code</em> and act on it. You name a sensor in your device list, just like a motor, then ask it for its reading. Two you'll use most:</p>
 
@@ -97,7 +107,45 @@ bumper startButton = bumper(Brain.ThreeWirePort.A);   <span class="cmt">// a Bum
     driveMotor.spin(forward);                <span class="cmt">// no  -> keep driving</span>
 }</pre>
 
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" role="img" aria-label="Flowchart of an if / else decision. The program reaches a diamond that asks the condition: is the distance less than 150 millimeters? The Yes arrow leads to the if block, stop. The No arrow leads to the else block, spin forward. Exactly one of the two blocks runs, then both paths join and the program continues to the next line.">
+          <defs><marker id="c11fa" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#5B6470"/></marker></defs>
+          <text x="380" y="24" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1F3864">IF / ELSE: EXACTLY ONE PATH RUNS</text>
+          <line x1="380" y1="36" x2="380" y2="58" stroke="#5B6470" stroke-width="2.4" marker-end="url(#c11fa)"/>
+          <polygon points="380,62 520,118 380,174 240,118" fill="#F2F7FC" stroke="#2E75B6" stroke-width="2.4"/>
+          <text x="380" y="112" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">condition:</text>
+          <text x="380" y="132" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#1A1A1A">distance &lt; 150 ?</text>
+          <line x1="240" y1="118" x2="150" y2="118" stroke="#5B6470" stroke-width="2.4"/><line x1="150" y1="118" x2="150" y2="186" stroke="#5B6470" stroke-width="2.4" marker-end="url(#c11fa)"/>
+          <text x="196" y="108" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#3F6B2A">YES (true)</text>
+          <line x1="520" y1="118" x2="610" y2="118" stroke="#5B6470" stroke-width="2.4"/><line x1="610" y1="118" x2="610" y2="186" stroke="#5B6470" stroke-width="2.4" marker-end="url(#c11fa)"/>
+          <text x="566" y="108" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#B42318">NO (false)</text>
+          <rect x="60" y="190" width="180" height="54" rx="10" fill="#FFE3CC" stroke="#C55A11" stroke-width="2"/>
+          <text x="150" y="212" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#C55A11">if block</text>
+          <text x="150" y="232" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#1A1A1A">driveMotor.stop();</text>
+          <rect x="520" y="190" width="180" height="54" rx="10" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="2"/>
+          <text x="610" y="212" text-anchor="middle" font-family="Arial" font-size="11.5" font-weight="bold" fill="#3F6B2A">else block</text>
+          <text x="610" y="232" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#1A1A1A">spin(forward);</text>
+          <path d="M150,244 L150,268 L374,268" fill="none" stroke="#5B6470" stroke-width="2.4"/>
+          <path d="M610,244 L610,268 L386,268" fill="none" stroke="#5B6470" stroke-width="2.4"/>
+          <line x1="380" y1="268" x2="380" y2="292" stroke="#5B6470" stroke-width="2.4" marker-end="url(#c11fa)"/>
+          <text x="392" y="290" font-family="Arial" font-size="12" font-style="italic" fill="#5B6470">next line</text>
+        </svg>
+        <figcaption>The condition is a yes/no question. <strong>Yes</strong> runs the <span class="inl">if</span> block, <strong>no</strong> runs the <span class="inl">else</span> block — never both — and then the program carries on.</figcaption>
+      </figure>
+
       <p>The condition is the part in parentheses. It uses a comparison — <span class="inl">&lt;</span> (less than), <span class="inl">&gt;</span> (greater than), or <span class="inl">==</span> (equal to) — or a yes/no reading like <span class="inl">startButton.pressing()</span>. If you have more than two cases, chain them with <span class="inl">else if</span>: check the first condition, then the next, then the next, and finally a catch-all <span class="inl">else</span>. The curly braces <span class="inl">{ }</span> mark each block — exactly like the blocks you marked in your Chapter 9 pseudocode.</p>
+
+      <p class="codetag"><span class="dot">●</span> More than two cases: <span class="inl">else if</span> — slow down, then stop</p>
+<pre class="code"><span class="kw">if</span> (frontEye.objectDistance(mm) &lt; 150) {        <span class="cmt">// very close</span>
+    driveMotor.stop();
+} <span class="kw">else if</span> (frontEye.objectDistance(mm) &lt; 400) { <span class="cmt">// getting close</span>
+    driveMotor.setVelocity(25, percent);          <span class="cmt">//   creep</span>
+    driveMotor.spin(forward);
+} <span class="kw">else</span> {                                        <span class="cmt">// far away</span>
+    driveMotor.setVelocity(60, percent);          <span class="cmt">//   cruise</span>
+    driveMotor.spin(forward);
+}</pre>
+      <p>The checks happen <strong>in order, top to bottom</strong>, and the first one that's true wins — the rest are skipped. That's why the closest zone (<span class="inl">&lt; 150</span>) goes first: 100&nbsp;mm is also less than 400, so if the 400 check came first, the robot would creep into the wall instead of stopping.</p>
 
       <h2>Doing it forever: the while loop</h2>
       <p>Here's the catch: an <span class="inl">if</span> checks its condition <strong>once</strong>. A real automatic device has to check <em>continuously</em> — a gate must watch for cars all day, not glance once and quit. The <span class="inl">while</span> loop does that. <span class="inl">while (true)</span> means "keep repeating the block inside, forever," so the robot senses, decides, and acts again and again:</p>
@@ -118,6 +166,95 @@ bumper startButton = bumper(Brain.ThreeWirePort.A);   <span class="cmt">// a Bum
 }</pre>
 
       <p>Read it as the loop in the diagram: <strong>sense</strong> (read <span class="inl">frontEye</span>), <strong>decide</strong> (the <span class="inl">if</span>), <strong>act</strong> (<span class="inl">stop</span> or <span class="inl">spin</span>), then loop back and do it again. The little <span class="inl">wait(20, msec)</span> at the end gives the Brain a moment between checks — always include it in a <span class="inl">while (true)</span> loop. Swap in a different sensor and you get a different machine: use <span class="inl">if (startButton.pressing())</span> and you've built a sign that spins only while a button is held.</p>
+
+      <h2>Try it: a closed loop you can poke</h2>
+      <p>This robot runs the "stop before you hit something" program above. Press <strong>Play</strong> and watch the code: every pass of the loop it <strong>senses</strong> the distance, the <span class="inl">if</span> <strong>decides</strong>, and one branch <strong>acts</strong>. Then drag the <strong>box</strong> away and the robot starts driving again on its own. Change the <strong>threshold</strong> to see where it stops. Finally, tick <strong>No loop</strong> to run the <span class="inl">if</span> only once — and see why automatic devices need <span class="inl">while (true)</span>. (The loop is slowed way down so you can follow it; the real Brain runs it 50 times a second.)</p>
+
+      <div class="sim" id="c11Box">
+        <svg id="c11Svg" viewBox="0 0 720 200" role="img" aria-label="Side view: a robot with a distance sensor on its front drives along the floor toward a box. A dashed beam shows the measured distance in millimeters. A dotted line marks the stopping threshold.">
+          <line x1="10" y1="170" x2="710" y2="170" stroke="#5B6470" stroke-width="3"/>
+          <line id="c11Thr" x1="0" y1="40" x2="0" y2="170" stroke="#C55A11" stroke-width="2" stroke-dasharray="4 4"/>
+          <text id="c11ThrT" x="0" y="34" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#C55A11">150 mm</text>
+          <g id="c11Robot">
+            <rect x="-90" y="112" width="90" height="40" rx="8" fill="#1F3864"/>
+            <rect x="-6" y="120" width="12" height="16" rx="2" fill="#C55A11"/>
+            <g id="c11W1" transform="translate(-70,156)"><circle r="14" fill="#F2F7FC" stroke="#1F3864" stroke-width="4"/><line x1="0" y1="-11" x2="0" y2="11" stroke="#1F3864" stroke-width="3"/></g>
+            <g id="c11W2" transform="translate(-22,156)"><circle r="14" fill="#F2F7FC" stroke="#1F3864" stroke-width="4"/><line x1="0" y1="-11" x2="0" y2="11" stroke="#1F3864" stroke-width="3"/></g>
+            <text x="-45" y="137" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#FFFFFF">robot</text>
+          </g>
+          <line id="c11Beam" x1="0" y1="128" x2="0" y2="128" stroke="#C55A11" stroke-width="2" stroke-dasharray="5 4"/>
+          <text id="c11BeamT" x="0" y="104" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="bold" fill="#C55A11"></text>
+          <rect id="c11Obj" x="0" y="96" width="56" height="74" rx="4" fill="#F4B183" stroke="#C55A11" stroke-width="2"/>
+          <text id="c11Msg" x="230" y="24" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#B42318"></text>
+        </svg>
+        <div class="sim__ctl">
+          <label>Move the box <input type="range" id="c11Box2" min="260" max="700" value="560"></label>
+          <label>Threshold <input type="range" id="c11Th" min="80" max="400" step="10" value="150"> <span class="inl" id="c11ThV">150</span> mm</label>
+        </div>
+        <div class="sim__split">
+<pre class="code sim__code" id="c11Code" aria-label="The stop-before-you-hit-something program, with the line running now highlighted"><span class="ln" data-l="0"><span class="kw">while</span> (<span class="kw">true</span>) {                               <span class="cmt">// keep checking, forever</span></span><span class="ln" data-l="1">    <span class="kw">if</span> (frontEye.objectDistance(mm) &lt; <span id="c11CodeTh">150</span>) {  <span class="cmt">// SENSE + DECIDE</span></span><span class="ln" data-l="2">        driveMotor.stop();                    <span class="cmt">// ACT: something is close</span></span><span class="ln" data-l="3">    } <span class="kw">else</span> {</span><span class="ln" data-l="4">        driveMotor.spin(forward);             <span class="cmt">// ACT: path is clear</span></span><span class="ln" data-l="5">    }</span><span class="ln" data-l="6">    wait(20, msec);                           <span class="cmt">// then check again</span></span><span class="ln" data-l="7">}</span></pre>
+        </div>
+        <div class="sim__bar">
+          <button class="sim__btn sim__btn--go" id="c11Play" type="button">▶ Play</button>
+          <button class="sim__btn" id="c11Reset" type="button">↺ Restart</button>
+          <label class="sim__toggle"><input type="checkbox" id="c11Once"> No loop (check only once)</label>
+          <span class="sim__phase" id="c11Pass">Loop passes: 0</span>
+        </div>
+        <p class="sim__say" id="c11Say" aria-live="polite">Press <strong>Play</strong> to start the program.</p>
+      </div>
+      <script>
+      (function(){
+        function $(id){return document.getElementById(id);}
+        var MMPX=2, robotX=110, boxX=560, thr=150, moving=false, playing=false, line=-1, pass=0, done=false, crashed=false, last=null, stepT=0, ang=0, reading=null;
+        var lines=document.querySelectorAll('#c11Code .ln'), say=$('c11Say');
+        var STEP=380; /* ms per highlighted line */
+        function dist(){ return Math.max(0,(boxX-robotX)*MMPX); }
+        function hl(l){ line=l; for(var j=0;j<lines.length;j++) lines[j].classList.toggle('on',+lines[j].getAttribute('data-l')===l); }
+        function draw(){
+          $('c11Robot').setAttribute('transform','translate('+robotX+',0)');
+          $('c11Obj').setAttribute('x',boxX);
+          var tx=boxX-thr/MMPX; $('c11Thr').setAttribute('x1',tx); $('c11Thr').setAttribute('x2',tx); $('c11ThrT').setAttribute('x',tx); $('c11ThrT').textContent=thr+' mm';
+          $('c11Beam').setAttribute('x1',robotX+6); $('c11Beam').setAttribute('x2',boxX);
+          var d=Math.round(dist()); $('c11BeamT').setAttribute('x',(robotX+boxX)/2); $('c11BeamT').textContent=d>=40?d+' mm':'';
+          $('c11W1').setAttribute('transform','translate(-70,156) rotate('+ang+')'); $('c11W2').setAttribute('transform','translate(-22,156) rotate('+ang+')');
+          $('c11Pass').textContent='Loop passes: '+pass;
+          $('c11Msg').textContent=crashed?'CRASH! It never checked again.':'';
+        }
+        /* one pass = sequence of line steps */
+        var seq=[], si=0;
+        function buildPass(){
+          reading=Math.round(dist());
+          var close=reading<thr;
+          seq=[ {l:0,msg:'<strong>Loop pass '+(pass+1)+'.</strong> Back to the top of <span class="inl">while (true)</span>.'},
+                {l:1,msg:'<strong>Sense + decide:</strong> the sensor reads <strong>'+reading+' mm</strong>. Is '+reading+' &lt; '+thr+'? <strong>'+(close?'Yes':'No')+'.</strong>'},
+                close?{l:2,msg:'<strong>Act:</strong> it\'s close, so <span class="inl">stop()</span>. The <span class="inl">else</span> block is skipped.',act:function(){moving=false;}}
+                     :{l:4,msg:'<strong>Act:</strong> the path is clear, so <span class="inl">spin(forward)</span>. The <span class="inl">if</span> block was skipped.',act:function(){moving=true;}},
+                {l:6,msg:'<span class="inl">wait(20, msec)</span>, then loop back and check again.'} ];
+          if($('c11Once').checked){ seq.shift(); seq.pop(); seq.push({l:7,msg:'With no loop, the program checked <strong>once</strong> and finished. The motor keeps doing whatever it was last told — and nothing will ever check the sensor again.',end:true}); }
+          si=0;
+        }
+        function advance(){
+          if(done) return;
+          if(si>=seq.length){ pass++; if($('c11Once').checked){ done=true; return; } buildPass(); }
+          var s=seq[si++]; hl(s.l); say.innerHTML=s.msg; if(s.act) s.act(); if(s.end){ pass++; done=true; }
+        }
+        function tick(now){
+          var dt=last?Math.min(.05,(now-last)/1000):0; last=now;
+          if(playing){
+            if(moving&&!crashed){ robotX+=dt*20; ang=(ang+dt*360)%360; if(robotX>=boxX-2){ robotX=boxX-2; moving=false; crashed=true; playing=false; $('c11Play').textContent='▶ Play'; } }
+            stepT+=dt*1000; if(stepT>=STEP){ stepT=0; advance(); }
+          }
+          draw(); requestAnimationFrame(tick);
+        }
+        function reset(){ playing=false; $('c11Play').textContent='▶ Play'; robotX=110; moving=false; pass=0; done=false; crashed=false; hl(-1); buildPass(); say.innerHTML='Press <strong>Play</strong> to start the program.'; draw(); }
+        $('c11Play').addEventListener('click',function(){ if(done||crashed) reset(); playing=!playing; this.textContent=playing?'❚❚ Pause':'▶ Play'; if(playing&&line<0){ stepT=STEP; } });
+        $('c11Reset').addEventListener('click',reset);
+        $('c11Once').addEventListener('change',reset);
+        $('c11Box2').addEventListener('input',function(){ boxX=Math.max(+this.value,robotX+4); if(crashed&&boxX>robotX+4){} draw(); });
+        $('c11Th').addEventListener('input',function(){ thr=+this.value; $('c11ThV').textContent=thr; $('c11CodeTh').textContent=thr; draw(); });
+        reset(); requestAnimationFrame(tick);
+      })();
+      </script>
 
       <div class="card card--tip">
         <h3>🎯 "true" forever, on purpose</h3>
@@ -161,6 +298,48 @@ potV2 armPot = potV2(Brain.ThreeWirePort.A);
 <span class="kw">double</span> home = sum / 20;          <span class="cmt">// the baseline</span></pre>
       <p>(<span class="inl">i = i + 1</span> just adds one to the counter each pass; you'll also see it written <span class="inl">i++</span>.) Now you know <strong>two kinds of loop</strong>: <span class="inl">while (true)</span> repeats <em>forever</em> — keep sensing and reacting — while a <span class="inl">for</span> loop repeats a <em>set number of times</em>, then moves on.</p>
 
+      <div class="sim" id="c12Box">
+        <p class="card__title" style="margin:0 0 6px;font-weight:800;color:var(--navy)">Try it: watch the for loop calibrate</p>
+        <p style="margin:0;font-size:15px">The arm is parked at home. Each pass of the <span class="inl">for</span> loop reads the potentiometer (it jitters a little), adds it to <span class="inl">sum</span>, and adds one to <span class="inl">i</span>. When <span class="inl">i</span> reaches 20, the loop ends and <span class="inl">home</span> becomes the average.</p>
+        <div class="sim__split" style="margin-top:10px">
+<pre class="code sim__code" id="c12Code" aria-label="The calibration for loop, with the running line highlighted"><span class="ln" data-l="0"><span class="kw">double</span> sum = 0;</span><span class="ln" data-l="1"><span class="kw">for</span> (<span class="kw">int</span> i = 0; i &lt; 20; i = i + 1) {</span><span class="ln" data-l="2">    sum = sum + armPot.angle(degrees);</span><span class="ln" data-l="3">    wait(5, msec);</span><span class="ln" data-l="4">}</span><span class="ln" data-l="5"><span class="kw">double</span> home = sum / 20;          <span class="cmt">// the baseline</span></span></pre>
+        </div>
+        <div class="calib" id="c12Cells" aria-hidden="true"></div>
+        <div class="calib__out" aria-live="polite"><span>i = <b id="c12I">—</b></span><span>this reading = <b id="c12R">—</b></span><span>sum = <b id="c12S">—</b></span><span>home = <b id="c12H">—</b></span></div>
+        <div class="sim__bar">
+          <button class="sim__btn sim__btn--go" id="c12Play" type="button">▶ Run the loop</button>
+          <button class="sim__btn" id="c12Step" type="button">Step ⏭</button>
+          <button class="sim__btn" id="c12Reset" type="button">↺ Restart</button>
+        </div>
+      </div>
+      <script>
+      (function(){
+        function $(id){return document.getElementById(id);}
+        var R=[160.4,159.8,160.9,159.6,160.2,161.1,159.9,160.3,159.5,160.7,160.0,159.7,160.6,160.1,159.4,160.8,160.2,159.9,160.5,160.0];
+        var lines=document.querySelectorAll('#c12Code .ln'), cells=$('c12Cells'), timer=null, k=0, i=0, sum=0, phase=0, home=null;
+        cells.innerHTML=R.map(function(_,j){return '<span>'+j+'</span>';}).join('');
+        function hl(l){ for(var j=0;j<lines.length;j++) lines[j].classList.toggle('on',+lines[j].getAttribute('data-l')===l); }
+        function show(cur){
+          var sp=cells.children; for(var j=0;j<20;j++){ sp[j].className=j<i?'got':(j===cur?'now':''); sp[j].textContent=j<i||j===cur?R[j].toFixed(1):j; }
+          $('c12I').textContent=phase===0?'—':i; $('c12S').textContent=phase===0?'—':sum.toFixed(1); $('c12H').textContent=home===null?'—':home.toFixed(2)+'°';
+        }
+        /* phases: 0 start, 1 sum=0, then per pass: 2 check, 3 add, 4 wait/next ... 5 done */
+        function step(){
+          if(phase===0){ phase=1; hl(0); sum=0; i=0; $('c12R').textContent='—'; show(-1); return; }
+          if(phase===1||phase===4){ if(phase===4){ i++; } hl(1); phase=(i<20)?2:5; if(phase===5){ hl(5); home=sum/20; show(-1); stop(); $('c12Play').textContent='▶ Run again'; return; } show(i); return; }
+          if(phase===2){ hl(2); sum+=R[i]; $('c12R').textContent=R[i].toFixed(1)+'°'; phase=3; show(i); return; }
+          if(phase===3){ hl(3); phase=4; return; }
+          if(phase===5){ reset(); }
+        }
+        function stop(){ clearInterval(timer); timer=null; if(phase!==5) $('c12Play').textContent='▶ Run the loop'; }
+        function reset(){ stop(); phase=0; i=0; sum=0; home=null; hl(-1); $('c12R').textContent='—'; show(-1); $('c12Play').textContent='▶ Run the loop'; }
+        $('c12Play').addEventListener('click',function(){ if(timer){ stop(); return; } if(phase===5) reset(); this.textContent='❚❚ Pause'; timer=setInterval(step,340); });
+        $('c12Step').addEventListener('click',function(){ stop(); step(); });
+        $('c12Reset').addEventListener('click',reset);
+        reset();
+      })();
+      </script>
+
       <h3>Putting it together</h3>
       <p>Calibrate once at the top of <span class="inl">main()</span>, then read the calibrated angle in your <span class="inl">while (true)</span> loop and act on it — for example, raise an arm until it passes 90° from home, then hold:</p>
       <p class="codetag"><span class="dot">●</span> Raise the arm to 90° from home, then hold</p>
@@ -190,7 +369,7 @@ potV2 armPot = potV2(Brain.ThreeWirePort.A);
 
       <div class="card card--tip">
         <h3>🎯 Raw vs. calibrated</h3>
-        <p>Always subtract your baseline before you trust a potentiometer number. The raw angle answers "where is the shaft in the sensor's own terms"; <span class="inl">raw − home</span> answers "where is the arm, measured from where I started" — and that's the value your <span class="inl">if</span> conditions should use. Re-calibrate whenever you remount the sensor.</p>
+        <p>Always subtract your baseline before you trust a potentiometer number. The raw angle answers "where is the shaft in the sensor's own terms"; <span class="inl">raw − home</span> answers "where is the arm, measured from where I started" — and that's the value your <span class="inl">if</span> conditions should use. Re-calibrate whenever you remount the sensor. And check the direction: if raising the arm makes <span class="inl">raw − home</span> go <em>negative</em>, the sensor is mounted the other way — use <span class="inl">home − raw</span> instead.</p>
       </div>
 
       <div class="card card--constraint">
@@ -244,7 +423,7 @@ potV2 armPot = potV2(Brain.ThreeWirePort.A);
       <p>The "stop before you hit something" program above is <strong>one</strong> pattern — but the six projects need a few different ones. Here's the toolkit: find your project in the table at the end and start from its pattern. Two of them use commands you haven't met yet, both about making a motor <em>hold a position</em> instead of spinning freely like a wheel:</p>
       <ul>
         <li><span class="inl">gateMotor.setStopping(hold);</span> — when this motor stops, <strong>hold its position</strong> instead of coasting. Set it once before the loop; a gate or elevator needs it so it stays put.</li>
-        <li><span class="inl">gateMotor.spinToPosition(90, degrees);</span> — drive the motor to a <strong>specific angle</strong> and hold there. It counts from where it started, so begin with the gate closed at 0°.</li>
+        <li><span class="inl">gateMotor.spinToPosition(90, degrees);</span> — drive the motor to a <strong>specific angle</strong> and hold there. It counts from where it started, so begin with the gate closed at 0°. The program <strong>waits</strong> on this line until the motor arrives, then moves on — so a gate finishes opening before the loop checks the sensor again.</li>
       </ul>
 
       <p class="codetag"><span class="dot">●</span> Pattern A · spin while a condition is true — <em>"stay on course" vehicle, spinning sign</em></p>
@@ -308,6 +487,152 @@ liftMotor.stop();                         <span class="cmt">// reached the top -
         <p>Don't guess the number in <span class="inl">&lt; 150</span>. On the Brain's <strong>Devices</strong> screen, open your Distance Sensor and watch its reading as you hold an object exactly where you want the robot to react — that number is your threshold. Fine-tune it after a test or two.</p>
       </div>
 
+      <h2>Code tutorial: build an automatic device, one step at a time</h2>
+      <p>Build your sense → decide → act program in small, tested pieces. The example is the "stay on course" robot, but steps 1–4 are the same for every project; step 6 switches to your own project's pattern. Download and test after every step. Lines <span style="background:#E6F0FA;box-shadow:inset 3px 0 0 var(--blue);padding:0 4px">shaded blue</span> are new.</p>
+
+      <div class="tut">
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: see what your sensor sees</p>
+          <h3>Name the sensor and print its reading</h3>
+          <p>Before you write a single decision, find out what numbers your sensor actually gives. This loop prints the distance on the Brain's screen five times a second.</p>
+          <svg viewBox="0 0 560 120" role="img" aria-label="The EXP Brain screen shows the live reading, 212 millimeters, while a hand is held in front of the distance sensor.">
+            <rect x="20" y="10" width="220" height="100" rx="14" fill="#1F3864"/>
+            <rect x="38" y="26" width="184" height="68" rx="6" fill="#0E1A2E"/>
+            <text x="130" y="68" text-anchor="middle" font-family="Consolas,monospace" font-size="24" font-weight="bold" fill="#9DE6A5">212 mm</text>
+            <rect x="300" y="44" width="30" height="34" rx="4" fill="#C55A11"/>
+            <text x="315" y="100" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#C55A11">sensor</text>
+            <line x1="332" y1="61" x2="470" y2="61" stroke="#C55A11" stroke-width="2" stroke-dasharray="5 4"/>
+            <rect x="474" y="30" width="40" height="62" rx="12" fill="#F4B183" stroke="#C55A11" stroke-width="2"/>
+            <text x="494" y="108" text-anchor="middle" font-family="Arial" font-size="11" fill="#5B6470">your hand</text>
+          </svg>
+<pre class="code">motor driveMotor = motor(PORT1);
+<span class="new">distance frontEye = distance(PORT2);</span>
+
+<span class="kw">int</span> main() {
+    vexcodeInit();
+<span class="new">    <span class="kw">while</span> (<span class="kw">true</span>) {</span>
+<span class="new">        Brain.Screen.clearScreen();</span>
+<span class="new">        Brain.Screen.setCursor(1, 1);</span>
+<span class="new">        Brain.Screen.print(<span class="str">"%.0f mm"</span>, frontEye.objectDistance(mm));</span>
+<span class="new">        wait(200, msec);</span>
+<span class="new">    }</span>
+}</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> move your hand toward and away from the sensor. The number on the Brain should go down and up. Write down the reading at the spot where you want the robot to react — that's your <strong>threshold</strong>.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> the number never changes? Check the sensor is on Smart Port 2 and points at your hand. A very large number means it sees nothing in range.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: one decision — and discover its limit</p>
+          <h3>Decide once with if / else</h3>
+          <p>Replace the printing loop with a single decision. Use the threshold you wrote down in step 1.</p>
+<pre class="code"><span class="kw">int</span> main() {
+    vexcodeInit();
+<span class="new">    <span class="kw">if</span> (frontEye.objectDistance(mm) &lt; 150) {</span>
+<span class="new">        driveMotor.stop();</span>
+<span class="new">    } <span class="kw">else</span> {</span>
+<span class="new">        driveMotor.spin(forward);</span>
+<span class="new">    }</span>
+}</pre>
+          <p class="tut__check"><strong>✅ Check it — predict first:</strong> start the program with your hand far away, then bring your hand close. Does the motor stop? (It won't — the <span class="inl">if</span> checked <em>once</em>, at the start, and never again. That's exactly what "No loop" showed in the animation.)</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: the robot keeps checking, forever</p>
+          <h3>Wrap it in while (true)</h3>
+          <p>Put the decision inside a <span class="inl">while (true)</span> loop with a short <span class="inl">wait</span> at the bottom. Now it senses, decides and acts 50 times a second.</p>
+<pre class="code"><span class="kw">int</span> main() {
+    vexcodeInit();
+<span class="new">    driveMotor.setVelocity(50, percent);</span>
+<span class="new">    <span class="kw">while</span> (<span class="kw">true</span>) {</span>
+        <span class="kw">if</span> (frontEye.objectDistance(mm) &lt; 150) {
+            driveMotor.stop();
+        } <span class="kw">else</span> {
+            driveMotor.spin(forward);
+        }
+<span class="new">        wait(20, msec);</span>
+<span class="new">    }</span>
+}</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> with the wheels propped up, wave your hand in front of the sensor. The motor stops when your hand is close and starts again when you pull it away — every time.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> it stops but never restarts? Make sure the <span class="inl">if</span> is <em>inside</em> the loop's <span class="inl">{ }</span>. Count your braces: every <span class="inl">{</span> needs a matching <span class="inl">}</span>.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: it stops in the right place, on the floor</p>
+          <h3>Test for real and tune the threshold</h3>
+          <p>Unplug the USB-C cable, put the robot on the floor facing a wall, and run it. Measure where it actually stops with a ruler.</p>
+          <table class="dtable">
+            <thead><tr><th>If it…</th><th>Try…</th></tr></thead>
+            <tbody>
+              <tr><td>stops too far from the wall</td><td>a <strong>smaller</strong> threshold (e.g. 150 → 100)</td></tr>
+              <tr><td>bumps the wall</td><td>a <strong>bigger</strong> threshold, or a slower <span class="inl">setVelocity</span> — a fast robot rolls on after it stops</td></tr>
+              <tr><td>stutters (stop–go–stop)</td><td>check the sensor is mounted firmly and pointing straight ahead</td></tr>
+            </tbody>
+          </table>
+          <p class="tut__check"><strong>✅ Check it:</strong> it stops at the same distance 5 runs in a row. Record your final threshold and speed in your notebook.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: three behaviors instead of two</p>
+          <h3>Add a middle zone with else if</h3>
+          <p>A smarter robot slows down as it gets close. Add an <span class="inl">else if</span> between the two cases. Keep the <strong>closest</strong> check first.</p>
+          <svg viewBox="0 0 560 90" role="img" aria-label="Three zones in front of the wall. Farther than 400 millimeters: cruise at 60 percent. Between 150 and 400: creep at 25 percent. Closer than 150: stop.">
+            <rect x="20" y="20" width="250" height="40" fill="#E2EFDA"/><text x="145" y="45" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#3F6B2A">far: cruise 60%</text>
+            <rect x="270" y="20" width="180" height="40" fill="#FBEFD6"/><text x="360" y="45" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#8A5400">&lt; 400: creep 25%</text>
+            <rect x="450" y="20" width="80" height="40" fill="#FDE8E6"/><text x="490" y="45" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#B42318">&lt; 150: stop</text>
+            <rect x="530" y="10" width="14" height="60" fill="#5B6470"/><text x="537" y="84" text-anchor="middle" font-family="Arial" font-size="11" fill="#5B6470">wall</text>
+          </svg>
+<pre class="code">    <span class="kw">while</span> (<span class="kw">true</span>) {
+        <span class="kw">if</span> (frontEye.objectDistance(mm) &lt; 150) {
+            driveMotor.stop();
+<span class="new">        } <span class="kw">else if</span> (frontEye.objectDistance(mm) &lt; 400) {</span>
+<span class="new">            driveMotor.setVelocity(25, percent);</span>
+<span class="new">            driveMotor.spin(forward);</span>
+        } <span class="kw">else</span> {
+<span class="new">            driveMotor.setVelocity(60, percent);</span>
+            driveMotor.spin(forward);
+        }
+        wait(20, msec);
+    }</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> on the floor, you can <em>hear</em> it slow down before it stops — and it stops closer to the wall without bumping it.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> it creeps into the wall? Your <span class="inl">&lt; 400</span> check is probably above the <span class="inl">&lt; 150</span> check. The first true condition wins.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: your own project's behavior</p>
+          <h3>Switch to your project's pattern</h3>
+          <p>Steps 1–4 work for every project. Now pick your pattern from the table in "Find your project's pattern" and swap in its loop. For a gate or door (Pattern B), the motor has to <strong>hold a position</strong> instead of spinning like a wheel:</p>
+          <svg viewBox="0 0 560 130" role="img" aria-label="A gate arm on a motor. At 0 degrees the arm is down, blocking the road. At 90 degrees it is raised. spinToPosition drives the arm to an angle and setStopping hold keeps it there.">
+            <line x1="20" y1="110" x2="540" y2="110" stroke="#5B6470" stroke-width="3"/>
+            <rect x="120" y="70" width="30" height="40" rx="4" fill="#1F3864"/><circle cx="135" cy="76" r="7" fill="#C55A11"/>
+            <line x1="135" y1="76" x2="285" y2="76" stroke="#B8C2CE" stroke-width="8" stroke-linecap="round"/>
+            <line x1="135" y1="76" x2="135" y2="8" stroke="#2E75B6" stroke-width="8" stroke-linecap="round"/>
+            <text x="295" y="81" font-family="Consolas,monospace" font-size="13" fill="#5B6470">0° = down (closed)</text>
+            <text x="150" y="20" font-family="Consolas,monospace" font-size="13" fill="#2E75B6">90° = up (open)</text>
+            <text x="330" y="28" font-family="Arial" font-size="12" fill="#1A1A1A">Start the program with the gate <tspan font-weight="bold">closed</tspan> —</text>
+            <text x="330" y="44" font-family="Arial" font-size="12" fill="#1A1A1A">the motor counts degrees from where it starts.</text>
+          </svg>
+<pre class="code"><span class="new">motor gateMotor = motor(PORT1);</span>
+distance frontEye = distance(PORT2);
+
+<span class="kw">int</span> main() {
+    vexcodeInit();
+<span class="new">    gateMotor.setStopping(hold);   <span class="cmt">// hold when stopped</span></span>
+    <span class="kw">while</span> (<span class="kw">true</span>) {
+        <span class="kw">if</span> (frontEye.objectDistance(mm) &lt; 200) {   <span class="cmt">// a car is here</span>
+<span class="new">            gateMotor.spinToPosition(90, degrees);  <span class="cmt">// raise &amp; hold</span></span>
+        } <span class="kw">else</span> {
+<span class="new">            gateMotor.spinToPosition(0, degrees);   <span class="cmt">// lower</span></span>
+        }
+        wait(20, msec);
+    }
+}</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> the gate opens when a "car" (your hand or a block) arrives, stays up while it's there, and closes after it leaves. Push gently on the raised gate — it should resist and stay up.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> the gate goes the wrong way? Use <span class="inl">-90</span>, or reverse the motor with <span class="inl">motor(PORT1, true)</span>. It slowly sags? Make sure <span class="inl">setStopping(hold)</span> is there, before the loop.</p>
+        </div>
+
+      </div>
+
       <h2>What you'll need</h2>
       <ul>
         <li>Your computer with <strong>VS Code + the VEX extension</strong>, and a <strong>USB-C cable</strong></li>
@@ -321,7 +646,7 @@ liftMotor.stop();                         <span class="cmt">// reached the top -
         <li><strong>Define the problem.</strong> Read your task, then write a short design brief: what it must do, and every <strong>constraint</strong> (EXP kit only, fits the cubby, which sensor).</li>
         <li><strong>Sketch and choose.</strong> Each teammate sketches a design. Compare them in a simple decision matrix against your criteria, and pick the best one to build.</li>
         <li><strong>Build the mechanism.</strong> Construct your device from the kit so it fits the cubby. Mount the motor and the sensor where they need to be, and wire them to the Brain.</li>
-        <li><strong>Plan, then code.</strong> Write <strong>pseudocode</strong> for the sense → decide → act loop first. Then translate it into C++: name your devices, set up the <span class="inl">while (true)</span> loop, and fill in the <span class="inl">if</span>/<span class="inl">else</span>.</li>
+        <li><strong>Plan, then code.</strong> Write <strong>pseudocode</strong> for the sense → decide → act loop first. Then translate it into C++ by following the <strong>code tutorial</strong>: print your sensor's reading, decide once, loop it, then switch to your project's pattern.</li>
         <li><strong>Test and refine — a little at a time.</strong> Download, watch it run, and fix one thing at a time. Tune your distance threshold or speed until it behaves the way the task needs.</li>
         <li><strong>Evaluate.</strong> In your notebook, judge how well it works — and answer: <em>which sensors did you use, and is your device an open or a closed loop?</em></li>
       </ol>
@@ -345,14 +670,16 @@ liftMotor.stop();                         <span class="cmt">// reached the top -
         <li>A Potentiometer V2 on a robot arm reads <span class="inl">160</span> when the arm is parked at its home position. Why can't you just say "the arm is at 160°," and what do you store in a <strong>variable</strong> to fix it? Once you have it, how do you get the arm's angle <em>from home</em>?</li>
         <li>You know two kinds of loop now. When would you use a <span class="inl">for</span> loop instead of <span class="inl">while (true)</span>? Give one example from this chapter.</li>
         <li>Write the sense–decide–act idea in pseudocode for this device: <em>"a night-light motor turns a lamp on when the room is dark."</em> Name the sensor reading, the decision, and the action.</li>
+        <li>In the closed-loop animation, what happened with <strong>No loop</strong> ticked, and why? What does that tell you about where the <span class="inl">if</span> has to go?</li>
+        <li>In an <span class="inl">if / else if / else</span> chain, why must the <span class="inl">&lt; 150</span> check come <em>before</em> the <span class="inl">&lt; 400</span> check?</li>
         <li>For <strong>your</strong> project: which sensor did you choose, and what condition (the question your <span class="inl">if</span> asks) makes it respond correctly?</li>
       </ol>
 
       <h2>Key terms</h2>
       <div class="terms">
-        <span class="term">automation</span><span class="term">open loop</span><span class="term">closed loop</span><span class="term">sensor</span><span class="term">input</span><span class="term">Distance Sensor</span><span class="term">Bumper Switch</span><span class="term">objectDistance</span><span class="term">pressing()</span><span class="term">condition</span><span class="term">if</span><span class="term">else</span><span class="term">else if</span><span class="term">comparison</span><span class="term">variable</span><span class="term">int</span><span class="term">double</span><span class="term">Potentiometer V2</span><span class="term">angle()</span><span class="term">calibration</span><span class="term">baseline</span><span class="term">for loop</span><span class="term">while loop</span><span class="term">while (true)</span><span class="term">setStopping(hold)</span><span class="term">spinToPosition</span><span class="term">latch</span><span class="term">state</span><span class="term">bool</span><span class="term">3-Wire port</span><span class="term">Smart Port</span><span class="term">design process</span><span class="term">decision matrix</span></div>
+        <span class="term">automation</span><span class="term">open loop</span><span class="term">closed loop</span><span class="term">sensor</span><span class="term">input</span><span class="term">Distance Sensor</span><span class="term">Bumper Switch</span><span class="term">objectDistance</span><span class="term">pressing()</span><span class="term">condition</span><span class="term">if</span><span class="term">else</span><span class="term">else if</span><span class="term">comparison</span><span class="term">threshold</span><span class="term">Brain.Screen.print</span><span class="term">variable</span><span class="term">int</span><span class="term">double</span><span class="term">Potentiometer V2</span><span class="term">angle()</span><span class="term">calibration</span><span class="term">baseline</span><span class="term">for loop</span><span class="term">while loop</span><span class="term">while (true)</span><span class="term">setStopping(hold)</span><span class="term">spinToPosition</span><span class="term">latch</span><span class="term">state</span><span class="term">bool</span><span class="term">3-Wire port</span><span class="term">Smart Port</span><span class="term">design process</span><span class="term">decision matrix</span></div>
 
-      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 3.4 "Automation Through Programming"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the project (design, build, and program an automatic device — toll booth, traffic signal, elevator, spinning sign, and the like — as a team, using the engineering design process) and its conclusion questions (which sensors? open or closed loop?) are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The control structures (<span class="inl">if</span> / <span class="inl">else if</span> / <span class="inl">else</span> and <span class="inl">while (true)</span>) are standard C++; the sensor commands are verified against the VEX Library — the Distance Sensor's <span class="inl">objectDistance(mm)</span> and the Bumper Switch's <span class="inl">pressing()</span> (a 3-Wire device named on <span class="inl">Brain.ThreeWirePort</span>). The open-loop / closed-loop framing and the sense → decide → act loop carry over from Chapter 8; the motor commands from Chapter 10. The Potentiometer V2 (<span class="inl">potV2</span>, read with <span class="inl">angle(degrees)</span> over a 3-Wire port, 0 to about 330°) is verified against the VEX Library and the VEXcode EXP C++ API; <span class="inl">int</span> / <span class="inl">double</span> variables and the <span class="inl">for</span> loop are standard C++. The calibrate-with-a-baseline pattern mirrors the inertial calibration in Chapter 13.</p>
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 3.4 "Automation Through Programming"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the project (design, build, and program an automatic device — toll booth, traffic signal, elevator, spinning sign, and the like — as a team, using the engineering design process) and its conclusion questions (which sensors? open or closed loop?) are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The control structures (<span class="inl">if</span> / <span class="inl">else if</span> / <span class="inl">else</span> and <span class="inl">while (true)</span>) are standard C++; the sensor commands are verified against the VEX Library — the Distance Sensor's <span class="inl">objectDistance(mm)</span> and the Bumper Switch's <span class="inl">pressing()</span> (a 3-Wire device named on <span class="inl">Brain.ThreeWirePort</span>). The open-loop / closed-loop framing and the sense → decide → act loop carry over from Chapter 8; the motor commands from Chapter 10. The Potentiometer V2 (<span class="inl">potV2</span>, read with <span class="inl">angle(degrees)</span> over a 3-Wire port, 0 to about 330°) is verified against the VEX Library and the VEXcode EXP C++ API; <span class="inl">int</span> / <span class="inl">double</span> variables and the <span class="inl">for</span> loop are standard C++. The calibrate-with-a-baseline pattern mirrors the inertial calibration in Chapter 13. The closed-loop and for-loop animations, the if/else flowchart, the <span class="inl">else if</span> zone example, the narrated walkthrough video, and the step-by-step code tutorial (including printing a live reading with <span class="inl">Brain.Screen.print</span>, from the VEXcode EXP C++ API) are added scaffolding for this edition.</p>
 
     </article>
 

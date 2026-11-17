@@ -370,3 +370,14 @@ a.ext::after{content:"\2197";font-size:.78em;margin-left:2px;color:var(--blue);v
 .tut__pair{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:10px;align-items:start;}
 .tut__pair .code{margin:10px 0 6px;}
 @media (max-width:760px){ .tut__pair{grid-template-columns:1fr;} }
+
+/* simulator sliders (added Ch. 11) */
+.sim__ctl{display:flex;flex-wrap:wrap;gap:10px 22px;margin:8px 0 0;font-size:14px;color:var(--ink);}
+.sim__ctl label{display:inline-flex;align-items:center;gap:8px;}
+.sim__ctl input[type=range]{width:180px;accent-color:var(--orange);}
+.calib{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px;margin:10px 0 0;}
+.calib span{font-family:var(--font-mono);font-size:12px;text-align:center;padding:4px 0;border-radius:5px;background:#E3E8EF;color:var(--gray);}
+.calib span.got{background:#DEEAF6;color:var(--blue-ink);font-weight:700;}
+.calib span.now{background:#FFE3CC;color:var(--orange);font-weight:700;}
+.calib__out{display:flex;flex-wrap:wrap;gap:8px 18px;margin:10px 0 0;font-family:var(--font-mono);font-size:14px;}
+.calib__out b{color:var(--navy);}
