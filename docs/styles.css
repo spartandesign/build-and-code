@@ -361,3 +361,12 @@ a.ext::after{content:"\2197";font-size:.78em;margin-left:2px;color:var(--blue);v
 .video{margin:22px 0 28px;}
 .video video{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--rule);background:#000;}
 .video figcaption{font-size:13.5px;color:var(--gray);text-align:center;margin:8px 0 0;}
+
+/* two-column simulator + toggle (added Ch. 10) */
+.sim__split--2{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);align-items:center;margin-top:0;}
+.sim__split--2 svg{max-width:300px;margin:0 auto;}
+.sim__toggle{font-size:14px;color:var(--ink);display:inline-flex;align-items:center;gap:6px;cursor:pointer;}
+@media (max-width:760px){ .sim__split--2{grid-template-columns:1fr;} }
+.tut__pair{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:10px;align-items:start;}
+.tut__pair .code{margin:10px 0 6px;}
+@media (max-width:760px){ .tut__pair{grid-template-columns:1fr;} }

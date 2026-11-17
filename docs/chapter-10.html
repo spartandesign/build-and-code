@@ -33,7 +33,7 @@
     </div>
 
     <div class="lede">
-      <p><strong>What you'll learn:</strong> what every line of your program actually does. Since week 1 you've been writing code in the starter — typing between the two purple lines and leaving everything around them alone. This is the chapter where we open up those other lines and read the <em>whole</em> file: the <strong>setup lines</strong>, the <strong>device list</strong>, <span class="inl">int main()</span>, <span class="inl">vexcodeInit()</span>, and the curly braces. Once you can see what each part is for, you're not stuck inside the region anymore — you can write a complete program from scratch, and turn the <strong>pseudocode</strong> you planned in Chapter 9 into real, running code. It's the same write-download-run loop you already know, now with nothing hidden.</p>
+      <p><strong>What you'll learn:</strong> what every line of your program actually does. Since week 1 you've been writing code in the starter — typing between the two purple lines and leaving everything around them alone. This is the chapter where we open up those other lines and read the <em>whole</em> file: the <strong>setup lines</strong>, the <strong>device list</strong>, <span class="inl">int main()</span>, <span class="inl">vexcodeInit()</span>, and the curly braces. Once you can see what each part is for, you're not stuck inside the region anymore — you can write a complete program from scratch, and turn the <strong>pseudocode</strong> you planned in Chapter 9 into real, running code. It's the same write-download-run loop you already know, now with nothing hidden. You'll <strong>watch the Brain read a program</strong> line by line, then build your own in a <strong>step-by-step code tutorial</strong>.</p>
     </div>
 
     <article class="prose wrap">
@@ -75,6 +75,16 @@
         <figcaption>The whole loop of this chapter: <strong>write</strong> code in VS Code, <strong>download</strong> it to the Brain over USB-C, <strong>run</strong> it — then test, change one thing, and download again.</figcaption>
       </figure>
 
+      <h2>Watch first: your first program, line by line</h2>
+      <p>This two-minute video reads a whole VEX program from the first line to the last — the skeleton, the four motor commands, what the Brain does with each line, the classic forgotten-<span class="inl">stop</span> bug, matching ports, and the write–download–run loop. Watch it once, then dig into the details below.</p>
+      <figure class="video">
+        <video controls preload="metadata" playsinline poster="media/ch10-first-program-walkthrough-poster.jpg" aria-label="Narrated walkthrough of a first VEX C++ program, with captions on screen">
+          <source src="media/ch10-first-program-walkthrough.mp4" type="video/mp4">
+          Your browser can't play this video. <a href="media/ch10-first-program-walkthrough.mp4">Download it here</a>.
+        </video>
+        <figcaption>Narrated code walkthrough (about 2 minutes). Captions are built into the video.</figcaption>
+      </figure>
+
       <h2>The tool: VS Code and the VEX extension</h2>
       <p>You already know this tool — it's where the AR-Starter lives. You write your code in <strong>Visual Studio Code</strong> (VS Code), the same editor used by a huge share of professional software developers, with the free <strong>VEX Robotics extension</strong> added on. The extension teaches VS Code how to build VEX programs and send them to your Brain. Two things are worth saying out loud now that you're reading the whole program:</p>
       <ul>
@@ -109,6 +119,45 @@ motor leftMotor = motor(PORT1);   <span class="cmt">// name your motor + its Sma
         <li><span class="inl">vexcodeInit();</span> — the <strong>first line inside <span class="inl">main</span></strong>. It gets the robot ready. It's written for you; never delete it.</li>
         <li>Everything after that is <strong>your behavior</strong> — the commands you write. This is where your plan turns into action.</li>
       </ul>
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" role="img" aria-label="The skeleton of every VEX C++ program as five stacked blocks. Setup lines: include vex.h and using namespace vex — already there, leave them alone. Device list: one line per motor or sensor, naming it and its port. int main: where the robot starts reading. vexcodeInit: the first line inside main, never delete it. Your behavior: the commands you write, inside main's curly braces.">
+          <text x="380" y="26" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#1F3864">THE SKELETON OF EVERY PROGRAM</text>
+          <g font-family="Consolas, monospace" font-size="14">
+            <rect x="40" y="44" width="400" height="50" rx="8" fill="#E3E8EF"/>
+            <text x="56" y="65" fill="#2E75B6" font-weight="bold">#include <tspan fill="#1E6470" font-weight="normal">"vex.h"</tspan></text>
+            <text x="56" y="84" fill="#2E75B6" font-weight="bold">using namespace <tspan fill="#243240" font-weight="normal">vex;</tspan></text>
+            <rect x="40" y="102" width="400" height="34" rx="8" fill="#DEEAF6"/>
+            <text x="56" y="124" fill="#243240">motor leftMotor = motor(PORT1);</text>
+            <rect x="40" y="144" width="400" height="168" rx="8" fill="#FFFFFF" stroke="#1F3864" stroke-width="2"/>
+            <text x="56" y="168" fill="#243240"><tspan fill="#2E75B6" font-weight="bold">int</tspan> main() {</text>
+            <rect x="70" y="178" width="350" height="30" rx="6" fill="#FFE3CC"/>
+            <text x="84" y="198" fill="#243240">vexcodeInit();</text>
+            <rect x="70" y="216" width="350" height="64" rx="6" fill="#E2EFDA"/>
+            <text x="84" y="238" fill="#243240">leftMotor.spin(forward);</text>
+            <text x="84" y="260" fill="#6E7B89" font-style="italic">// … your commands …</text>
+            <text x="56" y="302" fill="#243240">}</text>
+          </g>
+          <g font-family="Arial" font-size="13">
+            <line x1="446" y1="69" x2="476" y2="69" stroke="#5B6470" stroke-width="2"/>
+            <text x="484" y="66" font-weight="bold" fill="#1A1A1A">1 · Setup lines</text>
+            <text x="484" y="83" fill="#5B6470">bring in the VEX commands — leave alone</text>
+            <line x1="446" y1="119" x2="476" y2="119" stroke="#2E75B6" stroke-width="2"/>
+            <text x="484" y="116" font-weight="bold" fill="#1A1A1A">2 · Device list</text>
+            <text x="484" y="133" fill="#5B6470">one line per device: its name + its port</text>
+            <line x1="446" y1="164" x2="476" y2="164" stroke="#1F3864" stroke-width="2"/>
+            <text x="484" y="161" font-weight="bold" fill="#1A1A1A">3 · main</text>
+            <text x="484" y="178" fill="#5B6470">where the robot starts reading, top to bottom</text>
+            <line x1="426" y1="193" x2="476" y2="205" stroke="#C55A11" stroke-width="2"/>
+            <text x="484" y="206" font-weight="bold" fill="#1A1A1A">4 · vexcodeInit()</text>
+            <text x="484" y="223" fill="#5B6470">first line in main — never delete it</text>
+            <line x1="426" y1="248" x2="476" y2="252" stroke="#3F6B2A" stroke-width="2"/>
+            <text x="484" y="252" font-weight="bold" fill="#1A1A1A">5 · Your behavior</text>
+            <text x="484" y="269" fill="#5B6470">the commands you write — inside the { }</text>
+          </g>
+        </svg>
+        <figcaption>Every program has the same five parts. A new project gives you 1, 3 and 4 already written; you add the <strong>device list</strong> and <strong>your behavior</strong>.</figcaption>
+      </figure>
+
       <p>Notice the <strong>semicolon</strong> at the end of each command. In C++, a semicolon means "this instruction is finished" — like a period at the end of a sentence. Forgetting one is the most common first mistake, and the editor will underline it in red to help you.</p>
 
       <h2>Talking to a motor</h2>
@@ -127,6 +176,101 @@ leftMotor.stop();                     <span class="cmt">// stop the motor</span>
         <li><strong><span class="inl">stop</span></strong> halts the motor. Leave it out and the motor keeps spinning — the classic first bug from Chapter 9.</li>
       </ul>
       <p>There's a shortcut, too: <span class="inl">leftMotor.spinFor(forward, 5, seconds);</span> does the start-wait-stop all in one line. Both are fine — start with the three separate steps, since they map cleanly onto your pseudocode.</p>
+
+      <h2>Watch the Brain read your program</h2>
+      <p>The Brain reads <span class="inl">main</span> one line at a time, top to bottom. Press <strong>Play</strong> (or <strong>Step</strong> through it) and watch the orange line move down the program while the motor reacts. Notice that <span class="inl">spin</span> only <em>starts</em> the motor — it's <span class="inl">wait</span> that decides how long it runs. Then tick <strong>Forget stop()</strong> and run it again to see the classic first bug.</p>
+
+      <div class="sim" id="c10Box">
+        <div class="sim__split sim__split--2">
+<pre class="code sim__code" id="c10Code" aria-label="The AR-Starter program, with the line the Brain is reading highlighted"><span class="ln" data-l="0"><span class="kw">#include</span> "vex.h"</span><span class="ln" data-l="1"><span class="kw">using namespace</span> vex;</span><span class="ln" data-l="2"> </span><span class="ln" data-l="3">motor leftMotor = motor(PORT1);</span><span class="ln" data-l="4"> </span><span class="ln" data-l="5"><span class="kw">int</span> main() {</span><span class="ln" data-l="6">    vexcodeInit();</span><span class="ln" data-l="7">    leftMotor.setVelocity(50, percent);</span><span class="ln" data-l="8">    leftMotor.spin(forward);</span><span class="ln" data-l="9">    wait(5, seconds);</span><span class="ln" data-l="10" id="c10Stop">    leftMotor.stop();</span><span class="ln" data-l="11">}</span></pre>
+          <svg id="c10Svg" viewBox="0 0 300 300" role="img" aria-label="A Smart Motor on Port 1 with a wheel that spins when the motor runs, a speed gauge showing the velocity setting, and a timer bar for the wait command.">
+            <rect x="20" y="20" width="110" height="110" rx="14" fill="#1F3864"/>
+            <text x="75" y="58" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#FFFFFF">Smart</text>
+            <text x="75" y="76" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#FFFFFF">Motor</text>
+            <text x="75" y="104" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#9DC3E6" id="c10Port">not named yet</text>
+            <line x1="130" y1="75" x2="170" y2="75" stroke="#5B6470" stroke-width="6"/>
+            <g id="c10Wheel" transform="translate(220,75)">
+              <circle r="48" fill="#F2F7FC" stroke="#1F3864" stroke-width="6"/>
+              <line x1="0" y1="-42" x2="0" y2="42" stroke="#1F3864" stroke-width="5"/>
+              <line x1="-42" y1="0" x2="42" y2="0" stroke="#1F3864" stroke-width="5"/>
+              <circle r="8" fill="#C55A11"/>
+            </g>
+            <text x="150" y="172" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#5B6470">SPEED</text>
+            <rect x="30" y="180" width="240" height="18" rx="9" fill="#E3E8EF"/>
+            <rect id="c10Vel" x="30" y="180" width="0" height="18" rx="9" fill="#2E75B6"/>
+            <text id="c10VelT" x="150" y="194" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#1A1A1A">—</text>
+            <text x="150" y="232" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#5B6470">WAIT TIMER</text>
+            <rect x="30" y="240" width="240" height="18" rx="9" fill="#E3E8EF"/>
+            <rect id="c10Tim" x="30" y="240" width="0" height="18" rx="9" fill="#C55A11"/>
+            <text id="c10TimT" x="150" y="254" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#1A1A1A">—</text>
+            <text id="c10State" x="150" y="290" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#5B6470">STOPPED</text>
+          </svg>
+        </div>
+        <div class="sim__bar">
+          <button class="sim__btn sim__btn--go" id="c10Play" type="button">▶ Play</button>
+          <button class="sim__btn" id="c10Step" type="button">Step ⏭</button>
+          <button class="sim__btn" id="c10Reset" type="button">↺ Restart</button>
+          <label class="sim__toggle"><input type="checkbox" id="c10Bug"> Forget <span class="inl">stop()</span></label>
+          <span class="sim__phase" id="c10Phase">Line — of —</span>
+        </div>
+        <p class="sim__say" id="c10Say" aria-live="polite">Press <strong>Play</strong> to run the program, or <strong>Step</strong> to read it one line at a time.</p>
+      </div>
+      <script>
+      (function(){
+        function $(id){return document.getElementById(id);}
+        var lines=document.querySelectorAll('#c10Code .ln'), wheel=$('c10Wheel'), say=$('c10Say'), ph=$('c10Phase'), playBtn=$('c10Play'), bug=$('c10Bug');
+        var st={named:false,vel:null,on:false,tim:null,ended:false};
+        var P=[
+          {l:[0,1],d:2200,say:'<strong>Setup lines.</strong> They bring in all the VEX commands. The Brain doesn\'t <em>do</em> anything yet.',f:function(){}},
+          {l:[3],d:2200,say:'<strong>Device list.</strong> Now the code has a name for the motor — <span class="inl">leftMotor</span> — and knows it\'s in Smart Port 1.',f:function(){st.named=true;}},
+          {l:[5],d:1800,say:'<strong>main</strong> is where the robot starts running your program, top to bottom.',f:function(){}},
+          {l:[6],d:1800,say:'<span class="inl">vexcodeInit()</span> gets the robot ready. Always the first line in <span class="inl">main</span>.',f:function(){}},
+          {l:[7],d:2400,say:'<span class="inl">setVelocity(50, percent)</span> sets the speed to half — but notice the wheel <em>isn\'t moving yet</em>. It only sets the speed.',f:function(){st.vel=50;}},
+          {l:[8],d:2200,say:'<span class="inl">spin(forward)</span> <em>starts</em> the motor, and the program instantly moves on to the next line. The motor keeps spinning by itself.',f:function(){st.on=true;}},
+          {l:[9],d:5000,timer:true,say:'<span class="inl">wait(5, seconds)</span> pauses the <em>program</em> for 5 seconds. The motor isn\'t paused — it keeps spinning the whole time.',f:function(){st.tim=0;}},
+          {l:[10],d:2000,stop:true,say:'<span class="inl">stop()</span> halts the motor. Five seconds of spinning, exactly as planned.',f:function(){st.on=false;}},
+          {l:[11],d:2400,say:'The closing <span class="inl">}</span> — the end of <span class="inl">main</span>. The program is finished.',f:function(){st.ended=true;}}
+        ];
+        var i=-1, playing=false, t0=0, raf=null, last=null, ang=0;
+        function seq(){return P.filter(function(p){return !(p.stop&&bug.checked);});}
+        function paint(){
+          var S=seq(), p=S[i];
+          for(var j=0;j<lines.length;j++){lines[j].classList.toggle('on',!!p&&p.l.indexOf(+lines[j].getAttribute('data-l'))>=0);}
+          $('c10Stop').style.textDecoration=bug.checked?'line-through':'none'; $('c10Stop').style.opacity=bug.checked?.4:1;
+          $('c10Port').textContent=st.named?'leftMotor · PORT1':'not named yet';
+          $('c10Vel').setAttribute('width',st.vel===null?0:240*st.vel/100); $('c10VelT').textContent=st.vel===null?'— (not set)':st.vel+'%';
+          var tv=st.tim===null?0:st.tim; $('c10Tim').setAttribute('width',240*tv/5); $('c10TimT').textContent=st.tim===null?'—':tv.toFixed(1)+' s of 5';
+          var s=$('c10State');
+          if(st.ended&&st.on){s.textContent='STILL SPINNING!';s.setAttribute('fill','#B42318');}
+          else if(st.on){s.textContent='SPINNING';s.setAttribute('fill','#2E75B6');}
+          else {s.textContent='STOPPED';s.setAttribute('fill','#5B6470');}
+          ph.textContent=p?('Step '+(i+1)+' of '+S.length):'Ready';
+        }
+        function enter(k){
+          var S=seq(); i=k; var p=S[i]; p.f(); t0=performance.now();
+          var msg=p.say;
+          if(st.ended&&st.on) msg='The program ended… but <strong>nothing told the motor to stop</strong>, so it keeps spinning forever. That\'s why every <span class="inl">spin</span> needs a <span class="inl">stop</span>.';
+          say.innerHTML=msg; paint();
+        }
+        function reset(){ st={named:false,vel:null,on:false,tim:null,ended:false}; i=-1; paint(); say.innerHTML='Press <strong>Play</strong> to run the program, or <strong>Step</strong> to read it one line at a time.'; }
+        function next(){ var S=seq(); if(i>=S.length-1){ reset(); } enter(i+1); }
+        function loop(now){
+          var dt=last?Math.min(.05,(now-last)/1000):0; last=now;
+          if(st.on&&st.vel){ ang=(ang+dt*st.vel*4.2)%360; wheel.setAttribute('transform','translate(220,75) rotate('+ang+')'); }
+          var S=seq(), p=S[i];
+          if(p&&p.timer&&st.tim!==null&&st.tim<5){ if(playing) st.tim=Math.min(5,(now-t0)/1000); paint(); }
+          if(playing&&p&&now-t0>=p.d){ if(i>=S.length-1){ pause(); } else enter(i+1); }
+          raf=requestAnimationFrame(loop);
+        }
+        function play(){ if(i<0||i>=seq().length-1){ reset(); enter(0);} playing=true; playBtn.textContent='❚❚ Pause'; t0=performance.now(); }
+        function pause(){ playing=false; playBtn.textContent='▶ Play'; }
+        playBtn.addEventListener('click',function(){playing?pause():play();});
+        $('c10Step').addEventListener('click',function(){ pause(); var p=seq()[i]; if(p&&p.timer) st.tim=5; next(); if(seq()[i].timer){ st.tim=5; paint(); } });
+        $('c10Reset').addEventListener('click',function(){ pause(); reset(); });
+        bug.addEventListener('change',function(){ pause(); reset(); });
+        reset(); raf=requestAnimationFrame(loop);
+      })();
+      </script>
 
       <h2>Wiring the Brain: ports and power</h2>
       <p>Your code names each device <em>and</em> the <strong>port</strong> it's plugged into — <span class="inl">motor leftMotor = motor(PORT1);</span>. For that to work, the motor really has to be in port 1. So before you download, let's wire the Brain and make the code match what's plugged in.</p>
@@ -196,6 +340,155 @@ leftMotor.stop();                     <span class="cmt">// stop the motor</span>
         </ul>
       </div>
 
+      <h2>Code tutorial: your first program, one step at a time</h2>
+      <p>Now build it yourself. Follow these steps in order and <strong>download and test after every one</strong> — that's the orange loop from the top of the chapter. Lines that are <span style="background:#E6F0FA;box-shadow:inset 3px 0 0 var(--blue);padding:0 4px">shaded blue</span> are new in that step.</p>
+
+      <div class="tut">
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: a project that builds</p>
+          <h3>Start a project and find the skeleton</h3>
+          <p>In VS Code, open the VEX panel and make a <strong>new EXP project</strong> (or open your AR-Starter). Give it a name — that's what the Brain's screen will show. Open the <span class="inl">main.cpp</span> file in the <span class="inl">src</span> folder. You'll see the skeleton already written for you:</p>
+<pre class="code"><span class="kw">#include</span> "vex.h"
+<span class="kw">using namespace</span> vex;
+
+<span class="kw">int</span> main() {
+    vexcodeInit();
+}</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> click <strong>Build</strong>. It should finish with no errors. Nothing moves — there are no commands yet.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: the code knows where your motor is</p>
+          <h3>Name your motor</h3>
+          <p>Plug a Smart Motor into <strong>Smart Port 1</strong> until it clicks. Then add one line to the device list — above <span class="inl">main</span> — that gives it a name and says which port it's in.</p>
+          <svg viewBox="0 0 560 120" role="img" aria-label="The code line motor leftMotor equals motor PORT1 connects to Smart Port 1 on the EXP Brain, where the motor is plugged in. The name is leftMotor and the port is PORT1; they must match what is really plugged in.">
+            <rect x="10" y="20" width="330" height="44" rx="8" fill="#F4F4F4" stroke="#E4E4E4"/>
+            <text x="24" y="48" font-family="Consolas,monospace" font-size="15" fill="#243240">motor <tspan font-weight="bold" fill="#2E75B6">leftMotor</tspan> = motor(<tspan font-weight="bold" fill="#C55A11">PORT1</tspan>);</text>
+            <text x="88" y="88" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#2E75B6">the name you'll use</text>
+            <text x="268" y="88" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#C55A11">the port it's in</text>
+            <path d="M342,42 C380,42 390,60 420,60" fill="none" stroke="#C55A11" stroke-width="2.5"/>
+            <rect x="420" y="14" width="130" height="92" rx="12" fill="#1F3864"/>
+            <text x="485" y="40" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#FFFFFF">EXP Brain</text>
+            <rect x="436" y="52" width="26" height="18" rx="3" fill="#C55A11"/><text x="449" y="65" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#FFFFFF">1</text>
+            <rect x="468" y="52" width="26" height="18" rx="3" fill="#2E4A75"/><text x="481" y="65" text-anchor="middle" font-family="Arial" font-size="11" fill="#9DC3E6">2</text>
+            <rect x="500" y="52" width="26" height="18" rx="3" fill="#2E4A75"/><text x="513" y="65" text-anchor="middle" font-family="Arial" font-size="11" fill="#9DC3E6">3</text>
+            <text x="485" y="94" text-anchor="middle" font-family="Arial" font-size="11" fill="#9DC3E6">motor plugged in here</text>
+          </svg>
+<pre class="code"><span class="kw">#include</span> "vex.h"
+<span class="kw">using namespace</span> vex;
+
+<span class="new">motor leftMotor = motor(PORT1);   <span class="cmt">// name + Smart Port</span></span>
+
+<span class="kw">int</span> main() {
+    vexcodeInit();
+}</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> it still builds with no errors.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> a red underline usually means a missing semicolon at the end of the line, or a capital letter in the wrong place — <span class="inl">Motor</span> and <span class="inl">motor</span> are different words to C++.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: the motor spins for 5 seconds, then stops</p>
+          <h3>Speed, spin, wait, stop</h3>
+          <p>Add your first behavior inside <span class="inl">main</span>, <em>after</em> <span class="inl">vexcodeInit();</span>. These four lines are the whole pattern: set the speed, start, let it run, stop.</p>
+<pre class="code"><span class="kw">int</span> main() {
+    vexcodeInit();
+<span class="new">    leftMotor.setVelocity(50, percent);   <span class="cmt">// half speed</span></span>
+<span class="new">    leftMotor.spin(forward);              <span class="cmt">// start</span></span>
+<span class="new">    wait(5, seconds);                     <span class="cmt">// let it run</span></span>
+<span class="new">    leftMotor.stop();                     <span class="cmt">// stop</span></span>
+}</pre>
+          <p>Plug the Brain in over USB-C, click <strong>Download</strong>, then <strong>Run</strong>.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> the motor spins for about 5 seconds and stops on its own. Time it with a clock.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> it downloaded but nothing moves? Go through the 🔌 checklist above — cable clicked in, right port, Brain on. It never stops? Check that <span class="inl">stop()</span> is really there and spelled right.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: you can predict what a change will do</p>
+          <h3>Change one number at a time</h3>
+          <p>Now experiment like an engineer: <strong>predict, change one thing, test.</strong> Write your prediction in your notebook <em>before</em> each download.</p>
+          <table class="dtable">
+            <thead><tr><th>Change</th><th>Try this</th><th>Predict, then check</th></tr></thead>
+            <tbody>
+              <tr><td>Speed</td><td><span class="inl">setVelocity(100, percent)</span></td><td>Faster? Same time?</td></tr>
+              <tr><td>Direction</td><td><span class="inl">spin(reverse)</span></td><td>Which way does it turn now?</td></tr>
+              <tr><td>Time</td><td><span class="inl">wait(2, seconds)</span></td><td>How long does it run?</td></tr>
+              <tr><td>Shortcut</td><td><span class="inl">leftMotor.spinFor(forward, 3, seconds);</span></td><td>Replace spin + wait + stop with this one line</td></tr>
+            </tbody>
+          </table>
+          <p class="tut__check"><strong>✅ Check it:</strong> your predictions match what happened — or you can explain why they didn't.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: two motors that both drive "forward"</p>
+          <h3>Add a second motor — reversed</h3>
+          <p>A drive base has a motor on each side, facing opposite ways. If both spin "forward," one wheel goes backward and the robot just turns in place. Fix it once, where you name the motor: <span class="inl">true</span> reverses it.</p>
+          <svg viewBox="0 0 560 172" role="img" aria-label="Top view of a robot with a left motor on port 1 and a right motor on port 6, mounted facing opposite ways. Without reversing, the wheels turn opposite directions and the robot spins in place. With the right motor reversed using true, both wheels roll forward and the robot drives straight.">
+            <g transform="translate(20,10)">
+              <text x="120" y="16" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#B42318">✗ not reversed — spins in place</text>
+              <rect x="70" y="40" width="100" height="90" rx="10" fill="#F2F7FC" stroke="#1F3864" stroke-width="2"/>
+              <rect x="44" y="60" width="22" height="50" rx="4" fill="#1F3864"/><rect x="174" y="60" width="22" height="50" rx="4" fill="#1F3864"/>
+              <path d="M30,104 L30,66" stroke="#C55A11" stroke-width="3" marker-end="url(#c10a)"/>
+              <path d="M210,66 L210,104" stroke="#C55A11" stroke-width="3" marker-end="url(#c10a)"/>
+              <path d="M100,85 A20,20 0 1 1 140,85" fill="none" stroke="#B42318" stroke-width="2.5" marker-end="url(#c10r)"/>
+            </g>
+            <g transform="translate(300,10)">
+              <text x="120" y="16" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#3F6B2A">✓ right motor reversed — drives straight</text>
+              <rect x="70" y="40" width="100" height="90" rx="10" fill="#F2F7FC" stroke="#1F3864" stroke-width="2"/>
+              <rect x="44" y="60" width="22" height="50" rx="4" fill="#1F3864"/><rect x="174" y="60" width="22" height="50" rx="4" fill="#1F3864"/>
+              <path d="M30,104 L30,66" stroke="#C55A11" stroke-width="3" marker-end="url(#c10a)"/>
+              <path d="M210,104 L210,66" stroke="#C55A11" stroke-width="3" marker-end="url(#c10a)"/>
+              <path d="M120,100 L120,58" stroke="#3F6B2A" stroke-width="3" marker-end="url(#c10g)"/>
+              <text x="120" y="150" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#3F6B2A">motor(PORT6, true)</text>
+            </g>
+            <defs>
+              <marker id="c10a" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker>
+              <marker id="c10r" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#B42318"/></marker>
+              <marker id="c10g" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#3F6B2A"/></marker>
+            </defs>
+          </svg>
+<pre class="code">motor leftMotor  = motor(PORT1);
+<span class="new">motor rightMotor = motor(PORT6, <span class="kw">true</span>);   <span class="cmt">// true = reversed</span></span>
+
+<span class="kw">int</span> main() {
+    vexcodeInit();
+    leftMotor.spin(forward);
+<span class="new">    rightMotor.spin(forward);   <span class="cmt">// both start together</span></span>
+    wait(3, seconds);
+    leftMotor.stop();
+<span class="new">    rightMotor.stop();</span>
+}</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> with the robot propped up, both wheels roll the same way — "forward." Then try making <em>one</em> motor <span class="inl">reverse</span> and watch what happens.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> still spinning in place? Move <span class="inl">true</span> to the <em>other</em> motor. Only one wheel moves? That motor's cable or port doesn't match the code.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: your Chapter 9 plan, running for real</p>
+          <h3>Turn pseudocode into C++</h3>
+          <p>Every line of your plan becomes one or two lines of code. Here's a short plan — drive forward, turn right, stop — translated line by line:</p>
+          <div class="tut__pair">
+<pre class="code plan">drive forward for 2 seconds
+
+
+turn right for 1 second
+
+
+stop</pre>
+<pre class="code">leftMotor.spin(forward);
+rightMotor.spin(forward);
+wait(2, seconds);
+leftMotor.spin(forward);
+rightMotor.spin(reverse);
+wait(1, seconds);
+leftMotor.stop();
+rightMotor.stop();</pre>
+          </div>
+          <p>To turn right, the left wheel goes forward while the right wheel goes back. Notice there's no <span class="inl">stop</span> between driving and turning — the new <span class="inl">spin</span> commands just change what the motors are doing.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> translate <em>one</em> behavior from your own Chapter 9 pseudocode. Add one line, download, test — then the next.</p>
+        </div>
+
+      </div>
+
       <h2>What you'll need</h2>
       <ul>
         <li>A computer with <strong>VS Code</strong> and the <strong>VEX extension</strong> installed</li>
@@ -209,10 +502,10 @@ leftMotor.stop();                     <span class="cmt">// stop the motor</span>
       <ol>
         <li><strong>Create a project.</strong> In VS Code, make a new <strong>EXP project</strong> and name it (your name shows up on the Brain). Open the file in <span class="inl">src</span>.</li>
         <li><strong>Name your motor.</strong> Add the device line for your motor — its name and the Smart Port it's plugged into — near the top, like <span class="inl">motor leftMotor = motor(PORT1);</span>.</li>
-        <li><strong>Type the first program.</strong> Inside <span class="inl">main</span>, after <span class="inl">vexcodeInit();</span>, write the four lines that set the speed, spin, wait five seconds, and stop.</li>
+        <li><strong>Type the first program.</strong> Follow tutorial step 3: inside <span class="inl">main</span>, after <span class="inl">vexcodeInit();</span>, write the four lines that set the speed, spin, wait five seconds, and stop.</li>
         <li><strong>Download and run.</strong> Plug in the Brain over USB-C, click <strong>Download</strong>, then <strong>Run</strong>. Watch the motor spin for five seconds and stop. If the build complains, fix the first error and try again.</li>
-        <li><strong>Add a second motor (build a little, test a lot).</strong> Name a second motor on another port, mounted on the other side so set it reversed. Make <em>both</em> motors spin, run for a few seconds, and stop. Download and test — then try running one forward and one reverse.</li>
-        <li><strong>Make your plan real.</strong> Take one behavior from your Chapter 9 pseudocode and translate it into C++, one line at a time, downloading and testing as you go.</li>
+        <li><strong>Add a second motor (build a little, test a lot).</strong> Name a second motor on another port, mounted on the other side so set it reversed. Make <em>both</em> motors spin, run for a few seconds, and stop. Download and test — then try running one forward and one reverse. (Tutorial steps 4–5.)</li>
+        <li><strong>Make your plan real.</strong> Take one behavior from your Chapter 9 pseudocode and translate it into C++, one line at a time, downloading and testing as you go (tutorial step 6).</li>
       </ol>
 
       <h2>Check your understanding</h2>
@@ -223,14 +516,16 @@ leftMotor.stop();                     <span class="cmt">// stop the motor</span>
         <li>What does the <strong>Download</strong> button do — and why isn't writing code alone enough to move the robot?</li>
         <li>Your code says <span class="inl">motor(PORT1)</span> but the motor is plugged into port 3, and the program "does nothing" when you run it. What's wrong, and what two things could you check to see which port the Brain actually detects the motor in?</li>
         <li>You wrote <span class="inl">spin</span> and <span class="inl">wait(3, seconds)</span> but left out <span class="inl">stop</span>. What will the motor do, and why?</li>
+        <li>In the program animation, the wheel didn't move during <span class="inl">setVelocity</span>, and it kept spinning during <span class="inl">wait</span>. Explain what each of those two commands really does.</li>
+        <li>Your two-motor robot spins in place when you tell both motors to go <span class="inl">forward</span>. What's the cause, and what one-word change fixes it?</li>
         <li>Why is it better to write and test one command at a time than to type the whole program first? Connect your answer to the test loop in the diagram.</li>
       </ol>
 
       <h2>Key terms</h2>
       <div class="terms">
-        <span class="term">C++</span><span class="term">VS Code</span><span class="term">VEX extension</span><span class="term">project</span><span class="term">#include</span><span class="term">device list</span><span class="term">int main()</span><span class="term">vexcodeInit()</span><span class="term">command</span><span class="term">semicolon</span><span class="term">setVelocity</span><span class="term">spin</span><span class="term">wait</span><span class="term">stop</span><span class="term">percent</span><span class="term">forward / reverse</span><span class="term">build</span><span class="term">download</span><span class="term">run</span><span class="term">Smart Port</span><span class="term">3-Wire port</span><span class="term">Smart Cable</span><span class="term">port</span><span class="term">Check button</span><span class="term">battery</span></div>
+        <span class="term">C++</span><span class="term">VS Code</span><span class="term">VEX extension</span><span class="term">project</span><span class="term">#include</span><span class="term">device list</span><span class="term">int main()</span><span class="term">vexcodeInit()</span><span class="term">command</span><span class="term">semicolon</span><span class="term">setVelocity</span><span class="term">spin</span><span class="term">wait</span><span class="term">stop</span><span class="term">percent</span><span class="term">forward / reverse</span><span class="term">reversed motor (true)</span><span class="term">spinFor</span><span class="term">translate pseudocode</span><span class="term">build</span><span class="term">download</span><span class="term">run</span><span class="term">Smart Port</span><span class="term">3-Wire port</span><span class="term">Smart Cable</span><span class="term">port</span><span class="term">Check button</span><span class="term">battery</span></div>
 
-      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Activity 3.3 "Using ROBOTC" / VEX testbed programming; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the testbed programming progression (run a motor at a set speed for a set time, then add a second motor and reverse, then add sensors) is from the PLTW Gateway curriculum — modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The toolchain workflow (installing the VEX extension, creating an EXP project, and the Build / Download / Run steps over USB-C) is verified against the VEX Library (Creating VS Code Projects for EXP; Downloading and Running an EXP Project in VS Code; Installing the VEX Extension in VS Code). The C++ program structure (<span class="inl">#include "vex.h"</span>, <span class="inl">using namespace vex;</span>, <span class="inl">int main()</span> with <span class="inl">vexcodeInit()</span>) and the motor commands (<span class="inl">setVelocity</span> in percent, <span class="inl">spin</span>, <span class="inl">spinFor</span>, <span class="inl">wait</span>, <span class="inl">stop</span>, and the <span class="inl">motor(PORT1)</span> declaration whose gearing defaults automatically) are verified against the VEXcode EXP C++ API. The fixed-speed EXP Smart Motor carries over from Chapter 3. The Brain's port layout (10 numbered Smart Ports, 8 lettered 3-Wire ports A–H, and a built-in Inertial Sensor), how Smart Cables seat and release, and powering on/off with the Check and X buttons are verified against the VEX Library (Connecting Devices to Smart Ports on the EXP Brain; Powering the EXP Brain On and Off) and the EXP Brain product documentation; the "won't respond" checks draw on Troubleshooting VEX EXP Sensors and the VS Code DEVICE INFO panel.</p>
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Activity 3.3 "Using ROBOTC" / VEX testbed programming; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the testbed programming progression (run a motor at a set speed for a set time, then add a second motor and reverse, then add sensors) is from the PLTW Gateway curriculum — modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The toolchain workflow (installing the VEX extension, creating an EXP project, and the Build / Download / Run steps over USB-C) is verified against the VEX Library (Creating VS Code Projects for EXP; Downloading and Running an EXP Project in VS Code; Installing the VEX Extension in VS Code). The C++ program structure (<span class="inl">#include "vex.h"</span>, <span class="inl">using namespace vex;</span>, <span class="inl">int main()</span> with <span class="inl">vexcodeInit()</span>) and the motor commands (<span class="inl">setVelocity</span> in percent, <span class="inl">spin</span>, <span class="inl">spinFor</span>, <span class="inl">wait</span>, <span class="inl">stop</span>, and the <span class="inl">motor(PORT1)</span> declaration whose gearing defaults automatically) are verified against the VEXcode EXP C++ API. The fixed-speed EXP Smart Motor carries over from Chapter 3. The program-trace animation, the program-skeleton diagram, the narrated walkthrough video, and the step-by-step code tutorial (including the reversed second motor, <span class="inl">motor(PORT6, true)</span>, and the pseudocode-to-C++ translation) are added scaffolding for this edition. The Brain's port layout (10 numbered Smart Ports, 8 lettered 3-Wire ports A–H, and a built-in Inertial Sensor), how Smart Cables seat and release, and powering on/off with the Check and X buttons are verified against the VEX Library (Connecting Devices to Smart Ports on the EXP Brain; Powering the EXP Brain On and Off) and the EXP Brain product documentation; the "won't respond" checks draw on Troubleshooting VEX EXP Sensors and the VS Code DEVICE INFO panel.</p>
 
     </article>
 
