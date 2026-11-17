@@ -33,7 +33,7 @@
     </div>
 
     <div class="lede">
-      <p><strong>What you'll learn:</strong> how lots of automatic machines work <strong>together</strong> to build something — a real factory. This is the capstone of the unit, and it takes the whole class. Your team builds one <strong>workcell</strong>: a single automated station that performs one process on a part. You'll learn the <strong>cell cycle</strong> — wait for the part, run your process, get ready for the next — and how to keep your code tidy with a <strong>function</strong>. Then comes the hard, real-world part: your cell has to <strong>hand the part off</strong> to the teams before and after you, so the whole line runs as one system. Everything you've built this year comes together here.</p>
+      <p><strong>What you'll learn:</strong> how lots of automatic machines work <strong>together</strong> to build something — a real factory. This is the capstone of the unit, and it takes the whole class. Your team builds one <strong>workcell</strong>: a single automated station that performs one process on a part. You'll learn how a part physically <strong>moves</strong> down the line, the <strong>cell cycle</strong> — wait for the part, run your process, pass it on — and you'll build your cell's code in a <strong>step-by-step tutorial</strong>, keeping it tidy with <strong>functions</strong>. Then comes the hard, real-world part: your cell has to <strong>hand the part off</strong> to the teams before and after you, so the whole line runs as one system. Everything you've built this year comes together here.</p>
     </div>
 
     <article class="prose wrap">
@@ -77,41 +77,468 @@
         <figcaption>A part flows through the line. Each <strong>workcell</strong> senses the part, runs its one process, and hands it on. The orange <strong>hand-offs</strong> are the coordination points — where your team and your neighbors have to agree.</figcaption>
       </figure>
 
-      <h2>A workcell runs a cycle</h2>
-      <p>Each cell does the same thing over and over: <strong>wait</strong> for a part to arrive, <strong>run</strong> its process on it, then go back to waiting for the next one. That's a cycle — and you already know how to build it. It's the <span class="inl">while (true)</span> loop from Chapter 11, with the sensor used as a "has the part arrived yet?" trigger:</p>
+      <h2>Watch a part move down the line</h2>
+      <p>Before you build anything, watch what the line actually <em>does</em>. Press <strong>Play</strong> (or step through it one move at a time) and follow the part. Notice three things: each cell's <strong>sensor</strong> lights up when the part arrives, each cell's <strong>state</strong> changes from WAIT → RUN → PASS, and the part only crosses an orange <strong>hand-off</strong> when the cell that has it pushes it across. Below it, the code for <strong>Cell 1</strong> highlights the line it's running at that moment.</p>
 
-      <p class="codetag"><span class="dot">●</span> A complete workcell — it stamps each part that arrives</p>
+      <div class="sim" id="lineSimBox">
+        <svg id="lineSim" viewBox="0 0 760 250" role="img" aria-label="Animated assembly line. A part rides a belt through three workcells — Stamp, Drill, and Eject. Each cell's sensor lights up when the part arrives, the cell runs its tool, then belts the part across an orange hand-off ramp to the next cell. A state label under each cell shows WAIT, RUN, or PASS.">
+          <text x="380" y="24" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#1F3864">ONE PART, THREE CELLS — WAIT → RUN → PASS</text>
+          <text x="380" y="42" text-anchor="middle" font-family="Arial" font-size="11.5" fill="#5B6470">the cell that has the part is the one that moves it across the hand-off</text>
+
+          <!-- cell boxes -->
+          <rect x="70" y="56" width="160" height="146" rx="12" fill="#F2F7FC" stroke="#1F3864" stroke-width="2.8"/>
+          <rect x="300" y="56" width="160" height="146" rx="12" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.8"/>
+          <rect x="530" y="56" width="160" height="146" rx="12" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="1.8"/>
+          <text x="150" y="76" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#1F3864">CELL 1 · STAMP (code ↓)</text>
+          <text x="380" y="76" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#2E75B6">CELL 2 · DRILL</text>
+          <text x="610" y="76" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#3F6B2A">CELL 3 · EJECT</text>
+
+          <!-- tool mounts -->
+          <line x1="110" y1="88" x2="190" y2="88" stroke="#5B6470" stroke-width="3"/>
+          <line x1="340" y1="88" x2="420" y2="88" stroke="#5B6470" stroke-width="3"/>
+
+          <!-- stamp (cell 1) -->
+          <g id="simStamp">
+            <line x1="150" y1="88" x2="150" y2="104" stroke="#1F3864" stroke-width="4"/>
+            <rect x="133" y="104" width="34" height="18" rx="3" fill="#1F3864"/>
+          </g>
+          <!-- drill (cell 2) -->
+          <g id="simDrill">
+            <rect x="370" y="88" width="20" height="14" rx="3" fill="#2E75B6"/>
+            <path d="M376,102 L384,102 L380,124 Z" fill="#1F4D78"/>
+          </g>
+
+          <!-- belts -->
+          <rect x="20"  y="170" width="210" height="12" rx="6" fill="#D5DCE5"/>
+          <rect x="300" y="170" width="160" height="12" rx="6" fill="#D5DCE5"/>
+          <rect x="530" y="170" width="160" height="12" rx="6" fill="#D5DCE5"/>
+          <line id="belt1" x1="26"  y1="170" x2="224" y2="170" stroke="#5B6470" stroke-width="3" stroke-dasharray="6 6"/>
+          <line id="belt2" x1="306" y1="170" x2="454" y2="170" stroke="#5B6470" stroke-width="3" stroke-dasharray="6 6"/>
+          <line id="belt3" x1="536" y1="170" x2="684" y2="170" stroke="#5B6470" stroke-width="3" stroke-dasharray="6 6"/>
+
+          <!-- hand-off ramps -->
+          <line x1="230" y1="172" x2="300" y2="172" stroke="#C55A11" stroke-width="4"/>
+          <line x1="460" y1="172" x2="530" y2="172" stroke="#C55A11" stroke-width="4"/>
+          <text x="265" y="162" text-anchor="middle" font-family="Arial" font-size="10" font-weight="bold" fill="#C55A11">hand-off</text>
+          <text x="495" y="162" text-anchor="middle" font-family="Arial" font-size="10" font-weight="bold" fill="#C55A11">hand-off</text>
+          <line x1="690" y1="176" x2="740" y2="196" stroke="#5B6470" stroke-width="3"/>
+          <text x="742" y="214" text-anchor="end" font-family="Arial" font-size="10" font-weight="bold" fill="#3F6B2A">DONE</text>
+          <text x="22" y="162" font-family="Arial" font-size="10" font-weight="bold" fill="#5B6470">PART IN</text>
+
+          <!-- sensors -->
+          <rect id="sen1" x="141" y="186" width="18" height="10" rx="2" fill="#B8C2CE"/>
+          <rect id="sen2" x="371" y="186" width="18" height="10" rx="2" fill="#B8C2CE"/>
+          <rect id="sen3" x="601" y="186" width="18" height="10" rx="2" fill="#B8C2CE"/>
+
+          <!-- eject pusher (cell 3) -->
+          <rect id="simPusher" x="560" y="150" width="12" height="20" rx="2" fill="#3F6B2A"/>
+
+          <!-- the part -->
+          <g id="simPart">
+            <rect x="-15" y="148" width="30" height="22" rx="3" fill="#F4B183" stroke="#C55A11" stroke-width="1.6"/>
+            <circle id="simMark" cx="0" cy="152" r="0" fill="#1F3864"/>
+            <rect id="simHole" x="-2.5" y="152" width="5" height="0" fill="#7A3A0B"/>
+          </g>
+
+          <!-- state pills -->
+          <g font-family="Arial" font-size="11" font-weight="bold" text-anchor="middle">
+            <rect id="pill1" x="115" y="212" width="70" height="22" rx="11" fill="#E3E8EF"/>
+            <text id="st1" x="150" y="227" fill="#5B6470">WAIT</text>
+            <rect id="pill2" x="345" y="212" width="70" height="22" rx="11" fill="#E3E8EF"/>
+            <text id="st2" x="380" y="227" fill="#5B6470">WAIT</text>
+            <rect id="pill3" x="575" y="212" width="70" height="22" rx="11" fill="#E3E8EF"/>
+            <text id="st3" x="610" y="227" fill="#5B6470">WAIT</text>
+          </g>
+        </svg>
+
+        <div class="sim__bar">
+          <button class="sim__btn sim__btn--go" id="simPlay" type="button">▶ Play</button>
+          <button class="sim__btn" id="simStep" type="button">Step ⏭</button>
+          <button class="sim__btn" id="simReset" type="button">↺ Restart</button>
+          <span class="sim__phase" id="simPhase">Step 0 of 7</span>
+        </div>
+        <p class="sim__say" id="simSay" aria-live="polite">Press <strong>Play</strong> to run the line, or <strong>Step</strong> to move one beat at a time.</p>
+
+        <div class="sim__split">
+<pre class="code sim__code" id="simCode" aria-label="Cell 1's main loop, with the running line highlighted"><span class="ln" data-l="1"><span class="kw">while</span> (<span class="kw">true</span>) {</span><span class="ln" data-l="2">    belt.spin(forward);                         <span class="cmt">// WAIT: belt carries parts in</span></span><span class="ln" data-l="3">    <span class="kw">if</span> (partSensor.objectDistance(mm) &lt; 80) {   <span class="cmt">// is a part here yet?</span></span><span class="ln" data-l="4">        belt.stop();                            <span class="cmt">// yes — hold it under the stamp</span></span><span class="ln" data-l="5">        runProcess();                           <span class="cmt">// RUN: stamp the part</span></span><span class="ln" data-l="6">        passPart();                             <span class="cmt">// PASS: belt it to Cell 2</span></span><span class="ln" data-l="7">    }</span><span class="ln" data-l="8">    wait(20, msec);</span><span class="ln" data-l="9">}</span></pre>
+          <p class="sim__legend">The <span style="color:var(--orange);font-weight:700">orange</span> line is what Cell 1's Brain is doing right now. Most of the time it's just looping on lines 2–3, checking the sensor 50 times a second.</p>
+        </div>
+      </div>
+      <script>
+      (function(){
+        var svg=document.getElementById('lineSim'); if(!svg) return;
+        function $(id){return document.getElementById(id);}
+        var part=$('simPart'), mark=$('simMark'), hole=$('simHole'), stamp=$('simStamp'), drill=$('simDrill'), pusher=$('simPusher');
+        var belts=[$('belt1'),$('belt2'),$('belt3')], spans=[[0,265],[265,495],[495,760]];
+        var sens=[$('sen1'),$('sen2'),$('sen3')], cx=[150,380,610];
+        var pills=[$('pill1'),$('pill2'),$('pill3')], sts=[$('st1'),$('st2'),$('st3')];
+        var lines=document.querySelectorAll('#simCode .ln');
+        var say=$('simSay'), phaseLbl=$('simPhase'), playBtn=$('simPlay');
+        var COL={WAIT:['#E3E8EF','#5B6470'],RUN:['#C55A11','#FFFFFF'],PASS:['#2E75B6','#FFFFFF'],DONE:['#3F6B2A','#FFFFFF']};
+        function lerp(a,b,t){return a+(b-a)*t;}
+        function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+        function updown(t){return t<.5?ease(t*2):ease((1-t)*2);} /* 0→1→0 */
+        var P=[
+          {d:2000,say:'A raw part rides the feed belt into <strong>Cell 1</strong>. Every cell is in <strong>WAIT</strong> — looping, checking its sensor. When the part reaches Cell 1\'s sensor, the <span class="inl">if</span> in its code finally comes true.',
+           f:function(t){return {x:lerp(30,150,ease(t)),s:['WAIT','WAIT','WAIT'],move:true,l:t>.93?4:3};}},
+          {d:1700,say:'Cell 1\'s sensor sees the part → the belt <strong>stops</strong> and Cell 1 <strong>RUNs</strong> its process: stamp down, stamp up.',
+           f:function(t){return {x:150,s:['RUN','WAIT','WAIT'],stamp:updown(t),mark:t>.5,l:5};}},
+          {d:2100,say:'Cell 1 <strong>PASSes</strong>: it belts the part across the hand-off to Cell 2, and keeps going until its own sensor is clear.',
+           f:function(t){return {x:lerp(150,380,ease(t)),s:['PASS','WAIT','WAIT'],move:true,mark:true,l:6};}},
+          {d:1700,say:'Cell 2 holds the part still and calls <span class="inl">runProcess()</span> — the drill goes down and back up. Cell 1 is already back on lines 2–3, waiting for the next part.',
+           f:function(t){return {x:380,s:['WAIT','RUN','WAIT'],drill:updown(t),mark:true,hole:t>.5,l:3};}},
+          {d:2100,say:'Cell 2 calls <span class="inl">passPart()</span>: belt on, keep going until its sensor no longer sees the part. Now it\'s Cell 3\'s turn.',
+           f:function(t){return {x:lerp(380,610,ease(t)),s:['WAIT','PASS','WAIT'],move:true,mark:true,hole:true,l:3};}},
+          {d:1900,say:'Cell 3\'s process <em>is</em> moving the part: its pusher shoves the finished part off the end of the line.',
+           f:function(t){return {x:lerp(610,745,ease(t)),s:['WAIT','WAIT','RUN'],push:true,mark:true,hole:true,fade:t>.85?(1-(t-.85)/.15):1,l:3};}},
+          {d:1500,say:'Finished part out. Every cell is back in <strong>WAIT</strong>, ready for the next part — that\'s the cycle that repeats all day in a real factory.',
+           f:function(t){return {x:745,s:['WAIT','WAIT','DONE'],fade:0,l:2};}}
+        ];
+        var i=0, t0=null, playing=false, raf=null, el=0, stepped=false;
+        function draw(k,t,now){
+          var o=P[k].f(t);
+          part.setAttribute('transform','translate('+o.x+',0)');
+          part.style.opacity=(o.fade===undefined?1:o.fade);
+          mark.setAttribute('r',o.mark?5:0);
+          hole.setAttribute('height',o.hole?14:0);
+          stamp.setAttribute('transform','translate(0,'+(o.stamp||0)*26+')');
+          drill.setAttribute('transform','translate(0,'+(o.drill||0)*24+')');
+          pusher.setAttribute('x',o.push?Math.max(560,o.x-29):560);
+          for(var b=0;b<3;b++){
+            var on=o.move&&o.x>=spans[b][0]&&o.x<spans[b][1];
+            belts[b].style.strokeDashoffset=on?(-(now||0)/25)%12:0;
+            belts[b].setAttribute('stroke',on?'#2E75B6':'#5B6470');
+            var lit=Math.abs(o.x-cx[b])<22&&(o.fade===undefined||o.fade>0);
+            sens[b].setAttribute('fill',lit?'#C55A11':'#B8C2CE');
+            var c=COL[o.s[b]]; pills[b].setAttribute('fill',c[0]); sts[b].setAttribute('fill',c[1]); sts[b].textContent=o.s[b];
+          }
+          for(var j=0;j<lines.length;j++){lines[j].classList.toggle('on',+lines[j].getAttribute('data-l')===o.l);}
+        }
+        function show(k){say.innerHTML=P[k].say; phaseLbl.textContent='Step '+(k+1)+' of '+P.length;}
+        function frame(now){
+          if(!playing) return;
+          if(t0===null) t0=now-el;
+          el=now-t0; var t=Math.min(1,el/P[i].d);
+          draw(i,t,now);
+          if(t>=1){ i=(i+1)%P.length; el=0; t0=now; show(i); draw(i,0,now); }
+          raf=requestAnimationFrame(frame);
+        }
+        function play(){ if(playing) return; if(stepped){ i=(i+1)%P.length; el=0; stepped=false; } playing=true; t0=null; show(i); playBtn.textContent='❚❚ Pause'; raf=requestAnimationFrame(frame); }
+        function pause(){ playing=false; cancelAnimationFrame(raf); playBtn.textContent='▶ Play'; }
+        playBtn.addEventListener('click',function(){playing?pause():play();});
+        $('simStep').addEventListener('click',function(){
+          pause(); if(stepped||el>0){ i=(i+1)%P.length; } el=0; stepped=true;
+          show(i); draw(i,1,0);
+        });
+        $('simReset').addEventListener('click',function(){ pause(); i=0; el=0; stepped=false; draw(0,0,0); say.innerHTML='Press <strong>Play</strong> to run the line, or <strong>Step</strong> to move one beat at a time.'; phaseLbl.textContent='Step 0 of '+P.length; });
+        draw(0,0,0);
+        var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if(!reduce&&'IntersectionObserver' in window){
+          var started=false, io=new IntersectionObserver(function(es){ if(es[0].isIntersecting&&!started){started=true;play();io.disconnect();} },{threshold:.5});
+          io.observe(svg);
+        }
+      })();
+      </script>
+
+      <h2>How does the part actually move?</h2>
+      <p>A factory isn't just machines that <em>do</em> things to a part — it's machines that <strong>move</strong> the part from one to the next. Every workcell has an <strong>in</strong> spot (where the part arrives) and an <strong>out</strong> spot (where it leaves), and something has to carry the part between them. Pick a way to move the part as carefully as you pick your process — it's half your cell.</p>
+
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" role="img" aria-label="Four ways to move a part. Conveyor: a motor turns a belt and the part rides on top. Gravity ramp: a tilted channel lets the part slide down on its own into a stop. Pusher: a motor slides a block that shoves the part sideways. Gate: an arm blocks the part, then lifts to release it.">
+          <defs>
+            <marker id="mv" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#C55A11"/></marker>
+          </defs>
+          <text x="380" y="24" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#1F3864">FOUR WAYS TO MOVE A PART</text>
+          <!-- conveyor -->
+          <rect x="16" y="44" width="174" height="200" rx="12" fill="#F2F7FC" stroke="#CFE0F2"/>
+          <text x="103" y="66" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">Conveyor</text>
+          <rect x="34" y="150" width="138" height="20" rx="10" fill="#D5DCE5" stroke="#5B6470" stroke-width="2"/>
+          <circle cx="44" cy="160" r="7" fill="#5B6470"/><circle cx="162" cy="160" r="7" fill="#5B6470"/>
+          <rect x="70" y="128" width="30" height="22" rx="3" fill="#F4B183" stroke="#C55A11" stroke-width="1.6"/>
+          <line x1="104" y1="118" x2="150" y2="118" stroke="#C55A11" stroke-width="2.6" marker-end="url(#mv)"/>
+          <text x="44" y="190" text-anchor="middle" font-family="Arial" font-size="10" fill="#5B6470">motor</text>
+          <text x="103" y="216" text-anchor="middle" font-family="Arial" font-size="11.5" fill="#1A1A1A">motor turns a belt;</text>
+          <text x="103" y="232" text-anchor="middle" font-family="Arial" font-size="11.5" fill="#1A1A1A">part rides on top</text>
+          <!-- ramp -->
+          <rect x="202" y="44" width="174" height="200" rx="12" fill="#F2F7FC" stroke="#CFE0F2"/>
+          <text x="289" y="66" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">Gravity ramp</text>
+          <line x1="220" y1="100" x2="340" y2="170" stroke="#5B6470" stroke-width="5"/>
+          <line x1="340" y1="170" x2="340" y2="146" stroke="#1F3864" stroke-width="5"/>
+          <g transform="translate(266,101) rotate(30)"><rect x="0" y="0" width="30" height="22" rx="3" fill="#F4B183" stroke="#C55A11" stroke-width="1.6"/></g>
+          <line x1="236" y1="80" x2="280" y2="106" stroke="#C55A11" stroke-width="2.6" marker-end="url(#mv)"/>
+          <text x="352" y="150" font-family="Arial" font-size="10" fill="#5B6470">stop</text>
+          <text x="289" y="216" text-anchor="middle" font-family="Arial" font-size="11.5" fill="#1A1A1A">part slides down on its</text>
+          <text x="289" y="232" text-anchor="middle" font-family="Arial" font-size="11.5" fill="#1A1A1A">own — no motor, no code</text>
+          <!-- pusher -->
+          <rect x="388" y="44" width="174" height="200" rx="12" fill="#F2F7FC" stroke="#CFE0F2"/>
+          <text x="475" y="66" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">Pusher</text>
+          <line x1="404" y1="152" x2="546" y2="152" stroke="#5B6470" stroke-width="3"/>
+          <rect x="404" y="122" width="18" height="30" rx="2" fill="#3F6B2A"/>
+          <line x1="422" y1="137" x2="452" y2="137" stroke="#3F6B2A" stroke-width="5"/>
+          <rect x="454" y="130" width="30" height="22" rx="3" fill="#F4B183" stroke="#C55A11" stroke-width="1.6"/>
+          <line x1="490" y1="118" x2="536" y2="118" stroke="#C55A11" stroke-width="2.6" marker-end="url(#mv)"/>
+          <text x="475" y="216" text-anchor="middle" font-family="Arial" font-size="11.5" fill="#1A1A1A">motor slides a block</text>
+          <text x="475" y="232" text-anchor="middle" font-family="Arial" font-size="11.5" fill="#1A1A1A">that shoves the part</text>
+          <!-- gate -->
+          <rect x="574" y="44" width="170" height="200" rx="12" fill="#F2F7FC" stroke="#CFE0F2"/>
+          <text x="659" y="66" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1F3864">Gate</text>
+          <line x1="590" y1="152" x2="728" y2="152" stroke="#5B6470" stroke-width="3"/>
+          <rect x="612" y="130" width="30" height="22" rx="3" fill="#F4B183" stroke="#C55A11" stroke-width="1.6"/>
+          <line x1="650" y1="152" x2="650" y2="110" stroke="#1F3864" stroke-width="5"/>
+          <path d="M650,104 A30,30 0 0 1 680,86" fill="none" stroke="#C55A11" stroke-width="2.6" marker-end="url(#mv)"/>
+          <circle cx="650" cy="152" r="5" fill="#1F3864"/>
+          <text x="659" y="216" text-anchor="middle" font-family="Arial" font-size="11.5" fill="#1A1A1A">arm blocks the part,</text>
+          <text x="659" y="232" text-anchor="middle" font-family="Arial" font-size="11.5" fill="#1A1A1A">then lifts to release</text>
+          <text x="380" y="280" text-anchor="middle" font-family="Arial" font-size="12" font-style="italic" fill="#5B6470">Most cells combine two: a conveyor to carry the part, plus a gate or stop to hold it still while the process runs.</text>
+        </svg>
+        <figcaption>Pick how your part travels <strong>into</strong>, <strong>through</strong>, and <strong>out of</strong> your cell. Combining a mover with a stop is the most common design.</figcaption>
+      </figure>
+
+      <table class="dtable">
+        <thead><tr><th>Way to move</th><th>Good for</th><th>Watch out for</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Conveyor</strong> (belt, tread, or a row of wheels as rollers)</td><td>Carrying a part into, across, and out of your cell</td><td>The part drifts sideways — add side rails</td></tr>
+          <tr><td><strong>Gravity ramp / chute</strong></td><td>Dropping to a lower neighbor — free movement, no code</td><td>The part speeds up; it needs a stop or gate at the bottom</td></tr>
+          <tr><td><strong>Pusher / kicker</strong></td><td>Shoving a part off a belt, into a bin, or off the end</td><td>Push too hard and the part flips</td></tr>
+          <tr><td><strong>Gate / stop</strong></td><td>Holding the part still while you work, then releasing it</td><td>Opening too early sends the part on mid-process</td></tr>
+          <tr><td><strong>Lift / elevator</strong></td><td>Matching a neighbor whose cell is taller</td><td>Slow, and it must come back down every cycle</td></tr>
+        </tbody>
+      </table>
+      <p class="tnote">Build movers from the classroom kit only. Test with the real class part — a part that's lighter, rounder, or smaller than you expected can change everything.</p>
+
+      <div class="card card--tip">
+        <h3>🎯 The hand-off rule: whoever has the part, moves it</h3>
+        <p>Every seam between two cells needs one clear owner, or the part ends up sitting in the gap. Use this rule for the whole line: <strong>the cell that has the part is responsible for delivering it to the next cell's arrival spot</strong> — right in front of the next cell's sensor. The next cell doesn't reach back to grab it; it just waits for its sensor to see it. One owner per seam, no arguments.</p>
+      </div>
+
+      <h2>A workcell runs a cycle</h2>
+      <p>Each cell does the same three things over and over — and you already know how to build the loop that runs them. It's the <span class="inl">while (true)</span> loop from Chapter 11, with the sensor used as a "has the part arrived yet?" trigger:</p>
+      <ol>
+        <li><strong>WAIT</strong> — keep the belt running and watch the sensor until a part arrives.</li>
+        <li><strong>RUN</strong> — stop the part and do your one job to it.</li>
+        <li><strong>PASS</strong> — move the part out to the next cell, and keep going until your sensor is clear.</li>
+      </ol>
+
+      <p class="codetag plan"><span class="dot">●</span> Pseudocode — copy into your notebook and fill in the blanks for your cell</p>
+<pre class="code plan">REPEAT FOREVER
+    run my belt / feeder
+    IF my sensor sees a part        <span class="cmt">(sensor: ________   trigger: closer than ___ mm)</span>
+        stop the part
+        RUN my process              <span class="cmt">(what it does: ______________________)</span>
+        PASS the part on            <span class="cmt">(how it moves out: belt / pusher / gate / ramp)</span>
+            until my sensor is clear</pre>
+
+      <p>Now let's turn that plan into real C++ — one small, tested step at a time.</p>
+
+      <h2>Code tutorial: build your workcell, one step at a time</h2>
+      <p>We'll build a complete <strong>stamp cell</strong> — a belt carries the part in, a stamp presses it, and the belt carries it out. Your cell's process may be different, but the steps are the same. The rule: <strong>download and test after every step.</strong> If something breaks, you'll know it was the few lines you just added. Lines that are <span style="background:#E6F0FA;box-shadow:inset 3px 0 0 var(--blue);padding:0 4px">shaded blue</span> are new in that step.</p>
+
+      <div class="tut">
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: the Brain knows what's plugged in</p>
+          <h3>Name your devices</h3>
+          <p>Wire your cell first, then tell the code which device is in which port. Write the port numbers on masking tape on each cable — when cells get packed side by side, you'll be glad you did.</p>
+          <svg viewBox="0 0 560 150" role="img" aria-label="Wiring map. The EXP Brain's port 1 goes to the stamp motor, port 2 to the distance sensor, and port 3 to the belt motor.">
+            <rect x="20" y="30" width="140" height="92" rx="10" fill="#1F3864"/>
+            <text x="90" y="56" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#FFFFFF">EXP Brain</text>
+            <g font-family="Arial" font-size="11" font-weight="bold" fill="#9DC3E6"><text x="140" y="78" text-anchor="end">PORT1</text><text x="140" y="96" text-anchor="end">PORT2</text><text x="140" y="114" text-anchor="end">PORT3</text></g>
+            <path d="M160,74 C230,74 230,34 300,34" fill="none" stroke="#C55A11" stroke-width="2.4"/>
+            <path d="M160,92 L300,76" fill="none" stroke="#C55A11" stroke-width="2.4"/>
+            <path d="M160,110 C230,110 230,118 300,118" fill="none" stroke="#C55A11" stroke-width="2.4"/>
+            <g font-family="Arial" font-size="12.5">
+              <rect x="300" y="18" width="240" height="32" rx="8" fill="#F2F7FC" stroke="#2E75B6"/><text x="312" y="39" fill="#1A1A1A"><tspan font-weight="bold">stampArm</tspan> — motor (the process)</text>
+              <rect x="300" y="60" width="240" height="32" rx="8" fill="#F2F7FC" stroke="#2E75B6"/><text x="312" y="81" fill="#1A1A1A"><tspan font-weight="bold">partSensor</tspan> — distance sensor</text>
+              <rect x="300" y="102" width="240" height="32" rx="8" fill="#F2F7FC" stroke="#2E75B6"/><text x="312" y="123" fill="#1A1A1A"><tspan font-weight="bold">belt</tspan> — motor (moves the part)</text>
+            </g>
+          </svg>
+<pre class="code"><span class="kw">#include</span> "vex.h"
+<span class="kw">using namespace</span> vex;
+
+<span class="new">motor stampArm      = motor(PORT1);    <span class="cmt">// presses the stamp</span></span>
+<span class="new">distance partSensor = distance(PORT2); <span class="cmt">// "is a part here?"</span></span>
+<span class="new">motor belt          = motor(PORT3);    <span class="cmt">// carries the part in and out</span></span>
+
+<span class="kw">int</span> main() {
+    vexcodeInit();
+}</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> it downloads with no errors. Nothing moves yet — that's correct.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: the part travels through your cell</p>
+          <h3>Make it move</h3>
+          <p>Before any sensing, make sure your mover actually moves the part — straight, and to the spot where your neighbor expects it. Start slow; you can speed up later.</p>
+<pre class="code"><span class="kw">int</span> main() {
+    vexcodeInit();
+<span class="new">    belt.setVelocity(30, percent);   <span class="cmt">// slow and steady</span></span>
+<span class="new">    belt.spin(forward);</span>
+<span class="new">    wait(4, seconds);                <span class="cmt">// just a test: run for 4 seconds</span></span>
+<span class="new">    belt.stop();</span>
+}</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> set a part on the in-end. It rides the whole way without sliding off or turning. Run it 5 times.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> wrong direction? Change <span class="inl">forward</span> to <span class="inl">reverse</span>. Part drifts? Add side rails. Part slips? Slow the belt or add grip.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: the belt stops when the part arrives</p>
+          <h3>Stop it with the sensor</h3>
+          <p>Now replace the 4-second guess with a sensor. The belt runs <em>until</em> the sensor sees the part closer than 80&nbsp;mm, then stops — so the part lands under the stamp every time.</p>
+          <svg viewBox="0 0 560 130" role="img" aria-label="Side view. A part rides the belt toward a distance sensor beside the stamp. While the part is farther than 80 millimeters, the belt keeps running. When it is closer than 80 millimeters, the belt stops with the part under the stamp.">
+            <rect x="30" y="80" width="420" height="14" rx="7" fill="#D5DCE5" stroke="#5B6470" stroke-width="1.5"/>
+            <rect x="80" y="58" width="30" height="22" rx="3" fill="#F4B183" stroke="#C55A11" stroke-width="1.6" opacity=".45"/>
+            <line x1="114" y1="50" x2="200" y2="50" stroke="#2E75B6" stroke-width="2.4" stroke-dasharray="5 4"/>
+            <text x="100" y="44" font-family="Arial" font-size="11" fill="#2E75B6">far → keep spinning</text>
+            <rect x="285" y="58" width="30" height="22" rx="3" fill="#F4B183" stroke="#C55A11" stroke-width="1.6"/>
+            <line x1="300" y1="14" x2="300" y2="32" stroke="#1F3864" stroke-width="4"/><rect x="284" y="32" width="32" height="14" rx="3" fill="#1F3864"/>
+            <rect x="470" y="56" width="20" height="26" rx="3" fill="#C55A11"/>
+            <line x1="468" y1="69" x2="318" y2="69" stroke="#C55A11" stroke-width="1.6" stroke-dasharray="3 3"/>
+            <text x="480" y="104" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#C55A11">sensor</text>
+            <text x="392" y="62" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#C55A11">&lt; 80 mm → stop</text>
+            <text x="300" y="120" text-anchor="middle" font-family="Arial" font-size="11" fill="#1A1A1A">part lands under the stamp</text>
+          </svg>
+<pre class="code"><span class="kw">int</span> main() {
+    vexcodeInit();
+    belt.setVelocity(30, percent);
+    belt.spin(forward);
+<span class="new">    <span class="kw">while</span> (partSensor.objectDistance(mm) &gt; 80) { <span class="cmt">// no part yet</span></span>
+<span class="new">        wait(20, msec);                <span class="cmt">// keep watching</span></span>
+<span class="new">    }</span>
+    belt.stop();                       <span class="cmt">// part is here — hold it</span>
+}</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> the part stops in the <em>same spot</em> 5 times in a row. Mark that spot with tape.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> stops too early or too late? Change <span class="inl">80</span>. Overshoots? Slow the belt — a fast part can't stop on a dime. Never stops? Check the sensor points <em>at</em> the part, at the part's height.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: your process lives in one named function</p>
+          <h3>Package your process in a function</h3>
+          <p>Write your cell's job as a <strong>function</strong> above <span class="inl">main</span>, then <em>call</em> it after the belt stops. (More on functions in the next section.)</p>
+<pre class="code"><span class="new"><span class="kw">void</span> runProcess() {             <span class="cmt">// our cell's job: stamp the part</span></span>
+<span class="new">    stampArm.spinFor(forward, 90, degrees);   <span class="cmt">// press down</span></span>
+<span class="new">    wait(0.3, seconds);                       <span class="cmt">// hold the press</span></span>
+<span class="new">    stampArm.spinFor(reverse, 90, degrees);   <span class="cmt">// lift back up</span></span>
+<span class="new">}</span>
+
+<span class="kw">int</span> main() {
+    vexcodeInit();
+<span class="new">    stampArm.setVelocity(40, percent);</span>
+    belt.setVelocity(30, percent);
+    belt.spin(forward);
+    <span class="kw">while</span> (partSensor.objectDistance(mm) &gt; 80) {
+        wait(20, msec);
+    }
+    belt.stop();
+<span class="new">    runProcess();                  <span class="cmt">// do our job</span></span>
+}</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> the part arrives, stops, gets stamped once, and the stamp returns to the <em>same</em> starting height.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> using <span class="inl">spinFor</span> with <strong>degrees</strong> (not a timed spin) means the arm returns to the same spot every time. Adjust <span class="inl">90</span> until it just touches the part.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: the part leaves — and you know it's gone</p>
+          <h3>Pass it on — wait until clear</h3>
+          <p>To pass the part, run the belt again. But how long? A timed guess like <span class="inl">wait(1, seconds)</span> breaks the moment anything changes — a slower belt, a heavier part, a sticky hand-off. Instead, use the sensor the other way around: keep moving <strong>until the sensor no longer sees the part</strong>.</p>
+          <svg viewBox="0 0 560 150" role="img" aria-label="Two ways to pass a part. Top: wait one second, a guess — if the belt slows, the part is still in front of the sensor, so the cell thinks a new part arrived and stamps it again. Bottom: wait until the sensor is clear — the cell keeps the belt running until the part is gone, then adds a short push to clear the edge.">
+            <rect x="10" y="8" width="540" height="62" rx="10" fill="#FBEFD6" stroke="#E7C77E"/>
+            <text x="24" y="30" font-family="Arial" font-size="12.5" font-weight="bold" fill="#8A5400">✗ wait(1, seconds) — a guess</text>
+            <text x="24" y="50" font-family="Arial" font-size="11.5" fill="#1A1A1A">Belt a bit slow? The part is still</text>
+            <text x="24" y="64" font-family="Arial" font-size="11.5" fill="#1A1A1A">in front of the sensor → stamped twice.</text>
+            <rect x="300" y="46" width="180" height="10" rx="5" fill="#D5DCE5"/><rect x="420" y="28" width="26" height="18" rx="3" fill="#F4B183" stroke="#C55A11"/><rect x="486" y="30" width="14" height="18" rx="2" fill="#C55A11"/>
+            <rect x="10" y="80" width="540" height="62" rx="10" fill="#E2EFDA" stroke="#C5DDB4"/>
+            <text x="24" y="102" font-family="Arial" font-size="12.5" font-weight="bold" fill="#3F6B2A">✓ wait until the sensor is clear</text>
+            <text x="24" y="122" font-family="Arial" font-size="11.5" fill="#1A1A1A">The belt runs as long as it needs to —</text>
+            <text x="24" y="136" font-family="Arial" font-size="11.5" fill="#1A1A1A">fast part or slow part, it always works.</text>
+            <rect x="300" y="118" width="180" height="10" rx="5" fill="#D5DCE5"/><rect x="486" y="102" width="14" height="18" rx="2" fill="#B8C2CE"/>
+            <rect x="508" y="100" width="26" height="18" rx="3" fill="#F4B183" stroke="#C55A11"/><text x="521" y="134" text-anchor="middle" font-family="Arial" font-size="9.5" fill="#3F6B2A">next cell</text>
+          </svg>
+<pre class="code"><span class="new"><span class="kw">void</span> passPart() {               <span class="cmt">// send the part to the next cell</span></span>
+<span class="new">    belt.spin(forward);</span>
+<span class="new">    <span class="kw">while</span> (partSensor.objectDistance(mm) &lt; 80) { <span class="cmt">// still here?</span></span>
+<span class="new">        wait(20, msec);                <span class="cmt">// keep moving it</span></span>
+<span class="new">    }</span>
+<span class="new">    wait(0.5, seconds);           <span class="cmt">// clear the hand-off</span></span>
+<span class="new">}</span></pre>
+          <p>Put <span class="inl">passPart()</span> above <span class="inl">main</span> next to <span class="inl">runProcess()</span>, and call it right after <span class="inl">runProcess();</span>. Notice it doesn't stop the belt — in the next step the loop keeps the belt running so the next part can come in.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> the part crosses the hand-off and lands on your neighbor's arrival spot (or your tape mark for it). Tune the <span class="inl">0.5</span> seconds so it lands there every time.</p>
+          <p class="tut__fix"><strong>🔧 Different mover?</strong> If your cell uses a pusher or gate, the <em>inside</em> of <span class="inl">passPart()</span> changes (push out, push back; or lift gate, wait until clear, lower gate) — but the name and the "until clear" idea stay the same.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: the cell runs part after part, forever</p>
+          <h3>Loop it — the full workcell</h3>
+          <p>Last step: wrap WAIT → RUN → PASS in a <span class="inl">while (true)</span> loop. This is your complete cell — the same code you watched in the line simulation above.</p>
+          <p class="codetag"><span class="dot">●</span> Complete workcell — belt in, stamp, belt out, repeat</p>
 <pre class="code"><span class="kw">#include</span> "vex.h"
 <span class="kw">using namespace</span> vex;
 
 motor stampArm      = motor(PORT1);
 distance partSensor = distance(PORT2);
+motor belt          = motor(PORT3);
 
-<span class="kw">void</span> runProcess() {           <span class="cmt">// our cell's job: stamp the part</span>
-    stampArm.spin(forward);    <span class="cmt">// press the stamp down</span>
-    wait(1, seconds);
-    stampArm.spin(reverse);    <span class="cmt">// lift it back up</span>
-    wait(1, seconds);
-    stampArm.stop();
+<span class="kw">void</span> runProcess() {             <span class="cmt">// RUN: stamp the part</span>
+    stampArm.spinFor(forward, 90, degrees);
+    wait(0.3, seconds);
+    stampArm.spinFor(reverse, 90, degrees);
+}
+
+<span class="kw">void</span> passPart() {               <span class="cmt">// PASS: send it on, until it's gone</span>
+    belt.spin(forward);
+    <span class="kw">while</span> (partSensor.objectDistance(mm) &lt; 80) {
+        wait(20, msec);
+    }
+    wait(0.5, seconds);
 }
 
 <span class="kw">int</span> main() {
     vexcodeInit();
     stampArm.setVelocity(40, percent);
+    belt.setVelocity(30, percent);
 
-    <span class="kw">while</span> (<span class="kw">true</span>) {                                  <span class="cmt">// the workcell cycle</span>
-        <span class="kw">if</span> (partSensor.objectDistance(mm) &lt; 80) {    <span class="cmt">// a part has arrived</span>
-            runProcess();                            <span class="cmt">// do our job</span>
-            wait(1, seconds);                        <span class="cmt">// let it move to the next cell</span>
-        }
-        wait(20, msec);
-    }
+<span class="new">    <span class="kw">while</span> (<span class="kw">true</span>) {                                  <span class="cmt">// the workcell cycle</span></span>
+<span class="new">        belt.spin(forward);                          <span class="cmt">// WAIT: belt carries parts in</span></span>
+<span class="new">        <span class="kw">if</span> (partSensor.objectDistance(mm) &lt; 80) {    <span class="cmt">// a part is under the stamp</span></span>
+<span class="new">            belt.stop();                             <span class="cmt">// hold it still</span></span>
+<span class="new">            runProcess();                            <span class="cmt">// RUN: do our job</span></span>
+<span class="new">            passPart();                              <span class="cmt">// PASS: send it on</span></span>
+<span class="new">        }</span>
+<span class="new">        wait(20, msec);</span>
+<span class="new">    }</span>
 }</pre>
+          <p class="tut__check"><strong>✅ Check it — the 10-part test:</strong> feed 10 parts in a row, one at a time. Every one should be stamped <em>exactly once</em> and land on the hand-off spot. Count the misses in your notebook, fix one thing, test again.</p>
+        </div>
 
-      <p>The loop is the cell's heartbeat: check the sensor, and when a part is close, run the process. After it runs, a short <span class="inl">wait</span> gives the part time to move on before the cell looks for the next one. Swap in your own process and your own sensor, and you have <em>your</em> workcell.</p>
+        <div class="tut__step">
+          <p class="tut__goal">Stretch goal: don't crash into your neighbor</p>
+          <h3>Only pass when the next spot is clear</h3>
+          <p>What if the next cell is still busy with the last part? Your part would slam into it. A real factory solves this with a check called an <strong>interlock</strong>: a second sensor that watches the next cell's arrival spot. Your cell holds its part until that spot is empty.</p>
+          <svg viewBox="0 0 560 120" role="img" aria-label="Interlock. Cell 1 holds its finished part. A second sensor on Cell 1 looks at Cell 2's arrival spot. While a part is still sitting there, Cell 1 waits. When the spot is empty, Cell 1 passes its part.">
+            <rect x="10" y="20" width="230" height="90" rx="10" fill="#F2F7FC" stroke="#1F3864" stroke-width="1.6"/>
+            <rect x="320" y="20" width="230" height="90" rx="10" fill="#F2F7FC" stroke="#2E75B6" stroke-width="1.6"/>
+            <text x="125" y="38" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#1F3864">YOUR CELL — holding</text>
+            <text x="435" y="38" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#2E75B6">NEXT CELL — still busy</text>
+            <rect x="24" y="80" width="216" height="10" rx="5" fill="#D5DCE5"/><rect x="334" y="80" width="200" height="10" rx="5" fill="#D5DCE5"/>
+            <line x1="240" y1="84" x2="320" y2="84" stroke="#C55A11" stroke-width="3"/>
+            <rect x="180" y="58" width="26" height="22" rx="3" fill="#F4B183" stroke="#C55A11"/>
+            <rect x="345" y="58" width="26" height="22" rx="3" fill="#F4B183" stroke="#C55A11"/>
+            <rect x="262" y="40" width="16" height="16" rx="2" fill="#C55A11"/>
+            <line x1="278" y1="52" x2="342" y2="66" stroke="#C55A11" stroke-width="1.6" stroke-dasharray="3 3"/>
+            <text x="270" y="16" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#C55A11">nextSpot sensor</text>
+          </svg>
+<pre class="code"><span class="new">distance nextSpot = distance(PORT4); <span class="cmt">// sees next cell's spot</span></span>
+...
+            runProcess();
+<span class="new">            <span class="kw">while</span> (nextSpot.objectDistance(mm) &lt; 80) { <span class="cmt">// busy?</span></span>
+<span class="new">                wait(20, msec);              <span class="cmt">// hold our part</span></span>
+<span class="new">            }</span>
+            passPart();</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> leave a part sitting on the next cell's spot. Your cell should finish its process and then <em>wait</em> — not push. Remove the part, and yours goes.</p>
+        </div>
+
+      </div>
 
       <h2>Name your process: functions</h2>
-      <p>Notice the line <span class="inl">runProcess();</span> in the loop. That's a <strong>function</strong> — a group of commands you've given a name. You <em>define</em> it once (here, the four lines that stamp the part) and then <em>call</em> it whenever you want all those steps to run, just by writing its name. Functions are how you keep a program readable: instead of cramming every stamping step inside the loop, you tuck them into <span class="inl">runProcess()</span> so the loop reads like plain English — "if a part arrived, run the process."</p>
+      <p>Notice the lines <span class="inl">runProcess();</span> and <span class="inl">passPart();</span> in the tutorial's loop. Each is a <strong>function</strong> — a group of commands you've given a name. You <em>define</em> it once (here, the three lines that stamp the part) and then <em>call</em> it whenever you want all those steps to run, just by writing its name. Functions are how you keep a program readable: instead of cramming every stamping step inside the loop, you tuck them into <span class="inl">runProcess()</span> so the loop reads like plain English — "if a part arrived, run the process."</p>
       <p>This is the same idea as <strong>decomposition</strong> from Chapter 9. Back then you broke a complex behavior into simple ones; a function is exactly that — a name for one simple behavior, made of smaller basic steps. Define your functions <em>above</em> <span class="inl">main</span>, give each a clear name (<span class="inl">lowerGate</span>, <span class="inl">sortPart</span>, <span class="inl">drillHole</span>), and your main loop becomes a short, clear list of what your cell does.</p>
 
       <h2>The hard part: making cells work together</h2>
@@ -120,7 +547,21 @@ distance partSensor = distance(PORT2);
         <li><strong>Where</strong> does the part arrive in your cell, and where does it leave? Those two spots have to line up with your neighbors' cells.</li>
         <li><strong>How</strong> is the part sitting — which way does it face, how high is it? If you expect it flat and it arrives on its side, your process fails.</li>
         <li><strong>When</strong> does each cell run? A part can't reach you until the cell before you has finished and released it. Timing has to chain down the line.</li>
+        <li><strong>Who moves it</strong> across the seam? Use the hand-off rule: the cell that has the part delivers it.</li>
       </ul>
+      <p>Write your agreement down — a factory calls this an <strong>interface spec</strong>. Fill in a table like this with <em>each</em> neighbor, and both teams copy it into their notebooks:</p>
+      <table class="dtable">
+        <thead><tr><th>We agree on…</th><th>Example: Cell 1 (Stamp) → Cell 2 (Drill)</th></tr></thead>
+        <tbody>
+          <tr><td>Where the part leaves / arrives</td><td>Leaves the right end of Cell 1's belt; lands centered on Cell 2's belt</td></tr>
+          <tr><td>Hand-off height</td><td>Top of both belts 6 cm above the table</td></tr>
+          <tr><td>How the part sits</td><td>Flat, stamped side up, long edge along the belt</td></tr>
+          <tr><td>Who moves it across</td><td>Cell 1 (it has the part)</td></tr>
+          <tr><td>How the next cell knows it's there</td><td>Cell 2's distance sensor reads less than 80 mm</td></tr>
+          <tr><td>Speed and spacing</td><td>Belts at 30%; Cell 1 won't pass until Cell 2's spot is clear</td></tr>
+        </tbody>
+      </table>
+      <p class="tnote">Measure, don't eyeball: a 1 cm height mismatch is enough to flip a part at the seam.</p>
       <p>This is <strong>systems integration</strong> — the same lesson as Chapter 8, one level up. There, a single robot was a system of parts (sensors, brain, motors). Here, the assembly line is a system of <em>cells</em>, and a system is only as good as how well its parts connect. One misaligned hand-off and the whole line stalls — so talk to your neighbors early, agree on the details, and test the seams.</p>
 
       <div class="card card--tip">
@@ -176,18 +617,18 @@ distance partSensor = distance(PORT2);
       <h2>What you'll need</h2>
       <ul>
         <li>Your computer with <strong>VS Code + the VEX extension</strong>, and a <strong>USB-C cable</strong></li>
-        <li>The <strong>PLTW Gateway EXP kit</strong>: Brain, charged battery, motor(s), and a sensor for your process</li>
+        <li>The <strong>PLTW Gateway EXP kit</strong>: Brain, charged battery, motor(s), and a sensor for your process — plus parts for a <strong>mover</strong> (belt, rollers, ramp, pusher, or gate)</li>
         <li>The shared <strong>part</strong> the class is "manufacturing," and a sense of the cells before and after yours</li>
         <li>Your <strong>engineering notebook</strong> and the <strong>project worksheet</strong> (design brief, interface plan, daily journal, and reflection)</li>
       </ul>
 
       <h2>Do it</h2>
       <ol>
-        <li><strong>Understand your cell — and its neighbors.</strong> Learn your process, then meet the teams before and after you. Agree on the hand-off: where the part arrives and leaves, and how it sits.</li>
-        <li><strong>Sketch and build.</strong> Sketch a couple of designs, pick one, and build your workcell from the kit so it fits the cubby. Mount and wire the motor(s) and the sensor.</li>
-        <li><strong>Plan, then code.</strong> Write pseudocode for your cell cycle — wait for the part, run the process, get ready. Then write it in C++: put your process steps in a <strong>function</strong>, and call it inside a <span class="inl">while (true)</span> loop.</li>
-        <li><strong>Test your cell alone.</strong> Download and run until your cell does its job reliably, every time, by itself. Tune your sensor trigger and motor timing.</li>
-        <li><strong>Integrate.</strong> Join your cell to your neighbors'. Run a part across the hand-offs and fix what doesn't line up — position, orientation, timing.</li>
+        <li><strong>Understand your cell — and its neighbors.</strong> Learn your process, then meet the teams before and after you. Choose how the part will move into and out of your cell, and fill in the <strong>interface spec</strong> table with each neighbor.</li>
+        <li><strong>Sketch and build.</strong> Sketch a couple of designs, pick one, and build your workcell from the kit so it fits the cubby. Build the mover first and test it by pushing a part through by hand, then mount and wire the motor(s) and the sensor.</li>
+        <li><strong>Plan, then code.</strong> Fill in the cell-cycle pseudocode, then follow the <strong>code tutorial</strong> step by step — name, move, stop, process, pass, loop — testing after every step.</li>
+        <li><strong>Test your cell alone.</strong> Pass the <strong>10-part test</strong>: ten parts in a row, each processed exactly once and landing on the hand-off spot. Tune your sensor trigger, belt speed, and timing.</li>
+        <li><strong>Integrate.</strong> Join your cell to your neighbors'. Run <em>one</em> part slowly across each hand-off first, then three in a row. Fix what doesn't line up — position, orientation, timing — and update your interface spec if you change anything.</li>
         <li><strong>Run the line, then evaluate.</strong> With the whole class, run a part from one end to the other. In your notebook, reflect: what would improve your cell, and what was your team's biggest challenge?</li>
       </ol>
 
@@ -195,6 +636,8 @@ distance partSensor = distance(PORT2);
       <ol>
         <li>What makes the assembly line a <strong>system</strong>? How is it like, and unlike, the single robot-as-a-system from Chapter 8?</li>
         <li>Describe a <strong>workcell's cycle</strong> in three steps. Which Chapter 11 idea does it reuse?</li>
+        <li>Name two ways to <strong>move a part</strong> between cells. For each, give one thing it's good for and one thing to watch out for. Using the hand-off rule, which cell moves the part across a seam?</li>
+        <li>Why does <span class="inl">passPart()</span> wait <strong>until the sensor is clear</strong> instead of using <span class="inl">wait(1, seconds)</span>? What could go wrong with the timed version?</li>
         <li>What is a <strong>function</strong>, and why does putting your process in one make a program easier to read? Connect it to decomposition from Chapter 9.</li>
         <li>Why do neighboring teams have to <strong>agree on the hand-off</strong>? Give two specific things they must agree on.</li>
         <li>Why is it smart to get your cell working <strong>by itself</strong> before joining it to the line?</li>
@@ -203,9 +646,9 @@ distance partSensor = distance(PORT2);
 
       <h2>Key terms</h2>
       <div class="terms">
-        <span class="term">assembly line</span><span class="term">workcell</span><span class="term">process</span><span class="term">cell cycle</span><span class="term">automation</span><span class="term">sensor trigger</span><span class="term">function</span><span class="term">define / call</span><span class="term">decomposition</span><span class="term">hand-off</span><span class="term">interface</span><span class="term">coordination</span><span class="term">systems integration</span><span class="term">system</span><span class="term">subsystem</span><span class="term">while (true)</span><span class="term">design process</span><span class="term">mechanical / electrical / computer</span></div>
+        <span class="term">assembly line</span><span class="term">workcell</span><span class="term">process</span><span class="term">cell cycle</span><span class="term">automation</span><span class="term">sensor trigger</span><span class="term">function</span><span class="term">define / call</span><span class="term">decomposition</span><span class="term">hand-off</span><span class="term">conveyor</span><span class="term">gravity ramp</span><span class="term">pusher</span><span class="term">gate</span><span class="term">wait until clear</span><span class="term">interface spec</span><span class="term">interlock</span><span class="term">interface</span><span class="term">coordination</span><span class="term">systems integration</span><span class="term">system</span><span class="term">subsystem</span><span class="term">while (true)</span><span class="term">design process</span><span class="term">mechanical / electrical / computer</span></div>
 
-      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 3.5 "Simulated Factory Assembly Line"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the class-wide project (each team builds one automated workcell that performs one process, then the cells are integrated into a working assembly line, coordinating hand-offs with neighboring teams, using the engineering design process and the three engineering roles) and its reflection questions are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The cell-cycle pattern (a <span class="inl">while (true)</span> loop triggered by a sensor) builds on Chapter 11; user-defined <span class="inl">void</span> functions are standard C++, matching the function examples in the VEXcode EXP C++ API. The systems-integration framing carries over from Chapter 8; sensors and motor commands from Chapters 10–11.</p>
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 3.5 "Simulated Factory Assembly Line"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the class-wide project (each team builds one automated workcell that performs one process, then the cells are integrated into a working assembly line, coordinating hand-offs with neighboring teams, using the engineering design process and the three engineering roles) and its reflection questions are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. The cell-cycle pattern (a <span class="inl">while (true)</span> loop triggered by a sensor) builds on Chapter 11; the part-movement methods (conveyor, gravity feed, pusher, gate, lift), the hand-off ownership rule, the interlock stretch goal, and the step-by-step code tutorial are added scaffolding for this edition, using <span class="inl">spin</span>, <span class="inl">spinFor</span>, <span class="inl">stop</span>, and <span class="inl">objectDistance</span> from the VEXcode EXP C++ API; user-defined <span class="inl">void</span> functions are standard C++, matching the function examples in the VEXcode EXP C++ API. The systems-integration framing carries over from Chapter 8; sensors and motor commands from Chapters 10–11.</p>
 
     </article>
 
