@@ -38,6 +38,16 @@
 
     <article class="prose wrap">
 
+      <h2>Watch first: the five steps</h2>
+      <p>A 40-second overview of the whole setup, so you know where you're headed before you start.</p>
+      <figure class="video">
+        <video controls preload="metadata" playsinline poster="media/setup-tools-overview-poster.jpg" aria-label="Narrated overview of the five setup steps, with captions on screen">
+          <source src="media/setup-tools-overview.mp4" type="video/mp4">
+          Your browser can't play this video. <a href="media/setup-tools-overview.mp4">Download it here</a>.
+        </video>
+        <figcaption>Narrated overview (under a minute). Captions are built into the video.</figcaption>
+      </figure>
+
       <h2>1 · Install Visual Studio Code</h2>
       <p>Your school installs approved apps through the <strong>Software Center</strong> — no admin password needed.</p>
       <ol>
@@ -97,6 +107,44 @@ motor leftMotor = motor(PORT1);
         <li>If the motor spins for two seconds and stops, your setup works. 🎉</li>
       </ol>
       <p>If it doesn't move, the usual reasons are a loose cable, the motor in the wrong port, or the Brain turned off — check those first.</p>
+
+      <div class="sim" id="suBox">
+        <p class="card__title" style="margin:0 0 6px;font-weight:800;color:var(--navy)">✅ Your setup checklist</p>
+        <p style="margin:0 0 8px;font-size:15px">Tick each step as you finish it. This page remembers your ticks on this computer.</p>
+        <ul class="checks" id="suList">
+          <li><label><input type="checkbox" data-k="vscode"> VS Code installed from Software Center and opens</label></li>
+          <li><label><input type="checkbox" data-k="ext"> VEX Robotics extension installed — the VEX robot icon is in the left toolbar</label></li>
+          <li><label><input type="checkbox" data-k="proj"> AR-Starter project created (EXP · C++) and <span class="inl">src/main.cpp</span> is open</label></li>
+          <li><label><input type="checkbox" data-k="paste"> Starter code pasted in and saved (<span class="inl">Ctrl + S</span>)</label></li>
+          <li><label><input type="checkbox" data-k="test"> Tested: motor in Smart Port 1 spun for 2 seconds and stopped</label></li>
+        </ul>
+        <div class="checks__bar"><span id="suBar"></span></div>
+        <p class="sim__say" id="suSay" aria-live="polite" style="margin-top:10px">0 of 5 done.</p>
+      </div>
+      <script>
+      (function(){
+        var KEY='ar-setup-checks', box=document.getElementById('suList'), st={};
+        try{ st=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ st={}; }
+        var cbs=box.querySelectorAll('input');
+        function upd(){ var n=0; for(var i=0;i<cbs.length;i++) if(cbs[i].checked) n++;
+          document.getElementById('suBar').style.width=(n/cbs.length*100)+'%';
+          document.getElementById('suSay').innerHTML=n===cbs.length?'🎉 <strong>All set!</strong> Head to <a href="getting-started-code.html">Getting Started with Code</a>.':n+' of '+cbs.length+' done.'; }
+        for(var i=0;i<cbs.length;i++){ cbs[i].checked=!!st[cbs[i].getAttribute('data-k')]; cbs[i].addEventListener('change',function(){ st[this.getAttribute('data-k')]=this.checked; try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} upd(); }); }
+        upd();
+      })();
+      </script>
+
+      <h2>If something goes wrong</h2>
+      <table class="dtable">
+        <thead><tr><th>What you see</th><th>Try this</th></tr></thead>
+        <tbody>
+          <tr><td>Visual Studio Code isn't in Software Center</td><td>Search for "Visual Studio Code" at the top of Software Center. Still missing? Ask your teacher.</td></tr>
+          <tr><td>No VEX robot icon after installing the extension</td><td>Close VS Code completely and open it again. Check you installed the one published by <strong>VEX Robotics</strong>.</td></tr>
+          <tr><td>Red underlines all over the pasted code</td><td>Select everything (<span class="inl">Ctrl + A</span>), delete, and paste again — part of the code was probably missed. Then save.</td></tr>
+          <tr><td>Download says it can't find a Brain</td><td>Turn the Brain on, re-seat the USB-C cable at both ends, and try a different USB port on the computer.</td></tr>
+          <tr><td>It downloads, but the motor doesn't move</td><td>Is the motor in <strong>Smart Port 1</strong>? Push the cable in until it clicks. Is the battery charged?</td></tr>
+        </tbody>
+      </table>
 
       <div class="card card--code">
         <p class="card__title"><span class="ic">🧰</span> You're set up</p>

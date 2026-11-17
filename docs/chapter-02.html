@@ -33,14 +33,49 @@
     </div>
 
     <div class="lede">
-      <p><strong>What you'll learn:</strong> what actually makes a machine a <em>robot</em>, the five parts every robotic system shares (and where each one lives on your EXP robot), how engineers describe a robot's reach and senses, and how to research one class of robot and teach it to the class.</p>
+      <p><strong>What you'll learn:</strong> what actually makes a machine a <em>robot</em>, the five parts every robotic system shares (and where each one lives on your EXP robot), how engineers describe a robot's reach and senses, and how to research one class of robot and teach it to the class. You'll <strong>test machines with the robot loop</strong>, <strong>move a robot arm</strong> to see its work envelope, and plan your research in a <strong>step-by-step tutorial</strong>.</p>
     </div>
 
     <article class="prose wrap">
 
+      <h2>Watch first: what makes a robot</h2>
+      <p>A short video of the big ideas: the sense → decide → act test, the three Ds, the five parts of every robotic system, and degrees of freedom and the work envelope.</p>
+      <figure class="video">
+        <video controls preload="metadata" playsinline poster="media/ch02-robots-walkthrough-poster.jpg" aria-label="Narrated walkthrough of what makes a robot, with captions on screen">
+          <source src="media/ch02-robots-walkthrough.mp4" type="video/mp4">
+          Your browser can't play this video. <a href="media/ch02-robots-walkthrough.mp4">Download it here</a>.
+        </video>
+        <figcaption>Narrated walkthrough (about 1½ minutes). Captions are built into the video.</figcaption>
+      </figure>
+
       <h2>What counts as a robot?</h2>
       <p>A washing machine spins, a toaster heats, a drone flies — but which of them are <em>robots</em>? The most useful test is a loop: a robot <strong>senses</strong> its surroundings, <strong>decides</strong> what to do using a program, and <strong>acts</strong> on the physical world — then senses the result and goes around again. A toaster acts but never senses; it runs its timer whether or not your toast is on fire. A robot vacuum, on the other hand, detects a wall, decides to turn, drives a new direction, and checks again. That sense → decide → act loop is the heart of every robot you'll study — and every robot you'll build in this course.</p>
       <p>Closely related is <strong>automation</strong>: making a process run with little or no human help. Not everything automated is a robot (a lawn-sprinkler timer is automation with no sensing), and not every robot is fully automatic — many are <strong>teleoperated</strong>, meaning a human drives them from a distance, the way surgeons guide a surgical robot or you'll drive your EXP robot with a controller in the Driver Control chapter. Between "human drives everything" and "robot decides everything" is a whole spectrum, and most real robots live somewhere in the middle.</p>
+
+      <div class="sim" id="c2qBox">
+        <p class="card__title" style="margin:0 0 6px;font-weight:800;color:var(--navy)">Try it: robot or not?</p>
+        <p style="margin:0 0 10px;font-size:15px">Click a machine. Does it <strong>sense</strong>, <strong>decide</strong> with a program, and <strong>act</strong> — then check again?</p>
+        <div class="rq" id="c2q"></div>
+        <p class="sim__say" id="c2qSay" aria-live="polite">Pick a machine to test it.</p>
+      </div>
+      <script>
+      (function(){
+        var M=[
+          ['🍞','Toaster',[0,0,1],'Not a robot. It acts (heats) but never senses the toast — it just runs its timer.'],
+          ['🧹','Robot vacuum',[1,1,1],'A robot! It senses walls and dirt, decides where to go, drives, and checks again.'],
+          ['💦','Sprinkler timer',[0,1,1],'Automation, not a robot. It follows a schedule but never senses whether the lawn is wet.'],
+          ['🚀','Mars rover',[1,1,1],'A robot. It senses rocks and slopes, decides a safe path (sometimes on its own), and drives.'],
+          ['🚦','Traffic light on a timer',[0,1,1],'Automation. It changes on a schedule without sensing the cars.'],
+          ['🦾','Surgical robot',[1,0,1],'A teleoperated robot: it senses and acts, but a surgeon makes the decisions from the console.']
+        ];
+        var box=document.getElementById('c2q'), say=document.getElementById('c2qSay');
+        box.innerHTML=M.map(function(m,i){return '<button type="button" class="rq__card" data-i="'+i+'"><span class="rq__ic">'+m[0]+'</span><span>'+m[1]+'</span></button>';}).join('');
+        box.addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b) return; var m=M[+b.getAttribute('data-i')];
+          Array.prototype.forEach.call(box.children,function(c){c.classList.toggle('on',c===b);});
+          var t=['SENSE','DECIDE','ACT'].map(function(n,j){return '<span class="rq__chip '+(m[2][j]?'yes':'no')+'">'+(m[2][j]?'✓ ':'✗ ')+n+'</span>';}).join(' ');
+          say.innerHTML=t+'<br>'+m[3]; });
+      })();
+      </script>
 
       <h2>The three Ds: dirty, dangerous, and dull</h2>
       <p>Robots earned their place in the world by taking the jobs people <em>shouldn't</em> have to do. Engineers call them the <strong>three Ds</strong>:</p>
@@ -62,6 +97,26 @@
       </ol>
       <p>Here's the payoff: <strong>the robot on your desk has all five.</strong> The <strong>EXP Brain</strong> is the controller; the <strong>C++ program</strong> you'll write in VS Code is the program; the chassis, motors, and arm you bolt together are the manipulator; the claw at the end is the end effector; and the <strong>EXP Battery</strong> that clicks into the Brain is the power supply. When you research a million-dollar industrial robot this week, you're looking at a scaled-up version of the machine you'll build this semester.</p>
 
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" role="img" aria-label="The five parts of a robotic system labeled on an EXP robot. Controller: the EXP Brain. Program: the C++ code from VS Code, running on the Brain. Manipulator: the chassis, motors, and arm. End effector: the claw at the end of the arm. Power supply: the EXP Battery.">
+          <text x="380" y="22" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#1F3864">THE FIVE PARTS — ON YOUR EXP ROBOT</text>
+          <rect x="200" y="200" width="300" height="50" rx="8" fill="#5B6470"/>
+          <circle cx="240" cy="262" r="26" fill="#1F3864"/><circle cx="460" cy="262" r="26" fill="#1F3864"/>
+          <rect x="230" y="140" width="110" height="60" rx="8" fill="#1F3864"/><rect x="244" y="150" width="82" height="34" rx="4" fill="#0E1A2E"/><text x="285" y="173" text-anchor="middle" font-family="Consolas,monospace" font-size="10" fill="#9DE6A5">main.cpp</text>
+          <rect x="345" y="168" width="40" height="30" rx="4" fill="#C55A11"/>
+          <line x1="430" y1="200" x2="470" y2="110" stroke="#2E75B6" stroke-width="14" stroke-linecap="round"/><line x1="470" y1="110" x2="560" y2="90" stroke="#2E75B6" stroke-width="12" stroke-linecap="round"/>
+          <path d="M560,90 L590,72 M560,90 L592,104" stroke="#3F6B2A" stroke-width="8" stroke-linecap="round"/>
+          <g font-family="Arial" font-size="13">
+            <line x1="285" y1="140" x2="160" y2="70" stroke="#1F3864" stroke-width="1.5"/><text x="30" y="58" font-weight="bold" fill="#1F3864">1 · Controller</text><text x="30" y="74" fill="#5B6470">the EXP Brain</text>
+            <line x1="285" y1="167" x2="160" y2="130" stroke="#1F3864" stroke-width="1.5"/><text x="30" y="122" font-weight="bold" fill="#1F3864">2 · Program</text><text x="30" y="138" fill="#5B6470">your C++ code</text>
+            <line x1="450" y1="160" x2="600" y2="170" stroke="#2E75B6" stroke-width="1.5"/><text x="606" y="166" font-weight="bold" fill="#2E75B6">3 · Manipulator</text><text x="606" y="182" fill="#5B6470">chassis, motors, arm</text>
+            <line x1="590" y1="88" x2="640" y2="60" stroke="#3F6B2A" stroke-width="1.5"/><text x="606" y="44" font-weight="bold" fill="#3F6B2A">4 · End effector</text><text x="646" y="60" fill="#5B6470">the claw</text>
+            <line x1="365" y1="198" x2="365" y2="300" stroke="#C55A11" stroke-width="1.5"/><text x="375" y="296" font-weight="bold" fill="#C55A11">5 · Power supply</text><text x="375" y="312" fill="#5B6470">the EXP Battery</text>
+          </g>
+        </svg>
+        <figcaption>A million-dollar factory arm and your EXP robot share the same five parts. Find each one on <strong>your</strong> robot.</figcaption>
+      </figure>
+
       <div class="card card--note">
         <p><strong>Watch the word "controller" — it means two different things.</strong> In a <em>robotic system</em>, the controller is the robot's onboard brain. But in VEX, the <strong>EXP Controller</strong> is the handheld remote you drive with. On your robot, the robotic-system "controller" is the <strong>EXP Brain</strong>; the handheld Controller is just one way of sending it input. Keep the two straight and the vocabulary in this unit will never trip you.</p>
       </div>
@@ -78,6 +133,69 @@
       <p>Hold your arm out and count the ways it can move: your shoulder swings forward/back, side to side, and rotates; your elbow bends; your wrist tilts, waves, and twists. Each independent direction of movement is a <strong>degree of freedom</strong>, and your arm has seven — which is why you can reach the same doorknob from a dozen different angles.</p>
       <p>Robot arms are described the same way. Each flexible joint adds a degree of freedom, and most industrial robot arms have at least six, enough to put their end effector in any position <em>and</em> any orientation within reach. More degrees of freedom means more flexibility — and a harder programming problem, since the program must coordinate every joint.</p>
       <p>The space a robot's arm can actually reach is called its <strong>work envelope</strong> — an invisible bubble around the robot, with a size and shape set by the length of its links and its degrees of freedom. The work envelope matters for two big reasons: a part placed outside the envelope simply cannot be touched, and a <em>person</em> standing inside the envelope of a fast industrial arm is in danger, which is why factory robots often work inside cages or behind light curtains. When you research your robot, find its work envelope: where can it reach, and what's kept out of that space?</p>
+
+      <div class="sim" id="c2Box">
+        <p class="card__title" style="margin:0 0 6px;font-weight:800;color:var(--navy)">Try it: degrees of freedom and the work envelope</p>
+        <p style="margin:0 0 6px;font-size:15px">Move the shoulder and elbow to reach the target. Turn on <strong>Show work envelope</strong> to see everywhere the gripper can reach. Then <strong>lock the elbow</strong> — one fewer degree of freedom — and see the envelope shrink.</p>
+        <svg id="c2Svg" viewBox="0 0 720 320" role="img" aria-label="A two-joint robot arm on a base, a target block, and an optional shaded work envelope showing every point the gripper can reach.">
+          <line x1="20" y1="290" x2="700" y2="290" stroke="#5B6470" stroke-width="3"/>
+          <g id="c2Env"></g>
+          <g id="c2Tgt"><rect x="-16" y="-16" width="32" height="32" rx="4" fill="#F4B183" stroke="#C55A11" stroke-width="2"/></g>
+          <rect x="300" y="262" width="80" height="28" rx="6" fill="#1F3864"/>
+          <line id="c2L1" x1="340" y1="262" x2="0" y2="0" stroke="#2E75B6" stroke-width="16" stroke-linecap="round"/>
+          <line id="c2L2" x1="0" y1="0" x2="0" y2="0" stroke="#1F4D78" stroke-width="12" stroke-linecap="round"/>
+          <circle cx="340" cy="262" r="9" fill="#C55A11"/><circle id="c2J2" r="8" fill="#C55A11"/>
+          <g id="c2Grip"><path d="M0,0 L14,-10 M0,0 L14,10" stroke="#3F6B2A" stroke-width="6" stroke-linecap="round"/></g>
+          <text id="c2Msg" x="360" y="26" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#5B6470"></text>
+        </svg>
+        <div class="sim__ctl">
+          <label>Shoulder <input type="range" id="c2A" min="10" max="170" value="70"></label>
+          <label>Elbow <input type="range" id="c2B" min="-150" max="150" value="-40"></label>
+        </div>
+        <div class="sim__bar">
+          <label class="sim__toggle"><input type="checkbox" id="c2Env1"> Show work envelope</label>
+          <label class="sim__toggle"><input type="checkbox" id="c2Lock"> Lock the elbow (1 DOF)</label>
+          <button class="sim__btn" id="c2New" type="button">New target</button>
+          <span class="sim__phase" id="c2DOF">2 degrees of freedom</span>
+        </div>
+      </div>
+      <script>
+      (function(){
+        function $(id){return document.getElementById(id);}
+        var BX=340, BY=262, L1=130, L2=100, tg={x:480,y:170}, lockB=0, seed=7;
+        function rnd(){ seed=(seed*16807)%2147483647; return seed/2147483647; }
+        function fk(a,b){ var r1=a*Math.PI/180, r2=(a+b)*Math.PI/180; var jx=BX+L1*Math.cos(r1), jy=BY-L1*Math.sin(r1); return {jx:jx,jy:jy,x:jx+L2*Math.cos(r2),y:jy-L2*Math.sin(r2),r2:r2}; }
+        var envKey='';
+        function env(){
+          var g=$('c2Env'), on=$('c2Env1').checked, lk=$('c2Lock').checked, key=on+'|'+lk+'|'+(lk?lockB:'');
+          if(key===envKey) return; envKey=key;
+          if(!on){ g.innerHTML=''; return; }
+          var h='';
+          if(lk){ var pts=[]; for(var a=10;a<=170;a+=2){ var p=fk(a,lockB); pts.push(p.x.toFixed(1)+','+p.y.toFixed(1)); } h='<polyline points="'+pts.join(' ')+'" fill="none" stroke="#2E75B6" stroke-opacity=".5" stroke-width="10" stroke-linecap="round"/>'; }
+          else { for(var a2=10;a2<=170;a2+=4){ for(var b2=-150;b2<=150;b2+=6){ var q=fk(a2,b2); if(q.y<288) h+='<circle cx="'+q.x.toFixed(0)+'" cy="'+q.y.toFixed(0)+'" r="4"/>'; } } h='<g fill="#2E75B6" fill-opacity=".14">'+h+'</g>'; }
+          g.innerHTML=h;
+        }
+        function draw(){
+          var a=+$('c2A').value, b=$('c2Lock').checked?lockB:+$('c2B').value; var p=fk(a,b);
+          $('c2L1').setAttribute('x2',p.jx); $('c2L1').setAttribute('y2',p.jy);
+          $('c2L2').setAttribute('x1',p.jx); $('c2L2').setAttribute('y1',p.jy); $('c2L2').setAttribute('x2',p.x); $('c2L2').setAttribute('y2',p.y);
+          $('c2J2').setAttribute('cx',p.jx); $('c2J2').setAttribute('cy',p.jy);
+          $('c2Grip').setAttribute('transform','translate('+p.x+','+p.y+') rotate('+(-p.r2*180/Math.PI)+')');
+          $('c2Tgt').setAttribute('transform','translate('+tg.x+','+tg.y+')');
+          var d=Math.hypot(p.x-tg.x,p.y-tg.y), m=$('c2Msg');
+          if(d<18){ m.textContent='✓ Got it! The gripper reached the target.'; m.setAttribute('fill','#3F6B2A'); }
+          else { m.textContent=$('c2Lock').checked?'Elbow locked: the gripper can only travel along one curve.':'Reach the orange block.'; m.setAttribute('fill','#5B6470'); }
+          $('c2DOF').textContent=$('c2Lock').checked?'1 degree of freedom':'2 degrees of freedom';
+          $('c2B').disabled=$('c2Lock').checked;
+          env();
+        }
+        $('c2A').addEventListener('input',draw); $('c2B').addEventListener('input',draw);
+        $('c2Env1').addEventListener('change',draw);
+        $('c2Lock').addEventListener('change',function(){ lockB=+$('c2B').value; draw(); });
+        $('c2New').addEventListener('click',function(){ var a=10+rnd()*160, b=-150+rnd()*300; var p=fk(a,b); if(p.y>250||p.y<40){ a=60; b=-60; p=fk(a,b);} tg={x:p.x,y:p.y}; draw(); });
+        draw();
+      })();
+      </script>
 
       <h2>Senses: how a robot knows what's around it</h2>
       <p>Remember the loop — sense, decide, act. The "sense" step comes from <strong>sensors</strong>, devices that turn something physical (touch, distance, light, rotation) into a signal the controller can read. The kinds you'll meet over and over, in research and in your own kit:</p>
@@ -136,6 +254,63 @@
         <p><strong>How you'll be graded.</strong> The rubric scores four things: <strong>content</strong> (accurate, answers every research question), <strong>organization</strong> (a logical order where information is easy to find), <strong>delivery</strong> (on topic, audible, eye contact), and <strong>cooperation &amp; teamwork</strong> (everyone listens, contributes, and compromises). A beautiful presentation that skips three research questions loses to a plain one that nails all nine.</p>
       </div>
 
+      <h2>Research tutorial: become the class expert, one step at a time</h2>
+      <p>A great presentation is mostly great planning. Follow these steps as a team and you'll hit all nine questions without a last-minute scramble.</p>
+      <div class="tut">
+        <div class="tut__step">
+          <p class="tut__goal">Goal: a robot you can actually research</p>
+          <h3>Pick a specific, well-documented robot</h3>
+          <p>Inside your category, choose one <strong>named</strong> robot — not "surgical robots" but one specific system. Before you commit, do a 5-minute check: can you find its <strong>maker's page</strong>, a <strong>video of it working</strong>, and at least one <strong>spec</strong> (joints, payload, sensors)?</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> you have a name, a manufacturer, and three links. If you can't find specs, pick a different robot now — not the night before.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: everyone owns a piece</p>
+          <h3>Split the nine questions</h3>
+          <p>Divide the questions so each teammate leads some — but everyone reads everything at the end.</p>
+          <table class="dtable">
+            <thead><tr><th>Teammate</th><th>Leads questions</th><th>About</th></tr></thead>
+            <tbody>
+              <tr><td>A</td><td>1, 2, 3</td><td>the task, where it works, reach, end effector</td></tr>
+              <tr><td>B</td><td>4, 5</td><td>how it's taught, its sensors</td></tr>
+              <tr><td>C</td><td>6, 7, 8, 9</td><td>pros and cons, impact, jobs, future</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: describe it like an engineer</p>
+          <h3>Find the five parts and the numbers</h3>
+          <p>Fill this in for your robot. It answers questions 2, 3 and 5 almost on its own.</p>
+          <table class="dtable">
+            <thead><tr><th>Part</th><th>On our robot it is…</th></tr></thead>
+            <tbody>
+              <tr><td>Controller</td><td>__________________</td></tr>
+              <tr><td>Program / how it's taught</td><td>programmed · shown · learns</td></tr>
+              <tr><td>Manipulator (degrees of freedom)</td><td>__ DOF · work envelope: __________</td></tr>
+              <tr><td>End effector</td><td>__________________ (multi-functional? yes / no)</td></tr>
+              <tr><td>Power supply</td><td>battery · hydraulic · pneumatic · other</td></tr>
+              <tr><td>Sensors</td><td>touch · distance · light/camera · motion · rotation</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: sources worth trusting</p>
+          <h3>Check every source</h3>
+          <p>For each fact, ask: <strong>who wrote this, and how would they know?</strong> Prefer the maker, NASA/JPL, universities, and real news reporting. Write the link next to each fact in your notes so your audience could check it.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> every number on your slides has a source, and at least one source isn't the maker's ad.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: easy to follow</p>
+          <h3>Build the slides in a clear order</h3>
+          <p>A simple order that works: <strong>1</strong> Meet the robot (photo or video) → <strong>2</strong> What it does and where → <strong>3</strong> How it works (five parts, DOF, sensors) → <strong>4</strong> How it's taught → <strong>5</strong> Pros, cons and impact → <strong>6</strong> Jobs and the future → <strong>7</strong> Sources.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> each of the nine questions is answered on a slide you can point to.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: learn from everyone</p>
+          <h3>Present, take notes, summarize</h3>
+          <p>While other teams present, jot one line per robot: <em>task · sensors · biggest impact</em>. Your summary paragraph then compares them — which robot matters most, and why.</p>
+        </div>
+      </div>
+
       <h2>What you'll need</h2>
       <ul>
         <li>Engineering notebook and pencil</li>
@@ -155,6 +330,8 @@
       <ol>
         <li>Name the five main parts of a robotic system, and identify where each one is on your EXP robot.</li>
         <li>In your own words, what is a work envelope, and why does it matter for safety around an industrial robot?</li>
+        <li>In the arm animation, what happened to the work envelope when you locked the elbow? What does that tell you about degrees of freedom?</li>
+        <li>A sprinkler timer and a robot vacuum are both automatic. Using sense → decide → act, explain why only one is a robot.</li>
         <li>Which robot do you think will have the most significant impact on humans, and why?</li>
         <li>What concerns do you have about the increasing use of robots in society?</li>
         <li>What do you think about giving up control to a machine?</li>
@@ -165,7 +342,7 @@
         <span class="term">robot</span><span class="term">automation</span><span class="term">teleoperation</span><span class="term">sense → decide → act</span><span class="term">the three Ds</span><span class="term">robotic system</span><span class="term">controller</span><span class="term">program</span><span class="term">manipulator</span><span class="term">end effector</span><span class="term">power supply</span><span class="term">degree of freedom</span><span class="term">work envelope</span><span class="term">sensor</span><span class="term">teach pendant</span><span class="term">societal impact</span>
       </div>
 
-      <p class="sources"><strong>Sources (VEX Library, kb.vex.com):</strong> Building with VEX EXP; Wirelessly Pairing an EXP Controller to an EXP Brain; Using Bumper Switch with VEX EXP; Using Distance Sensor with VEX EXP; Overview of the VEX V5 Sensors.</p>
+      <p class="sources"><strong>Sources (VEX Library, kb.vex.com):</strong> Building with VEX EXP; Wirelessly Pairing an EXP Controller to an EXP Brain; Using Bumper Switch with VEX EXP; Using Distance Sensor with VEX EXP; Overview of the VEX V5 Sensors. The robot-or-not activity, five-parts diagram, work-envelope arm animation, narrated walkthrough video, and step-by-step research tutorial are added scaffolding for this edition.</p>
 
     </article>
 

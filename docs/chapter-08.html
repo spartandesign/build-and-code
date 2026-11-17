@@ -33,10 +33,20 @@
     </div>
 
     <div class="lede">
-      <p><strong>What you'll learn:</strong> how engineers think about <em>any</em> machine — as a <strong>system</strong> with an input, a process, and an output. You'll meet the basic <strong>system model</strong> (a desired result goes in, the machine acts, an actual result comes out), the <strong>seven technological resources</strong> every system uses, and the one idea that separates a machine that runs blind from one that corrects itself: <strong>feedback</strong>. Then you'll see your VEX robot as exactly this kind of system — <strong>sensors are its input, the Brain is its process, motors are its output</strong> — and prove it with your hands by wiring up a motor and a sensor and watching them come alive on the Brain's screen. <strong>No code yet</strong> — that starts next chapter. This is the mental model the whole rest of the course is built on.</p>
+      <p><strong>What you'll learn:</strong> how engineers think about <em>any</em> machine — as a <strong>system</strong> with an input, a process, and an output. You'll meet the basic <strong>system model</strong> (a desired result goes in, the machine acts, an actual result comes out), the <strong>seven technological resources</strong> every system uses, and the one idea that separates a machine that runs blind from one that corrects itself: <strong>feedback</strong>. Then you'll see your VEX robot as exactly this kind of system — <strong>sensors are its input, the Brain is its process, motors are its output</strong> — and prove it with your hands by wiring up a motor and a sensor and watching them come alive on the Brain's screen. <strong>No code yet</strong> — that starts next chapter. This is the mental model the whole rest of the course is built on. You'll <strong>race an open-loop heater against a thermostat</strong> on screen, and work through a <strong>step-by-step lab tutorial</strong>.</p>
     </div>
 
     <article class="prose wrap">
+
+      <h2>Watch first: input → process → output</h2>
+      <p>A short video of the big ideas: the system model, open vs. closed loops, the three jobs inside a feedback loop, and your robot as a system.</p>
+      <figure class="video">
+        <video controls preload="metadata" playsinline poster="media/ch08-systems-walkthrough-poster.jpg" aria-label="Narrated walkthrough of technological systems and feedback, with captions on screen">
+          <source src="media/ch08-systems-walkthrough.mp4" type="video/mp4">
+          Your browser can't play this video. <a href="media/ch08-systems-walkthrough.mp4">Download it here</a>.
+        </video>
+        <figcaption>Narrated walkthrough (about 1¼ minutes). Captions are built into the video.</figcaption>
+      </figure>
 
       <h2>Everything around you is a system</h2>
       <p>A <strong>system</strong> is a group of interrelated parts that work together to reach a goal. That's the whole definition — and once you start looking, systems are everywhere. A space shuttle is a system. So is the cell phone in your pocket. A microwave, a bicycle, a vending machine, your school's bell schedule — all systems. A <strong>technological system</strong> is simply one that uses technology to produce its result. The power of the idea is that every one of them, no matter how huge or how small, can be understood with the <em>same</em> three-part model.</p>
@@ -128,6 +138,67 @@
         <p>Run that loop continuously and the system holds its target. That cycle — <strong>sense → compare → adjust</strong> — is the most important idea in this unit.</p>
       </div>
 
+      <h2>Try it: open loop vs. closed loop</h2>
+      <p>Here's a room heater. In <strong>open-loop</strong> mode it runs on a <strong>timer</strong> — on for a set time, then off, no matter what the room feels like. In <strong>closed-loop</strong> mode a <strong>thermostat</strong> reads the temperature and switches the heater to hold your setting. Press <strong>Start</strong>, then click <strong>Open a window</strong> to cool the room and see which system notices.</p>
+      <div class="sim" id="c8Box">
+        <svg id="c8Svg" viewBox="0 0 720 280" role="img" aria-label="A graph of room temperature over time with a dashed line at the desired temperature, and a panel showing the heater on or off and the monitor, comparator, and controller steps."></svg>
+        <div class="sim__ctl">
+          <label>Mode <select id="c8M"><option value="open">Open loop (timer)</option><option value="closed">Closed loop (thermostat)</option></select></label>
+          <label>Desired temperature <input type="range" id="c8Set" min="18" max="26" value="22"> <span class="inl" id="c8SetV"></span></label>
+        </div>
+        <div class="sim__bar">
+          <button class="sim__btn sim__btn--go" id="c8Go" type="button">▶ Start</button>
+          <button class="sim__btn" id="c8Win" type="button">🪟 Open a window</button>
+          <span class="sim__phase" id="c8T"></span>
+        </div>
+        <p class="sim__say" id="c8Say" aria-live="polite">Pick a mode and press Start.</p>
+      </div>
+      <script>
+      (function(){
+        function $(id){return document.getElementById(id);}
+        var T=15, time=0, run=false, last=null, pts=[], heat=false, win=0, X0=50, Y0=240, W=430, H=200;
+        function y(v){ return Y0-(v-12)/(30-12)*H; }
+        function reset(){ T=15; time=0; pts=[]; win=0; heat=false; }
+        function step(dt){
+          var set=+$('c8Set').value, m=$('c8M').value;
+          if(m==="open"){ heat=time<9; } else { heat=T<set-0.3?true:(T>set+0.3?false:heat); }
+          var loss=(T-12)*0.06+(win>0?0.9:0);
+          T+=dt*((heat?1.6:0)-loss); if(win>0) win-=dt;
+          time+=dt; if(Math.floor(time*4)>pts.length-1) pts.push([time,T]);
+          if(time>=60){ run=false; $('c8Go').textContent='▶ Start again'; }
+        }
+        function draw(){
+          var set=+$('c8Set').value, m=$('c8M').value, s='';
+          s+='<rect x="'+X0+'" y="'+(Y0-H)+'" width="'+W+'" height="'+H+'" fill="#FAFBFD" stroke="#CFE0F2"/>';
+          [15,20,25].forEach(function(v){ s+='<text x="'+(X0-6)+'" y="'+(y(v)+4)+'" text-anchor="end" font-family="Arial" font-size="11" fill="#5B6470">'+v+'°</text>'; });
+          s+='<text x="'+(X0+W/2)+'" y="'+(Y0+30)+'" text-anchor="middle" font-family="Arial" font-size="11" fill="#5B6470">time →</text>';
+          s+='<line x1="'+X0+'" y1="'+y(set)+'" x2="'+(X0+W)+'" y2="'+y(set)+'" stroke="#3F6B2A" stroke-width="2" stroke-dasharray="6 5"/><text x="'+(X0+W-4)+'" y="'+(y(set)-6)+'" text-anchor="end" font-family="Arial" font-size="11" font-weight="bold" fill="#3F6B2A">desired '+set+'°</text>';
+          if(pts.length>1) s+='<polyline points="'+pts.map(function(p){return (X0+p[0]/60*W).toFixed(1)+','+y(p[1]).toFixed(1);}).join(' ')+'" fill="none" stroke="#C55A11" stroke-width="3"/>';
+          var px=1/0;
+          s+='<g font-family="Arial"><text x="510" y="40" font-size="12" font-weight="bold" fill="#1F3864">ROOM</text><text x="510" y="70" font-family="Consolas,monospace" font-size="26" font-weight="bold" fill="#C55A11">'+T.toFixed(1)+'°</text>';
+          s+='<text x="510" y="104" font-size="12" font-weight="bold" fill="#1F3864">HEATER</text><text x="510" y="128" font-size="18" font-weight="bold" fill="'+(heat?'#C55A11':'#5B6470')+'">'+(heat?'🔥 ON':'OFF')+'</text>';
+          if(m==='closed'){
+            var cmp=T<set-0.3?'too cold → ON':(T>set+0.3?'too warm → OFF':'about right');
+            s+='<text x="510" y="166" font-size="12" fill="#1A1A1A"><tspan font-weight="bold" fill="#2E75B6">Monitor:</tspan> reads '+T.toFixed(1)+'°</text>';
+            s+='<text x="510" y="188" font-size="12" fill="#1A1A1A"><tspan font-weight="bold" fill="#2E75B6">Comparator:</tspan> vs '+set+'°</text>';
+            s+='<text x="510" y="210" font-size="12" fill="#1A1A1A"><tspan font-weight="bold" fill="#2E75B6">Controller:</tspan> '+cmp+'</text>';
+          } else {
+            s+='<text x="510" y="166" font-size="12" fill="#1A1A1A">Timer: heat for the first</text><text x="510" y="184" font-size="12" fill="#1A1A1A">9 s, then stop.</text><text x="510" y="210" font-size="12" font-weight="bold" fill="#B42318">No sensor — runs blind.</text>';
+          }
+          if(win>0) s+='<text x="510" y="250" font-size="14" font-weight="bold" fill="#2E75B6">🪟 window open!</text>';
+          s+='</g>';
+          $('c8Svg').innerHTML=s; $('c8SetV').textContent=set+'°'; $('c8T').textContent='time: '+Math.round(time)+' s of 60';
+        }
+        function say(){ var m=$('c8M').value; $('c8Say').innerHTML=m==='open'?'<strong>Open loop:</strong> the timer heats for a fixed time. It never checks the room — so it overshoots or ends up cold, and it can\'t react to the open window.':'<strong>Closed loop:</strong> the thermostat <em>senses</em> the temperature, <em>compares</em> it to your setting, and <em>adjusts</em> the heater — over and over. Open the window and watch it fight back.'; }
+        $('c8Go').addEventListener('click',function(){ if(!run&&time>=60) reset(); if(!run&&time===0) reset(); run=!run; this.textContent=run?'❚❚ Pause':'▶ Start'; });
+        $('c8Win').addEventListener('click',function(){ win=6; });
+        $('c8M').addEventListener('change',function(){ reset(); run=false; $('c8Go').textContent='▶ Start'; say(); draw(); });
+        $('c8Set').addEventListener('input',draw);
+        function tick(n){ var dt=last?Math.min(.05,(n-last)/1000):0; last=n; if(run){ step(dt); } draw(); requestAnimationFrame(tick); }
+        say(); requestAnimationFrame(tick);
+      })();
+      </script>
+
       <h2>Your robot is a technological system</h2>
       <p>Now point all of this at the machine on your table. Your VEX EXP robot is a technological system, and it maps onto the model <em>exactly</em> — it's the second label inside every box of the diagram above:</p>
       <ul>
@@ -175,6 +246,62 @@
         </ul>
       </div>
 
+      <h2>Lab tutorial: find the loop, one step at a time</h2>
+      <p>Two short activities: first trace feedback loops in everyday systems on paper, then prove input → process → output on your own Brain.</p>
+      <div class="tut">
+        <div class="tut__step">
+          <p class="tut__goal">Goal: spot the three parts</p>
+          <h3>Label input, process, output</h3>
+          <p>For each system, write the desired result (input), what does the work (process), and the actual result (output).</p>
+          <table class="dtable">
+            <thead><tr><th>System</th><th>Input (desired)</th><th>Process</th><th>Output (actual)</th></tr></thead>
+            <tbody>
+              <tr><td>Microwave</td><td>"2 minutes"</td><td>__________</td><td>__________</td></tr>
+              <tr><td>Cruise control</td><td>__________</td><td>engine + computer</td><td>__________</td></tr>
+              <tr><td>Your EXP robot</td><td>__________</td><td>__________</td><td>__________</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: find the feedback</p>
+          <h3>Monitor, comparator, controller</h3>
+          <p>For each <strong>closed-loop</strong> system, name who does each job. If you can't name a monitor, it's open-loop.</p>
+          <table class="dtable">
+            <thead><tr><th>System</th><th>Monitor (senses)</th><th>Comparator (compares)</th><th>Controller (adjusts)</th></tr></thead>
+            <tbody>
+              <tr><td>Thermostat</td><td>thermometer</td><td>__________</td><td>__________</td></tr>
+              <tr><td>Bike rider</td><td>__________</td><td>__________</td><td>__________</td></tr>
+              <tr><td>Robot that stops before a wall</td><td>__________</td><td>__________</td><td>__________</td></tr>
+            </tbody>
+          </table>
+          <p class="tut__check"><strong>✅ Check it:</strong> for the robot, the monitor is a <strong>sensor</strong>, the comparator is the <strong>Brain's code</strong>, and the controller is the <strong>motor command</strong>.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: the Brain sees your devices</p>
+          <h3>Wire it and open Devices</h3>
+          <p>Follow "Do it" steps 1–4 below: Brain on, motor in one Smart Port, sensor in another, then the <strong>Devices</strong> screen.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> both devices are listed with the port numbers you used.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> a device is missing? Re-seat that cable at both ends until it clicks, or try another port.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: watch the input live</p>
+          <h3>Make the sensor reading move</h3>
+          <p>Open the sensor and move your hand. Record three readings: hand far, middle, close.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> the number changes smoothly as your hand moves — that's the input half of the system.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: an output that senses itself</p>
+          <h3>Turn the motor shaft by hand</h3>
+          <p>Open the motor and turn its shaft a quarter turn, then a full turn. Watch the position number.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> about 90 for a quarter turn and 360 for a full turn — the motor's built-in encoder is a sensor hiding inside an output.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: plan the loop you'll code next</p>
+          <h3>Draw your robot's feedback loop</h3>
+          <p>Sketch input → process → output for your setup, then add the orange feedback arrow: what would the sensor watch, and what would the Brain do about it?</p>
+        </div>
+      </div>
+
       <h2>What you'll need</h2>
       <ul>
         <li>A <strong>VEX EXP Brain</strong> and a <strong>charged EXP battery</strong></li>
@@ -204,6 +331,7 @@
         <li>On your VEX robot, which part is the <strong>input</strong>, which is the <strong>process</strong>, and which is the <strong>output</strong>?</li>
         <li>Why does feedback require a <strong>sensor</strong>? Name one thing a robot could sense to close the loop, and what it would do with that information.</li>
         <li>When you turned the motor by hand, the Devices screen showed its angle changing. Explain how that makes the motor a kind of <strong>sensor</strong>, not just an output.</li>
+        <li>In the heater animation, what did each mode do when you opened the window? Use the words <strong>monitor</strong>, <strong>comparator</strong>, and <strong>controller</strong> to explain the difference.</li>
       </ol>
 
       <h2>Key terms</h2>
@@ -211,7 +339,7 @@
         <span class="term">system</span><span class="term">technological system</span><span class="term">system model</span><span class="term">input</span><span class="term">process</span><span class="term">output</span><span class="term">desired result</span><span class="term">actual result</span><span class="term">technological resources</span><span class="term">open-loop system</span><span class="term">closed-loop system</span><span class="term">feedback</span><span class="term">feedback loop</span><span class="term">sensor</span><span class="term">Brain</span><span class="term">motor</span><span class="term">Smart Port</span><span class="term">encoder</span><span class="term">automation</span>
       </div>
 
-      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Activity 3.1 "Technological Systems"; VEX Library, kb.vex.com):</strong> the basic system model (input/process/output as desired result → process → actual result), the seven technological resources, and open- vs. closed-loop systems with the monitor/comparator/controller feedback roles are from the PLTW Gateway curriculum. EXP Brain specifics — <strong>10 Smart Ports</strong> for motors and sensors, the on-board <strong>Devices screen</strong> for viewing live readings without code, seating Smart Cables until they click, and the Distance/Optical sensors — are verified against the VEX Library (Connecting Devices to Smart Ports on the EXP Brain; Using the Devices Screen on the EXP Brain; Navigating the EXP Brain Screen; Using the Distance Sensor with VEX EXP). The EXP Smart Motor's fixed 200 RPM / 0.5 N·m spec and built-in encoder carry over from Chapter 3.</p>
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Activity 3.1 "Technological Systems"; VEX Library, kb.vex.com):</strong> the basic system model (input/process/output as desired result → process → actual result), the seven technological resources, and open- vs. closed-loop systems with the monitor/comparator/controller feedback roles are from the PLTW Gateway curriculum. EXP Brain specifics — <strong>10 Smart Ports</strong> for motors and sensors, the on-board <strong>Devices screen</strong> for viewing live readings without code, seating Smart Cables until they click, and the Distance/Optical sensors — are verified against the VEX Library (Connecting Devices to Smart Ports on the EXP Brain; Using the Devices Screen on the EXP Brain; Navigating the EXP Brain Screen; Using the Distance Sensor with VEX EXP). The EXP Smart Motor's fixed 200 RPM / 0.5 N·m spec and built-in encoder carry over from Chapter 3. The open- vs. closed-loop heater animation, narrated walkthrough video, and step-by-step lab tutorial are added scaffolding for this edition.</p>
 
     </article>
 

@@ -33,10 +33,20 @@
     </div>
 
     <div class="lede">
-      <p><strong>What you'll learn:</strong> your first real engineering <em>project</em> — not a recipe to follow, but a problem to solve. You'll run the full <strong>engineering design process</strong>, pick a design with a <strong>decision matrix</strong>, and put Unit 2 to work: a bevel gear to turn the corner 90° and a gear ratio chosen for enough torque to lift a load — all documented in your engineering notebook.</p>
+      <p><strong>What you'll learn:</strong> your first real engineering <em>project</em> — not a recipe to follow, but a problem to solve. You'll run the full <strong>engineering design process</strong>, pick a design with a <strong>decision matrix</strong>, and put Unit 2 to work: a bevel gear to turn the corner 90° and a gear ratio chosen for enough torque to lift a load — all documented in your engineering notebook. You'll <strong>test gearings on a virtual windmill</strong>, use a <strong>live decision matrix</strong>, and follow a <strong>step-by-step project tutorial</strong>.</p>
     </div>
 
     <article class="prose wrap">
+
+      <h2>Watch first: your first engineering project</h2>
+      <p>A short video of the whole project: the design process loop, the design brief, choosing with a decision matrix, and the two mechanical decisions — a bevel to turn the corner and a gear reduction to lift.</p>
+      <figure class="video">
+        <video controls preload="metadata" playsinline poster="media/ch05-windmill-walkthrough-poster.jpg" aria-label="Narrated walkthrough of the windmill project and design process, with captions on screen">
+          <source src="media/ch05-windmill-walkthrough.mp4" type="video/mp4">
+          Your browser can't play this video. <a href="media/ch05-windmill-walkthrough.mp4">Download it here</a>.
+        </video>
+        <figcaption>Narrated walkthrough (about 1¼ minutes). Captions are built into the video.</figcaption>
+      </figure>
 
       <h2>From worksheets to a real problem</h2>
       <p>Until now, every build had an answer key. This one doesn't. A <strong>windmill</strong> captures rotary motion — historically from the wind, to grind grain or pump water — and turns it into useful work. Your job: build a geared windmill that <strong>lifts a small load</strong>, turning the rotor's spin into a steady pull on a string. There are many right answers, and your team will find <em>yours</em> the way engineers do — by running a process, making choices on purpose, testing, and improving. The mechanism you mastered in Chapters 3 and 4 is the heart of it: the windmill has to <strong>change the direction of motion 90°</strong> and <strong>gear for the torque</strong> to lift.</p>
@@ -154,6 +164,10 @@
         <p><strong>4.</strong> Multiply score × weight, add up each column, and the highest total is your starting design. (You can still change your mind — but now you know the trade-offs.)</p>
       </div>
 
+      <h3>Try it: your own decision matrix</h3>
+      <p>Here's the example matrix from above — but live. Change any weight or score, rename the concepts, or swap in your team's own criteria. Watch whether the winner changes.</p>
+      <div class="dm" data-cfg='{"concepts":["A: spur 1:1","B: spur, geared down","C: bevel + geared down"],"rows":[["Lifting power (torque)",5,[2,4,5]],["Turns the corner 90°",5,[1,1,5]],["Stable and rigid",3,[4,3,4]],["Easy to build",2,[5,4,3]],["Fits the cubby",2,[5,4,4]]]}'></div>
+
       <h2>The windmill's engineering: turn the corner, gear for lift</h2>
       <p>This is where Unit 2 pays off. Two mechanical decisions make or break your windmill:</p>
 
@@ -180,6 +194,56 @@
         <p><strong>3 · Use the Winch &amp; Pulley Kit (optional, in your kit).</strong> This is a drum-and-pulley made into a real part, and it adds two tricks: a <strong>block and tackle</strong> for mechanical advantage (trade string travel for lifting force), and a <strong>ratchet and pawl</strong> that stops back-driving so the load <em>stays up</em> when you stop turning — the same "holds its position" idea as the worm gear in Chapter 4, done a different way.</p>
         <p>Gearing down (Chapter 3) is still your main tool for lifting power. A pulley or winch is a <em>second</em> tool that solves a different problem — redirecting the string or holding the load. Try the drum first; reach for the others if your design needs them.</p>
       </div>
+
+      <h2>Try it: pick the windmill's gearing</h2>
+      <p>The wind turns the rotor with the same small torque every time. A bevel pair turns the motion 90°, then your gearing turns the drum that winds up the string. Pick a gearing and a load, and see whether it lifts — and how fast.</p>
+      <div class="sim" id="c5Box">
+        <svg id="c5Svg" viewBox="0 0 720 300" role="img" aria-label="Side view of a windmill: rotor blades on a tower, a bevel gear turning the motion down to a drum, and a string winding a load up from the floor.">
+          <line x1="20" y1="282" x2="700" y2="282" stroke="#5B6470" stroke-width="3"/>
+          <rect x="120" y="70" width="20" height="212" fill="#5B6470"/>
+          <g id="c5Rotor" transform="translate(130,70)"><rect x="-6" y="-70" width="12" height="60" rx="4" fill="#2E75B6"/><rect x="-6" y="10" width="12" height="60" rx="4" fill="#2E75B6"/><rect x="-70" y="-6" width="60" height="12" rx="4" fill="#2E75B6"/><rect x="10" y="-6" width="60" height="12" rx="4" fill="#2E75B6"/><circle r="10" fill="#C55A11"/></g>
+          <text x="40" y="40" font-family="Arial" font-size="20">💨</text>
+          <polygon points="140,190 168,190 154,212" fill="#C55A11"/><text x="176" y="206" font-family="Arial" font-size="11" font-weight="bold" fill="#C55A11">bevel 90°</text>
+          <line x1="154" y1="210" x2="330" y2="210" stroke="#5B6470" stroke-width="5"/>
+          <g id="c5Drum" transform="translate(340,210)"><circle r="22" fill="#E3E8EF" stroke="#1F3864" stroke-width="4"/><line x1="0" y1="0" x2="20" y2="0" stroke="#1F3864" stroke-width="3"/></g>
+          <rect x="436" y="40" width="10" height="242" fill="#B8C2CE"/><circle cx="441" cy="40" r="14" fill="#fff" stroke="#5B6470" stroke-width="3"/><line x1="340" y1="188" x2="428" y2="36" stroke="#1A1A1A" stroke-width="2"/><line x1="455" y1="40" x2="455" y2="0" id="c5Str" stroke="#1A1A1A" stroke-width="2"/><text x="470" y="34" font-family="Arial" font-size="11" fill="#5B6470" display="none">pulley</text>
+          <g id="c5Load"><rect x="435" y="-20" width="40" height="34" rx="4" fill="#F4B183" stroke="#C55A11" stroke-width="2"/></g>
+          <g font-family="Arial">
+            <text x="490" y="60" font-size="12" font-weight="bold" fill="#1F3864">DRUM TORQUE vs LOAD</text>
+            <rect x="490" y="70" width="200" height="14" rx="7" fill="#E3E8EF"/><rect id="c5TB" x="490" y="70" width="0" height="14" rx="7" fill="#3F6B2A"/><line id="c5LL" y1="64" y2="90" stroke="#B42318" stroke-width="3"/>
+            <text x="490" y="124" font-size="12" font-weight="bold" fill="#1F3864">LIFT HEIGHT</text>
+            <text id="c5H" x="490" y="150" font-family="Consolas,monospace" font-size="20" font-weight="bold" fill="#1A1A1A">0 cm</text>
+            <text id="c5Res" x="490" y="194" font-size="16" font-weight="bold" fill="#5B6470"></text>
+          </g>
+        </svg>
+        <div class="sim__ctl">
+          <label>Gearing <select id="c5G"><option value="1">A — equal (1:1)</option><option value="2.5" selected>B — geared down (2.5:1)</option><option value="0.4">C — geared up (1:2.5)</option></select></label>
+          <label>Load <select id="c5L"><option value="0.7">light</option><option value="1.6" selected>medium</option><option value="2.4">heavy</option></select></label>
+          <button class="sim__btn" id="c5Go" type="button">↺ Lower the load &amp; restart</button>
+        </div>
+        <p class="sim__say" id="c5Say" aria-live="polite"></p>
+      </div>
+      <script>
+      (function(){
+        function $(id){return document.getElementById(id);}
+        var h=0, ang=0, dang=0, last=null, fc=0;
+        function st(){ var r=+$('c5G').value, L=+$('c5L').value; return {r:r,L:L,tq:r,stall:r<L}; }
+        function info(){ var s=st(), sc=200/3; $('c5TB').setAttribute('width',Math.min(200,s.tq*sc)); $('c5TB').setAttribute('fill',s.stall?'#B42318':'#3F6B2A'); var lx=490+s.L*sc; $('c5LL').setAttribute('x1',lx); $('c5LL').setAttribute('x2',lx);
+          var name=s.r>1?'Geared down':s.r<1?'Geared up':'Equal';
+          $('c5Say').innerHTML=s.stall?'<strong>'+name+':</strong> not enough torque at the drum — the rotor stalls and the load won\'t budge. Gear <em>down</em> to trade speed for torque.':'<strong>'+name+':</strong> enough torque to lift'+(s.r>1?' — slower drum, stronger pull. Exactly the trade a lift wants.':s.r<1?' — fast, but only because the load is light. Try a heavier load.':'. Same speed and torque as the rotor.');
+          $('c5Res').textContent=s.stall?'✗ stalled':(h>=150?'✓ load at the top':'lifting…'); $('c5Res').setAttribute('fill',s.stall?'#B42318':'#3F6B2A'); }
+        $('c5Go').addEventListener('click',function(){ h=0; info(); });
+        ['c5G','c5L'].forEach(function(id){ $(id).addEventListener('change',function(){ h=0; info(); }); });
+        function tick(n){ var dt=last?Math.min(.05,(n-last)/1000):0; last=n; var s=st();
+          var w=s.stall?0:(h>=150?0:1); ang+=dt*(w?240:0); if(s.stall) ang+=Math.sin(n/40)*0.6;
+          if(w){ dang+=dt*240/s.r; h=Math.min(150,h+dt*30/s.r); }
+          $('c5Rotor').setAttribute('transform','translate(130,70) rotate('+ang+')'); $('c5Drum').setAttribute('transform','translate(340,210) rotate('+dang+')');
+          var ly=248-h; $('c5Load').setAttribute('transform','translate(0,'+ly+')'); $('c5Str').setAttribute('y1',40); $('c5Str').setAttribute('y2',ly-20);
+          $('c5H').textContent=Math.round(h/5)+' cm'; if((fc=(fc+1)%15)===0) info(); requestAnimationFrame(tick); }
+        info(); requestAnimationFrame(tick);
+      })();
+      </script>
+
 
       <h2>The engineering notebook</h2>
       <p>Engineers are only as good as their records. Your <strong>engineering notebook</strong> is where the whole project lives, and it's a graded deliverable. Document as you go — not at the end from memory:</p>
@@ -228,6 +292,54 @@
         </ul>
       </div>
 
+      <h2>Project tutorial: the windmill, one step at a time</h2>
+      <p>Here's the design process as a checklist of small, testable steps. Each one leaves something in your notebook.</p>
+      <div class="tut">
+        <div class="tut__step">
+          <p class="tut__goal">Goal: everyone agrees on the job</p>
+          <h3>Restate the brief</h3>
+          <p>In your notebook, write one sentence for the problem and list every constraint in your own words: <em>kit only · fits the cubby · turns 90° · rigid · lifts the standard load</em>.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> a teammate can read your sentence and say exactly what "done" looks like.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: real choices to compare</p>
+          <h3>Sketch three different concepts</h3>
+          <p>Each sketch labels the <strong>input</strong> (rotor), the <strong>mechanism</strong> (bevel? spur? how many stages?), and the <strong>output</strong> (drum, pulley, winch). Make them genuinely different — not one idea drawn three ways.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: choose on purpose</p>
+          <h3>Score them in a decision matrix</h3>
+          <p>Use the live matrix above. Set your weights <em>before</em> you score, so you can't tilt them toward a favorite. Record the totals and the winner.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> the must-haves (lift, turn 90°) carry the biggest weights.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: a frame that keeps the gears meshed</p>
+          <h3>Build the tower and the bevel corner</h3>
+          <p>Build a rigid tower (two screws per joint, braced — Chapter 1). Mount the bevel pair in a <strong>gearbox bracket</strong> so the shafts stay square and the teeth stay meshed.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> turn the rotor by hand — the drum turns smoothly, with no skipping at the bevel.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> the bevel teeth click or skip? The gears are drifting apart — add a collar or move the bracket so they're pressed together.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: numbers, not opinions</p>
+          <h3>Test all three gearings</h3>
+          <table class="dtable">
+            <thead><tr><th>Gearing</th><th>Gears used</th><th>Lifted? (y/n)</th><th>Time to lift 30 cm</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>A — equal</td><td>__T → __T</td><td></td><td></td><td></td></tr>
+              <tr><td>B — geared down</td><td>__T → __T</td><td></td><td></td><td></td></tr>
+              <tr><td>C — geared up</td><td>__T → __T</td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+          <p class="tut__check"><strong>✅ Check it:</strong> B lifts the load but slowly; C may spin fast and stall. That's the trade, measured.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: better than the first try</p>
+          <h3>Improve, retest, document</h3>
+          <p>Pick the weakest result and change <strong>one thing</strong>: a bigger reduction, a stiffer frame, a pulley to redirect the string. Retest with the same load and write the before/after.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> your notebook shows at least one full loop: test → change → retest.</p>
+        </div>
+      </div>
+
       <h2>What you'll need</h2>
       <ul>
         <li>VEX EXP kit, including <strong>bevel gears</strong> (Advanced Gear Kit) and spur gears (24/36/48/60T)</li>
@@ -266,6 +378,7 @@ leftMotor.stop();</pre>
         <li>Which mechanisms can <em>transmit rotary motion at a 90° angle</em>?</li>
         <li>What is the purpose of an idler gear — and did your windmill use one?</li>
         <li>How did the decision matrix change (or confirm) the design you would have picked by gut feeling?</li>
+        <li>In the live decision matrix, change the weight on "Turns the corner 90°" from 5 to 1. Does the winner change? What does that tell you about weights?</li>
       </ol>
 
       <h2>Key terms</h2>
@@ -273,7 +386,37 @@ leftMotor.stop();</pre>
         <span class="term">windmill</span><span class="term">engineering design process</span><span class="term">design brief</span><span class="term">client</span><span class="term">problem statement</span><span class="term">design statement</span><span class="term">constraint</span><span class="term">deliverable</span><span class="term">brainstorm</span><span class="term">decision matrix</span><span class="term">criteria</span><span class="term">weight</span><span class="term">prototype</span><span class="term">iterate</span><span class="term">bevel gear</span><span class="term">gear reduction</span><span class="term">torque</span><span class="term">engineering notebook</span>
       </div>
 
-      <p class="sources"><strong>Sources (VEX Library, kb.vex.com / vexrobotics.com):</strong> Building with VEX EXP; Using Gear Ratios with the V5 Motor; VEX Gears overview (bevel gears change the axis of motion 90°); Advanced Gearbox Brackets (holding a bevel pair in mesh). Engineering design process, design brief, and decision-matrix structure adapted from the PLTW Gateway <em>Automation &amp; Robotics</em> curriculum. Bevel gears are included in the PLTW Gateway VEX EXP kit's Advanced Gear Kit.</p>
+      <p class="sources"><strong>Sources (VEX Library, kb.vex.com / vexrobotics.com):</strong> Building with VEX EXP; Using Gear Ratios with the V5 Motor; VEX Gears overview (bevel gears change the axis of motion 90°); Advanced Gearbox Brackets (holding a bevel pair in mesh). Engineering design process, design brief, and decision-matrix structure adapted from the PLTW Gateway <em>Automation &amp; Robotics</em> curriculum. Bevel gears are included in the PLTW Gateway VEX EXP kit's Advanced Gear Kit. The windmill-gearing animation, live decision matrix, narrated walkthrough video, and step-by-step project tutorial are added scaffolding for this edition.</p>
+
+          <script>
+      (function(){
+        Array.prototype.forEach.call(document.querySelectorAll('.dm[data-cfg]'),function(root){
+          if(root.dataset.ready) return; root.dataset.ready='1';
+          var cfg=JSON.parse(root.getAttribute('data-cfg'));
+          var C=cfg.concepts, R=cfg.rows;
+          function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+          var h='<div class="dm__wrap"><table class="dtable dm__t"><thead><tr><th>Criterion</th><th>Weight<br><small>1–5</small></th>';
+          C.forEach(function(c,j){ h+='<th><input class="dm__cn" data-j="'+j+'" value="'+esc(c)+'" aria-label="Concept '+(j+1)+' name"></th>'; });
+          h+='</tr></thead><tbody>';
+          R.forEach(function(r,i){ h+='<tr><td><input class="dm__rn" value="'+esc(r[0])+'" aria-label="Criterion '+(i+1)+'"></td><td><input type="number" min="1" max="5" class="dm__w" data-i="'+i+'" value="'+r[1]+'" aria-label="Weight for criterion '+(i+1)+'"></td>';
+            for(var j=0;j<C.length;j++) h+='<td><input type="number" min="1" max="5" class="dm__s" data-i="'+i+'" data-j="'+j+'" value="'+r[2][j]+'" aria-label="Score"><span class="dm__x" data-i="'+i+'" data-j="'+j+'"></span></td>';
+            h+='</tr>'; });
+          h+='</tbody><tfoot><tr><td colspan="2"><strong>Weighted total</strong></td>';
+          C.forEach(function(c,j){ h+='<td class="dm__tot" data-j="'+j+'"></td>'; });
+          h+='</tr></tfoot></table></div><p class="dm__msg" aria-live="polite"></p>';
+          root.innerHTML=h;
+          function n(el){ var v=Math.round(+el.value); if(isNaN(v)) v=1; return Math.max(1,Math.min(5,v)); }
+          function calc(){
+            var tot=C.map(function(){return 0;});
+            root.querySelectorAll('.dm__s').forEach(function(el){ var i=+el.dataset.i, j=+el.dataset.j, w=n(root.querySelector('.dm__w[data-i="'+i+'"]')), s=n(el), p=w*s; tot[j]+=p; root.querySelector('.dm__x[data-i="'+i+'"][data-j="'+j+'"]').textContent='×'+w+' = '+p; });
+            var best=Math.max.apply(null,tot), winners=[];
+            root.querySelectorAll('.dm__tot').forEach(function(td){ var j=+td.dataset.j; td.textContent=tot[j]; td.classList.toggle('win',tot[j]===best); if(tot[j]===best) winners.push(root.querySelector('.dm__cn[data-j="'+j+'"]').value); });
+            root.querySelector('.dm__msg').innerHTML=winners.length>1?'<strong>Tie</strong> between '+winners.map(esc).join(' and ')+' — add a criterion or look harder at the weights.':'<strong>'+esc(winners[0])+'</strong> scores highest ('+best+'). Change a weight and see if the winner changes — that shows you which criteria really decide it.';
+          }
+          root.addEventListener('input',calc); calc();
+        });
+      })();
+      </script>
 
     </article>
 

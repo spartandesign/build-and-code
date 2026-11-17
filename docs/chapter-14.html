@@ -33,7 +33,7 @@
     </div>
 
     <div class="lede">
-      <p><strong>What you'll learn:</strong> this chapter is the finale — and it's a <em>build</em>, not a lecture. Everything you've put together this year comes down to two capstone challenges. First, a head-to-head <strong>robot sumo</strong> tournament: design a robot that shoves its opponent out of the ring. Then <strong>build your own</strong> — pick a real problem and design a robot to solve it, autonomous or driver-controlled, your call. There's no brand-new command to learn here. Instead you'll combine sturdy <strong>building</strong>, <strong>gears</strong> for pushing power, <strong>sensors</strong> and autonomous decisions, and <strong>driver control</strong>, and run the whole thing through the <strong>engineering design process</strong> you've used since day one.</p>
+      <p><strong>What you'll learn:</strong> this chapter is the finale — and it's a <em>build</em>, not a lecture. Everything you've put together this year comes down to two capstone challenges. First, a head-to-head <strong>robot sumo</strong> tournament: design a robot that shoves its opponent out of the ring. Then <strong>build your own</strong> — pick a real problem and design a robot to solve it, autonomous or driver-controlled, your call. There's no brand-new command to learn here. Instead you'll combine sturdy <strong>building</strong>, <strong>gears</strong> for pushing power, <strong>sensors</strong> and autonomous decisions, and <strong>driver control</strong>, and run the whole thing through the <strong>engineering design process</strong> you've used since day one. To help, you'll <strong>watch an autonomous sumo match play out</strong> line by line, and build a hunter that stays in the ring in a <strong>step-by-step code tutorial</strong>.</p>
     </div>
 
     <article class="prose wrap">
@@ -45,6 +45,16 @@
         <li><strong>Challenge 1 — Sumo:</strong> a structured competition. Everyone builds to the same rules and faces off in a tournament.</li>
         <li><strong>Challenge 2 — Build Your Own:</strong> wide open. You pick the problem and decide what "success" even means.</li>
       </ul>
+
+      <h2>Watch first: sumo strategy and the hunt</h2>
+      <p>This short video covers the sumo rules, where pushing power really comes from, the simplest autonomous hunter, why the edge check has to come first, and how a decision matrix helps you choose a design.</p>
+      <figure class="video">
+        <video controls preload="metadata" playsinline poster="media/ch14-sumo-walkthrough-poster.jpg" aria-label="Narrated walkthrough of robot sumo strategy and autonomous code, with captions on screen">
+          <source src="media/ch14-sumo-walkthrough.mp4" type="video/mp4">
+          Your browser can't play this video. <a href="media/ch14-sumo-walkthrough.mp4">Download it here</a>.
+        </video>
+        <figcaption>Narrated walkthrough (under 2 minutes). Captions are built into the video.</figcaption>
+      </figure>
 
       <h2>Challenge 1: robot sumo (Honbasho)</h2>
       <p>Sumo is a centuries-old sport from Japan: two wrestlers try to push each other out of a ring. <strong>Robot sumo</strong> — <em>Honbasho</em> — started in Japan too, and it's now the most popular robot competition in the world. The idea is simple: two robots, one ring, and one job — <strong>push the other robot out</strong>. It's king of the hill on wheels.</p>
@@ -200,16 +210,246 @@
         <span class="kw">if</span> (frontEye.objectDistance(mm) &lt; 400) {       <span class="cmt">// opponent close ahead?</span>
             Drivetrain.driveFor(forward, 12, inches);  <span class="cmt">// charge an exact 12 inches</span>
         } <span class="kw">else</span> {                                   <span class="cmt">// can't see one --</span>
-            Drivetrain.turnToHeading(DriveIMU.heading(degrees) + 30, degrees);  <span class="cmt">// sweep 30 deg, then look again</span>
+            Drivetrain.turnFor(right, 30, degrees);    <span class="cmt">// sweep 30 deg, then look again</span>
         }
     }
 }</pre>
 
-      <p>It's the very same two commands from Chapter 13 — <span class="inl">turnToHeading</span> to point at an exact angle and <span class="inl">driveFor</span> to roll an exact distance — only now they're doing a job. Adding 30° to the current heading each pass turns that blind spin into a <strong>measured search sweep</strong>; add an <strong>Optical Sensor</strong> that watches for the black border and you'd have the start of a robot that stays in the ring, too.</p>
+      <p>It's the Chapter 13 drivetrain doing a job: <span class="inl">driveFor</span> rolls an exact distance, and <span class="inl">turnFor</span> — a cousin of <span class="inl">turnToHeading</span> — turns an exact amount <em>from wherever the robot is facing now</em>, measured by the inertial. Turning 30° each pass turns that blind spin into a <strong>measured search sweep</strong>; add an <strong>Optical Sensor</strong> that watches for the black border and you'd have the start of a robot that stays in the ring, too.</p>
+
+      <h3>Staying in the ring: check the edge first</h3>
+      <p>Both hunts above have the same weakness: they'll happily chase an opponent right off the ring — even one that's already out but still in sight. The fix is a second sensor and one more branch. A <strong>Optical Sensor</strong> mounted at the front, <strong>facing down</strong>, reads <span class="inl">brightness()</span> — high on the light mat, low on the black border. Put that check <strong>first</strong>, so staying in the ring always beats attacking:</p>
+      <p class="codetag"><span class="dot">●</span> Edge first, then attack, then search</p>
+<pre class="code">optical ringEdge = optical(PORT3);               <span class="cmt">// facing down, at the front</span>
+
+<span class="kw">while</span> (<span class="kw">true</span>) {
+    <span class="kw">if</span> (ringEdge.brightness() &lt; 20) {              <span class="cmt">// 1. on the black border?</span>
+        escape();                                   <span class="cmt">//    back up and turn away</span>
+    } <span class="kw">else if</span> (frontEye.objectDistance(mm) &lt; 400) { <span class="cmt">// 2. opponent ahead?</span>
+        charge();
+    } <span class="kw">else</span> {                                       <span class="cmt">// 3. nothing seen</span>
+        search();
+    }
+    wait(20, msec);
+}</pre>
+      <p>Remember from Chapter 11: in an <span class="inl">if / else if / else</span> chain, the <strong>first true condition wins</strong>. Because the edge check comes first, the robot backs away from the border even while the opponent is right in front of it. <span class="inl">escape()</span>, <span class="inl">charge()</span> and <span class="inl">search()</span> are your own functions (Chapter 12) — the tutorial below builds them.</p>
+
+      <h2>Try it: an autonomous sumo match</h2>
+      <p>Your robot (blue) runs the hunting program below on its own: it <strong>searches</strong> by spinning, <strong>charges</strong> when its Distance Sensor sees the opponent, and — if it has one — <strong>escapes</strong> when its downward Optical Sensor sees the black border. Press <strong>Play</strong>. Then turn the <strong>edge sensor off</strong> and run it again: watch what happens after it pushes the opponent out. Click inside the ring to move the opponent.</p>
+
+      <div class="sim" id="c14Box">
+        <svg id="c14Svg" viewBox="0 0 720 340" role="img" aria-label="Top view of a sumo ring with a black border. A blue robot with a sensor beam hunts a gray opponent robot.">
+          <circle cx="260" cy="170" r="160" fill="#2B2B2B"/>
+          <circle cx="260" cy="170" r="148" fill="#F2F2F2"/>
+          <line x1="230" y1="170" x2="290" y2="170" stroke="#C9C9C9" stroke-width="3"/>
+          <polygon id="c14Cone" points="0,0 0,0 0,0" fill="#C55A11" opacity=".14"/>
+          <g id="c14Opp"><circle r="18" fill="#8A929C" stroke="#5B6470" stroke-width="3"/><text y="4" text-anchor="middle" font-family="Arial" font-size="10" font-weight="bold" fill="#FFFFFF">OPP</text></g>
+          <g id="c14Me"><rect x="-18" y="-17" width="36" height="34" rx="6" fill="#1F3864"/><polygon points="18,-17 28,-17 28,17 18,17" fill="#2E75B6"/><circle id="c14Eye" cx="22" cy="0" r="4" fill="#C55A11"/><rect id="c14Edge" x="-4" y="-4" width="8" height="8" rx="2" fill="#3F6B2A"/></g>
+          <text id="c14Res" x="260" y="28" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="#1F3864"></text>
+          <g font-family="Arial" font-size="12">
+            <text x="450" y="40" font-weight="bold" fill="#1F3864">SENSORS NOW</text>
+            <text x="450" y="66" fill="#1A1A1A">frontEye:</text><text id="c14D" x="560" y="66" font-family="Consolas,monospace" font-weight="bold" fill="#C55A11">—</text>
+            <text x="450" y="90" fill="#1A1A1A">ringEdge:</text><text id="c14B" x="560" y="90" font-family="Consolas,monospace" font-weight="bold" fill="#3F6B2A">—</text>
+            <text x="450" y="124" font-weight="bold" fill="#1F3864">DOING</text>
+            <text id="c14Do" x="450" y="148" font-size="16" font-weight="bold" fill="#5B6470">—</text>
+            <text x="450" y="300" fill="#5B6470">ring: 122 cm across</text>
+            <text x="450" y="318" fill="#5B6470">sensor range: 400 mm</text>
+          </g>
+        </svg>
+        <div class="sim__split">
+<pre class="code sim__code" id="c14Code" aria-label="The hunting program, with the running branch highlighted"><span class="ln" data-l="0"><span class="kw">while</span> (<span class="kw">true</span>) {</span><span class="ln" data-l="1" id="c14L1">    <span class="kw">if</span> (ringEdge.brightness() &lt; 20) {             <span class="cmt">// 1. on the black border?</span></span><span class="ln" data-l="2" id="c14L2">        escape();                                  <span class="cmt">//    back up, turn away</span></span><span class="ln" data-l="3">    } <span class="kw">else if</span> (frontEye.objectDistance(mm) &lt; 400) { <span class="cmt">// 2. opponent ahead?</span></span><span class="ln" data-l="4">        charge();                                  <span class="cmt">//    full speed forward</span></span><span class="ln" data-l="5">    } <span class="kw">else</span> {                                      <span class="cmt">// 3. nothing seen</span></span><span class="ln" data-l="6">        search();                                  <span class="cmt">//    spin in place</span></span><span class="ln" data-l="7">    }</span><span class="ln" data-l="8">    wait(20, msec);</span><span class="ln" data-l="9">}</span></pre>
+        </div>
+        <div class="sim__bar">
+          <button class="sim__btn sim__btn--go" id="c14Play" type="button">▶ Play</button>
+          <button class="sim__btn" id="c14Reset" type="button">↺ New match</button>
+          <label class="sim__toggle"><input type="checkbox" id="c14EdgeOn" checked> Edge sensor (Optical, facing down)</label>
+        </div>
+        <p class="sim__say" id="c14Say" aria-live="polite">Press <strong>Play</strong> to start the match.</p>
+      </div>
+      <script>
+      (function(){
+        function $(id){return document.getElementById(id);}
+        var CX=260, CY=170, RIN=148, ROUT=160, MM=4.1, RANGE=400/MM;
+        var me, opp, playing=false, last=null, mode='search', escT=0, over=false, seed=1;
+        function rnd(){ seed=(seed*16807)%2147483647; return seed/2147483647; }
+        function reset(){ var a=rnd()*6.28; me={x:CX-70,y:CY+20,th:-0.3,out:false}; opp={x:CX+60*Math.cos(a),y:CY+60*Math.sin(a),out:false,dir:rnd()*6.28}; mode='search'; escT=0; over=false; $('c14Res').textContent=''; playing=false; $('c14Play').textContent='▶ Play'; $('c14Say').innerHTML='Press <strong>Play</strong> to start the match.'; draw(); }
+        function d2(a,b){ return Math.hypot(a.x-b.x,a.y-b.y); }
+        function sees(){ var dx=opp.x-me.x, dy=opp.y-me.y, dist=Math.hypot(dx,dy)-18; var ang=Math.atan2(dy,dx)-me.th; ang=Math.atan2(Math.sin(ang),Math.cos(ang)); return (Math.abs(ang)<0.16&&dist<RANGE)?dist*MM:null; }
+        function front(){ return {x:me.x+Math.cos(me.th)*22,y:me.y+Math.sin(me.th)*22}; }
+        function onEdge(){ var f=front(); return Math.hypot(f.x-CX,f.y-CY)>RIN; }
+        function hl(l){ var ls=document.querySelectorAll('#c14Code .ln'); for(var j=0;j<ls.length;j++) ls[j].classList.toggle('on',+ls[j].getAttribute('data-l')===l); }
+        function draw(){
+          $('c14Me').setAttribute('transform','translate('+me.x+','+me.y+') rotate('+(me.th*180/Math.PI)+')');
+          $('c14Opp').setAttribute('transform','translate('+opp.x+','+opp.y+')');
+          var a1=me.th-0.16, a2=me.th+0.16, f=front();
+          $('c14Cone').setAttribute('points',f.x+','+f.y+' '+(f.x+Math.cos(a1)*RANGE)+','+(f.y+Math.sin(a1)*RANGE)+' '+(f.x+Math.cos(a2)*RANGE)+','+(f.y+Math.sin(a2)*RANGE));
+          var s=sees(); $('c14D').textContent=s===null?'> 400 mm (nothing)':Math.round(s)+' mm';
+          var eon=$('c14EdgeOn').checked; $('c14Edge').style.display=eon?'':'none';
+          $('c14B').textContent=!eon?'(no sensor)':(onEdge()?'8  ← black!':'85 (white mat)');
+          $('c14L1').style.opacity=eon?1:.35; $('c14L2').style.opacity=eon?1:.35;
+          $('c14Do').textContent=over?'—':mode==='escape'?'ESCAPE':mode==='charge'?'CHARGE':'SEARCH';
+          $('c14Do').setAttribute('fill',mode==='escape'?'#3F6B2A':mode==='charge'?'#C55A11':'#5B6470');
+        }
+        function step(dt){
+          if(over) return;
+          var eon=$('c14EdgeOn').checked, s=sees();
+          if(mode!=='escape'){
+            if(eon&&onEdge()){ mode='escape'; escT=0; hl(2); $('c14Say').innerHTML='<strong>Edge!</strong> The Optical Sensor sees the black border, so the first <span class="inl">if</span> wins: back up and turn away — even if the opponent is still in sight.'; }
+            else if(s!==null){ if(mode!=='charge'){ $('c14Say').innerHTML='<strong>Opponent seen</strong> ('+Math.round(s)+' mm &lt; 400): the <span class="inl">else if</span> runs — charge!'; } mode='charge'; hl(4); }
+            else { if(mode!=='search') $('c14Say').innerHTML='<strong>Nothing seen:</strong> the <span class="inl">else</span> runs — spin to search.'; mode='search'; hl(6); }
+          }
+          var v=0, w=0;
+          if(mode==='search'){ w=1.7; }
+          else if(mode==='charge'){ v=75; }
+          else { escT+=dt; if(escT<0.5){ v=-60; } else if(escT<1.4){ w=2.4; } else { mode='search'; } }
+          me.th+=w*dt; me.x+=Math.cos(me.th)*v*dt; me.y+=Math.sin(me.th)*v*dt;
+          /* push */
+          var dd=d2(me,opp);
+          if(dd<36){ var ux=(opp.x-me.x)/dd, uy=(opp.y-me.y)/dd; var push=36-dd; opp.x+=ux*push; opp.y+=uy*push; }
+          else if(!opp.out){ opp.dir+= (rnd()-.5)*dt*3; var nx=opp.x+Math.cos(opp.dir)*14*dt, ny=opp.y+Math.sin(opp.dir)*14*dt; if(Math.hypot(nx-CX,ny-CY)<RIN-30){opp.x=nx;opp.y=ny;} else opp.dir+=Math.PI*.7; }
+          if(!opp.out&&Math.hypot(opp.x-CX,opp.y-CY)+18>ROUT){ opp.out=true; $('c14Say').innerHTML='Opponent pushed out! But it\'s still just past the edge — and still in the Distance Sensor\'s view…'; }
+          if(Math.hypot(me.x-CX,me.y-CY)+18>ROUT){ over=true; playing=false; $('c14Play').textContent='▶ Play';
+            $('c14Res').textContent=opp.out?'You BOTH went out — it chased the opponent off the ring!':'Out of the ring — you lose!'; $('c14Res').setAttribute('fill','#B42318');
+            $('c14Say').innerHTML='With no edge sensor, the robot kept charging at what it could see — right over the border. Turn the <strong>edge sensor</strong> on and try again.'; hl(-1); }
+          else if(opp.out&&eon&&mode!=='charge'&&Math.hypot(me.x-CX,me.y-CY)<RIN-10){ over=true; playing=false; $('c14Play').textContent='▶ Play'; $('c14Res').textContent='You win! 🏆 Pushed out — and stayed in.'; $('c14Res').setAttribute('fill','#3F6B2A'); $('c14Say').innerHTML='Checking the <strong>edge first</strong> kept your robot in the ring. Order matters: safety check, then attack, then search.'; hl(-1); }
+        }
+        function tick(now){ var dt=last?Math.min(.04,(now-last)/1000):0; last=now; if(playing){ step(dt); } draw(); requestAnimationFrame(tick); }
+        $('c14Play').addEventListener('click',function(){ if(over) reset(); playing=!playing; this.textContent=playing?'❚❚ Pause':'▶ Play'; });
+        $('c14Reset').addEventListener('click',reset);
+        $('c14EdgeOn').addEventListener('change',reset);
+        $('c14Svg').addEventListener('click',function(e){ var pt=this.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY; var p=pt.matrixTransform(this.getScreenCTM().inverse()); if(Math.hypot(p.x-CX,p.y-CY)<RIN-20&&!opp.out){ opp.x=p.x; opp.y=p.y; draw(); } });
+        reset(); requestAnimationFrame(tick);
+      })();
+      </script>
 
       <div class="card card--note">
         <p class="card__title"><span class="ic">🏆</span> The team writes this exact hunt</p>
-        <p>On the V5 team this is the SpartanDrive <span class="inl">drive</span> object running an autonomous routine: <span class="inl">Drivetrain.driveFor(forward, 12, inches)</span> becomes <span class="inl">drive.drive_distance(12)</span>, and <span class="inl">Drivetrain.turnToHeading(…)</span> becomes <span class="inl">drive.turn_to_angle(…)</span>. Same hunt, same logic — just the team's names. The full map is in <a href="appendix-b-exp-to-v5.html">Appendix B: EXP → V5 Team Bridge</a>.</p>
+        <p>On the V5 team this is the SpartanDrive <span class="inl">drive</span> object running an autonomous routine: <span class="inl">Drivetrain.driveFor(forward, 12, inches)</span> becomes <span class="inl">drive.drive_distance(12)</span>, and <span class="inl">Drivetrain.turnToHeading(…)</span> becomes <span class="inl">drive.turn_to_angle(…)</span> (and a relative <span class="inl">turnFor</span> sweep is a <span class="inl">turn_to_angle</span> to the current heading plus 30). Same hunt, same logic — just the team's names. The full map is in <a href="appendix-b-exp-to-v5.html">Appendix B: EXP → V5 Team Bridge</a>.</p>
+      </div>
+
+      <h2>Code tutorial: an autonomous sumo, one step at a time</h2>
+      <p>Going autonomous? Build the hunter in small, tested steps. (Driving instead? Start from your Chapter 13 tank drive — then try steps 1 and 6 anyway.) Test on the real ring with the cable unplugged. Lines <span style="background:#E6F0FA;box-shadow:inset 3px 0 0 var(--blue);padding:0 4px">shaded blue</span> are new.</p>
+
+      <div class="tut">
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: no jumped starts</p>
+          <h3>Wait for the start signal</h3>
+          <p>A jumped start costs you a penalty. Make the robot wait until you press a <strong>bumper</strong> on its back, then count down before it moves — time to step out of the ring.</p>
+<pre class="code"><span class="new">bumper startButton = bumper(Brain.ThreeWirePort.A);</span>
+
+<span class="kw">int</span> main() {
+    vexcodeInit();
+<span class="new">    <span class="kw">while</span> (!startButton.pressing()) {   <span class="cmt">// wait for the referee's "go"</span></span>
+<span class="new">        wait(20, msec);</span>
+<span class="new">    }</span>
+<span class="new">    wait(3, seconds);                    <span class="cmt">// step back: hands out of the ring</span></span>
+}</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> nothing happens until you tap the bumper; the program then waits 3 seconds and ends. (Use the delay your referee announces.)</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: the robot looks around</p>
+          <h3>Search: spin in place</h3>
+          <p>Write <span class="inl">search()</span> as a function above <span class="inl">main</span>, and call it forever. A slow spin gives the Distance Sensor time to notice the opponent as it sweeps past.</p>
+<pre class="code"><span class="new"><span class="kw">void</span> search() {</span>
+<span class="new">    leftMotor.setVelocity(30, percent);</span>
+<span class="new">    rightMotor.setVelocity(30, percent);</span>
+<span class="new">    leftMotor.spin(forward);              <span class="cmt">// left forward,</span></span>
+<span class="new">    rightMotor.spin(reverse);             <span class="cmt">// right back = spin right</span></span>
+<span class="new">}</span>
+...
+    wait(3, seconds);
+<span class="new">    <span class="kw">while</span> (<span class="kw">true</span>) {</span>
+<span class="new">        search();</span>
+<span class="new">        wait(20, msec);</span>
+<span class="new">    }</span></pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> after the countdown, the robot spins smoothly in place, in the middle of the ring.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: see it, charge it</p>
+          <h3>Add the charge</h3>
+          <p>Add a <span class="inl">charge()</span> function at full speed, and an <span class="inl">if</span> that picks charge or search from the Distance Sensor.</p>
+<pre class="code"><span class="new"><span class="kw">void</span> charge() {</span>
+<span class="new">    leftMotor.setVelocity(100, percent);</span>
+<span class="new">    rightMotor.setVelocity(100, percent);</span>
+<span class="new">    leftMotor.spin(forward);</span>
+<span class="new">    rightMotor.spin(forward);</span>
+<span class="new">}</span>
+...
+    <span class="kw">while</span> (<span class="kw">true</span>) {
+<span class="new">        <span class="kw">if</span> (frontEye.objectDistance(mm) &lt; 400) {</span>
+<span class="new">            charge();</span>
+<span class="new">        } <span class="kw">else</span> {</span>
+            search();
+<span class="new">        }</span>
+        wait(20, msec);
+    }</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> put a box in the ring. The robot spins, stops turning when it faces the box, and drives at it.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> it charges at people standing outside the ring? Shrink <span class="inl">400</span> so it only sees things inside. It spins right past the box? Slow the search spin down.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: know what the edge looks like</p>
+          <h3>Read the edge sensor</h3>
+          <p>Mount an Optical Sensor at the front, facing down, about 1 cm above the mat. Print its brightness (like Chapter 11) and turn its light on so it reads the same in any room.</p>
+<pre class="code"><span class="new">optical ringEdge = optical(PORT3);</span>
+...
+<span class="new">    ringEdge.setLight(ledState::on);</span>
+<span class="new">    <span class="kw">while</span> (<span class="kw">true</span>) {</span>
+<span class="new">        Brain.Screen.clearScreen();</span>
+<span class="new">        Brain.Screen.setCursor(1, 1);</span>
+<span class="new">        Brain.Screen.print(<span class="str">"edge: %.0f"</span>, ringEdge.brightness());</span>
+<span class="new">        wait(200, msec);</span>
+<span class="new">    }</span></pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> slide the robot by hand from the white mat onto the black border. Write down both numbers. Your threshold goes halfway between them (the code uses 20 as an example).</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: it never drives itself out</p>
+          <h3>Edge first: the full hunter</h3>
+          <p>Add <span class="inl">escape()</span> and put the edge check at the <strong>top</strong> of the chain.</p>
+<pre class="code"><span class="new"><span class="kw">void</span> escape() {</span>
+<span class="new">    leftMotor.setVelocity(80, percent);</span>
+<span class="new">    rightMotor.setVelocity(80, percent);</span>
+<span class="new">    leftMotor.spin(reverse);              <span class="cmt">// back away from the edge</span></span>
+<span class="new">    rightMotor.spin(reverse);</span>
+<span class="new">    wait(0.4, seconds);</span>
+<span class="new">    leftMotor.spin(forward);              <span class="cmt">// turn to face the middle</span></span>
+<span class="new">    wait(0.6, seconds);</span>
+<span class="new">}</span>
+...
+    <span class="kw">while</span> (<span class="kw">true</span>) {
+<span class="new">        <span class="kw">if</span> (ringEdge.brightness() &lt; 20) {</span>
+<span class="new">            escape();</span>
+<span class="new">        } <span class="kw">else if</span> (frontEye.objectDistance(mm) &lt; 400) {</span>
+            charge();
+        } <span class="kw">else</span> {
+            search();
+        }
+        wait(20, msec);
+    }</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> aim the robot at the edge with nothing in the ring. It should back off and turn every time it reaches the black border — 10 tries, 10 saves.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> it crosses before reacting? Move the Optical Sensor further forward, or lower the charge speed a little.</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: test like an engineer</p>
+          <h3>Run the test plan</h3>
+          <p>Before the tournament, run each test and record pass or fail in your notebook. Fix one thing between rounds.</p>
+          <table class="dtable">
+            <thead><tr><th>Test</th><th>Should happen</th></tr></thead>
+            <tbody>
+              <tr><td>Tap the start bumper</td><td>Waits the full countdown, then searches</td></tr>
+              <tr><td>Box placed behind the robot</td><td>Finds it within one full spin</td></tr>
+              <tr><td>Box near the edge</td><td>Pushes it out, then backs off the border</td></tr>
+              <tr><td>Teammate's robot pushes back</td><td>Doesn't spin its wheels — if it does, gear down or add weight over the drive wheels</td></tr>
+              <tr><td>Empty ring, 30 seconds</td><td>Never leaves the ring</td></tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
 
       <h2>Challenge 2: build your own</h2>
@@ -304,7 +544,7 @@
         <li><strong>Define the problem.</strong> Write a short design brief: what the robot must do and every <strong>constraint</strong>. For sumo the constraints are given; for Build Your Own, <em>you</em> write the problem and how you'll know it worked.</li>
         <li><strong>Sketch and choose.</strong> Each teammate sketches a couple of ideas on their own. Then build a <strong>decision matrix</strong>, score the ideas against your criteria, and pick the winner — by reasons, not by argument.</li>
         <li><strong>Build it.</strong> Construct the robot from the kit so it fits the cubby (and, for sumo, the footprint). Build it <strong>sturdy</strong>; mount and wire the motors and any sensors to the Brain.</li>
-        <li><strong>Plan, then code.</strong> Decide autonomous or driver control. Write <strong>pseudocode</strong> first, then translate to C++: a <span class="inl">while (true)</span> loop with either sensor-driven <span class="inl">if</span>s (Chapter 11) or stick-and-button driving (Chapter 13).</li>
+        <li><strong>Plan, then code.</strong> Decide autonomous or driver control. Write <strong>pseudocode</strong> first, then translate to C++: a <span class="inl">while (true)</span> loop with either sensor-driven <span class="inl">if</span>s (Chapter 11) or stick-and-button driving (Chapter 13). Autonomous sumo teams: follow the <strong>code tutorial</strong> and its test plan.</li>
         <li><strong>Test and refine — a little at a time.</strong> Download, unplug, and try it. Fix one thing per round: more torque if it gets pushed, a wider stance if it tips, a flipped motor if a side runs backward.</li>
         <li><strong>Evaluate and present.</strong> Keep your daily journal, judge how well your robot met its goal, and present your design and process to the class.</li>
       </ol>
@@ -316,14 +556,16 @@
         <li>Name <strong>two</strong> things that make a robot hard to push out of the ring, and connect each to something you learned earlier in the course.</li>
         <li>What is a <strong>decision matrix</strong>, and why is it a better way to choose a design than just picking the idea you like best?</li>
         <li>If you ran your robot <strong>fully autonomously</strong> (no driver), what <strong>sensor(s)</strong> would it need and what would each one do? (Think about finding the opponent <em>and</em> staying in the ring.)</li>
+        <li>In the sumo animation, what went wrong with the edge sensor turned <strong>off</strong>? Why must the edge check come <em>first</em> in the <span class="inl">if / else if / else</span> chain?</li>
+        <li>Why does the tutorial make the robot wait for a <strong>bumper press and a countdown</strong> before it moves?</li>
         <li>Suggest one idea for a <strong>future robotics competition</strong> your class could run. (Remember: no destroying robots allowed.)</li>
       </ol>
 
       <h2>Key terms</h2>
       <div class="terms">
-        <span class="term">robot sumo</span><span class="term">Honbasho</span><span class="term">ring</span><span class="term">out of bounds</span><span class="term">double elimination</span><span class="term">inspection</span><span class="term">torque</span><span class="term">traction</span><span class="term">center of gravity</span><span class="term">wheelbase</span><span class="term">gear down</span><span class="term">wedge</span><span class="term">autonomous</span><span class="term">driver control</span><span class="term">Distance Sensor</span><span class="term">smart drivetrain</span><span class="term">turnToHeading</span><span class="term">driveFor</span><span class="term">engineering design process</span><span class="term">criteria</span><span class="term">constraints</span><span class="term">decision matrix</span><span class="term">prototype</span><span class="term">iteration</span></div>
+        <span class="term">robot sumo</span><span class="term">Honbasho</span><span class="term">ring</span><span class="term">out of bounds</span><span class="term">double elimination</span><span class="term">inspection</span><span class="term">torque</span><span class="term">traction</span><span class="term">center of gravity</span><span class="term">wheelbase</span><span class="term">gear down</span><span class="term">wedge</span><span class="term">autonomous</span><span class="term">driver control</span><span class="term">Distance Sensor</span><span class="term">Optical Sensor</span><span class="term">brightness()</span><span class="term">edge detection</span><span class="term">turnFor</span><span class="term">test plan</span><span class="term">smart drivetrain</span><span class="term">turnToHeading</span><span class="term">driveFor</span><span class="term">engineering design process</span><span class="term">criteria</span><span class="term">constraints</span><span class="term">decision matrix</span><span class="term">prototype</span><span class="term">iteration</span></div>
 
-      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 4.2 "Honbasho: Sumo Competition" and Project 4.3 "Build Your Own"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the two capstone projects — a rules-based robot-sumo tournament and an open-ended "design a robot to solve a problem you choose" build, each run through the full engineering design process with a design brief, decision matrix, prototype, journal, and conclusion questions — are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. Sumo rules are simplified from the official Japanese robot-sumo rules referenced by PLTW. Constraints are adapted to this course's kit-only and IKEA Kallax cubby framing; the 30 cm (12 in) footprint and ~2.3 kg (5 lb) limits follow PLTW's sumo requirements. The autonomous example reuses the verified EXP Distance Sensor API from Chapter 11 (<span class="inl">distance</span> device, <span class="inl">objectDistance(mm)</span>); tank drive and buttons are from Chapter 13; the torque/traction/stable-base ideas are from Chapters 3, 4, and 7.</p>
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Project 4.2 "Honbasho: Sumo Competition" and Project 4.3 "Build Your Own"; VEX Library, kb.vex.com; VEXcode EXP C++ API, api.vex.com):</strong> the two capstone projects — a rules-based robot-sumo tournament and an open-ended "design a robot to solve a problem you choose" build, each run through the full engineering design process with a design brief, decision matrix, prototype, journal, and conclusion questions — are from the PLTW Gateway curriculum, modernized here from the legacy Cortex/ROBOTC tool to <strong>VEX C++ in VS Code</strong> on the EXP Brain. Sumo rules are simplified from the official Japanese robot-sumo rules referenced by PLTW. Constraints are adapted to this course's kit-only and IKEA Kallax cubby framing; the 30 cm (12 in) footprint and ~2.3 kg (5 lb) limits follow PLTW's sumo requirements. The autonomous example reuses the verified EXP Distance Sensor API from Chapter 11 (<span class="inl">distance</span> device, <span class="inl">objectDistance(mm)</span>); tank drive and buttons are from Chapter 13; the downward Optical Sensor edge check (<span class="inl">optical</span>, <span class="inl">brightness()</span>, <span class="inl">setLight</span>) and the drivetrain's <span class="inl">turnFor</span> are from the VEXcode EXP C++ API. The autonomous-sumo animation, narrated walkthrough video, and step-by-step code tutorial (start delay, search/charge/escape functions, edge-first priority, and test plan) are added scaffolding for this edition; the torque/traction/stable-base ideas are from Chapters 3, 4, and 7.</p>
 
     </article>
 

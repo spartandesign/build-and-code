@@ -33,10 +33,20 @@
     </div>
 
     <div class="lede">
-      <p><strong>What you'll learn:</strong> how to turn a goal into instructions a robot can follow. You'll meet <strong>behaviors</strong> — the things a robot does — and the single most useful skill in programming: <strong>breaking a big, complex behavior down</strong> into simple ones, and those into basic single commands. Then you'll write <strong>pseudocode</strong>: a plain-language plan for a program, written in order, before you worry about exact syntax. You'll see how a few lines of that plan become real <strong>VEX C++</strong> — including what those curly braces <span class="inl">{ }</span> are for — and how the "sense, decide, act" loop from Chapter 8 shows up the moment you write your first <span class="inl">if</span> or <span class="inl">while</span>. This is the planning half of programming; you write real code on the robot starting in Chapter 10.</p>
+      <p><strong>What you'll learn:</strong> how to turn a goal into instructions a robot can follow. You'll meet <strong>behaviors</strong> — the things a robot does — and the single most useful skill in programming: <strong>breaking a big, complex behavior down</strong> into simple ones, and those into basic single commands. Then you'll write <strong>pseudocode</strong>: a plain-language plan for a program, written in order, before you worry about exact syntax. You'll see how a few lines of that plan become real <strong>VEX C++</strong> — including what those curly braces <span class="inl">{ }</span> are for — and how the "sense, decide, act" loop from Chapter 8 shows up the moment you write your first <span class="inl">if</span> or <span class="inl">while</span>. This is the planning half of programming; you write real code on the robot starting in Chapter 10. Along the way you'll <strong>program a robot that follows your plan literally</strong>, and work through a <strong>step-by-step planning tutorial</strong>.</p>
     </div>
 
     <article class="prose wrap">
+
+      <h2>Watch first: big goal, small steps</h2>
+      <p>This two-minute video covers the whole planning toolkit: the programmer and robot jobs, the three sizes of behavior, decomposition and abstraction, pseudocode, and how a plan lines up with real C++.</p>
+      <figure class="video">
+        <video controls preload="metadata" playsinline poster="media/ch09-pseudocode-walkthrough-poster.jpg" aria-label="Narrated walkthrough of behaviors, decomposition, and pseudocode, with captions on screen">
+          <source src="media/ch09-pseudocode-walkthrough.mp4" type="video/mp4">
+          Your browser can't play this video. <a href="media/ch09-pseudocode-walkthrough.mp4">Download it here</a>.
+        </video>
+        <figcaption>Narrated walkthrough (about 2 minutes). Captions are built into the video.</figcaption>
+      </figure>
 
       <h2>From building robots to telling them what to do</h2>
       <p>For two units you built robot <em>bodies</em> — structures, gears, and mechanisms that turn motion into useful work. But a body that can't be told what to do is just a sculpture. Unit 3 is about the other half: making the robot <strong>act</strong>. And acting starts not at the keyboard, but with a plan.</p>
@@ -146,10 +156,11 @@
 
       <p class="codetag"><span class="dot">●</span> VEX C++ — the real thing (Chapter 10)</p>
 <pre class="code"><span class="cmt">// behavior: drive to the wall ahead, then stop</span>
+<span class="cmt">// (frontEye is the Distance Sensor, named once at the top — Chapter 10)</span>
 leftMotor.spin(forward);
 rightMotor.spin(forward);
 
-<span class="kw">while</span> (distance.objectDistance(mm) &gt; 200) {
+<span class="kw">while</span> (frontEye.objectDistance(mm) &gt; 200) {
     wait(20, msec);
 }
 
@@ -178,8 +189,192 @@ rightMotor.stop();</pre>
         </ul>
       </div>
 
+      <h2>Try it: be the programmer</h2>
+      <p>The robot below follows your plan <strong>exactly, in order, with no common sense</strong>. Your task: <em>drive to the wall, stop before you hit it, then turn right.</em> Click steps in the bank to add them to your plan (click a plan step to remove it), then press <strong>Run</strong>. Try a few wrong plans on purpose — leave out the stop, or put the turn first — and watch the robot do exactly what you wrote.</p>
+
+      <div class="sim" id="c9Box">
+        <svg id="c9Svg" viewBox="0 0 720 170" role="img" aria-label="Top view of a corridor. A robot starts on the left; a wall is on the right. The robot carries out the plan step by step.">
+          <rect x="10" y="20" width="600" height="130" rx="8" fill="#F2F7FC" stroke="#CFE0F2" stroke-width="2"/>
+          <rect x="610" y="10" width="26" height="150" rx="4" fill="#5B6470"/>
+          <line id="c9Zone" x1="560" y1="22" x2="560" y2="148" stroke="#C55A11" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="560" y="16" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#C55A11">200 mm</text>
+          <g id="c9Bot"><rect x="-26" y="-22" width="52" height="44" rx="7" fill="#1F3864"/><polygon points="26,-12 40,0 26,12" fill="#C55A11"/></g>
+          <text id="c9Msg" x="310" y="164" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#5B6470"></text>
+        </svg>
+        <div class="plan">
+          <div><p class="plan__h">Step bank — click to add</p><div class="plan__bank" id="c9Bank"></div></div>
+          <div><p class="plan__h">Your plan (runs top to bottom)</p><ol class="plan__list" id="c9Plan"></ol></div>
+        </div>
+        <div class="sim__bar">
+          <button class="sim__btn sim__btn--go" id="c9Run" type="button">▶ Run</button>
+          <button class="sim__btn" id="c9Clear" type="button">Clear plan</button>
+        </div>
+        <p class="sim__say" id="c9Say" aria-live="polite">Build a plan, then press <strong>Run</strong>.</p>
+      </div>
+      <script>
+      (function(){
+        function $(id){return document.getElementById(id);}
+        var BANK=[['fwd','spin both drive motors forward'],['until','wait until the distance sensor reads less than 200 mm'],['time','wait 2 seconds'],['stop','stop both drive motors'],['right','turn right 90°']];
+        var plan=[], running=false, x=60, y=85, th=0, moving=0, last=null, timer=null;
+        function label(k){ for(var i=0;i<BANK.length;i++) if(BANK[i][0]===k) return BANK[i][1]; }
+        function render(){
+          $('c9Bank').innerHTML=BANK.map(function(b){return '<button type="button" class="sim__btn" data-k="'+b[0]+'">+ '+b[1]+'</button>';}).join('');
+          $('c9Plan').innerHTML=plan.length?plan.map(function(k,i){return '<li><button type="button" class="plan__step" data-i="'+i+'" title="Remove this step">'+label(k)+' <span aria-hidden="true">✕</span></button></li>';}).join(''):'<li class="plan__empty">empty — add steps from the bank</li>';
+        }
+        $('c9Bank').addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b||running) return; if(plan.length<8){ plan.push(b.getAttribute('data-k')); render(); } });
+        $('c9Plan').addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b||running) return; plan.splice(+b.getAttribute('data-i'),1); render(); });
+        $('c9Clear').addEventListener('click',function(){ runId++; running=false; clearTimeout(stuckT); plan=[]; render(); resetBot(); $('c9Say').innerHTML='Build a plan, then press <strong>Run</strong>.'; });
+        function resetBot(){ x=60; y=85; th=0; moving=0; draw(); $('c9Msg').textContent=''; }
+        function draw(){ $('c9Bot').setAttribute('transform','translate('+x+','+y+') rotate('+th+')'); }
+        function front(){ return x+40*Math.cos(th*Math.PI/180); }
+        function hiStep(i){ var li=$('c9Plan').querySelectorAll('.plan__step'); for(var j=0;j<li.length;j++) li[j].classList.toggle('on',j===i); }
+        function run(){
+          if(running||!plan.length) return; running=true; resetBot(); var i=0, hit=false, my=++runId;
+          function next(){
+            if(my!==runId) return;
+            hiStep(i);
+            if(i>=plan.length){ finish(); return; }
+            var k=plan[i++];
+            if(k==='fwd'){ moving=1; $('c9Say').innerHTML='Motors on. The program moves straight to the next line — the motors keep running.'; setTimeout(next,300); }
+            else if(k==='stop'){ moving=0; $('c9Say').innerHTML='Motors stopped.'; setTimeout(next,600); }
+            else if(k==='time'){ $('c9Say').innerHTML='Waiting 2 seconds — a guess, not a measurement.'; setTimeout(next,2000); }
+            else if(k==='until'){ $('c9Say').innerHTML='Watching the sensor until the wall is closer than 200 mm…'; (function poll(){ if(my!==runId) return; if(moving&&dist()>=9000&&(y<=42||y>=128)){ moving=0; finish('side'); return; } if(moving===0&&dist()>=200){ $('c9Say').innerHTML='Waiting for the wall to get close… but the motors are off, so it never will. The robot is stuck on this line forever!'; stuckT=setTimeout(function(){ finish('stuck'); },2500); return; } if(dist()<200||hitWall()){ next(); } else setTimeout(poll,50); })(); }
+            else if(k==='right'){ $('c9Say').innerHTML='Turning right 90°.'; var t0=performance.now(), a0=th; (function turn(n){ if(my!==runId) return; var p=Math.min(1,(n-t0)/800); th=a0+90*p; draw(); if(p<1) requestAnimationFrame(turn); else setTimeout(next,300); })(t0); }
+          }
+          next();
+        }
+        var stuckT=null, runId=0;
+        function dist(){ return Math.cos(th*Math.PI/180)>0.5?(610-front())*4:9999; }
+        function hitWall(){ return front()>=609; }
+        function finish(state){
+          running=false; hiStep(-1);
+          var ok = plan.join(',')==='fwd,until,stop,right';
+          var m='';
+          if(state==='stuck') m='Stuck: it waited for something that could never happen.';
+          else if(state==='side') m='It turned first, then drove into the side wall — the steps are out of order.';
+          else if(hitWall()&&moving) m='Still pushing into the wall — nothing told it to stop.';
+          else if(hitWall()) m='It hit the wall before it stopped.';
+          else if(ok) m='✓ Exactly right: drove, stopped near the wall, turned right.';
+          else if(th%360!==0&&x<200) m='It turned before it moved — the steps are out of order.';
+          else if(moving) m='The plan ended but the motors are still running!';
+          else if(front()<500) m='It stopped far from the wall — a timer is only a guess.';
+          else m='The plan ran — but is that what the task asked for?';
+          $('c9Msg').textContent=m; $('c9Msg').setAttribute('fill',ok?'#3F6B2A':'#B42318');
+          $('c9Say').innerHTML=ok?'Your plan was <strong>complete and in order</strong>. That\'s the whole job of pseudocode.':'The robot did <strong>exactly what you wrote</strong>. Fix the plan and run it again.';
+        }
+        function tick(n){ var dt=last?Math.min(.05,(n-last)/1000):0; last=n; if(moving&&running||moving){ if(!hitWall()){ x+=Math.cos(th*Math.PI/180)*90*dt; y+=Math.sin(th*Math.PI/180)*90*dt; } } y=Math.max(42,Math.min(128,y)); draw(); requestAnimationFrame(tick); }
+        $('c9Run').addEventListener('click',run);
+        render(); resetBot(); requestAnimationFrame(tick);
+      })();
+      </script>
+
       <h2>Putting it together</h2>
       <p>One last habit, and it's the one that separates frustration from progress. Once you have your plan, <strong>don't type the whole thing and hope.</strong> Add one behavior, send it to the robot, and test it. Then add the next. A program that grew one tested piece at a time is far easier to fix than twenty lines written all at once — because when something breaks, you already know it was the piece you just added.</p>
+
+      <h2>Planning tutorial: from task to pseudocode, one step at a time</h2>
+      <p>Here's the whole planning process worked through on the challenge task from "Do it": <em>"When a pushbutton is pressed, the robot drives as fast as possible for 20 feet (about 10 seconds), then stops."</em> Follow along, then do the same for your own task.</p>
+
+      <div class="tut">
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: one clear sentence</p>
+          <h3>Name the complex behavior</h3>
+          <p>Write the whole job as one sentence, including <strong>how it starts</strong> and <strong>how it ends</strong>. If you can't say when it's finished, you can't plan it.</p>
+          <p class="tut__check"><strong>✅ Example:</strong> "Wait for the button, then drive full speed for 10 seconds, then stop."</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: three or four useful chunks</p>
+          <h3>Break it into simple behaviors</h3>
+          <p>Ask: <em>what are the stages?</em> Each simple behavior should be something you could describe to a friend in a few words.</p>
+          <svg viewBox="0 0 560 150" role="img" aria-label="Decomposition of the challenge task. The complex behavior, button-start drive, breaks into three simple behaviors: wait for the button, drive full speed for 10 seconds, and stop.">
+            <rect x="160" y="8" width="240" height="40" rx="10" fill="#1F3864"/><text x="280" y="33" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#FFFFFF">Button-start drive</text>
+            <line x1="280" y1="48" x2="95" y2="96" stroke="#5B6470" stroke-width="2"/><line x1="280" y1="48" x2="280" y2="96" stroke="#5B6470" stroke-width="2"/><line x1="280" y1="48" x2="465" y2="96" stroke="#5B6470" stroke-width="2"/>
+            <rect x="10" y="96" width="170" height="44" rx="10" fill="#F2F7FC" stroke="#2E75B6" stroke-width="2"/><text x="95" y="123" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1A1A1A">Wait for the button</text>
+            <rect x="195" y="96" width="170" height="44" rx="10" fill="#F2F7FC" stroke="#2E75B6" stroke-width="2"/><text x="280" y="123" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1A1A1A">Drive fast, 10 s</text>
+            <rect x="380" y="96" width="170" height="44" rx="10" fill="#F2F7FC" stroke="#2E75B6" stroke-width="2"/><text x="465" y="123" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#1A1A1A">Stop</text>
+          </svg>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: every line is one command</p>
+          <h3>Break each simple behavior into basic ones</h3>
+          <p>Keep splitting until every item is a single thing the robot can do directly. Fill in the three-column chart:</p>
+          <table class="dtable">
+            <thead><tr><th>Complex</th><th>Simple</th><th>Basic (one command each)</th></tr></thead>
+            <tbody>
+              <tr><td rowspan="3">Button-start drive</td><td>Wait for the button</td><td>repeat: check the button, wait a moment — until it's pressed</td></tr>
+              <tr><td>Drive fast, 10 s</td><td>set both motors to 100% · spin both forward · wait 10 seconds</td></tr>
+              <tr><td>Stop</td><td>stop both motors</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: a plan in running order, with blocks</p>
+          <h3>Write the pseudocode</h3>
+          <p>List the basic behaviors <strong>in order</strong>. Wrap steps that belong together — the whole behavior, and anything that repeats — in curly braces.</p>
+<pre class="code plan">/*
+  behavior: button-start drive
+  {
+      while the button is NOT pressed
+      {
+          wait a moment, then check again
+      }
+      set both drive motors to full speed
+      spin both drive motors forward
+      wait 10 seconds
+      stop both drive motors
+  }
+*/</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> read it top to bottom. Does every step happen in the right order? Is there a <strong>stop</strong>? Does anything repeat forever by accident?</p>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: find the gaps before the robot does</p>
+          <h3>Test the plan on a human</h3>
+          <p>Hand your pseudocode to a partner. They act it out <em>literally</em> — one step at a time, nothing extra. Watch for the classic gaps:</p>
+          <table class="dtable">
+            <thead><tr><th>Your partner…</th><th>The gap in your plan</th></tr></thead>
+            <tbody>
+              <tr><td>keeps walking forever</td><td>no <strong>stop</strong></td></tr>
+              <tr><td>starts before the button</td><td>the wait is missing or <strong>out of order</strong></td></tr>
+              <tr><td>asks "how long?" or "how fast?"</td><td>a step is <strong>too vague</strong> — add a number</td></tr>
+              <tr><td>stands still, waiting forever</td><td>it waits for something that <strong>can never happen</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tut__step">
+          <p class="tut__goal">Goal: see the code hiding in your plan</p>
+          <h3>Preview: the same plan in C++</h3>
+          <p>You'll write this for real in Chapter 10. For now, notice how each line of the plan lines up with a line of code — even the curly braces.</p>
+          <div class="tut__pair">
+<pre class="code plan">while button not pressed
+{
+    wait a moment
+}
+both motors: full speed
+
+both motors: forward
+
+wait 10 seconds
+stop both motors
+</pre>
+<pre class="code"><span class="kw">while</span> (!startButton.pressing())
+{
+    wait(20, msec);
+}
+leftMotor.setVelocity(100, percent);
+rightMotor.setVelocity(100, percent);
+leftMotor.spin(forward);
+rightMotor.spin(forward);
+wait(10, seconds);
+leftMotor.stop(); rightMotor.stop();</pre>
+          </div>
+        </div>
+
+      </div>
 
       <h2>What you'll need</h2>
       <ul>
@@ -192,7 +387,7 @@ rightMotor.stop();</pre>
       <h2>Do it</h2>
       <ol>
         <li><strong>Break down the maze.</strong> Using the tree above as a model, take one complex behavior and break it into simple behaviors, then break one of <em>those</em> into basic single commands. Stop when every bottom item is something the robot could do directly.</li>
-        <li><strong>Decompose the challenge task.</strong> For this task — <em>"when a pushbutton is pressed, the robot drives as fast as possible for 20 feet (about 10 seconds), then stops"</em> — fill in a three-column chart: the complex behavior, its simple behaviors, and the basic behaviors.</li>
+        <li><strong>Decompose the challenge task.</strong> For this task — <em>"when a pushbutton is pressed, the robot drives as fast as possible for 20 feet (about 10 seconds), then stops"</em> — fill in a three-column chart: the complex behavior, its simple behaviors, and the basic behaviors. (The planning tutorial works this one through as an example — try it yourself first, then compare.)</li>
         <li><strong>Write the pseudocode.</strong> Turn your basic behaviors into pseudocode, <em>in order</em>, using the <span class="inl">/* { } */</span> template. Mark the blocks that belong together with curly braces.</li>
         <li><strong>Decompose an everyday behavior.</strong> List at least five smaller behaviors inside "brushing my teeth," and notice how some of those could break down even further.</li>
         <li><strong>Test your plan on a human.</strong> Trade pseudocode with a partner and have them follow it <em>literally</em> — doing exactly what each line says and nothing more. If they end up somewhere you didn't intend, your plan has a gap. Fix it. (That gap is exactly what the robot would have tripped on.)</li>
@@ -204,6 +399,8 @@ rightMotor.stop();</pre>
         <li>Why is it useful to think of a program as a set of <strong>basic, simple, and complex</strong> behaviors?</li>
         <li>What does a pair of <strong>curly braces</strong> <span class="inl">{ }</span> mark in a C++ program?</li>
         <li>What is the <strong>role of a programmer</strong>, and how is it different from the robot's role?</li>
+        <li>In "Be the programmer," what did the robot do when your plan had no <strong>stop</strong>? What about when "turn right" came first? What does that tell you about the robot's job?</li>
+        <li>Why is "wait until the distance sensor reads less than 200&nbsp;mm" a better plan than "wait 2 seconds" for driving to a wall?</li>
         <li>Decomposition breaks a behavior <strong>down</strong>. What is <strong>abstraction</strong>, and how is "brush my teeth" an example of it?</li>
       </ol>
 
@@ -212,7 +409,7 @@ rightMotor.stop();</pre>
         <span class="term">behavior</span><span class="term">basic behavior</span><span class="term">simple behavior</span><span class="term">complex behavior</span><span class="term">decomposition</span><span class="term">abstraction</span><span class="term">building up</span><span class="term">breaking down</span><span class="term">program</span><span class="term">programmer</span><span class="term">pseudocode</span><span class="term">syntax</span><span class="term">code block</span><span class="term">curly braces</span><span class="term">sequence</span><span class="term">VEX C++</span><span class="term">VEXcode</span><span class="term">if</span><span class="term">while</span>
       </div>
 
-      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Activity 3.2 "Robot Behaviors and Writing Pseudocode"; VEXcode EXP C++ API, api.vex.com; VEX Library, kb.vex.com):</strong> the three behavior types (basic / simple / complex), behavior decomposition, the programmer-and-robot roles, and pseudocode as informal, in-order planning are from the PLTW Gateway curriculum — modernized here from ROBOTC to <strong>VEX C++ in VS Code</strong>. The C++ commands shown (<span class="inl">spin(forward)</span>, <span class="inl">stop()</span>, <span class="inl">wait</span>, and the distance sensor's <span class="inl">objectDistance</span> in millimeters) are verified against the VEXcode EXP C++ API and the VEX Library Distance Sensor article. The "sense → decide → act" loop carries over from Chapter 8.</p>
+      <p class="sources"><strong>Sources (PLTW Gateway <em>Automation &amp; Robotics</em>, Activity 3.2 "Robot Behaviors and Writing Pseudocode"; VEXcode EXP C++ API, api.vex.com; VEX Library, kb.vex.com):</strong> the three behavior types (basic / simple / complex), behavior decomposition, the programmer-and-robot roles, and pseudocode as informal, in-order planning are from the PLTW Gateway curriculum — modernized here from ROBOTC to <strong>VEX C++ in VS Code</strong>. The C++ commands shown (<span class="inl">spin(forward)</span>, <span class="inl">stop()</span>, <span class="inl">wait</span>, and the distance sensor's <span class="inl">objectDistance</span> in millimeters) are verified against the VEXcode EXP C++ API and the VEX Library Distance Sensor article. The "sense → decide → act" loop carries over from Chapter 8. The plan-builder animation, narrated walkthrough video, and step-by-step planning tutorial are added scaffolding for this edition.</p>
 
     </article>
 

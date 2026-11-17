@@ -33,11 +33,21 @@
     </div>
 
     <div class="lede">
-      <p><strong>What you'll learn:</strong> your second engineering <em>project</em> — a pull toy that comes alive when you pull it. You'll take the <strong>rotary motion</strong> of the rolling wheels and convert it into a <em>different</em> kind of motion — a head that bobs, an arm that waves — using a <strong>cam-and-follower</strong> or a <strong>crank-and-rocker linkage</strong>. Run the full <strong>engineering design process</strong> again, choose with a <strong>decision matrix</strong>, and tune the tempo with gears. No motor: your pull is the power.</p>
+      <p><strong>What you'll learn:</strong> your second engineering <em>project</em> — a pull toy that comes alive when you pull it. You'll take the <strong>rotary motion</strong> of the rolling wheels and convert it into a <em>different</em> kind of motion — a head that bobs, an arm that waves — using a <strong>cam-and-follower</strong> or a <strong>crank-and-rocker linkage</strong>. Run the full <strong>engineering design process</strong> again, choose with a <strong>decision matrix</strong>, and tune the tempo with gears. No motor: your pull is the power. You'll <strong>pull a toy on screen</strong> to see each mechanism work, use a <strong>live decision matrix</strong>, and follow a <strong>step-by-step project tutorial</strong>.</p>
 
     </div>
 
     <article class="prose wrap">
+
+      <h2>Watch first: make it come alive</h2>
+      <p>A short video of the big ideas: the walk → roll → convert → animate chain, how a cam and a crank-and-rocker work, and how gears set the tempo.</p>
+      <figure class="video">
+        <video controls preload="metadata" playsinline poster="media/ch06-pull-toy-walkthrough-poster.jpg" aria-label="Narrated walkthrough of the pull toy mechanisms, with captions on screen">
+          <source src="media/ch06-pull-toy-walkthrough.mp4" type="video/mp4">
+          Your browser can't play this video. <a href="media/ch06-pull-toy-walkthrough.mp4">Download it here</a>.
+        </video>
+        <figcaption>Narrated walkthrough (about 1¼ minutes). Captions are built into the video.</figcaption>
+      </figure>
 
       <h2>From lifting to moving: your second project</h2>
       <p>Your windmill lifted a load. This project asks for something different — make something <strong>move in a lively way</strong>. A <strong>pull toy</strong> is one of the oldest toys there is: a little animal or character on wheels that you pull along by a string, and as it rolls, something on it comes alive — the head bobs, the tail wags, the wings flap. Pure mechanism, no batteries, no screen. Your job is to build a pull toy that <strong>rolls when pulled</strong> and turns that rolling into a <strong>second, different kind of motion</strong> to animate a character on top. The engineering question <em>is</em> the project: the wheels give you spinning (rotary) motion — how do you turn that into something that bobs or waves?</p>
@@ -192,6 +202,75 @@
         <p>There's no motor — <strong>your pull is the power</strong>. Tie the string to the toy so pulling rolls it forward; the rolling <strong>axle</strong> turns with the wheels, and that turning is your rotary input. Run it straight to the cam shaft or crank, or through a gear pair first. So the chain is: <em>you walk</em> (linear) → <em>wheels roll</em> (rotary) → <em>mechanism converts it</em> → <em>the toy bobs or waves</em>. Rolling itself is the trick that turns your steady pull into spinning.</p>
       </div>
 
+      <h2>Try it: animate a pull toy</h2>
+      <p>Hold <strong>Pull</strong> to roll the toy. The wheels spin, the gears pass the spin to your mechanism, and the character comes alive. Switch between a <strong>cam</strong> (bob) and a <strong>crank-and-rocker</strong> (wave), change the cam's <strong>offset</strong>, and pick a gearing to change the tempo.</p>
+      <div class="sim" id="c6Box">
+        <svg id="c6Svg" viewBox="0 0 720 300" role="img" aria-label="Side view of a pull toy on wheels with a string. A mechanism on top converts the wheels' rotation into a bobbing head or a waving arm."></svg>
+        <div class="sim__ctl">
+          <label>Mechanism <select id="c6M"><option value="cam">Cam &amp; follower (bob)</option><option value="crank">Crank &amp; rocker (wave)</option></select></label>
+          <label id="c6OffL">Cam offset <input type="range" id="c6Off" min="4" max="24" value="14"> <span class="inl" id="c6OffV"></span></label>
+          <label>Gearing <select id="c6G"><option value="2.5">60T → 24T (livelier)</option><option value="1" selected>1:1</option><option value="0.4">24T → 60T (slower)</option></select></label>
+        </div>
+        <div class="sim__bar">
+          <button class="sim__btn sim__btn--go" id="c6Pull" type="button">🧵 Hold to pull</button>
+          <button class="sim__btn" id="c6Back" type="button">↺ Back to start</button>
+          <span class="sim__phase" id="c6Cnt"></span>
+        </div>
+        <p class="sim__say" id="c6Say" aria-live="polite"></p>
+      </div>
+      <script>
+      (function(){
+        function $(id){return document.getElementById(id);}
+        var x=60, wang=0, pulling=false, last=null, cycles=0, prevPh=0;
+        function st(){ return {m:$('c6M').value, e:+$('c6Off').value, g:+$('c6G').value}; }
+        function crank(th){ /* four-bar: ground O2(0,0), O4(d,0); crank a, coupler b, rocker c */
+          var a=14,b=48,c=34,d=44, Ax=a*Math.cos(th), Ay=-a*Math.sin(th), Ox=d, Oy=0;
+          var dx=Ox-Ax, dy=Oy-Ay, L=Math.hypot(dx,dy), k=(b*b-c*c+L*L)/(2*L), hh=Math.sqrt(Math.max(0,b*b-k*k));
+          var Bx=Ax+k*dx/L - hh*dy/L, By=Ay+k*dy/L + hh*dx/L; if(By>0){ Bx=Ax+k*dx/L + hh*dy/L; By=Ay+k*dy/L - hh*dx/L; }
+          return {Ax:Ax,Ay:Ay,Bx:Bx,By:By,Ox:Ox,Oy:Oy}; }
+        function draw(){
+          var s=st(), mang=wang*s.g, th=mang*Math.PI/180, X=x, Y=200, h='';
+          h+='<line x1="10" y1="262" x2="710" y2="262" stroke="#5B6470" stroke-width="3"/>';
+          h+='<line x1="'+(X+150)+'" y1="236" x2="'+(Math.min(710,X+320))+'" y2="236" stroke="#1A1A1A" stroke-width="2"/><text x="'+(Math.min(700,X+316))+'" y="226" text-anchor="end" font-family="Arial" font-size="12" fill="#5B6470">string →</text>';
+          h+='<rect x="'+X+'" y="'+(Y-10)+'" width="150" height="34" rx="8" fill="#1F3864"/>';
+          [X+30,X+120].forEach(function(cx){ h+='<g transform="translate('+cx+',240) rotate('+wang+')"><circle r="22" fill="#F2F7FC" stroke="#1F3864" stroke-width="5"/><line x1="0" y1="-18" x2="0" y2="18" stroke="#1F3864" stroke-width="3"/></g>'; });
+          h+='<line x1="'+(X+30)+'" y1="240" x2="'+(X+75)+'" y2="'+(Y+4)+'" stroke="#C55A11" stroke-width="3" stroke-dasharray="4 3"/>';
+          var mx=X+75, my=Y-40;
+          h+='<rect x="'+(mx-6)+'" y="'+my+'" width="12" height="'+(Y-10-my)+'" fill="#5B6470"/>';
+          if(s.m==='cam'){
+            var r=34, cx=mx+s.e*Math.cos(th), cy=my-s.e*Math.sin(th), top=cy-r;
+            h+='<circle cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="'+r+'" fill="#F4B183" stroke="#C55A11" stroke-width="3"/><circle cx="'+mx+'" cy="'+my+'" r="5" fill="#1A1A1A"/>';
+            h+='<rect x="'+(mx-5)+'" y="'+(top-60)+'" width="10" height="60" fill="#2E75B6"/><rect x="'+(mx-14)+'" y="'+(top-6)+'" width="28" height="6" rx="2" fill="#2E75B6"/>';
+            h+='<text x="'+mx+'" y="'+(top-66)+'" text-anchor="middle" font-size="34">🐥</text>';
+            h+='<text x="'+(mx+110)+'" y="'+(my-70)+'" font-family="Consolas,monospace" font-size="13" font-weight="bold" fill="#C55A11">throw = 2 × '+s.e+' = '+(2*s.e)+' mm</text>';
+          } else {
+            var k=crank(th), ox=mx-22, oy=my;
+            h+='<circle cx="'+ox+'" cy="'+oy+'" r="5" fill="#1A1A1A"/><circle cx="'+(ox+k.Ox)+'" cy="'+(oy+k.Oy)+'" r="5" fill="#1A1A1A"/>';
+            h+='<line x1="'+ox+'" y1="'+oy+'" x2="'+(ox+k.Ax)+'" y2="'+(oy+k.Ay)+'" stroke="#C55A11" stroke-width="7" stroke-linecap="round"/>';
+            h+='<line x1="'+(ox+k.Ax)+'" y1="'+(oy+k.Ay)+'" x2="'+(ox+k.Bx)+'" y2="'+(oy+k.By)+'" stroke="#5B6470" stroke-width="5" stroke-linecap="round"/>';
+            var ang=Math.atan2(k.By-k.Oy,k.Bx-k.Ox), ex=ox+k.Ox+Math.cos(ang)*80, ey=oy+k.Oy+Math.sin(ang)*80;
+            h+='<line x1="'+(ox+k.Ox)+'" y1="'+(oy+k.Oy)+'" x2="'+ex.toFixed(1)+'" y2="'+ey.toFixed(1)+'" stroke="#2E75B6" stroke-width="7" stroke-linecap="round"/>';
+            h+='<text x="'+ex.toFixed(1)+'" y="'+(ey+10).toFixed(1)+'" text-anchor="middle" font-size="30">👋</text>';
+            h+='<text x="'+(mx+110)+'" y="'+(my-70)+'" font-family="Arial" font-size="12" fill="#5B6470"><tspan fill="#C55A11" font-weight="bold">crank</tspan> spins · <tspan fill="#2E75B6" font-weight="bold">rocker</tspan> swings</text>';
+          }
+          $('c6Svg').innerHTML=h;
+          $('c6OffL').style.display=s.m==='cam'?'':'none'; $('c6OffV').textContent=s.e+' mm';
+          $('c6Cnt').textContent=(s.m==='cam'?'bobs':'waves')+': '+cycles+' · wheel turns: '+(wang/360).toFixed(1);
+        }
+        function sayIt(){ var s=st(); $('c6Say').innerHTML=(s.m==='cam'?'<strong>Cam:</strong> the off-center disc turns rotary into up-and-down (reciprocating). Throw = 2 × offset.':'<strong>Crank &amp; rocker:</strong> the short crank spins all the way around, but the long rocker can only swing — rotary in, oscillating out.')+' '+(s.g>1?'Geared <strong>up</strong>: '+s.g+' '+(s.m==='cam'?'bobs':'waves')+' per wheel turn — lively!':s.g<1?'Geared <strong>down</strong>: one '+(s.m==='cam'?'bob':'wave')+' every 2½ wheel turns — slow and dramatic.':'1:1: one per wheel turn.'); }
+        function setPull(v){ pulling=v; }
+        var b=$('c6Pull'); ['pointerdown'].forEach(function(e){ b.addEventListener(e,function(ev){ setPull(true); b.setPointerCapture&&b.setPointerCapture(ev.pointerId); }); });
+        ['pointerup','pointercancel','pointerleave'].forEach(function(e){ b.addEventListener(e,function(){ setPull(false); }); });
+        b.addEventListener('keydown',function(e){ if(e.key===' '||e.key==='Enter'){ setPull(true); e.preventDefault(); } }); b.addEventListener('keyup',function(){ setPull(false); });
+        $('c6Back').addEventListener('click',function(){ x=60; wang=0; cycles=0; prevPh=0; draw(); });
+        ['c6M','c6G','c6Off'].forEach(function(id){ $(id).addEventListener('input',function(){ cycles=0; prevPh=Math.floor(wang*st().g/360); sayIt(); draw(); }); });
+        function tick(n){ var dt=last?Math.min(.05,(n-last)/1000):0; last=n;
+          if(pulling){ var dx=dt*45; x+=dx; if(x>520){ x=60; } wang+=dx/22*180/Math.PI; var ph=Math.floor(wang*st().g/360); if(ph>prevPh){ cycles+=ph-prevPh; prevPh=ph; } draw(); }
+          requestAnimationFrame(tick); }
+        sayIt(); draw(); requestAnimationFrame(tick);
+      })();
+      </script>
+
       <h2>Tune the tempo with gears</h2>
       <p>How lively is the animation? That's a <strong>gear-ratio</strong> choice — the same torque-vs-speed trade from Chapters 3 and 4. The wheels turn at whatever pace the rolling sets; between the wheel axle and your cam/crank shaft you can gear up or down:</p>
       <ul>
@@ -230,7 +309,11 @@
       </table>
       <p>Two things to notice. First, <strong>A and B are nearly tied</strong> (75 vs 76) — when totals are that close, either is a defensible choice, and you'd pick on a tiebreak (which character do you want? which can your team build well?). Second, <strong>C loses badly</strong> even though it rolls great and is easy to build — because it scores a 1 on the criterion that matters most. The geared spinner only speeds up rotation; it never converts the motion, which is the one thing the brief requires. <strong>Your</strong> criteria and weights may differ — but the matrix keeps you honest about what actually counts.</p>
 
-      <div class="card card--tip">
+            <h3>Try it: your own decision matrix</h3>
+      <p>The same matrix, live. Change weights or scores, rename the concepts, or replace them with your team's three sketches.</p>
+      <div class="dm" data-cfg='{"concepts":["A: cam bob","B: crank wave","C: geared spinner"],"rows":[["Lively, eye-catching motion",5,[5,5,4]],["Converts to a different motion type",5,[5,5,1]],["Rolls straight",3,[3,4,5]],["Easy to build",2,[3,2,5]],["Fits the cubby",2,[5,5,5]]]}'></div>
+
+<div class="card card--tip">
         <h3>🧭 Decision matrix, in four steps (recap)</h3>
         <p><strong>1.</strong> List 4–6 criteria, including your hard constraints (here: "converts the motion" and "fits the cubby"). <strong>2.</strong> Weight each 1–5 — must-haves get the big numbers. <strong>3.</strong> Score each concept 1–5, honestly. <strong>4.</strong> Multiply score × weight, total each column; the highest total is your starting design.</p>
       </div>
@@ -271,6 +354,55 @@
           <li><a class="ext" href="https://www.vexrobotics.com/gears.html" target="_blank" rel="noopener">VEX Gears overview</a> — spur gears for changing speed, and bevel gears for turning the axis of motion 90°.</li>
           <li><a class="ext" href="https://kb.vex.com/hc/en-us/articles/360035955292-Using-the-VEX-CAD-Files" target="_blank" rel="noopener">Using the VEX CAD Files</a> — official part models to drop into Onshape when you draw your cam or linkage.</li>
         </ul>
+      </div>
+
+      <h2>Project tutorial: the pull toy, one step at a time</h2>
+      <p>Build in this order: <strong>roll first, then convert, then tune, then decorate.</strong> A toy that doesn't roll straight can't animate anything.</p>
+      <div class="tut">
+        <div class="tut__step">
+          <p class="tut__goal">Goal: a base that rolls straight</p>
+          <h3>Build and pull the chassis</h3>
+          <p>Build a rigid rectangle (two screws per joint), two axles with standard wheels, collars on both sides of each wheel. Tie the string at the center front.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> pull it 2 m across the floor. It tracks straight and the axles spin freely.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> it veers? An axle isn't square to the frame, or one wheel rubs. Pull from dead center.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: spin reaches the mechanism</p>
+          <h3>Take power off an axle</h3>
+          <p>Put a gear on one wheel axle and mesh it with a gear on a second shaft higher up (the mechanism shaft). Start at 1:1 (48T → 48T).</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> push the toy by hand — the mechanism shaft turns every time the wheels do.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: rotary becomes bob or wave</p>
+          <h3>Add the cam or the crank</h3>
+          <p><strong>Cam:</strong> mount a disc off-center on the mechanism shaft; let a follower rest on top, guided so it can only move up and down. <strong>Crank-rocker:</strong> a short crank on the shaft, a coupler, and a longer rocker on its own pivot. Keep the crank the shortest link.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> turn the shaft by hand one full turn. The follower rises and falls once (cam), or the rocker swings out and back once (crank).</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> the crank jams halfway? It's too long compared with the other links — shorten it. Follower sticks? Loosen its guide.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: the right tempo</p>
+          <h3>Tune the gearing</h3>
+          <table class="dtable">
+            <thead><tr><th>Gearing</th><th>Bobs/waves per wheel turn</th><th>How it felt</th></tr></thead>
+            <tbody>
+              <tr><td>48T → 48T (1:1)</td><td>__</td><td></td></tr>
+              <tr><td>60T → 24T (up)</td><td>__</td><td></td></tr>
+              <tr><td>24T → 60T (down)</td><td>__</td><td></td></tr>
+            </tbody>
+          </table>
+          <p class="tut__check"><strong>✅ Check it:</strong> geared up gives about 2½ per wheel turn; geared down about one every 2½ turns. Pick the one that looks best <em>and</em> doesn't bind.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: it looks like a toy</p>
+          <h3>Add the character</h3>
+          <p>Mount a light figure (paper, foam, a few kit parts) on the follower or rocker. Heavy figures slow the mechanism or make it skip.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> a classmate who's never seen it can tell what the character is — and smiles when it moves.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: proof it works</p>
+          <h3>Test, improve, document</h3>
+          <p>Pull it 10 times across the room. Record: rolls straight? animates every time? anything fall off? Change one thing and retest.</p>
+        </div>
       </div>
 
       <h2>What you'll need</h2>
@@ -318,6 +450,7 @@ rightMotor.stop();</pre>
         <li>In a crank-and-rocker linkage, why must the crank be the shortest link — and what does the rocker do?</li>
         <li>You want your toy to animate more times per step (livelier). Which way do you gear — up or down — and what's the trade?</li>
         <li>Why doesn't a part that simply spins faster (like a geared propeller) satisfy the design brief?</li>
+        <li>In the pull-toy animation, how many bobs did you count per wheel turn with each gearing? Show how that matches the gear ratio.</li>
         <li>What would you change if you built it again, and why? (Tie it to something you saw during testing.)</li>
       </ol>
 
@@ -326,7 +459,37 @@ rightMotor.stop();</pre>
         <span class="term">pull toy</span><span class="term">rotary motion</span><span class="term">linear motion</span><span class="term">reciprocating motion</span><span class="term">oscillating motion</span><span class="term">mechanism</span><span class="term">cam</span><span class="term">follower</span><span class="term">eccentric</span><span class="term">throw</span><span class="term">offset</span><span class="term">four-bar linkage</span><span class="term">crank</span><span class="term">rocker</span><span class="term">coupler</span><span class="term">gear ratio</span><span class="term">gear up</span><span class="term">gear down</span><span class="term">bevel gear</span><span class="term">engineering design process</span><span class="term">decision matrix</span><span class="term">engineering notebook</span>
       </div>
 
-      <p class="sources"><strong>Sources (VEX Library, kb.vex.com / vexrobotics.com):</strong> Building with VEX EXP; Using Gear Ratios with the V5 Motor; VEX Gears overview (spur gears change speed; bevel gears change the axis of motion 90°); Using the VEX CAD Files. The four kinds of motion, the cam-and-follower and four-bar (crank-and-rocker) linkage, and the pull-toy design challenge are adapted from the PLTW Gateway <em>Automation &amp; Robotics</em> curriculum. Cam throw = 2 × the eccentric offset; VEX spur gears are 24/36/48/60T with pitch diameter (in) = tooth count ÷ 24, so a meshing pair's center distance = (PD₁ + PD₂) ÷ 2.</p>
+      <p class="sources"><strong>Sources (VEX Library, kb.vex.com / vexrobotics.com):</strong> Building with VEX EXP; Using Gear Ratios with the V5 Motor; VEX Gears overview (spur gears change speed; bevel gears change the axis of motion 90°); Using the VEX CAD Files. The four kinds of motion, the cam-and-follower and four-bar (crank-and-rocker) linkage, and the pull-toy design challenge are adapted from the PLTW Gateway <em>Automation &amp; Robotics</em> curriculum. Cam throw = 2 × the eccentric offset; VEX spur gears are 24/36/48/60T with pitch diameter (in) = tooth count ÷ 24, so a meshing pair's center distance = (PD₁ + PD₂) ÷ 2. The pull-toy animation, live decision matrix, narrated walkthrough video, and step-by-step project tutorial are added scaffolding for this edition.</p>
+
+          <script>
+      (function(){
+        Array.prototype.forEach.call(document.querySelectorAll('.dm[data-cfg]'),function(root){
+          if(root.dataset.ready) return; root.dataset.ready='1';
+          var cfg=JSON.parse(root.getAttribute('data-cfg'));
+          var C=cfg.concepts, R=cfg.rows;
+          function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+          var h='<div class="dm__wrap"><table class="dtable dm__t"><thead><tr><th>Criterion</th><th>Weight<br><small>1–5</small></th>';
+          C.forEach(function(c,j){ h+='<th><input class="dm__cn" data-j="'+j+'" value="'+esc(c)+'" aria-label="Concept '+(j+1)+' name"></th>'; });
+          h+='</tr></thead><tbody>';
+          R.forEach(function(r,i){ h+='<tr><td><input class="dm__rn" value="'+esc(r[0])+'" aria-label="Criterion '+(i+1)+'"></td><td><input type="number" min="1" max="5" class="dm__w" data-i="'+i+'" value="'+r[1]+'" aria-label="Weight for criterion '+(i+1)+'"></td>';
+            for(var j=0;j<C.length;j++) h+='<td><input type="number" min="1" max="5" class="dm__s" data-i="'+i+'" data-j="'+j+'" value="'+r[2][j]+'" aria-label="Score"><span class="dm__x" data-i="'+i+'" data-j="'+j+'"></span></td>';
+            h+='</tr>'; });
+          h+='</tbody><tfoot><tr><td colspan="2"><strong>Weighted total</strong></td>';
+          C.forEach(function(c,j){ h+='<td class="dm__tot" data-j="'+j+'"></td>'; });
+          h+='</tr></tfoot></table></div><p class="dm__msg" aria-live="polite"></p>';
+          root.innerHTML=h;
+          function n(el){ var v=Math.round(+el.value); if(isNaN(v)) v=1; return Math.max(1,Math.min(5,v)); }
+          function calc(){
+            var tot=C.map(function(){return 0;});
+            root.querySelectorAll('.dm__s').forEach(function(el){ var i=+el.dataset.i, j=+el.dataset.j, w=n(root.querySelector('.dm__w[data-i="'+i+'"]')), s=n(el), p=w*s; tot[j]+=p; root.querySelector('.dm__x[data-i="'+i+'"][data-j="'+j+'"]').textContent='×'+w+' = '+p; });
+            var best=Math.max.apply(null,tot), winners=[];
+            root.querySelectorAll('.dm__tot').forEach(function(td){ var j=+td.dataset.j; td.textContent=tot[j]; td.classList.toggle('win',tot[j]===best); if(tot[j]===best) winners.push(root.querySelector('.dm__cn[data-j="'+j+'"]').value); });
+            root.querySelector('.dm__msg').innerHTML=winners.length>1?'<strong>Tie</strong> between '+winners.map(esc).join(' and ')+' — add a criterion or look harder at the weights.':'<strong>'+esc(winners[0])+'</strong> scores highest ('+best+'). Change a weight and see if the winner changes — that shows you which criteria really decide it.';
+          }
+          root.addEventListener('input',calc); calc();
+        });
+      })();
+      </script>
 
     </article>
 

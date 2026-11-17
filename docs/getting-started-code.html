@@ -38,6 +38,16 @@
 
     <article class="prose wrap">
 
+      <h2>Watch first: your first program in a minute</h2>
+      <p>A one-minute video of everything on this page: the tool, the one rule, sending a program, and making your first change.</p>
+      <figure class="video">
+        <video controls preload="metadata" playsinline poster="media/gs-first-program-poster.jpg" aria-label="Narrated one-minute walkthrough of sending a first program, with captions on screen">
+          <source src="media/gs-first-program.mp4" type="video/mp4">
+          Your browser can't play this video. <a href="media/gs-first-program.mp4">Download it here</a>.
+        </video>
+        <figcaption>Narrated walkthrough (about 1 minute). Captions are built into the video.</figcaption>
+      </figure>
+
       <h2>The tool</h2>
       <p>You write code in <strong>Visual Studio Code</strong> (VS Code) with the <strong>VEX extension</strong> added on. It runs <strong>on the computer in front of you</strong>, and your finished program travels down a <strong>USB-C cable</strong> into the robot's Brain. That's the whole idea: write on the computer, send it to the robot, watch it go.</p>
       <p>Haven't installed VS Code and the VEX extension yet? Do the one-time <a href="setup-tools.html"><strong>Set Up Your Tools</strong></a> steps first, then come back here.</p>
@@ -63,6 +73,32 @@ motor leftMotor = motor(PORT1);
 }</pre>
 
       <p>Here's the only rule you need today: <strong>you write code only between the two purple lines.</strong> Everything else is already set up for you — leave it alone. (Curious what those other lines do? You'll find out in <strong>Chapter 10</strong>. For now, ignore them.) The three lines already in the region are your first program: spin the motor, wait 2 seconds, stop.</p>
+      <figure class="fig">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 250" role="img" aria-label="The starter file as three zones. The top zone, setup and devices, is gray: already set up, leave it alone. The middle zone, between the two purple WRITE YOUR CODE lines, is highlighted green: your code goes here. The bottom zone, the closing brace, is gray: leave it alone.">
+          <text x="380" y="22" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#1F3864">WHERE YOUR CODE GOES</text>
+          <rect x="60" y="36" width="420" height="70" rx="8" fill="#E3E8EF"/>
+          <text x="76" y="60" font-family="Consolas,monospace" font-size="13" fill="#5B6470">#include "vex.h"  ·  using namespace vex;</text>
+          <text x="76" y="80" font-family="Consolas,monospace" font-size="13" fill="#5B6470">motor leftMotor = motor(PORT1);</text>
+          <text x="76" y="98" font-family="Consolas,monospace" font-size="13" fill="#5B6470">int main() {  vexcodeInit();</text>
+          <line x1="60" y1="116" x2="480" y2="116" stroke="#4B4DA6" stroke-width="3"/>
+          <text x="66" y="130" font-family="Consolas,monospace" font-size="11" font-weight="bold" fill="#4B4DA6">// ===== WRITE YOUR CODE BELOW THIS LINE =====</text>
+          <rect x="60" y="136" width="420" height="58" rx="8" fill="#E2EFDA" stroke="#3F6B2A" stroke-width="2"/>
+          <text x="76" y="158" font-family="Consolas,monospace" font-size="13" fill="#1A1A1A">leftMotor.spin(forward);</text>
+          <text x="76" y="176" font-family="Consolas,monospace" font-size="13" fill="#1A1A1A">wait(2, seconds);   leftMotor.stop();</text>
+          <text x="66" y="210" font-family="Consolas,monospace" font-size="11" font-weight="bold" fill="#4B4DA6">// ===== WRITE YOUR CODE ABOVE THIS LINE =====</text>
+          <line x1="60" y1="216" x2="480" y2="216" stroke="#4B4DA6" stroke-width="3"/>
+          <rect x="60" y="222" width="420" height="22" rx="6" fill="#E3E8EF"/><text x="76" y="238" font-family="Consolas,monospace" font-size="13" fill="#5B6470">}</text>
+          <g font-family="Arial">
+            <text x="500" y="66" font-size="14" font-weight="bold" fill="#5B6470">🔒 Set up for you</text>
+            <text x="500" y="86" font-size="13" fill="#5B6470">leave it alone</text>
+            <text x="500" y="160" font-size="15" font-weight="bold" fill="#3F6B2A">✏️ YOUR CODE GOES HERE</text>
+            <text x="500" y="180" font-size="13" fill="#1A1A1A">between the two purple lines</text>
+            <text x="500" y="238" font-size="14" font-weight="bold" fill="#5B6470">🔒 leave it alone</text>
+          </g>
+        </svg>
+        <figcaption>The only rule for now: write <strong>between the two purple lines</strong>. Everything gray is already set up for you.</figcaption>
+      </figure>
+
 
       <h2>Send it to the robot</h2>
       <ol>
@@ -76,6 +112,84 @@ motor leftMotor = motor(PORT1);
       <p>Now make it yours. Find this line:</p>
 <pre class="code">wait(2, seconds);</pre>
       <p>Change the <span class="inl">2</span> to a <span class="inl">5</span>, then <strong>Download</strong> and <strong>Run</strong> again. The motor now spins for five seconds. That's it — <strong>you just changed a program.</strong> Write, download, run, change, repeat: that loop is the whole job.</p>
+
+      <h2>Practice first: a motor on this page</h2>
+      <p>No robot handy? Practice the "make one change" loop here. Change the number of seconds or the direction, press <strong>Download &amp; Run</strong>, and watch the motor — and the code — follow your edit.</p>
+      <div class="sim" id="gsBox">
+        <div class="sim__split sim__split--2">
+<pre class="code sim__code" id="gsCode" aria-label="Your code region with your current values"></pre>
+          <svg id="gsSvg" viewBox="0 0 300 220" role="img" aria-label="A Smart Motor on Port 1 turning a wheel, with a timer.">
+            <rect x="20" y="40" width="100" height="100" rx="14" fill="#1F3864"/>
+            <text x="70" y="86" text-anchor="middle" font-family="Arial" font-size="13" font-weight="bold" fill="#FFFFFF">Motor</text>
+            <text x="70" y="106" text-anchor="middle" font-family="Arial" font-size="11" fill="#9DC3E6">PORT1</text>
+            <line x1="120" y1="90" x2="160" y2="90" stroke="#5B6470" stroke-width="6"/>
+            <g id="gsWheel" transform="translate(215,90)"><circle r="50" fill="#F2F7FC" stroke="#1F3864" stroke-width="7"/><line x1="0" y1="-43" x2="0" y2="43" stroke="#1F3864" stroke-width="6"/><line x1="-43" y1="0" x2="43" y2="0" stroke="#1F3864" stroke-width="6"/><circle r="8" fill="#C55A11"/></g>
+            <rect x="30" y="170" width="240" height="18" rx="9" fill="#E3E8EF"/><rect id="gsBar" x="30" y="170" width="0" height="18" rx="9" fill="#C55A11"/>
+            <text id="gsT" x="150" y="210" text-anchor="middle" font-family="Consolas,monospace" font-size="14" font-weight="bold" fill="#1A1A1A">ready</text>
+          </svg>
+        </div>
+        <div class="sim__ctl">
+          <label>Seconds <input type="number" id="gsSec" min="1" max="10" value="2" style="width:60px"></label>
+          <label>Direction <select id="gsDir"><option value="forward">forward</option><option value="reverse">reverse</option></select></label>
+        </div>
+        <div class="sim__bar">
+          <button class="sim__btn sim__btn--go" id="gsRun" type="button">⬇ Download &amp; ▶ Run</button>
+        </div>
+        <p class="sim__say" id="gsSay" aria-live="polite">Change a value, then press <strong>Download &amp; Run</strong>.</p>
+      </div>
+      <script>
+      (function(){
+        function $(id){return document.getElementById(id);}
+        var running=false, t0=0, dur=2, dir=1, ang=0, last=null, done=false;
+        function secs(){ var v=Math.round(+$('gsSec').value); return isNaN(v)?2:Math.max(1,Math.min(10,v)); }
+        function code(line){
+          var d=$('gsDir').value, s=secs();
+          var L=['<span class="mark">// ===== WRITE YOUR CODE BELOW THIS LINE =====</span>','leftMotor.spin(<b style="color:#C55A11">'+d+'</b>);','wait(<b style="color:#C55A11">'+s+'</b>, seconds);','leftMotor.stop();','<span class="mark">// ===== WRITE YOUR CODE ABOVE THIS LINE =====</span>'];
+          $('gsCode').innerHTML=L.map(function(t,i){return '<span class="ln'+(i===line?' on':'')+'">'+t+'</span>';}).join('');
+        }
+        $('gsSec').addEventListener('input',function(){ if(!running) code(-1); });
+        $('gsDir').addEventListener('change',function(){ if(!running) code(-1); });
+        $('gsRun').addEventListener('click',function(){ if(running) return; dur=secs(); $('gsSec').value=dur; dir=$('gsDir').value==='forward'?1:-1; running=true; done=false; t0=performance.now(); $('gsSay').innerHTML='Downloaded! Running: spin <strong>'+$('gsDir').value+'</strong> for <strong>'+dur+'</strong> second'+(dur>1?'s':'')+', then stop.'; });
+        function tick(n){ var dt=last?Math.min(.05,(n-last)/1000):0; last=n;
+          if(running){ var el=(n-t0)/1000; if(el<dur){ ang+=dir*dt*250; code(el<0.25?1:2); $('gsBar').setAttribute('width',240*el/dur); $('gsT').textContent=el.toFixed(1)+' s of '+dur; } else { running=false; done=true; code(3); $('gsBar').setAttribute('width',240); $('gsT').textContent='stopped after '+dur+' s'; $('gsSay').innerHTML='Done. <strong>You just changed a program.</strong> Try another value — that\'s the write → download → run loop.'; } }
+          $('gsWheel').setAttribute('transform','translate(215,90) rotate('+ang+')'); requestAnimationFrame(tick); }
+        code(-1); requestAnimationFrame(tick);
+      })();
+      </script>
+
+      <h2>Three quick challenges</h2>
+      <div class="tut">
+        <div class="tut__step">
+          <p class="tut__goal">Goal: change how long</p>
+          <h3>Longer spin</h3>
+          <p>Make the motor spin for <strong>4 seconds</strong>. Only one number changes.</p>
+<pre class="code">leftMotor.spin(forward);
+wait(<span class="newi">4</span>, seconds);
+leftMotor.stop();</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> time it — about 4 seconds, then it stops on its own.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: change which way</p>
+          <h3>Backwards</h3>
+          <p>Make it spin the <strong>other way</strong>. Swap one word.</p>
+<pre class="code">leftMotor.spin(<span class="newi">reverse</span>);
+wait(4, seconds);
+leftMotor.stop();</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> the shaft turns the opposite direction from before.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: add lines, in order</p>
+          <h3>There and back</h3>
+          <p>Spin forward for 2 seconds, then reverse for 2 seconds, then stop. The robot runs your lines <strong>top to bottom</strong>.</p>
+<pre class="code">leftMotor.spin(forward);
+wait(2, seconds);
+<span class="new">leftMotor.spin(reverse);</span>
+<span class="new">wait(2, seconds);</span>
+leftMotor.stop();</pre>
+          <p class="tut__check"><strong>✅ Check it:</strong> forward, then backward, then stop — 4 seconds in all.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> a red underline means a typo — check for the semicolon <span class="inl">;</span> at the end of every line, and that it's inside the purple lines.</p>
+        </div>
+      </div>
 
       <div class="card card--code">
         <p class="card__title"><span class="ic">💻</span> You're a programmer now</p>

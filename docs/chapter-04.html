@@ -33,7 +33,7 @@
     </div>
 
     <div class="lede">
-      <p><strong>What you'll learn:</strong> the surprising truth about idler gears (they change nothing about the ratio), how compound gear trains multiply ratios to reach numbers a single pair can't, the five gear and sprocket types in your EXP kit and what each one is for, and how to verify a ratio by counting turns with your own hands.</p>
+      <p><strong>What you'll learn:</strong> the surprising truth about idler gears (they change nothing about the ratio), how compound gear trains multiply ratios to reach numbers a single pair can't, the five gear and sprocket types in your EXP kit and what each one is for, and how to verify a ratio by counting turns with your own hands. You'll <strong>build idler and compound trains on screen</strong>, then prove them at the bench in a <strong>step-by-step build tutorial</strong>.</p>
     </div>
 
     <article class="prose wrap">
@@ -42,6 +42,16 @@
         <p class="card__title"><span class="ic">▶</span> At the bench: Gears in Motion</p>
         <p>Building the Activity 2.2 gear mechanisms? Open <a href="gears-showcase.html"><strong>Gears in Motion</strong></a> — real VEX build photos, animations, and a video of each one working (simple gear train, idler, compound, bevel, worm &amp; wheel, rack &amp; pinion, chain drive), with the questions to answer for each.</p>
       </div>
+
+      <h2>Watch first: idlers, compounds, worms</h2>
+      <p>A short video of the big ideas: why an idler doesn't change the ratio, how compound trains multiply, the worm gear's 24:1 self-locking trick, and the rack and pinion.</p>
+      <figure class="video">
+        <video controls preload="metadata" playsinline poster="media/ch04-gear-trains-walkthrough-poster.jpg" aria-label="Narrated walkthrough of idler, compound, worm, and rack gears, with captions on screen">
+          <source src="media/ch04-gear-trains-walkthrough.mp4" type="video/mp4">
+          Your browser can't play this video. <a href="media/ch04-gear-trains-walkthrough.mp4">Download it here</a>.
+        </video>
+        <figcaption>Narrated walkthrough (about 1¼ minutes). Captions are built into the video.</figcaption>
+      </figure>
 
       <h2>One chapter back, in one breath</h2>
       <p>Chapter 3 gave you the engine of this whole unit: the <strong>gear ratio</strong> is <em>driven teeth : drive teeth</em>, a number bigger than 1 means <em>gear down</em> (slower, more torque), a number less than 1 means <em>gear up</em> (faster, less torque), and torque and speed always trade — you never get both. This chapter takes that one idea and pushes it three steps further: what happens with a gear <em>in the middle</em>, what happens when you <em>stack</em> gear trains, and which <em>type</em> of gear to reach for. If "driven over drive" doesn't feel automatic yet, flip back — everything here is built on it.</p>
@@ -118,6 +128,63 @@
         <p>Stage 1 = 48:24 = <strong>2:1</strong>. Stage 2 = 60:24 = <strong>2.5:1</strong>. Total = 2 × 2.5 = <strong>5:1</strong> — the motor turns 5 times for one slow, powerful turn of the arm. Notice the two stages <em>don't have to match</em>: you multiply whatever each stage is. <em>That's</em> how a small motor lifts a heavy load — and every gear here is one you can pull from your own EXP kit.</p>
       </div>
 
+      <h2>Try it: idler vs. compound</h2>
+      <p>Build a gear train and watch the numbers. In <strong>Idler</strong> mode, change the middle gear's size — does the output speed change? In <strong>Compound</strong> mode, the middle two gears share one shaft, so the stages <strong>multiply</strong>. Follow the arrows to see which way each gear spins.</p>
+      <div class="sim" id="c4Box">
+        <svg id="c4Svg" viewBox="0 0 720 260" role="img" aria-label="A row of meshing gears from the motor's drive gear to the output gear, each with an arrow showing its spin direction."></svg>
+        <div class="sim__ctl">
+          <label>Mode <select id="c4M"><option value="idler">Idler (3 gears in a line)</option><option value="comp">Compound (2 stages, shared shaft)</option></select></label>
+        </div>
+        <div class="sim__ctl" id="c4IdCtl">
+          <label>Drive <select id="c4D"><option selected>24</option><option>36</option><option>48</option><option>60</option></select></label>
+          <label>Idler <select id="c4I"><option>24</option><option selected>36</option><option>48</option><option>60</option></select></label>
+          <label>Driven <select id="c4N"><option>24</option><option>36</option><option>48</option><option selected>60</option></select></label>
+        </div>
+        <div class="sim__ctl" id="c4CoCtl" style="display:none">
+          <label>Stage 1: <select id="c4A1"><option selected>24</option><option>36</option><option>48</option><option>60</option></select> → <select id="c4B1"><option>24</option><option>36</option><option selected>48</option><option>60</option></select></label>
+          <label>Stage 2: <select id="c4A2"><option selected>24</option><option>36</option><option>48</option><option>60</option></select> → <select id="c4B2"><option>24</option><option>36</option><option>48</option><option selected>60</option></select></label>
+        </div>
+        <p class="sim__say" id="c4Say" aria-live="polite"></p>
+      </div>
+      <script>
+      (function(){
+        function $(id){return document.getElementById(id);}
+        var K=1.05, ang=0, last=null;
+        function gear(cx,cy,t,a,col,op){ var r=t*K, C=2*Math.PI*r, d=(C/(2*t)).toFixed(2);
+          return '<g transform="translate('+cx+','+cy+') rotate('+a+')" opacity="'+(op||1)+'"><circle r="'+(r-3)+'" fill="'+col+'" fill-opacity=".16" stroke="'+col+'" stroke-width="2.5"/><circle r="'+r+'" fill="none" stroke="'+col+'" stroke-width="7" stroke-dasharray="'+d+' '+d+'"/><line x1="0" y1="0" x2="'+(r-6)+'" y2="0" stroke="'+col+'" stroke-width="3"/><circle r="4" fill="'+col+'"/></g>'; }
+        function arrow(cx,cy,r,dir,col){ var y=cy-r-14; return '<path d="M'+(cx-16)+','+y+' A20,20 0 0 '+(dir>0?1:0)+' '+(cx+16)+','+y+'" fill="none" stroke="'+col+'" stroke-width="3"/><polygon points="'+(dir>0?(cx+16)+','+y+' '+(cx+8)+','+(y-8)+' '+(cx+6)+','+(y+4):(cx-16)+','+y+' '+(cx-8)+','+(y-8)+' '+(cx-6)+','+(y+4))+'" fill="'+col+'"/>'; }
+        function v(id){ return +$(id).value; }
+        function f(x){ return (Math.round(x*100)/100).toString(); }
+        function render(){
+          var comp=$('c4M').value==='comp'; $('c4IdCtl').style.display=comp?'none':''; $('c4CoCtl').style.display=comp?'':'none';
+          var s='', cy=150, msg='';
+          if(!comp){
+            var D=v('c4D'),I=v('c4I'),N=v('c4N'), x1=40+D*K, x2=x1+(D+I)*K, x3=x2+(I+N)*K;
+            var a1=ang, a2=-ang*D/I+180/I, a3=ang*D/N;
+            s+=gear(x1,cy,D,a1,'#C55A11')+gear(x2,cy,I,a2,'#5B6470')+gear(x3,cy,N,a3,'#1F3864');
+            s+=arrow(x1,cy,D*K,1,'#C55A11')+arrow(x2,cy,I*K,-1,'#5B6470')+arrow(x3,cy,N*K,1,'#1F3864');
+            s+='<text x="'+x1+'" y="250" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#C55A11">drive '+D+'T</text><text x="'+x2+'" y="250" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#5B6470">idler '+I+'T</text><text x="'+x3+'" y="250" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#1F3864">driven '+N+'T</text>';
+            var r=N/D; s+=panel(['('+I+'/'+D+') × ('+N+'/'+I+')','= '+N+'/'+D+' = '+f(r)+':1',Math.round(200/r)+' RPM out','direction: SAME']);
+            msg='<strong>The idler cancels.</strong> Change the idler to any size — the ratio stays '+N+':'+D+', because only the first and last gears count. What the idler <em>does</em> change: three gears in a line, so the output turns the <strong>same</strong> way as the input.';
+          } else {
+            var A1=v('c4A1'),B1=v('c4B1'),A2=v('c4A2'),B2=v('c4B2'), x1c=40+A1*K, x2c=x1c+(A1+B1)*K, x3c=x2c+(A2+B2)*K;
+            var b1=-ang*A1/B1, b3=-b1*A2/B2;
+            s+=gear(x1c,cy,A1,ang,'#C55A11')+gear(x2c,cy,B1,b1,'#5B6470',.55)+gear(x2c,cy,A2,b1,'#2E75B6')+gear(x3c,cy,B2,b3,'#1F3864');
+            s+='<circle cx="'+x2c+'" cy="'+cy+'" r="7" fill="#C55A11" stroke="#FFFFFF" stroke-width="2"/>';
+            s+=arrow(x1c,cy,A1*K,1,'#C55A11')+arrow(x2c,cy,B1*K,-1,'#5B6470')+arrow(x3c,cy,B2*K,1,'#1F3864');
+            s+='<text x="'+x1c+'" y="250" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#C55A11">'+A1+'T</text><text x="'+x2c+'" y="250" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#2E75B6">'+B1+'T + '+A2+'T (shared shaft)</text><text x="'+x3c+'" y="250" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#1F3864">'+B2+'T</text>';
+            var r1=B1/A1, r2=B2/A2, r=r1*r2; s+=panel([f(r1)+' × '+f(r2),'= '+f(r)+':1',Math.round(200/r*10)/10+' RPM out','≈'+f(r)+'× torque']);
+            msg='<strong>Compound:</strong> the middle gears are locked on one shaft (orange dot), so they don\'t cancel — the stages <strong>multiply</strong>: '+f(r1)+' × '+f(r2)+' = '+f(r)+':1. Try 24→60 twice for 6.25:1 — more than any single pair in your kit.';
+          }
+          $('c4Svg').innerHTML=s; $('c4Say').innerHTML=msg;
+        }
+        function panel(L){ var y=60, s='<g font-family="Consolas,monospace" font-weight="bold"><rect x="560" y="34" width="156" height="128" rx="10" fill="#F2F7FC" stroke="#CFE0F2"/>'; L.forEach(function(t,i){ s+='<text x="638" y="'+(y+i*28)+'" text-anchor="middle" font-size="'+(i===1?16:13)+'" fill="'+(i===1?'#C55A11':'#1F4D78')+'">'+t+'</text>'; }); return s+'</g>'; }
+        Array.prototype.forEach.call(document.querySelectorAll('#c4Box select'),function(e){ e.addEventListener('change',render); });
+        function tick(n){ var dt=last?Math.min(.05,(n-last)/1000):0; last=n; ang+=dt*120; render(); requestAnimationFrame(tick); }
+        requestAnimationFrame(tick);
+      })();
+      </script>
+
       <h2>Not all gears are spur gears: the five types in your kit</h2>
       <p>Until now "gear" has meant the flat, round <strong>spur gear</strong>. But your EXP kit holds several gear and sprocket types, each solving a problem spur gears can't. Know what each is <em>for</em>:</p>
 
@@ -184,6 +251,55 @@
         <p><strong>2 · It has to fit the cubby.</strong> Your whole build — robot plus its parts — must fit inside one storage cubby: an <strong>IKEA Kallax</strong> shelf compartment, a <strong>33 × 33 cm (13 × 13 in)</strong> square opening about <strong>38 cm (15 in)</strong> deep. The 33 × 33 cm face is the binding limit — the build has to pass through it. Design compact, and at the end of each project you'll break the build down to store it. This is a normal engineering constraint — real robots have to fit a chassis, a shipping box, or a competition's size box.</p>
       </div>
 
+      <h2>Build tutorial: prove it with real gears</h2>
+      <p>Every claim in this chapter can be checked at your bench in a few minutes. Count turns with a piece of tape on one tooth — your hands are the measuring tool.</p>
+      <div class="tut">
+        <div class="tut__step">
+          <p class="tut__goal">Goal: see the idler cancel</p>
+          <h3>Build drive → idler → driven</h3>
+          <p>Mount three gears in a line: <strong>24T → 36T → 60T</strong>. Tape one tooth on the 24T and one on the 60T. Turn the 24T and count how many turns it takes for the 60T to go around once.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> about <strong>2½ turns</strong> — exactly the same as 24T → 60T with no idler.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: prove size doesn't matter</p>
+          <h3>Swap the idler</h3>
+          <p>Replace the 36T idler with a 48T (move the shafts so they mesh). Count again.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> still about 2½ turns. The idler's teeth cancel out.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: control direction</p>
+          <h3>Count gears, predict direction</h3>
+          <p>Mark the drive and output with arrows. With 3 gears in a line, which way does the output spin compared with the input? Now remove the idler (2 gears).</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> 3 gears (odd) → <strong>same</strong> direction. 2 gears (even) → <strong>opposite</strong>.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: multiply the ratio</p>
+          <h3>Build a 2-stage compound train</h3>
+          <p>Stage 1: <strong>24T → 48T</strong>. On the 48T's shaft, add a <strong>24T</strong>, locked to the same shaft. Stage 2: that 24T → <strong>60T</strong> on the output.</p>
+          <svg viewBox="0 0 560 120" role="img" aria-label="Compound train layout: a 24-tooth drive gear meshes a 48-tooth gear. A 24-tooth gear shares the 48-tooth gear's shaft and meshes a final 60-tooth gear. Total ratio 2 times 2.5 equals 5 to 1.">
+            <circle cx="60" cy="60" r="25" fill="#FBE5D6" stroke="#C55A11" stroke-width="3"/><text x="60" y="65" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#C55A11">24T</text>
+            <circle cx="135" cy="60" r="50" fill="#E3E8EF" stroke="#5B6470" stroke-width="3"/><circle cx="135" cy="60" r="25" fill="#DEEAF6" stroke="#2E75B6" stroke-width="3"/><text x="135" y="65" text-anchor="middle" font-family="Arial" font-size="11" font-weight="bold" fill="#1F4D78">48T+24T</text>
+            <circle cx="222" cy="60" r="62" fill="none" stroke="#1F3864" stroke-width="3"/><text x="222" y="65" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#1F3864">60T</text>
+            <text x="300" y="40" font-family="Consolas,monospace" font-size="15" font-weight="bold" fill="#1F4D78">stage 1: 48:24 = 2</text>
+            <text x="300" y="64" font-family="Consolas,monospace" font-size="15" font-weight="bold" fill="#1F4D78">stage 2: 60:24 = 2.5</text>
+            <text x="300" y="94" font-family="Consolas,monospace" font-size="17" font-weight="bold" fill="#C55A11">total: 2 × 2.5 = 5:1</text>
+          </svg>
+          <p class="tut__check"><strong>✅ Check it:</strong> count <strong>5 turns</strong> of the 24T drive for one turn of the final 60T.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> getting 2.5 instead? The middle 24T isn't locked to the 48T's shaft — it's spinning freely, acting like an idler.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: feel a self-locking drive</p>
+          <h3>Worm gear test</h3>
+          <p>Mesh a worm with the worm wheel. Turn the worm: count turns for one wheel turn. Then try to turn the <em>wheel</em> by hand.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> about <strong>24 worm turns</strong> per wheel turn — and the wheel can't drive the worm backward. That's self-locking.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: one page of mechanisms</p>
+          <h3>Fill in your mechanism chart</h3>
+          <p>For each mechanism you built, write its row: input motion, output motion, changes speed? changes direction? changes type? Use the model row above as a guide.</p>
+        </div>
+      </div>
+
       <h2>What you'll need</h2>
       <ul>
         <li>VEX EXP gears (24T, 36T, 48T, 60T), at least one worm and a worm wheel, bevel gears, a rack and pinion, sprockets and chain</li>
@@ -218,6 +334,7 @@ leftMotor.spinFor(forward, 3, seconds);</pre>
         <li>Build a compound train from your kit's gears that reaches a reduction of at least 6:1. List the gears in each stage and show the multiplication.</li>
         <li>Your robot's arm needs to <em>hold</em> its position when the motor is off, or it sags. Which gear type solves this, and why?</li>
         <li>You want a claw that opens and closes in a straight line. Which mechanism converts the motor's rotary motion into that linear motion?</li>
+        <li>In the idler-vs-compound animation, what happened to the output speed when you changed the idler's size? What changed when you switched to compound mode, and why?</li>
       </ol>
 
       <h2>Key terms</h2>
@@ -225,7 +342,7 @@ leftMotor.spinFor(forward, 3, seconds);</pre>
         <span class="term">gear ratio</span><span class="term">gear up</span><span class="term">gear down</span><span class="term">idler gear</span><span class="term">compound gear train</span><span class="term">stage</span><span class="term">shared shaft</span><span class="term">spur gear</span><span class="term">sprocket &amp; chain</span><span class="term">bevel gear</span><span class="term">worm &amp; wheel</span><span class="term">self-locking</span><span class="term">back-drive</span><span class="term">rack &amp; pinion</span><span class="term">pinion</span><span class="term">linear motion</span><span class="term">efficiency</span>
       </div>
 
-      <p class="sources"><strong>Sources (VEX Library, kb.vex.com / pd.vex.com):</strong> Using Gear Ratios with the V5 Motor; Overview of EXP Chains and Sprockets; Engineering 101: Gears and Mechanical Advantage (video). Gear-type background adapted from G. Gillard, <em>Gears and Sprockets for Basic Robotics</em> (2016). Kit gear counts per the PLTW Gateway VEX EXP custom kit (270-8867) bill of materials.</p>
+      <p class="sources"><strong>Sources (VEX Library, kb.vex.com / pd.vex.com):</strong> Using Gear Ratios with the V5 Motor; Overview of EXP Chains and Sprockets; Engineering 101: Gears and Mechanical Advantage (video). Gear-type background adapted from G. Gillard, <em>Gears and Sprockets for Basic Robotics</em> (2016). Kit gear counts per the PLTW Gateway VEX EXP custom kit (270-8867) bill of materials. The idler-vs-compound animation, narrated walkthrough video, and step-by-step build tutorial are added scaffolding for this edition.</p>
 
     </article>
 

@@ -33,7 +33,7 @@
     </div>
 
     <div class="lede">
-      <p><strong>What you'll learn:</strong> what a mechanism is and the four types of motion it can produce, how to read any gear train in three steps, why a gear ratio always trades speed for torque (and vice versa), and what those trades feel like on your own EXP robot — whose motor speed is fixed, so gears are the <em>only</em> dial you have.</p>
+      <p><strong>What you'll learn:</strong> what a mechanism is and the four types of motion it can produce, how to read any gear train in three steps, why a gear ratio always trades speed for torque (and vice versa), and what those trades feel like on your own EXP robot — whose motor speed is fixed, so gears are the <em>only</em> dial you have. You'll <strong>try every gear pairing in an on-screen lab</strong>, then measure the real thing in a <strong>step-by-step build tutorial</strong>.</p>
     </div>
 
     <article class="prose wrap">
@@ -42,6 +42,16 @@
         <p class="card__title"><span class="ic">▶</span> At the bench: Mechanisms in Motion</p>
         <p>Building the Activity 2.1 mechanisms? Open <a href="mechanisms-showcase.html"><strong>Mechanisms in Motion</strong></a> — real VEX build photos, animations, and a video of each one working (leadscrew, universal joint, belt drive, crank &amp; slider, cam &amp; follower), with the questions to answer for each.</p>
       </div>
+
+      <h2>Watch first: slow down to power up</h2>
+      <p>A short video of the big ideas: the four types of motion, meshed gears, how to read a gear ratio, and the torque-for-speed trade on your EXP motor.</p>
+      <figure class="video">
+        <video controls preload="metadata" playsinline poster="media/ch03-gears-walkthrough-poster.jpg" aria-label="Narrated walkthrough of motion types and gear ratios, with captions on screen">
+          <source src="media/ch03-gears-walkthrough.mp4" type="video/mp4">
+          Your browser can't play this video. <a href="media/ch03-gears-walkthrough.mp4">Download it here</a>.
+        </video>
+        <figcaption>Narrated walkthrough (about 1½ minutes). Captions are built into the video.</figcaption>
+      </figure>
 
       <h2>Machines change motion</h2>
       <p>A <strong>mechanism</strong> is a device that transmits movement so that the output movement is <em>different</em> from the input movement. It can change the <strong>direction</strong> of motion, its <strong>speed</strong>, its <strong>force or torque</strong>, or even its <strong>type</strong>. Look at a drill press: the spinning bit is <em>rotary</em> motion, but the handle that feeds the bit down through the wood produces <em>linear</em> motion — two kinds of motion in one machine, each created by a mechanism. And the drill's speed matters: spin the bit too fast and it burns the wood and dulls the bit, so the drill press uses pulleys or gears to set the right speed. Every machine you'll observe this week — and every robot you'll build this semester — is a chain of mechanisms doing exactly these jobs.</p>
@@ -131,6 +141,70 @@
         </ul>
       </div>
 
+      <h2>Try it: the gear-ratio lab</h2>
+      <p>Pick a <strong>drive</strong> gear (on the motor) and a <strong>driven</strong> gear (on the arm). The motor always spins at 200&nbsp;RPM. Watch how fast the driven gear turns, then raise the arm's <strong>load</strong> and see whether the gearing gives it enough torque to lift — or whether the motor <strong>stalls</strong>.</p>
+      <div class="sim" id="c3Box">
+        <svg id="c3Svg" viewBox="0 0 720 300" role="img" aria-label="Two meshing gears. The left drive gear is on the motor; the right driven gear turns an arm. Readouts show the gear ratio, output speed, and output torque compared with the arm's load.">
+          <rect x="20" y="120" width="70" height="60" rx="8" fill="#1F3864"/><text x="55" y="155" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#FFFFFF">MOTOR</text>
+          <g id="c3G1"></g><g id="c3G2"></g>
+          <g id="c3ArmG"><line x1="0" y1="0" x2="120" y2="0" stroke="#2E75B6" stroke-width="12" stroke-linecap="round"/><rect x="110" y="-14" width="28" height="28" rx="4" fill="#F4B183" stroke="#C55A11" stroke-width="2"/></g>
+          <text id="c3Lab1" x="0" y="285" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#C55A11"></text>
+          <text id="c3Lab2" x="0" y="285" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#1F3864"></text>
+          <g font-family="Arial">
+            <text x="540" y="40" font-size="12" font-weight="bold" fill="#1F3864">RATIO (driven:drive)</text><text id="c3R" x="540" y="66" font-family="Consolas,monospace" font-size="20" font-weight="bold" fill="#1A1A1A"></text>
+            <text x="540" y="100" font-size="12" font-weight="bold" fill="#1F3864">OUTPUT SPEED</text><text id="c3S" x="540" y="126" font-family="Consolas,monospace" font-size="20" font-weight="bold" fill="#1A1A1A"></text>
+            <text x="540" y="160" font-size="12" font-weight="bold" fill="#1F3864">TORQUE vs LOAD</text>
+            <rect x="540" y="170" width="140" height="14" rx="7" fill="#E3E8EF"/><rect id="c3TB" x="540" y="170" width="0" height="14" rx="7" fill="#3F6B2A"/>
+            <line id="c3LL" x1="0" y1="164" x2="0" y2="190" stroke="#B42318" stroke-width="3"/>
+            <text id="c3T" x="540" y="208" font-family="Consolas,monospace" font-size="13" fill="#1A1A1A"></text>
+            <text id="c3V" x="540" y="240" font-size="16" font-weight="bold" fill="#3F6B2A"></text>
+          </g>
+        </svg>
+        <div class="sim__ctl">
+          <label>Drive gear <select id="c3D"><option>24</option><option>36</option><option selected>48</option><option>60</option></select></label>
+          <label>Driven gear <select id="c3N"><option>24</option><option>36</option><option selected>48</option><option>60</option></select></label>
+          <label>Arm load <input type="range" id="c3L" min="0" max="140" value="40"> <span class="inl" id="c3LV"></span></label>
+        </div>
+        <p class="sim__say" id="c3Say" aria-live="polite"></p>
+      </div>
+      <script>
+      (function(){
+        function $(id){return document.getElementById(id);}
+        var K=1.35, a1=0, a2=0, last=null, armA=0;
+        function gear(t,col){ var r=t*K, C=2*Math.PI*r, d=(C/(2*t)).toFixed(2);
+          return '<circle r="'+(r-4)+'" fill="'+col+'" fill-opacity=".18" stroke="'+col+'" stroke-width="3"/><circle r="'+r+'" fill="none" stroke="'+col+'" stroke-width="10" stroke-dasharray="'+d+' '+d+'"/><line x1="0" y1="0" x2="'+(r-8)+'" y2="0" stroke="'+col+'" stroke-width="4"/><circle r="6" fill="'+col+'"/>'; }
+        function st(){ var d=+$('c3D').value, n=+$('c3N').value, L=+$('c3L').value/100; var ratio=n/d, rpm=200/ratio, tq=0.5*ratio*0.95; return {d:d,n:n,ratio:ratio,rpm:rpm,tq:tq,L:L,stall:tq<L}; }
+        function layout(){ var s=st(); var r1=s.d*K, r2=s.n*K, x1=112+r1, x2=x1+r1+r2; return {s:s,x1:x1,x2:x2,y:150}; }
+        function render(){ var o=layout(), s=o.s;
+          $('c3G1').innerHTML=gear(s.d,'#C55A11'); $('c3G2').innerHTML=gear(s.n,'#1F3864');
+          $('c3Lab1').setAttribute('x',o.x1); $('c3Lab1').textContent='drive '+s.d+'T';
+          $('c3Lab2').setAttribute('x',o.x2); $('c3Lab2').textContent='driven '+s.n+'T';
+          var g=function(a,b){ var x=a/b; return Number.isInteger(x)?x:+x.toFixed(2); };
+          $('c3R').textContent=s.n+':'+s.d+' = '+(s.ratio>=1?g(s.n,s.d)+':1':'1:'+g(s.d,s.n));
+          $('c3S').textContent=s.stall?'0 RPM · stall':Math.round(s.rpm)+' RPM';
+          var scale=140/1.6; $('c3TB').setAttribute('width',Math.min(140,s.tq*scale)); $('c3TB').setAttribute('fill',s.stall?'#B42318':'#3F6B2A');
+          var lx=540+Math.min(140,s.L*scale); $('c3LL').setAttribute('x1',lx); $('c3LL').setAttribute('x2',lx);
+          $('c3T').textContent=s.tq.toFixed(2)+' vs '+s.L.toFixed(2)+' N·m';
+          $('c3LV').textContent=s.L.toFixed(2)+' N·m';
+          $('c3V').textContent=s.stall?'✗ STALL':'✓ lifts it'; $('c3V').setAttribute('fill',s.stall?'#B42318':'#3F6B2A');
+          var msg=s.ratio>1?'<strong>Geared down</strong> ('+(s.ratio).toFixed(2).replace(/\.00$/,'')+':1): the driven gear turns slower, but with more torque.':s.ratio<1?'<strong>Geared up</strong>: the driven gear spins faster — but with less torque.':'<strong>1:1</strong>: same speed and torque — only the direction flips.';
+          if(s.stall) msg+=' The motor <strong>stalls</strong>: the load needs more torque than this gearing gives. Try a smaller drive gear or a bigger driven gear — slow down to power up.';
+          $('c3Say').innerHTML=msg;
+        }
+        function tick(n){ var dt=last?Math.min(.05,(n-last)/1000):0; last=n; var o=layout(), s=o.s;
+          var w1=s.stall?0:200/60*360*0.15; a1+=w1*dt; a2-=w1*(s.d/s.n)*dt;
+          var shake=s.stall?Math.sin(n/30)*1.5:0;
+          $('c3G1').setAttribute('transform','translate('+o.x1+','+o.y+') rotate('+(a1+shake)+')');
+          $('c3G2').setAttribute('transform','translate('+o.x2+','+o.y+') rotate('+(a2+(180/s.n))+')');
+          if(!s.stall){ armA=(-a2)%360; }
+          var lift=-Math.abs(Math.sin(armA*Math.PI/180))*70;
+          $('c3ArmG').setAttribute('transform','translate('+o.x2+','+o.y+') rotate('+(s.stall?10:lift)+')');
+          requestAnimationFrame(tick); }
+        ['c3D','c3N','c3L'].forEach(function(id){ $(id).addEventListener('input',render); $(id).addEventListener('change',render); });
+        render(); requestAnimationFrame(tick);
+      })();
+      </script>
+
       <h2>How this shows up on <em>your</em> EXP robot</h2>
       <p>Now make it concrete, because on EXP this isn't optional knowledge. Your kit's <strong>Smart Motor (5.5W)</strong> spins at a fixed <strong>200 RPM</strong> (revolutions per minute) and produces up to <strong>0.5 N·m of torque</strong> — and unlike the V5 competition motors, it has <strong>no swappable gear cartridges</strong>. The motor's output is the motor's output. <strong>The gears you bolt on are the only dial you have</strong>, and your kit gives you four High Strength spur gears to turn it with: <strong>24, 36, 48, and 60 teeth</strong>.</p>
       <p>What the kit's pairings actually do to that 200 RPM:</p>
@@ -191,6 +265,56 @@ leftMotor.stop();</pre>
       </ol>
       <p>Scissors: reciprocating squeeze in → two levers pivot → wedges shear paper. Eggbeater: rotary crank in → gear train speeds it up (a big drive gear turning small driven gears — trading torque for speed, since whipping eggs needs speed, not muscle) → fast rotary out. Can opener, pencil sharpener, bicycle: every one tells the same kind of story, and this week you'll write those stories in your notebook.</p>
 
+      <h2>Build tutorial: measure a gear ratio yourself</h2>
+      <p>Don't just calculate the ratio — <strong>prove it</strong> with real gears. You'll build one gear pair, count turns, feel the trade, then swap gears and fill in your table.</p>
+      <div class="tut">
+        <div class="tut__step">
+          <p class="tut__goal">Goal: two shafts that spin freely</p>
+          <h3>Mount the gears</h3>
+          <p>On a flat bar or C-channel, put a <strong>bearing flat</strong> behind each shaft hole. Slide a shaft through each, add the gears (24T and 60T), and lock each shaft with a <strong>collar</strong> so it can't slide. Space the holes so the teeth mesh snugly — not jammed, not loose.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> turn one gear by hand. Both spin smoothly, in <strong>opposite directions</strong>, with no skipping or grinding.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> grinding or stiff? The shafts are too close or a collar is pinching the bearing — loosen it a hair. Teeth skip? The gears are too far apart.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: verify the ratio with your eyes</p>
+          <h3>Mark and count turns</h3>
+          <p>Put a small piece of tape on one tooth of each gear. Slowly turn the <strong>24T (drive)</strong> and count how many full turns it takes to bring the <strong>60T (driven)</strong> once all the way around.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> you should count about <strong>2½ turns</strong> — matching 60 : 24 = 2.5 : 1.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: feel torque vs. speed</p>
+          <h3>Feel the trade</h3>
+          <p>Have your partner <em>gently</em> pinch the 60T shaft while you turn the 24T — it's easy for you to win. Now swap: turn the 60T while they pinch the 24T. The small gear spins fast but gives up easily.</p>
+          <p class="tut__check"><strong>✅ Record it:</strong> one sentence each — "Driving the small gear felt…" and "Driving the big gear felt…".</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: let the motor drive it</p>
+          <h3>Motor on the drive gear</h3>
+          <p>Put the 24T on a Smart Motor's shaft and run the "Code it" program below. Time 3 seconds and count driven-gear turns.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> at 100% the motor turns 200 RPM, so in 3 seconds the 24T makes 10 turns and the 60T about <strong>4</strong> (10 ÷ 2.5).</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: every pairing, measured</p>
+          <h3>Swap gears and fill the table</h3>
+          <table class="dtable">
+            <thead><tr><th>Drive</th><th>Driven</th><th>Ratio</th><th>Predicted turns in 3 s</th><th>Counted</th><th>Faster or stronger?</th></tr></thead>
+            <tbody>
+              <tr><td>24T</td><td>60T</td><td>2.5:1</td><td>4</td><td>__</td><td>__</td></tr>
+              <tr><td>24T</td><td>48T</td><td>2:1</td><td>5</td><td>__</td><td>__</td></tr>
+              <tr><td>48T</td><td>48T</td><td>1:1</td><td>10</td><td>__</td><td>__</td></tr>
+              <tr><td>60T</td><td>24T</td><td>1:2.5</td><td>25</td><td>__</td><td>__</td></tr>
+            </tbody>
+          </table>
+          <p class="tut__fix"><strong>🔧 Can't count 25 turns?</strong> That's the point — fast gearing is hard to control. Time 1 second instead.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: use the trade on purpose</p>
+          <h3>Lift a load</h3>
+          <p>Bolt a short arm to the driven shaft and hang a light load (a few nuts in a cup). Try 1:1, then 2.5:1. Which one lifts it without the motor straining?</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> the 2.5:1 gearing lifts the load slower but without the whine of a stall. Slow down to power up.</p>
+        </div>
+      </div>
+
       <h2>What you'll need</h2>
       <ul>
         <li>VEX EXP parts: 24T/36T/48T/60T gears, shafts, bearing flats, shaft collars, C-channels or flat bars to mount on</li>
@@ -215,6 +339,7 @@ leftMotor.stop();</pre>
         <li>Fill in the blanks: As the torque of a gear train increases, the speed _______. To increase torque, you should _______ the size of the drive gear or _______ the size of the driven gear.</li>
         <li>Pedaling a bike up a steep hill, you shift to a low gear. Which way are you trading speed and torque, and why does it help?</li>
         <li>Your robot's arm motor whines and quits when lifting a full water bottle. Using this chapter — and without a bigger motor — what's the fix, and what will you give up?</li>
+        <li>In the gear-ratio lab, which pairing let the arm lift the heaviest load? Which pairing spun fastest? Explain why it can't be the same pairing.</li>
       </ol>
 
       <h2>Key terms</h2>
@@ -222,7 +347,7 @@ leftMotor.stop();</pre>
         <span class="term">mechanism</span><span class="term">rotary</span><span class="term">linear</span><span class="term">reciprocating</span><span class="term">oscillating</span><span class="term">simple machines</span><span class="term">rack and pinion</span><span class="term">cam</span><span class="term">gear train</span><span class="term">meshed</span><span class="term">drive gear</span><span class="term">driven gear</span><span class="term">gear ratio</span><span class="term">force</span><span class="term">torque</span><span class="term">RPM</span><span class="term">gear reduction</span><span class="term">stall</span><span class="term">mechanical advantage</span>
       </div>
 
-      <p class="sources"><strong>Sources (VEX Library, kb.vex.com / pd.vex.com):</strong> Using Gear Ratios with the V5 Motor; Understanding V5 Smart Motor (5.5W) Performance; Engineering 101: Gears and Mechanical Advantage (video); Building with VEX EXP. Kit gear and motor counts per the PLTW Gateway VEX EXP custom kit (270-8867) bill of materials.</p>
+      <p class="sources"><strong>Sources (VEX Library, kb.vex.com / pd.vex.com):</strong> Using Gear Ratios with the V5 Motor; Understanding V5 Smart Motor (5.5W) Performance; Engineering 101: Gears and Mechanical Advantage (video); Building with VEX EXP. Kit gear and motor counts per the PLTW Gateway VEX EXP custom kit (270-8867) bill of materials. The gear-ratio lab animation, narrated walkthrough video, and step-by-step build tutorial are added scaffolding for this edition; the lab's torque values are ideal (with a small friction allowance), using the Smart Motor's 200 RPM and 0.5 N·m.</p>
 
     </article>
 
