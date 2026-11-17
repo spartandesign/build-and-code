@@ -356,3 +356,8 @@ a.ext::after{content:"\2197";font-size:.78em;margin-left:2px;color:var(--blue);v
 .tut__fix strong{color:var(--amber-ink);}
 .code .new{background:#E6F0FA;display:inline-block;min-width:100%;margin:0 -16px;padding:0 16px;box-sizing:content-box;box-shadow:inset 3px 0 0 var(--blue);}
 @media (max-width:640px){ .tut__step{padding:52px 14px 12px;} .tut__step::before{left:14px;top:12px;} }
+
+/* embedded video (added Ch. 12) */
+.video{margin:22px 0 28px;}
+.video video{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--rule);background:#000;}
+.video figcaption{font-size:13.5px;color:var(--gray);text-align:center;margin:8px 0 0;}
