@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Appendix C · CAD a Custom Robot Part — Build &amp; Code</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-chapter="C">
+
+<header class="topbar">
+  <div class="topbar__in">
+    <span class="topbar__mark">A&amp;R · VEX EXP</span>
+    <span class="topbar__title">Build &amp; Code</span>
+    <span class="topbar__school">Mary R. Stauffer MS · Downey USD</span>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle contents">Contents</button>
+  </div>
+</header>
+
+<div class="book">
+  <nav class="toc" id="toc" aria-label="Table of contents"></nav>
+
+  <main class="main">
+
+    <div class="chead">
+      <div class="chead__in">
+        <div class="chead__num">C</div>
+        <div>
+          <p class="chead__eyebrow">Reference · <strong>When the kit doesn't have the part</strong></p>
+          <h1 class="chead__title">CAD a Custom Robot Part</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="lede">
+      <p><strong>What this is:</strong> a short, hands-on bridge from building with the kit to <strong>designing your own parts</strong> in Onshape. You'll measure the kit, design a part that bolts onto it (a sumo wedge, a sensor mount, a bumper), print it, and test it. It fits best during <a href="chapter-14.html">Chapter 14: Build Your Own</a>, and it's exactly what the competition team does. See <a href="appendix-b-exp-to-v5.html">Appendix B</a>.</p>
+    </div>
+
+    <article class="prose wrap">
+
+      <p><strong>On this page:</strong> <a href="#rules">rules first</a> · <a href="#measure">measure the kit</a> · <a href="#design">design on the pattern</a> · <a href="#tut">step by step</a> · <a href="#test">print and test</a> · <a href="#next">going further</a>.</p>
+
+      <div class="card card--constraint">
+        <p class="card__title"><span class="ic">⏳</span> Goal, time, and limits</p>
+        <ul>
+          <li><strong>Goal:</strong> one printed part that bolts onto your robot, has holes on the kit's pattern, and does one job better than a kit part could.</li>
+          <li><strong>Time:</strong> about 3 class periods: measure and design, print (overnight or between classes), then test and improve.</li>
+          <li><strong>Limits:</strong> your teacher runs the 3D printer. You submit a file. Keep it small enough to fit in your hand, flat on one side, and printable without supports.</li>
+        </ul>
+      </div>
+
+      <h2>Watch first</h2>
+      <figure class="video">
+        <video controls preload="metadata" playsinline poster="media/appc-cad-part-poster.jpg" aria-label="Narrated walkthrough of designing a custom robot part in Onshape, with captions on screen">
+          <source src="media/appc-cad-part.mp4" type="video/mp4">
+          Your browser can't play this video. <a href="media/appc-cad-part.mp4">Download it here</a>.
+        </video>
+        <figcaption>Narrated walkthrough (about 1 minute). Captions are built into the video.</figcaption>
+      </figure>
+
+      <h2 id="rules">Rules first</h2>
+      <table class="dtable">
+        <thead><tr><th>Challenge</th><th>Printed parts?</th></tr></thead>
+        <tbody>
+          <tr><td>Chapter 14 · Sumo</td><td><strong>No.</strong> Sumo is kit only, unless your teacher says otherwise.</td></tr>
+          <tr><td>Chapter 14 · Build Your Own</td><td><strong>Yes</strong>, once your teacher approves your file.</td></tr>
+          <tr><td>The V5 competition team</td><td>Only what the <strong>current game manual</strong> allows. The rules change every season.</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="measure">Measure the kit, not a website</h2>
+      <p>Your part has to line up with the kit's holes. Don't guess the spacing. Measure it.</p>
+      <ol>
+        <li>Put your calipers across <strong>10 hole gaps</strong> on a straight piece of kit metal (center of the 1st hole to center of the 11th).</li>
+        <li><strong>Divide by 10.</strong> That's the <strong>hole spacing</strong> (also called the pitch). Measuring 10 gaps and dividing makes small errors 10 times smaller.</li>
+        <li>Measure the <strong>screw</strong> across its threads, and the <strong>square hole</strong> across its flats.</li>
+        <li>Write all three numbers in your notebook. Every number in your CAD comes from here.</li>
+      </ol>
+      <div class="card card--note">
+        <p class="card__title"><span class="ic">📏</span> What to expect</p>
+        <p>VEX V5 metal uses a <strong>0.5 in</strong> hole spacing and #8-32 screws (about 0.164 in). EXP is a close cousin, so you'll probably get something very close. Trust <em>your</em> measurement either way.</p>
+      </div>
+
+      <h2 id="design">Design on the pattern</h2>
+      <p>Two rules make a part that bolts on and stays put:</p>
+      <ul>
+        <li><strong>Every hole lands on the pattern.</strong> Each hole center is a whole number of hole spacings from the first one.</li>
+        <li><strong>Two screws or more.</strong> A part held by one screw spins around it like a hinge.</li>
+      </ul>
+      <p>Try it below. Click holes to make a plate, and watch the hole centers it gives you. (The tool uses the V5 spacing of 0.5 in. If your measurement is different, multiply the hole count by your number instead.)</p>
+      <div class="sim bracketsim"></div>
+
+      <h2 id="tut">Step by step: model your part in Onshape</h2>
+      <p>New to Onshape? Do Onshape's free <a href="https://learn.onshape.com/learn/article/unit-1-jumping-into-onshape" target="_blank" rel="noopener">Intro to CAD, Unit 1</a> first. It takes about one class period.</p>
+
+      <div class="tut">
+        <div class="tut__step">
+          <p class="tut__goal">Goal: a design statement</p>
+          <h3>Decide what the part does</h3>
+          <p>Write one sentence: <em>"This part will ___, and I'll know it works when ___."</em> Sketch it on paper with your measurements.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> your sketch shows the hole spacing, where the screws go, and how big the part is.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: a hole size that fits</p>
+          <h3>Print a test coupon first</h3>
+          <p>Printed holes come out a little small. Model a small plate with three holes: your screw size + 0.006 in, + 0.016 in, and + 0.026 in. Submit it with your name on it.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> push a real screw through each hole. Use the smallest one it goes through without forcing.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: holes on the pattern</p>
+          <h3>Sketch the part</h3>
+          <p>In a Part Studio, sketch the outline. Place hole centers with <strong>dimensions</strong> from one corner, in steps of your hole spacing. Draw holes at your tested size.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> use Measure on two hole centers. The distance is a whole number of hole spacings.</p>
+          <p class="tut__fix"><strong>🔧 If not:</strong> a hole is off the pattern? Check the dimension from the corner, not from the last hole.</p>
+        </div>
+        <div class="tut__step">
+          <p class="tut__goal">Goal: a solid part</p>
+          <h3>Extrude, then submit</h3>
+          <p>Extrude to about 0.125–0.25 in thick. Add a fillet to sharp corners. Export it (right-click the part → Export, or on iPad: select the part → ⋯ → Export) and submit it.</p>
+          <p class="tut__check"><strong>✅ Check it:</strong> one flat side to print on, no overhangs that need supports.</p>
+        </div>
+      </div>
+
+      <h2 id="test">Print, test, and improve</h2>
+      <p>When your part comes back, bolt it on and test it the way you planned in your design statement. Then improve <strong>one thing at a time</strong>: change one dimension in Onshape, re-export, and print again. Record every version in your notebook (v1, v2, …) with what changed and why. That's the same design loop you've used all year, just with parts you made.</p>
+
+      <h2 id="next">Going further</h2>
+      <ul>
+        <li><strong>Joining the robotics team?</strong> The team's <a href="https://spartandesign.github.io/robot-cad/" target="_blank" rel="noopener">Robot CAD book</a> picks up right here: the V5 parts library, gear ratios, four-bar lifts, and competition subsystems.</li>
+        <li><strong>Taking Model &amp; Make?</strong> It teaches Onshape from the ground up, with 3D printing and laser cutting. See <a href="https://spartandesign.github.io/model-and-make/" target="_blank" rel="noopener">Model &amp; Make</a>.</li>
+      </ul>
+
+      <h2>Check your understanding</h2>
+      <ol>
+        <li>Why do you measure across <strong>10</strong> hole gaps and divide, instead of measuring just one?</li>
+        <li>Your part has one screw hole. What will happen on the robot, and how do you fix it?</li>
+        <li>Your screw is 0.164 in across. Why shouldn't you draw a 0.164 in hole?</li>
+        <li>Can you use a printed wedge in Chapter 14 sumo? What about Build Your Own? Where would a V5 team look to find out?</li>
+        <li>Your part is almost right, but one hole is a little off. Describe how you'd fix it using the design loop.</li>
+      </ol>
+
+      <h2>Key terms</h2>
+      <div class="terms">
+        <span class="term">CAD</span><span class="term">Onshape</span><span class="term">hole spacing (pitch)</span><span class="term">calipers</span><span class="term">clearance</span><span class="term">test coupon</span><span class="term">extrude</span><span class="term">design statement</span><span class="term">iteration</span>
+      </div>
+
+      <p class="sources"><strong>Sources:</strong> VEX Library (kb.vex.com) for V5 hole spacing and #8-32 screw size; Onshape Help for sketch, extrude, Measure, and Export; PLTW Gateway <em>Automation &amp; Robotics</em> Project 4.3 "Build Your Own" for the design brief.</p>
+
+    </article>
+
+    <nav class="pager" id="pager" aria-label="Chapter navigation"></nav>
+
+  </main>
+</div>
+
+<script src="nav.js"></script>
+<script src="robotcad.js"></script>
+</body>
+</html>

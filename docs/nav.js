@@ -37,6 +37,7 @@ const BOOK = [
     { n: "G", title: "Gears in Motion (Ch 4)", file: "gears-showcase.html" },
     { n: "A", title: "Advanced Mechanisms", file: "appendix-a-mechanisms.html" },
     { n: "B", title: "EXP → V5 Team Bridge", file: "appendix-b-exp-to-v5.html" },
+    { n: "C", title: "CAD a Custom Robot Part", file: "appendix-c-cad-robot-part.html" },
   ]},
 ];
 
